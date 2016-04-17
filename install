@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# Execute as superuser with parameter 'arch' or 'ubuntu'
+
+if [ -z "$1" ]; then 
+	echo usage: $0 arch\|ubuntu
+  exit 1
+fi
+
+command_exists () {
+    type "$1" &> /dev/null ;
+}
+
+# Select the right install command and update system
+if [ "$1" = "arch" ]; then
+	INSTALL="pacman -S"
+	#sudo pacman -Syu
+elif [ "$1" = "ubuntu" ]; then
+	INSTALL="apt-get -y install"
+	#apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y
+else
+	echo usage: $0 arch\|ubuntu
+	exit 2
+fi
+
+# Install zsh and set it as default shell
+#$INSTALL zsh
+#chsh -s /bin/zsh
+
+if [[ $SHELL != "/usr/bin/zsh" && $SHELL != "/usr/zsh" ]];then
+	echo "Something went wrong installing zsh "
+	exit 3
+fi
+
+#if ! command_exists curl; then
+#	$INSTALL curl
+#fi
+
+# Install all the programs in the tools file
+#cat tools | xargs $INSTALL
+
+# Install rvm
+#curl -sSL https://get.rvm.io | bash -s stable
+#echo "[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"" > .zlogin
+
+# Installing gems
+# not run as sudo thoughhh

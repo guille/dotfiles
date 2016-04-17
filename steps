@@ -1,0 +1,44 @@
+# Shell
+zsh
+chsh zsh
+oh-my-zsh
+
+# Dev
+rvm
+git
+ruby
+elixir
+python (python3)
+Sublime text
+Eclipse
+rubygems
+openjdk
+
+# Ruby gems
+mechanize
+nokogiri
+sequel
+
+# Security
+wireshark
+nmap + zenmap
+aircrack
+hydra
+nast
+
+# Random
+grsync (save profiles)
+Inconsolata font
+deluge
+chrome
+focuswriter
+gtkpod
+
+# Media
+libreoffice suite
+banshee
+vlc
+fbreader
+jdownloader
+unzip/zip?
+livestreamer

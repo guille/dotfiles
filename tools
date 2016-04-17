@@ -1,0 +1,47 @@
+curl
+wget
+git
+ruby
+
+
+oh-my-zsh
+
+# Dev
+elixir
+python (python3)
+Sublime text
+Eclipse
+rubygems
+openjdk
+
+# Ruby gems
+mechanize
+nokogiri
+sequel
+
+# Security
+wireshark
+nmap + zenmap
+aircrack
+hydra
+nast
+
+# Random
+grsync (save profiles)
+Inconsolata font
+deluge
+chrome
+focuswriter
+gtkpod
+
+# Media
+libreoffice suite
+banshee
+vlc
+fbreader
+jdownloader
+unzip/zip?
+livestreamer
+
+# Ubuntu PPAs?
+# Arch AUR packages?
