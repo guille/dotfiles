@@ -35,12 +35,26 @@ fi
 #	$INSTALL curl
 #fi
 
+if [ "$1" = "ubuntu" ]; then
+	echo "installing ppas"
+	echo "updating system"
+fi
+
 # Install all the programs in the tools file
 #cat tools | xargs $INSTALL
 
 # Install rvm
 #curl -sSL https://get.rvm.io | bash -s stable
 #echo "[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"" > .zlogin
+
+if [ "$1" = "arch" ]; then
+	echo "installing sublime from AUR"
+elif [ "$1" = "ubuntu" ]; then
+	echo "installing sublime from .deb"
+fi
+
+# installing wireshark
+# requires some config
 
 # Installing gems
 # not run as sudo thoughhh

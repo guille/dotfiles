@@ -2,17 +2,20 @@ curl
 wget
 git
 ruby
+python
+openjdk-8-jdk ubuntu
+jdk8-openjdk arch?
+elixir
+grsync
+deluge
+unrar
+unzip
+vlc
+banshee
+hydra
 
 
 oh-my-zsh
-
-# Dev
-elixir
-python (python3)
-Sublime text
-Eclipse
-rubygems
-openjdk
 
 # Ruby gems
 mechanize
@@ -20,28 +23,24 @@ nokogiri
 sequel
 
 # Security
-wireshark
 nmap + zenmap
 aircrack
-hydra
 nast
 
 # Random
-grsync (save profiles)
-Inconsolata font
-deluge
+Inconsolata font:
+ttf-inconsolata-g AUR
+
 chrome
 focuswriter
-gtkpod
 
 # Media
 libreoffice suite
-banshee
-vlc
+
 fbreader
 jdownloader
-unzip/zip?
 livestreamer
 
 # Ubuntu PPAs?
+erlang solutions (elixir)
 # Arch AUR packages?
