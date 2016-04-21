@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Execute as superuser with parameter 'arch' or 'ubuntu'
+# Execute as superuser(?) with parameter 'arch' or 'ubuntu'
 
 if [ -z "$1" ]; then 
 	echo usage: $0 arch\|ubuntu

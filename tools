@@ -15,8 +15,6 @@ banshee
 hydra
 
 
-oh-my-zsh
-
 # Ruby gems
 mechanize
 nokogiri
