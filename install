@@ -40,6 +40,7 @@ if [ "$1" = "ubuntu" ]; then
 	echo "updating system"
 fi
 
+# Install networkmanager arch
 # Install all the programs in the tools file
 #cat tools | xargs $INSTALL
 
