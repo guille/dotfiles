@@ -5,7 +5,6 @@
 # ln -sfv ${DOTFILES_DIR}/zshrc ~/.zshrc
 # ln -sfv ${DOTFILES_DIR}/zshenv ~/.zshenv
 # ln -sfv ${DOTFILES_DIR}/zkeys ~/.zkeys
-# ln -sfv ${DOTFILES_DIR}/zkeys ~/.zkeys
 
 # sublime
 # ln -sfv ${DOTFILES_DIR}/subl_keys ~/.config/sublime-text-3/Packages/User/Default" (Linux)".sublime-keymap
@@ -18,8 +17,8 @@
 
 # xinitrc and oblogout for arch
 # if [ "$1" = "arch" ]; then
-# 	ln -sfv ${DOTFILES_DIR}/xinitrc ~/.xinitrc
-# 	sudo ln -sfv ${DOTFILES_DIR}/oblogout /etc/oblogout.conf
+#  	ln -sfv ${DOTFILES_DIR}/xinitrc ~/.xinitrc
+#  	sudo ln -sfv ${DOTFILES_DIR}/oblogout /etc/oblogout.conf
 # fi
 
 # ncmpcpp
