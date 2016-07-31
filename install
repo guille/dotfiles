@@ -76,6 +76,7 @@ command_exists () {
 # else
 # 	echo "* Change xfce4-terminal to use Inconsolata and set the opacity" >> todo
 # fi
+# echo "* Set up git config --global user.name and user.email"
 
 # USAGE
 # cd
