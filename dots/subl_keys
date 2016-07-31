@@ -1,0 +1,9 @@
+[
+	{ "keys": ["ctrl+left"], "command": "move", "args": {"by": "subwords", "forward": false} },
+	{ "keys": ["ctrl+right"], "command": "move", "args": {"by": "subword_ends", "forward": true} },
+	{ "keys": ["ctrl+shift+left"], "command": "move", "args": {"by": "subwords", "forward": false, "extend": true} },
+	{ "keys": ["ctrl+shift+right"], "command": "move", "args": {"by": "subword_ends", "forward": true, "extend": true} },
+	{ "keys": ["ctrl+tab"], "command": "next_view" },
+	{ "keys": ["ctrl+m"], "command": "toggle_comment", "args": { "block": false } },
+	{ "keys": ["ctrl+shift+m"], "command": "toggle_comment", "args": { "block": true } },
+]

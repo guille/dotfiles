@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Execute as superuser(?) with parameter 'arch' or 'ubuntu'
+# Execute with parameter 'arch' or 'ubuntu'
 
 if [ -z "$1" ]; then 
 	echo usage: $0 arch\|ubuntu
@@ -11,51 +11,75 @@ command_exists () {
 }
 
 # Select the right install command and update system
-if [ "$1" = "arch" ]; then
-	INSTALL="pacman -S"
-	#sudo pacman -Syu
-elif [ "$1" = "ubuntu" ]; then
-	INSTALL="apt-get -y install"
-	#apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y
-else
-	echo usage: $0 arch\|ubuntu
-	exit 2
-fi
+# if [ "$1" = "arch" ]; then
+# 	INSTALL="sudo pacman -S"
+# 	sudo pacman -Syu
+# elif [ "$1" = "ubuntu" ]; then
+# 	INSTALL="sudo apt-get -y install"
+# 	PPA_INSTALL="sudo add-apt-repository"
+# else
+# 	echo usage: $0 arch\|ubuntu
+# 	exit 2
+# fi
 
 # Install zsh and set it as default shell
-#$INSTALL zsh
-#chsh -s /bin/zsh
+# $INSTALL zsh
+# chsh -s /bin/zsh
 
-if [[ $SHELL != "/usr/bin/zsh" && $SHELL != "/usr/zsh" ]];then
-	echo "Something went wrong installing zsh "
-	exit 3
-fi
+# if [ "$1" = "ubuntu" ]; then
+# 	echo "installing ppas from sources/ppas"
+# 	cat sources/ppas | xargs $PPA_INSTALL
+# 	erlang ppa
+# 	wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
+# 	echo "updating system"
+# 	sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y
+# fi
 
-#if ! command_exists curl; then
-#	$INSTALL curl
-#fi
+# echo "installing programs from source/apps"
+# cat sources/apps | xargs $INSTALL
+# transmission, libreoffice is preinstalled in ubuntu
+# ubuntu: pip install livestreamer
 
-if [ "$1" = "ubuntu" ]; then
-	echo "installing ppas"
-	echo "updating system"
-fi
-
-# Install networkmanager arch
-# Install all the programs in the tools file
-#cat tools | xargs $INSTALL
-
-# Install rvm
-#curl -sSL https://get.rvm.io | bash -s stable
-#echo "[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"" > .zlogin
-
-if [ "$1" = "arch" ]; then
-	echo "installing sublime from AUR"
-elif [ "$1" = "ubuntu" ]; then
-	echo "installing sublime from .deb"
-fi
-
-# installing wireshark
-# requires some config
-
+# echo "installing rvm"
+# curl -sSL https://get.rvm.io | bash -s stable
+# install ruby version
+# rvm install 2.3-head
 # Installing gems
-# not run as sudo thoughhh
+# GEM_INSTALL="gem install"
+# cat sources/gems | xargs $GEM_INSTALL
+
+
+# Sublime package control
+# "BracketHighlighter",
+# "Elixir",
+# "Package Control",
+# "SublimeLinter",
+# "SublimeLinter-contrib-elixirc",
+# "SublimeLinter-pylint",
+# "SublimeLinter-ruby"
+
+# Does the symlinks
+# . links
+
+# if [ "$1" = "arch" ]; then
+# 	Enable and start NetworkManager
+# 	feh --bg-scale /path/image.jpg
+# fi
+
+# Print to-do list
+# echo "Creating a to-do file with more possible configurations"
+# if [ "$1" = "ubuntu" ]; then
+# 	echo "* Install chrome" >> todo
+# 	echo "* Set-up tv renamer in nautilus-actions" >> todo
+# 	echo "* Change gtk theme and icon theme to Numix in unity-tweak-tool" >> todo 
+# 	echo "* Change gnome-terminal to use Inconsolata font and Solarized Dark theme" >> todo
+# else
+# 	echo "* Change xfce4-terminal to use Inconsolata and set the opacity" >> todo
+# fi
+
+# USAGE
+# cd
+# mkdir projects
+# cd projects
+# git clone https://github.com/guille/dotfiles.git
+# run install script

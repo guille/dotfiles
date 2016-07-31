@@ -1,0 +1,56 @@
+libreoffice arch?
+
+#-----------------------
+
+# Both
+git
+vlc
+banshee
+
+
+Ubuntu:
+fonts-inconsolata
+openjdk-8-jdk
+esl-erlang
+elixir
+numix-gtk-theme
+numix-icon-theme-circle
+unity-tweak-tool
+sublime-text-installer
+nautilus-open-terminal
+nautilus-actions
+nodejs
+focuswriter
+
+Arch:
+qt4
+ttf-inconsolata
+jdk8-openjdk
+elixir
+transmission-gtk
+networkmanager
+xfce4-terminal
+i3
+pulseaudio
+pavucontrol
+maim
+slop
+feh
+thunar
+thunar-volman
+gvfs
+gvfs-mtp
+mlocate
+nodejs
+npm
+livestreamer
+
+
+Arch AUR:
+google-chrome
+sublime-text-dev
+focuswriter
+
+#tar -xvf
+#cd
+#makepkg -sri

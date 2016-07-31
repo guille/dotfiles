@@ -1,0 +1,43 @@
+# Âpt-get
+alias sagi='sudo apt-get install'
+alias sagu='sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y'
+alias sagc='sudo apt-get autoremove && sudo apt-get purge && sudo apt-get clean && sudo apt-get autoclean && sudo apt-get check'
+
+# Pacman
+alias paci='sudo pacman -S'
+alias pacu='sudo pacman -Syu'
+
+# Terminal
+alias ls='ls -F --color=auto'
+alias grep='grep --color=auto'
+alias cls='clear'
+alias calc='bc -q -l'
+
+# App shortcuts
+alias g='google-chrome-stable'
+alias subl='subl3'
+alias python=python3
+alias node='nodejs'
+
+# Misc
+alias snast='sudo nast -i wlan1 -m'
+alias ubuntu-files=' dpkg --get-selections | grep -v deinstall > apps && subl -w apps'
+alias starwars='telnet towel.blinkenlights.nl'
+
+# Media functions
+alias twitch='livestream'
+alias music='play_music'
+alias tv='~/projects/daily-shows/run'
+
+# Exiting
+alias q='exit'
+alias bye='sudo shutdown -t 0'
+
+livestream() {
+  livestreamer twitch,tv/$1 $2||best
+}
+
+play_music() {
+	mpd
+	ncmpcpp && mpd --kill
+}

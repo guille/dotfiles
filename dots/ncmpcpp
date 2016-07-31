@@ -1,0 +1,35 @@
+# See /usr/share/doc/ncmpcpp/examples
+
+ncmpcpp_directory = ~/.ncmpcpp
+mpd_music_dir = ~/Music
+mpd_host = localhost
+
+autocenter_mode = yes
+centered_cursor = yes
+
+# FIFO visualizer
+visualizer_fifo_path = /tmp/mpd.fifo
+visualizer_output_name = "FIFO"
+visualizer_in_stereo = yes
+visualizer_sync_interval = 30
+visualizer_type = spectrum
+#wave/spectrum
+visualizer_look = ●▮
+
+song_list_format = "{$8$9}{[%l]}{%t }$R{%a - %b}"
+song_status_format = "{%a - }{%t - }{%b}"
+now_playing_prefix = "|> "
+mouse_support = no
+
+# Colors
+discard_colors_if_item_is_selected = "yes"
+header_window_color = "black"
+volume_color = "cyan"
+state_line_color = "black"
+state_flags_color = "magenta"
+main_window_color = "yellow"
+color1 = "cyan"
+color2 = "black"
+main_window_highlight_color = "yellow"
+progressbar_color = "red"
+active_column_color = "white"
