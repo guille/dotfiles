@@ -42,21 +42,11 @@ command_exists () {
 
 # echo "installing rvm"
 # curl -sSL https://get.rvm.io | bash -s stable
-# install ruby version
+# echo "installing ruby version"
 # rvm install 2.3-head
-# Installing gems
+# echo "installing gems"
 # GEM_INSTALL="gem install"
 # cat sources/gems | xargs $GEM_INSTALL
-
-
-# Sublime package control
-# "BracketHighlighter",
-# "Elixir",
-# "Package Control",
-# "SublimeLinter",
-# "SublimeLinter-contrib-elixirc",
-# "SublimeLinter-pylint",
-# "SublimeLinter-ruby"
 
 # Does the symlinks
 # . links
@@ -73,11 +63,16 @@ command_exists () {
 # 	echo "* Set-up tv renamer in nautilus-actions" >> todo
 # 	echo "* Change gtk theme and icon theme to Numix in unity-tweak-tool" >> todo 
 # 	echo "* Change gnome-terminal to use Inconsolata font and Solarized Dark theme" >> todo
+# 	echo "* Uninstall transmission and transmission-gtk" >> todo
 # else
 # 	echo "* Change xfce4-terminal to use Inconsolata and set the opacity" >> todo
 # fi
-# echo "* Set up git config --global user.name and user.email" >> todo
+# echo "* Set up git config --gloQbal user.name and user.email" >> todo
 # echo "* Github credential git config credential.https://github.com.username myusername" >> todo
+# echo "* Install package control for Sublime" >> todo
+# echo "   * Install BracketHighlighter" >> todo
+# echo "   * Install Elixir" >> todo
+# echo "   * Install SublimeLinter, -contrib-elixirc, -pylint, -ruby" >> todo
 
 # USAGE
 # cd
