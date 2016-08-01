@@ -1,6 +1,8 @@
 # SEE http://aperiodic.net/phil/prompt/ FOR PROMPT
 
 # Lines configured by zsh-newuser-install
+autoload -U compinit
+compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 HISTFILE=~/.histfile
 HISTSIZE=1000
