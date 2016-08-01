@@ -17,7 +17,6 @@ alias calc='bc -q -l'
 alias g='google-chrome-stable'
 alias subl='subl3'
 alias python=python3
-alias node='nodejs'
 
 # Misc
 alias snast='sudo nast -i wlan1 -m'

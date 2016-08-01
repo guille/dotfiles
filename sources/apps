@@ -39,6 +39,10 @@ slop
 feh
 thunar
 thunar-volman
+thunar-archive-plugin
+xarchiver
+zip
+unzip
 gvfs
 gvfs-mtp
 mlocate

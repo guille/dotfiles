@@ -70,6 +70,7 @@ command_exists () {
 # echo "* Set up git config --gloQbal user.name and user.email" >> todo
 # echo "* Github credential git config credential.https://github.com.username myusername" >> todo
 # echo "* Install package control for Sublime" >> todo
+# echo "   * Install AllAutoComplete" >> todo
 # echo "   * Install BracketHighlighter" >> todo
 # echo "   * Install Elixir" >> todo
 # echo "   * Install SublimeLinter, -contrib-elixirc, -pylint, -ruby" >> todo

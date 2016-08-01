@@ -3,6 +3,7 @@
 
 # zsh
 # ln -sfv ${DOTFILES_DIR}/zshrc ~/.zshrc
+# ln -sfv ${DOTFILES_DIR}/zlogin ~/.zlogin
 # ln -sfv ${DOTFILES_DIR}/zshenv ~/.zshenv
 # ln -sfv ${DOTFILES_DIR}/zkeys ~/.zkeys
 
