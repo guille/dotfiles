@@ -27,6 +27,10 @@ alias starwars='telnet towel.blinkenlights.nl'
 alias twitch='livestream'
 alias music='play_music'
 
+command_exists() {
+    type "$1" &> /dev/null ;
+}
+
 if command_exists deluge-gtk; then
 	alias tv='~/projects/daily-shows/run deluge-gtk'
 elif command_exists transmission-gtk; then
@@ -45,8 +49,4 @@ livestream() {
 play_music() {
 	mpd
 	ncmpcpp && mpd --kill
-}
-
-command_exists() {
-    type "$1" &> /dev/null ;
 }
