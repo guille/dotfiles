@@ -1,5 +1,3 @@
-libreoffice arch?
-
 #-----------------------
 
 # Both
@@ -25,6 +23,7 @@ focuswriter
 
 Arch:
 qt4
+xorg-xrandr
 ttf-inconsolata
 jdk8-openjdk
 elixir
@@ -49,7 +48,10 @@ mlocate
 nodejs
 npm
 livestreamer
-
+libreoffice-fresh
+hunspell
+hunspell-es
+hunspell-en
 
 Arch AUR:
 google-chrome

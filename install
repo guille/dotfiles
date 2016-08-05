@@ -68,12 +68,12 @@ command_exists () {
 # 	echo "* Change xfce4-terminal to use Inconsolata and set the opacity" >> todo
 # fi
 # echo "* Set up git config --gloQbal user.name and user.email" >> todo
-# echo "* Github credential git config credential.https://github.com.username myusername" >> todo
+# echo "* Github credential git config --global credential.https://github.com.username myusername" >> todo
 # echo "* Install package control for Sublime" >> todo
 # echo "   * Install AllAutoComplete" >> todo
 # echo "   * Install BracketHighlighter" >> todo
 # echo "   * Install Elixir" >> todo
-# echo "   * Install SublimeLinter, -contrib-elixirc, -pylint, -ruby" >> todo
+# echo "   * Install SublimeLinter, -contrib-elixirc, -ruby" >> todo
 
 # USAGE
 # cd
