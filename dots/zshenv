@@ -26,17 +26,27 @@ alias starwars='telnet towel.blinkenlights.nl'
 # Media functions
 alias twitch='livestream'
 alias music='play_music'
-alias tv='~/projects/daily-shows/run'
+
+if command_exists deluge-gtk; then
+	alias tv='~/projects/daily-shows/run deluge-gtk'
+elif command_exists transmission-gtk; then
+	alias tv='~/projects/daily-shows/run transmission-gtk'
+fi
+
 
 # Exiting
 alias q='exit'
 alias bye='sudo shutdown -t 0'
 
 livestream() {
-  livestreamer twitch,tv/$1 $2||best
+  livestreamer twitch.tv/$1 $2||best
 }
 
 play_music() {
 	mpd
 	ncmpcpp && mpd --kill
+}
+
+command_exists() {
+    type "$1" &> /dev/null ;
 }
