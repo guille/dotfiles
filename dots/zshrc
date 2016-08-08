@@ -142,7 +142,7 @@ gitprompt () {
     if [[ -z  $vcs_info_msg_0_ ]]; then
         echo $(date +%a,%b%d)
     else
-        echo $vcs_info_msg_0_
+        echo $vcs_info_msg_0_$(gitarrows)
     fi
 }
 
@@ -159,11 +159,18 @@ gitarrows () {
     arrow_status=(${(ps:\t:)arrow_status})
     local arrows left=${arrow_status[1]} right=${arrow_status[2]}
 
-    (( ${right:-0} > 0 )) && arrows+="${PURE_GIT_DOWN_ARROW:-⇣}"
-    (( ${left:-0} > 0 )) && arrows+="${PURE_GIT_UP_ARROW:-⇡}"
+    (( ${right:-0} > 0 )) && arrows+="${:-⇣}"
+    (( ${left:-0} > 0 )) && arrows+="${:-⇡}"
+
+    if [[ ! -n $arrows ]]; then
+        echo ""
+    else
+        echo " -" $arrows
+    fi
+
+    
 
     # [[ -n $arrows ]] && prompt_pure_git_arrows=" ${arrows}"
-    echo $arrows "-" $(gitarrows)
 
 
 }
