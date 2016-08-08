@@ -22,6 +22,7 @@ nodejs
 focuswriter
 
 Arch:
+nmtui
 qt4
 xorg-xrandr
 ttf-inconsolata
@@ -52,6 +53,8 @@ libreoffice-fresh
 hunspell
 hunspell-es
 hunspell-en
+aircrack-ng
+rfkill
 
 Arch AUR:
 google-chrome
