@@ -18,10 +18,6 @@ SAVEHIST=1000
 unsetopt beep
 bindkey -e
 
-gitinfo () {
-    echo "bitches"
-}
-
 ############################# PROMPT ####################################
 
 function precmd {
@@ -148,6 +144,28 @@ gitprompt () {
     else
         echo $vcs_info_msg_0_
     fi
+}
+
+###
+# From pure zsh theme
+gitarrows () {
+    local arrow_status
+    # check git left and right arrow_status
+    arrow_status="$(command git rev-list --left-right --count HEAD...@'{upstream}' 2>/dev/null)"
+    # exit if the command failed
+    # (( !$? )) || return
+
+    # left and right are tab-separated, split on tab and store as array
+    arrow_status=(${(ps:\t:)arrow_status})
+    local arrows left=${arrow_status[1]} right=${arrow_status[2]}
+
+    (( ${right:-0} > 0 )) && arrows+="${PURE_GIT_DOWN_ARROW:-⇣}"
+    (( ${left:-0} > 0 )) && arrows+="${PURE_GIT_UP_ARROW:-⇡}"
+
+    # [[ -n $arrows ]] && prompt_pure_git_arrows=" ${arrows}"
+    echo $arrows "-" $(gitarrows)
+
+
 }
 
 setprompt
