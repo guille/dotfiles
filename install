@@ -37,10 +37,9 @@ command_exists () {
 
 # echo "installing programs from source/apps"
 # cat sources/apps | xargs $INSTALL
-# transmission, libreoffice is preinstalled in ubuntu
 
 # echo "installing rvm"
-# curl -sSL https://get.rvm.io | bash -s stable
+# \curl -sSL https://get.rvm.io | bash -s
 # echo "installing ruby version"
 # rvm install 2.3-head
 # echo "installing gems"
@@ -51,7 +50,9 @@ command_exists () {
 # . links
 
 # if [ "$1" = "arch" ]; then
-# 	Enable and start NetworkManager
+# 	systemctl start NetworkManager.service
+# 	systemctl enable NetworkManager.service
+#   nmtui
 # 	feh --bg-scale /path/image.jpg
 # fi
 
@@ -64,9 +65,9 @@ command_exists () {
 # 	echo "* Change gnome-terminal to use Inconsolata font and Solarized Dark theme" >> todo
 # 	echo "* Uninstall transmission and transmission-gtk" >> todo
 # else
-# 	echo "* Change xfce4-terminal to use Inconsolata and set the opacity" >> todo
+# 	echo "* Change xfce4-terminal to use Inconsolata and set the transparency to .6" >> todo
 # fi
-# echo "* Set up git config --gloQbal user.name and user.email" >> todo
+# echo "* Set up git config --global user.name and user.email" >> todo
 # echo "* Github credential git config --global credential.https://github.com.username myusername" >> todo
 # echo "* Fix npm permissions" >> todo
 # echo "* Install package control for Sublime" >> todo
