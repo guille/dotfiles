@@ -39,7 +39,7 @@ command_exists () {
 # cat sources/apps | xargs $INSTALL
 
 # echo "installing rvm"
-# \curl -sSL https://get.rvm.io | bash -s
+# \curl -sSL https://get.rvm.io | bash -s head
 # echo "installing ruby version"
 # rvm install 2.3-head
 # echo "installing gems"
