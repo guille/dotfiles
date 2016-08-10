@@ -9,6 +9,8 @@ alias pacu='sudo pacman -Syu'
 
 # Terminal
 alias ls='ls -F --color=auto'
+alias la='ls -AF --color=auto'
+alias ll='ls -AoF --color=auto'
 alias grep='grep --color=auto'
 alias cls='clear'
 alias calc='bc -q -l'
