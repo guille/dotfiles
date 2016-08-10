@@ -12,7 +12,7 @@ command_exists () {
 
 # Select the right install command and update system
 # if [ "$1" = "arch" ]; then
-# 	INSTALL="sudo pacman -S"
+# 	INSTALL="sudo pacman -S --needed"
 # 	sudo pacman -Syu
 # elif [ "$1" = "ubuntu" ]; then
 # 	INSTALL="sudo apt-get -y install"
@@ -38,7 +38,6 @@ command_exists () {
 # echo "installing programs from source/apps"
 # cat sources/apps | xargs $INSTALL
 # transmission, libreoffice is preinstalled in ubuntu
-# ubuntu: pip install livestreamer
 
 # echo "installing rvm"
 # curl -sSL https://get.rvm.io | bash -s stable
