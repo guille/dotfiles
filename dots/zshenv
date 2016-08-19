@@ -1,4 +1,4 @@
-# Âpt-get
+# Apt-get
 alias sagi='sudo apt-get install'
 alias sagu='sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y'
 alias sagc='sudo apt-get autoremove && sudo apt-get purge && sudo apt-get clean && sudo apt-get autoclean && sudo apt-get check'
@@ -28,6 +28,7 @@ alias starwars='telnet towel.blinkenlights.nl'
 # Media functions
 alias twitch='livestream'
 alias music='play_music'
+alias hdmi='xrandr --output HDMI-1 --auto --same-as eDP-1'
 
 command_exists() {
     type "$1" &> /dev/null ;

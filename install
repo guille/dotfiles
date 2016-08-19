@@ -71,6 +71,7 @@ command_exists () {
 # echo "* Github credential git config --global credential.https://github.com.username myusername" >> todo
 # echo "* Fix npm permissions" >> todo
 # echo "* Install package control for Sublime" >> todo
+# echo "   * Install Agila" >> todo
 # echo "   * Install AllAutoComplete" >> todo
 # echo "   * Install BracketHighlighter" >> todo
 # echo "   * Install Elixir" >> todo
