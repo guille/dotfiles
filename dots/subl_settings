@@ -1,5 +1,8 @@
 {
-	"color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
+	"theme": "Agila Monokai.sublime-theme",
+	"theme_agila_sidebar_small": true,
+	"theme_agila_compact_sidebar": true,
+	"color_scheme": "Packages/User/SublimeLinter/Agila Monokai Extended (SL).tmTheme",
 	"font_face": "Inconsolata",
 	"font_size": 13,
 	"ignored_packages":
