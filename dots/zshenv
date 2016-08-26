@@ -35,9 +35,9 @@ command_exists() {
 }
 
 if command_exists deluge-gtk; then
-	alias tv='~/projects/daily-shows/run deluge-gtk'
+	alias tv='~/projects/daily-shows/bin/run deluge-gtk'
 elif command_exists transmission-gtk; then
-	alias tv='~/projects/daily-shows/run transmission-gtk'
+	alias tv='~/projects/daily-shows/bin/run transmission-gtk'
 fi
 
 
