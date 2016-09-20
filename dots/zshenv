@@ -34,12 +34,7 @@ command_exists() {
     type "$1" &> /dev/null ;
 }
 
-if command_exists deluge-gtk; then
-	alias tv='~/projects/daily-shows/bin/run deluge-gtk'
-elif command_exists transmission-gtk; then
-	alias tv='~/projects/daily-shows/bin/run transmission-gtk'
-fi
-
+alias tv='~/projects/daily-shows/bin/run'
 
 # Exiting
 alias q='exit'

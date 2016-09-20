@@ -44,6 +44,7 @@ thunar
 thunar-volman
 thunar-archive-plugin
 xarchiver
+ntfs-3g
 zip
 unzip
 gvfs
@@ -59,6 +60,7 @@ hunspell-es
 hunspell-en
 aircrack-ng
 rfkill
+lxappearence
 
 Arch AUR:
 google-chrome
