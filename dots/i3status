@@ -50,7 +50,7 @@ ethernet _first_ {
 battery 1 {
         format = "%status %percentage %remaining"
 	path = "/sys/class/power_supply/BAT1/uevent"
-	status_chr = "⚇ CHR"
+	status_chr = "🔌 CHR"
 	status_bat = "⚡ BAT"
 	low_threshold = "15"
 	threshold_type = "percentage"
@@ -65,7 +65,7 @@ run_watch VPN {
 }
 
 tztime local {
-        format = "%Y-%m-%d %H:%M:%S"
+        format = "📅 %Y-%m-%d ⏲ %H:%M:%S"
 }
 
 load {
@@ -73,5 +73,5 @@ load {
 }
 
 disk "/" {
-        format = "%avail"
+        format = "💾 %avail"
 }
