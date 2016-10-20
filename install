@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Execute with parameter 'arch' or 'ubuntu'
 
-if [ -z "$1" ]; then 
-	echo usage: $0 arch\|ubuntu
-  exit 1
-fi
+# if [ -z "$1" ]; then 
+# 	echo usage: $0 arch\|ubuntu
+#   exit 1
+# fi
 
 command_exists () {
     type "$1" &> /dev/null ;
@@ -12,8 +12,8 @@ command_exists () {
 
 # Select the right install command and update system
 # if [ "$1" = "arch" ]; then
-# 	INSTALL="sudo pacman -S --needed"
-# 	sudo pacman -Syu
+INSTALL="sudo pacman -S --needed"
+sudo pacman -Syu
 # elif [ "$1" = "ubuntu" ]; then
 # 	INSTALL="sudo apt-get -y install"
 # 	PPA_INSTALL="sudo add-apt-repository"
