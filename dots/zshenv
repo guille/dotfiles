@@ -17,7 +17,7 @@ alias cls='clear'
 alias calc='bc -q -l'
 
 # App shortcuts
-alias g='google-chrome-stable'
+alias g='chromium --process-per-site'
 alias subl='subl3'
 
 # Misc

@@ -32,6 +32,7 @@ unzip
 gvfs
 gvfs-mtp
 
+chromium
 vlc
 banshee
 transmission-gtk
@@ -45,7 +46,6 @@ aircrack-ng
 rfkill
 
 AUR:
-google-chrome
 sublime-text-dev
 focuswriter
 
