@@ -1,3 +1,4 @@
 sh ~/.fehbg
+dunst &
 xset b off
 exec i3
