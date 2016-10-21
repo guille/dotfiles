@@ -1,85 +1,69 @@
 #!/usr/bin/env bash
-# Execute with parameter 'arch' or 'ubuntu'
 
-# if [ -z "$1" ]; then 
-# 	echo usage: $0 arch\|ubuntu
-#   exit 1
-# fi
+COLOR='\033[0;32m'
+NC='\033[0m' # No Color
 
 command_exists () {
     type "$1" &> /dev/null ;
 }
 
+infoprint () {
+	echo -e "${COLOR}${1}${NC}"
+}
+
 # Select the right install command and update system
-# if [ "$1" = "arch" ]; then
-INSTALL="sudo pacman -S --needed"
-sudo pacman -Syu
-# elif [ "$1" = "ubuntu" ]; then
-# 	INSTALL="sudo apt-get -y install"
-# 	PPA_INSTALL="sudo add-apt-repository"
-# else
-# 	echo usage: $0 arch\|ubuntu
-# 	exit 2
-# fi
+INSTALL="sudo pacman -S --needed --noconfirm --noprogressbar"
+# sudo pacman -Syuq --noconfirm
 
 # Install zsh and set it as default shell
-# $INSTALL zsh
-# chsh -s /bin/zsh
+if command_exists zsh; then
+	infoprint "zsh already installed"
+else
+	$INSTALL zsh
+	chsh -s /bin/zsh
+fi
 
-# if [ "$1" = "ubuntu" ]; then
-# 	echo "installing ppas from sources/ppas"
-# 	cat sources/ppas | xargs $PPA_INSTALL
-# 	erlang ppa
-# 	wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
-# 	echo "updating system"
-# 	sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y
-# fi
 
-# echo "installing programs from source/apps"
-# cat sources/apps | xargs $INSTALL
+infoprint "Installing programs from source/apps"
+cat sources/apps | xargs $INSTALL 2> /dev/null
+# TODO: Add banshee
 
-# echo "installing rvm"
-# \curl -sSL https://get.rvm.io | bash -s head
-# echo "installing ruby version"
-# rvm install 2.3-head
-# echo "installing gems"
-# GEM_INSTALL="gem install"
-# cat sources/gems | xargs $GEM_INSTALL
+if command_exists rvm; then
+	infoprint "rvm already installed"
+	# rvm get head 1> /dev/null
+	# gem update -q 1> /dev/null
+
+else
+	infoprint "Installing rvm"
+	\curl -sSL https://get.rvm.io | bash -s head
+	rvm install ruby-head
+	infoprint "Installing gems"
+	GEM_INSTALL="gem install"
+	cat sources/gems | xargs $GEM_INSTALL
+fi
 
 # Does the symlinks
-# . links
+. links
 
-# if [ "$1" = "arch" ]; then
-# 	systemctl start NetworkManager.service
-# 	systemctl enable NetworkManager.service
-#   nmtui
-# 	feh --bg-scale /path/image.jpg
-# fi
+systemctl start NetworkManager.service
+systemctl enable NetworkManager.service
+nmtui
+feh --bg-scale ~/wallpaper.jpg
 
-# Print to-do list
-# echo "Creating a to-do file with more possible configurations"
-# if [ "$1" = "ubuntu" ]; then
-# 	echo "* Install chrome" >> todo
-# 	echo "* Set-up tv renamer in nautilus-actions" >> todo
-# 	echo "* Change gtk theme and icon theme to Numix in unity-tweak-tool" >> todo 
-# 	echo "* Change gnome-terminal to use Inconsolata font and Solarized Dark theme" >> todo
-# 	echo "* Uninstall transmission and transmission-gtk" >> todo
-# else
-# 	echo "* Change xfce4-terminal to use Inconsolata and set the transparency to .6" >> todo
-# fi
-# echo "* Set up git config --global user.name and user.email" >> todo
-# echo "* Github credential git config --global credential.https://github.com.username myusername" >> todo
-# echo "* Fix npm permissions" >> todo
-# echo "* Install package control for Sublime" >> todo
-# echo "   * Install Agila" >> todo
-# echo "   * Install AllAutoComplete" >> todo
-# echo "   * Install BracketHighlighter" >> todo
-# echo "   * Install Elixir" >> todo
-# echo "   * Install SublimeLinter, -contrib-elixirc, -ruby" >> todo
+# Create to-do list
+infoprint "Creating a to-do file with more possible configurations"
 
-# USAGE
-# cd
-# mkdir projects
-# cd projects
-# git clone https://github.com/guille/dotfiles.git
-# run install script
+echo "* Xfce4-terminal configuration" >> todo
+echo "   * Inconsolata, size 12" >> todo
+echo "   * Transparency to .6" >> todo
+echo "   * Select colorscheme" >> todo
+echo "* Set-up tv renamer in thunar-custom-actions" >> todo
+echo "* Set up git config --global user.name and user.email" >> todo
+echo "* Github credential git config --global credential.https://github.com.username myusername" >> todo
+echo "* Install package control for Sublime" >> todo
+echo "   * Install Agila" >> todo
+echo "   * Install AllAutoComplete" >> todo
+echo "   * Install BracketHighlighter" >> todo
+echo "   * Install Elixir" >> todo
+echo "   * Install SublimeLinter, -contrib-elixirc, -ruby" >> todo
+echo "* Change the chromium desktop file to execute with the flag --process-per-site" >> todo

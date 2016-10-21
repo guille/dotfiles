@@ -1,5 +1,11 @@
 # My dotfiles
-New installation script and dotfiles symlinks.
+System installation script and dotfiles symlinks.
 
-## TODO
-* Change install to an idempotent script (can be ran multiple times, skipping completed steps)
+## USAGE
+```bash
+cd
+mkdir projects
+cd projects
+git clone https://github.com/guille/dotfiles.git
+./install
+```
