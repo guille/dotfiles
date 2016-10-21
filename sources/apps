@@ -1,6 +1,5 @@
 git
 networkmanager
-nmtui
 nm-connection-editor
 i3
 xorg-xrandr
@@ -9,7 +8,7 @@ dunst
 mlocate
 qt4
 numix-themes
-lxappearence
+lxappearance
 ttf-inconsolata
 
 jdk8-openjdk
@@ -35,7 +34,6 @@ gvfs-mtp
 
 chromium
 vlc
-banshee
 transmission-gtk
 libreoffice-fresh
 libreoffice-extension-texmaths
@@ -45,11 +43,3 @@ hunspell-en
 
 aircrack-ng
 rfkill
-
-AUR:
-sublime-text-dev
-focuswriter
-
-#tar -xvf
-#cd
-#makepkg -sri

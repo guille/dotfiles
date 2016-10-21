@@ -60,6 +60,9 @@ echo "   * Select colorscheme" >> todo
 echo "* Set-up tv renamer in thunar-custom-actions" >> todo
 echo "* Set up git config --global user.name and user.email" >> todo
 echo "* Github credential git config --global credential.https://github.com.username myusername" >> todo
+echo "* Install AUR packages" >> todo
+echo "   * sublime-text-dev" >> todo
+echo "   * focuswriter" >> todo
 echo "* Install package control for Sublime" >> todo
 echo "   * Install Agila" >> todo
 echo "   * Install AllAutoComplete" >> todo
