@@ -16,6 +16,10 @@ alias df='df -h'
 alias cls='clear'
 alias calc='bc -q -l'
 
+# Notifications
+alias dnd='notify-send "DUNST_COMMAND_PAUSE"'
+alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
+
 # App shortcuts
 alias g='chromium --process-per-site'
 alias subl='subl3'

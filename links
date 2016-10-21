@@ -11,10 +11,14 @@
 # ln -sfv ${DOTFILES_DIR}/subl_keys ~/.config/sublime-text-3/Packages/User/Default" (Linux)".sublime-keymap
 # ln -sfv ${DOTFILES_DIR}/subl_settings ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 
-# i3 - won't link if the i3 and i3status dirs don't exist
+# i3
 # ln -sfv ${DOTFILES_DIR}/i3 ~/.config/i3/config
 # ln -sfv ${DOTFILES_DIR}/dev.json ~/.config/i3/dev.json
 # ln -sfv ${DOTFILES_DIR}/i3status ~/.config/i3status/config
+
+# dunst
+# mkdir ~/.config/dunst
+# ln -sfv ${DOTFILES_DIR}/dunst ~/.config/dunst/dunstrc
 
 # xinitrc and oblogout for arch
 # if [ "$1" = "arch" ]; then
