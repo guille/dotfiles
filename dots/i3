@@ -192,7 +192,7 @@ for_window [class=".*"] focus
 
 # Specific apps
 
-assign [class="chrome"] $ws1
+assign [class="chromium"] $ws1
 assign [class="Subl"] $ws2
 assign [class="feh"] $ws4
 assign [class="Vlc"] $ws5
