@@ -153,8 +153,8 @@ bindsym $mod+r mode "resize"
 
 # Moves to the next workspace
 mode "movews" {
-        bindsym Left workspace next
-        bindsym Right workspace prev
+        bindsym Left workspace prev
+        bindsym Right workspace next
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
