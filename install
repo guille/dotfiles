@@ -63,6 +63,7 @@ echo "* Github credential git config --global credential.https://github.com.user
 echo "* Install AUR packages" >> todo
 echo "   * sublime-text-dev" >> todo
 echo "   * focuswriter" >> todo
+echo "   * pepper-flash" >> todo
 echo "* Install package control for Sublime" >> todo
 echo "   * Install Agila" >> todo
 echo "   * Install AllAutoComplete" >> todo
