@@ -1,6 +1,11 @@
 # SEE http://aperiodic.net/phil/prompt/ FOR PROMPT
 
 ###
+# Splits words at / too, useful for paths
+autoload -U select-word-style
+select-word-style bash
+
+###
 # Autoload compinit and vcs info
 autoload -U compinit
 autoload -Uz vcs_info
@@ -10,6 +15,7 @@ zstyle ':vcs_info:git*' formats "%b %m%u%c "
 zstyle ':vcs_info:git*' unstagedstr '!'
 zstyle ':vcs_info:git*' stagedstr '+'
 
+###
 # Case insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 HISTFILE=~/.histfile
