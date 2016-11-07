@@ -217,6 +217,8 @@ for_window [class=".py$"] floating enable
 
 # Startup
 exec --no-startup-id i3-msg "workspace $ws2; append_layout ~/.config/i3/dev.json; exec subl3; exec i3-sensible-terminal; exec i3-sensible-terminal"
+exec_always --no-startup-id feh --bg-scale '/home/guille/wallpaper.jpg'
+
 # exec subl and two terminals
 # no exec id?
 
