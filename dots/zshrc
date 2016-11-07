@@ -192,6 +192,6 @@ setprompt
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH=$PATH:~/.npm-global/bin # Add node modules
 export PATH=$PATH:~/.local/bin # Add pip user installs
-export EDITOR="subl -w"
+export EDITOR="subl3 -w"
 
 [[ -f "$HOME/.zkeys" ]] && . "$HOME/.zkeys"
