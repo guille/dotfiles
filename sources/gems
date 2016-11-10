@@ -4,3 +4,4 @@ nokogiri
 sequel
 sinatra
 sqlite3
+minitest

@@ -1,7 +1,8 @@
 git
 networkmanager
 nm-connection-editor
-i3
+i3-wm
+i3status
 xorg-xrandr
 xfce4-terminal
 dunst
@@ -10,6 +11,7 @@ htop
 qt4
 numix-themes
 lxappearance
+compton
 ttf-inconsolata
 
 jdk8-openjdk
@@ -20,6 +22,8 @@ intellij-idea-community-edition
 
 pulseaudio
 pavucontrol
+mpd
+ncmpcpp
 maim
 slop
 feh
@@ -35,6 +39,7 @@ gvfs-mtp
 
 chromium
 vlc
+evince
 transmission-gtk
 libreoffice-fresh
 libreoffice-extension-texmaths
