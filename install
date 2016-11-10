@@ -12,7 +12,7 @@ infoprint () {
 }
 
 # Select the right install command and update system
-INSTALL="sudo pacman -S --needed --noconfirm --noprogressbar"
+local INSTALL="sudo pacman -S --needed --noconfirm --noprogressbar"
 # sudo pacman -Syuq --noconfirm
 
 # Install zsh and set it as default shell
@@ -22,7 +22,6 @@ else
 	$INSTALL zsh
 	chsh -s /bin/zsh
 fi
-
 
 infoprint "Installing programs from source/apps"
 cat sources/apps | xargs $INSTALL 2> /dev/null
@@ -55,18 +54,15 @@ touch ~/.mpd/sticker.sql
 # Does the symlinks
 . links
 
-systemctl start NetworkManager.service
-systemctl enable NetworkManager.service
-nmtui
+infoprint "Installing pip packages"
+PIP_INSTALL="pip install --user"
+cat sources/pip | xargs $PIP_INSTALL 1> /dev/null
+
 feh --bg-scale ~/wallpaper.jpg
 
 # Create to-do list
 infoprint "Creating a to-do file with more possible configurations"
 
-echo "* Xfce4-terminal configuration" >> todo
-echo "   * Inconsolata, size 12" >> todo
-echo "   * Transparency to .6" >> todo
-echo "   * Select colorscheme" >> todo
 echo "* Set-up tv renamer in thunar-custom-actions" >> todo
 echo "* Set up git config --global user.name and user.email" >> todo
 echo "* Github credential git config --global credential.https://github.com.username myusername" >> todo

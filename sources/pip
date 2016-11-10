@@ -1,8 +1,6 @@
-pip install --user
-livestreamer
 numpy
 pandas
 scikit-learn
-(nltk)
-(pillow)
+nltk
+pillow
 jupyter
