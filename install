@@ -42,6 +42,16 @@ else
 	cat sources/gems | xargs $GEM_INSTALL
 fi
 
+
+# MPD and NCMPCPP
+mkdir ~/.mpd 2> /dev/null
+mkdir ~/.mpd/playlists 2> /dev/null
+touch ~/.mpd/mpd.log
+touch ~/.mpd/tag_cache
+touch ~/.mpd/mpdstate
+touch ~/.mpd/mpd.pid
+touch ~/.mpd/sticker.sql
+
 # Does the symlinks
 . links
 
