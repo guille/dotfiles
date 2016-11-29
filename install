@@ -43,9 +43,9 @@ fi
 
 
 # MPD and NCMPCPP
-mkdir ~/.mpd 2> /dev/null
-mkdir ~/.mpd/lyrics 2> /dev/null
-mkdir ~/.mpd/playlists 2> /dev/null
+mkdir -p ~/.mpd
+mkdir -p ~/.mpd/lyrics
+mkdir -p ~/.mpd/playlists
 touch ~/.mpd/mpd.log
 touch ~/.mpd/tag_cache
 touch ~/.mpd/mpdstate
