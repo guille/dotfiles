@@ -155,6 +155,7 @@ bindsym $mod+r mode "resize"
 
 # Moves to the next workspace
 bindsym Mod1+Tab workspace next
+bindsym Shift+Mod1+Tab workspace prev
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -208,10 +209,12 @@ for_window [class="Pavucontrol"] floating enable
 for_window [class="Oblogout"] floating enable
 # Pyside GUI development
 for_window [class=".py$"] floating enable
+# ShaderMaker
+assign [class="ShaderMaker"] workspace 7
 
 # Startup
 exec --no-startup-id i3-msg "workspace $ws2; append_layout ~/.config/i3/dev.json; exec subl3; exec i3-sensible-terminal; exec i3-sensible-terminal"
-exec_always --no-startup-id feh --bg-scale '/home/guille/wallpaper.jpg'
+exec_always --no-startup-id feh --bg-fill --randomize ~/Wallpapers/*
 exec --no-startup-id compton -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null
 exec --no-startup-id dunst
 

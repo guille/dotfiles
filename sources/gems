@@ -1,7 +1,4 @@
 bundler
 mechanize
 nokogiri
-sequel
-sinatra
-sqlite3
 minitest
