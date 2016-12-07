@@ -1,5 +1,6 @@
 git
 networkmanager
+network-manager-applet
 nm-connection-editor
 i3-wm
 i3status
