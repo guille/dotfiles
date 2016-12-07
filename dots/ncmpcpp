@@ -1,9 +1,10 @@
-# See /usr/share/doc/ncmpcpp/examples
+# See /usr/share/doc/ncmpcpp/config
 
 ncmpcpp_directory = ~/.ncmpcpp
 lyrics_directory = ~/.mpd/lyrics/
 mpd_music_dir = ~/Music
 mpd_host = localhost
+mpd_crossfade_time = 5
 
 autocenter_mode = yes
 centered_cursor = yes
@@ -17,26 +18,27 @@ visualizer_type = wave_filled
 #wave/spectrum/wave_filled/ellipse
 visualizer_look = ●▮
 
-song_list_format = "{$8$9}{[%l]}{%t }$R{%a - %b}"
+song_columns_list_format = (40)[yellow]{t|f:Title} (30)[green]{a} (30)[magenta]{b} (7f)[blue]{l}
+
+song_list_format = "{[%l]}{%t }$R{%a - %b}"
 song_status_format = "{%a - }{%t - }{%b}"
-now_playing_prefix = "$b|> "
-now_playing_suffix = $/b
+now_playing_prefix = "$b$8"
+now_playing_suffix = "$/b$9"
 mouse_support = no
-execute_on_song_change="notify-send "Now playing\n$(ncmpcpp --current-song="{%a - }{%t}")""
+execute_on_song_change="notify-send "Now playing\n$(ncmpcpp --current-song="{%a - }{%t}|{%f}")""
 
 # Colors
-discard_colors_if_item_is_selected = "yes"
-header_window_color = "black"
-volume_color = "cyan"
-state_line_color = "black"
-state_flags_color = "magenta"
-main_window_color = "yellow"
-color1 = "cyan"
-color2 = "black"
-main_window_highlight_color = "yellow"
-progressbar_color = "red"
-active_column_color = "white"
-
+colors_enabled                 = "yes"
+empty_tag_color                = "cyan"
+volume_color                   = "cyan"
+state_line_color               = "black"
+state_flags_color              = "magenta"
+main_window_color              = "yellow"
+color1                         = "white"
+color2                         = "black"
+main_window_highlight_color    = "yellow"
+progressbar_color              = "red"
+active_column_color            = "white"
 
 
 ##### song format #####
