@@ -4,6 +4,7 @@ DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/dots"
 # zsh
 ln -sfv ${DOTFILES_DIR}/zshrc ~/.zshrc 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/zlogin ~/.zlogin 1> /dev/null
+ln -sfv ${DOTFILES_DIR}/zprofile ~/.zprofile 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/zshenv ~/.zshenv 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/zkeys ~/.zkeys 1> /dev/null
 # sublime

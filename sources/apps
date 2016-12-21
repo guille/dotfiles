@@ -2,6 +2,9 @@ git
 networkmanager
 network-manager-applet
 nm-connection-editor
+xorg-server
+xorg-xinit
+xorg-xrandr
 i3-wm
 i3status
 xorg-xrandr
