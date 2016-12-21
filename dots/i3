@@ -185,7 +185,7 @@ bindsym XF86MonBrightnessDown exec light -U 10
 
 set $ws1 "1 web"
 set $ws2 "2 work"
-set $ws4 "4 feh"
+set $ws4 "4 view"
 set $ws5 "5 vlc"
 set $ws6 "6 torrent"
 
@@ -200,6 +200,7 @@ for_window [class=".*"] focus
 
 assign [class="Chromium"] $ws1
 assign [class="Subl"] $ws2
+assign [class="Evince"] $ws4
 assign [class="feh"] $ws4
 assign [class="Vlc"] $ws5
 assign [class="Transmission-gtk"] $ws6

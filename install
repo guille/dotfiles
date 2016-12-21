@@ -24,7 +24,7 @@ else
 fi
 
 infoprint "Installing programs from source/apps"
-cat sources/apps | xargs $INSTALL 2> /dev/null
+xargs -a <(cat sources/apps) sudo pacman -S --needed --noconfirm --noprogressbar
 # TODO: Add banshee
 
 if command_exists rvm; then
@@ -37,8 +37,7 @@ else
 	\curl -sSL https://get.rvm.io | bash -s head
 	rvm install ruby-head
 	infoprint "Installing gems"
-	GEM_INSTALL="gem install"
-	cat sources/gems | xargs $GEM_INSTALL
+	xargs -a <(cat sources/gems) gem install
 fi
 
 
@@ -56,15 +55,11 @@ touch ~/.mpd/sticker.sql
 . links
 
 infoprint "Installing pip packages"
-PIP_INSTALL="pip install --user"
-cat sources/pip | xargs $PIP_INSTALL 1> /dev/null
-
-feh --bg-scale ~/wallpaper.jpg
+xargs -a <(cat sources/pip) pip install --user
 
 # Create to-do list
 infoprint "Creating a to-do file with more possible configurations"
 
-echo "* Set-up tv renamer in thunar-custom-actions" >> todo
 echo "* Set up git config --global user.name and user.email" >> todo
 echo "* Github credential git config --global credential.https://github.com.username myusername" >> todo
 echo "* Install AUR packages" >> todo
