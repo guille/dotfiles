@@ -5,9 +5,11 @@ nm-connection-editor
 xorg-server
 xorg-xinit
 xorg-xrandr
+xorg-xrandr
 i3-wm
 i3status
-xorg-xrandr
+dmenu
+oblogout
 xfce4-terminal
 dunst
 mlocate
@@ -16,6 +18,8 @@ qt4
 numix-themes
 lxappearance
 compton
+ttf-dejavu
+ttf-symbola
 ttf-inconsolata
 
 jdk8-openjdk

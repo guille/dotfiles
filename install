@@ -65,6 +65,7 @@ infoprint "Creating a to-do file with more possible configurations"
 
 echo "* Set up git config --global user.name and user.email" >> todo
 echo "* Github credential git config --global credential.https://github.com.username myusername" >> todo
+echo "* Gtk themes with lxappearance" >> todo
 echo "* Install AUR packages" >> todo
 echo "   * sublime-text-dev" >> todo
 echo "   * focuswriter" >> todo
@@ -76,4 +77,6 @@ echo "   * Install BracketHighlighter" >> todo
 echo "   * Install Elixir" >> todo
 echo "   * Install SublimeLinter, -contrib-elixirc, -ruby" >> todo
 echo "* Change the chromium desktop file to execute with the flag --process-per-site" >> todo
-echo "* On errors with the symlinks, run the apps once and then run \". links\"" >> todo
+echo "* On errors with the symlinks, run the apps once and then run \"source links\"" >> todo
+echo "* Install display drivers, see:" >> todo
+echo "   * https://wiki.archlinux.org/index.php/Xorg#Driver_installation" >> todo
