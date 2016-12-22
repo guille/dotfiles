@@ -54,9 +54,6 @@ touch ~/.mpd/mpdstate
 touch ~/.mpd/mpd.pid
 touch ~/.mpd/sticker.sql
 
-# Does the symlinks
-. links
-
 infoprint "Installing pip packages"
 xargs -a <(cat sources/pip) pip install --user
 
@@ -76,4 +73,4 @@ echo "   * Install BracketHighlighter" >> todo
 echo "   * Install Elixir" >> todo
 echo "   * Install SublimeLinter, -contrib-elixirc, -ruby" >> todo
 echo "* Change the chromium desktop file to execute with the flag --process-per-site" >> todo
-echo "* On errors with the symlinks, run the apps once and then run \". links\"" >> todo
+echo "* Create the symbolic links running \"source links\"" >> todo
