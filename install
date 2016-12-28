@@ -65,6 +65,7 @@ echo "* Github credential git config --global credential.https://github.com.user
 echo "* Gtk themes with lxappearance" >> todo
 echo "* Install AUR packages" >> todo
 echo "   * sublime-text-dev" >> todo
+echo "   * heroku-toolbelt" >> todo
 echo "   * focuswriter" >> todo
 echo "   * pepper-flash" >> todo
 echo "* Install package control for Sublime" >> todo

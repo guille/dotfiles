@@ -219,6 +219,7 @@ exec_always --no-startup-id feh --bg-fill --randomize ~/Wallpapers/*
 exec --no-startup-id compton -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
+exec --no-startup-id numlockx on
 
 
 # focus_follows_mouse no

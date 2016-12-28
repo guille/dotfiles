@@ -27,11 +27,12 @@ order += "tztime local"
 volume master {
 	format = "♪: %volume"
         format_muted = "♪: muted (%volume)"
-        device = "pulse"
+        device = "pulse:1"
 }
 
 cpu_temperature 0 {
 	format = "🌡: %degrees °C"
+        #path = "/sys"
 
 }
 
