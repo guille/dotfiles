@@ -21,6 +21,8 @@ compton
 ttf-dejavu
 ttf-symbola
 ttf-inconsolata
+noto-fonts-emoji
+cups
 
 jdk8-openjdk
 elixir
