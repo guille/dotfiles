@@ -210,8 +210,6 @@ for_window [class="Pavucontrol"] floating enable
 for_window [class="Oblogout"] floating enable
 # Pyside GUI development
 for_window [class=".py$"] floating enable
-# ShaderMaker
-assign [class="ShaderMaker"] workspace 7
 
 # Startup
 exec --no-startup-id i3-msg "workspace $ws2; append_layout ~/.config/i3/dev.json; exec subl3; exec i3-sensible-terminal; exec i3-sensible-terminal"
