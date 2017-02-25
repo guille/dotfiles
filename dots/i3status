@@ -12,9 +12,10 @@ general {
 }
 
 #order += "ipv6"
-order += "volume master"
+order += "volume speakers"
+order += "volume jack"
 order += "disk /"
-order += "cpu_temperature 0"
+#order += "cpu_temperature 0"
 #order += "run_watch DHCP"
 #order += "run_watch VPN"
 order += "wireless _first_"
@@ -24,10 +25,16 @@ order += "battery 1"
 #order += "load"
 order += "tztime local"
 
-volume master {
-	format = "♪: %volume"
-        format_muted = "♪: muted (%volume)"
-        device = "pulse"
+volume speakers {
+        format = "🔊: %volume"
+        format_muted = "🔈: muted (%volume)"
+        device = "pulse:1"
+}
+
+volume jack {
+        format = "🎧: %volume"
+        format_muted = "🎧: muted (%volume)"
+        device = "pulse:0"
 }
 
 cpu_temperature 0 {
@@ -37,9 +44,9 @@ cpu_temperature 0 {
 }
 
 wireless _first_ {
-        #format_up = "W: (%quality at %essid) %ip"
-        format_up = "W: (%quality at %essid)"
-        format_down = "W: down"
+        #format_up = "📶: (%quality at %essid) %ip"
+        format_up = "📶:%quality at %essid"
+        format_down = "📶: down"
 }
 
 ethernet _first_ {

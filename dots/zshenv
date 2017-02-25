@@ -1,6 +1,7 @@
 # Pacman
 alias paci='sudo pacman -S'
 alias pacu='sudo pacman -Syu'
+alias pacc='paccache -rk 1 && paccache -ruk0'
 
 # Terminal
 alias ls='ls -F --color=auto'
@@ -32,6 +33,7 @@ alias music='play_music'
 alias hdmi='xrandr --output HDMI-1 --auto --same-as eDP-1'
 alias tv='~/projects/daily-shows/bin/run'
 alias dl='~/projects/daily-shows/bin/dl'
+alias rn='~/projects/renamer/rename .'
 
 command_exists() {
     type "$1" &> /dev/null ;
