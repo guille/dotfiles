@@ -12,7 +12,7 @@ infoprint () {
 }
 
 # Select the right install command and update system
-local INSTALL="sudo pacman -S --needed --noconfirm --noprogressbar"
+INSTALL="sudo pacman -S --needed --noconfirm --noprogressbar"
 # sudo pacman -Syuq --noconfirm
 
 # Install zsh and set it as default shell
@@ -63,7 +63,7 @@ infoprint "Creating a to-do file with more possible configurations"
 
 echo "* Set up git config --global user.name and user.email" >> todo
 echo "* Github credential git config --global credential.https://github.com.username myusername" >> todo
-echo "* setxkbmap -layout es " >> todo
+echo "* localectl set-x11-keymap es" >> todo
 echo "* Gtk themes with lxappearance" >> todo
 echo "* Install AUR packages" >> todo
 echo "   * sublime-text-dev" >> todo
