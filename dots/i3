@@ -186,7 +186,7 @@ bindsym XF86MonBrightnessUp exec light -A 10
 bindsym XF86MonBrightnessDown exec light -U 10
 
 # Workspaces
-
+bindsym $mod+c exec chromium
 set $ws1 "1 web"
 set $ws2 "2 work"
 set $ws4 "4 view"

@@ -1,7 +1,7 @@
 # Pacman
 alias paci='sudo pacman -S'
 alias pacu='sudo pacman -Syu'
-alias pacc='paccache -rk 1 && paccache -ruk0'
+alias pacc='paccache -rk 1 && paccache -ruk0 && sudo pacman -Rns $(pacman -Qtdq)'
 
 # Terminal
 alias ls='ls -F --color=auto'
@@ -28,7 +28,6 @@ alias snast='sudo nast -i wlan1 -m'
 alias starwars='telnet towel.blinkenlights.nl'
 
 # Media functions
-#alias twitch='livestream'
 alias music='play_music'
 alias hdmi='xrandr --output HDMI-1 --auto --same-as eDP-1'
 alias tv='~/projects/daily-shows/bin/run'
@@ -42,10 +41,6 @@ command_exists() {
 # Exiting
 alias q='exit'
 alias bye='sudo shutdown -t 0'
-
-#livestream() {
-#  livestreamer twitch.tv/$1 $2||best
-#}
 
 play_music() {
 	mpd
