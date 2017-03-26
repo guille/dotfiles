@@ -1,6 +1,7 @@
 # Pacman
 alias paci='sudo pacman -S'
 alias pacu='sudo pacman -Syu'
+alias pacuw='sudo pacman -Syuw'
 alias pacc='paccache -rk 1 && paccache -ruk0 && sudo pacman -Rns $(pacman -Qtdq)'
 
 # Terminal
