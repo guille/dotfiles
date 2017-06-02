@@ -70,6 +70,7 @@ echo "   * sublime-text-dev" >> todo
 echo "   * heroku-toolbelt" >> todo
 echo "   * focuswriter" >> todo
 echo "   * pepper-flash" >> todo
+echo "   * chromium-widevine" >> todo
 echo "* Install package control for Sublime" >> todo
 echo "   * Install Agila" >> todo
 echo "   * Install AllAutoComplete" >> todo
