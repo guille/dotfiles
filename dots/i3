@@ -230,6 +230,7 @@ exec --no-startup-id compton -b --no-fading-openclose -i 0.8 --inactive-opacity-
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
 exec --no-startup-id numlockx on
+#exec --no-startup-id thunar --daemon
 
 
 # focus_follows_mouse no

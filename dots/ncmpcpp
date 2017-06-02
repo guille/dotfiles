@@ -36,9 +36,11 @@ state_flags_color              = "magenta"
 main_window_color              = "yellow"
 color1                         = "white"
 color2                         = "black"
-main_window_highlight_color    = "yellow"
+current_item_prefix            = "$(yellow)$r"
+current_item_suffix            = "$/r$(end)"
 progressbar_color              = "red"
-active_column_color            = "white"
+current_item_inactive_column_prefix = "$(white)$r"
+current_item_inactive_column_suffix = "$/r$(end)"
 
 
 ##### song format #####
