@@ -2,3 +2,4 @@ bundler
 mechanize
 nokogiri
 minitest
+download_tv
