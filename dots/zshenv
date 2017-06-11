@@ -9,6 +9,7 @@ alias ls='ls -F --color=auto'
 alias la='ls -AF --color=auto'
 alias ll='ls -AoFh --color=auto'
 alias top='htop'
+alias diff='diff -wu'
 alias pgrep='pgrep -l'
 alias grep='grep -n --color=auto'
 alias df='df -h'
@@ -31,9 +32,8 @@ alias starwars='telnet towel.blinkenlights.nl'
 # Media functions
 alias music='play_music'
 alias hdmi='xrandr --output HDMI-1 --auto --same-as eDP-1'
-alias tv='~/projects/daily-shows/bin/tv'
-alias dl='~/projects/daily-shows/bin/tv -d'
 alias rn='~/projects/tvutils/bin/rename .'
+alias dl='tv -d'
 
 command_exists() {
     type "$1" &> /dev/null ;
