@@ -9,5 +9,6 @@
 	"tab_size": 2,
 	"theme": "Agila Monokai.sublime-theme",
 	"theme_agila_compact_sidebar": true,
-	"theme_agila_sidebar_small": true
+	"theme_agila_sidebar_small": true,
+	"auto_complete_commit_on_tab": true,
 }
