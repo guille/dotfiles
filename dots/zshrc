@@ -17,14 +17,25 @@ zstyle ':vcs_info:git*' stagedstr '+'
 ###
 # Case insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+# Menu pops at 2 entries
+zstyle ':completion:*' menu select=2
+# Autocomplete on cd ..
+zstyle ':completion:*' special-dirs true
+
+###
+# Sane history defaults
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=$HISTSIZE
+setopt histignoredups
+
 unsetopt beep
+# emacs mode
 bindkey -e
 # Disable ctrl s
-stty stop undef
+unsetopt flowcontrol
 
+# Uncomment for rvm options completion
 # fpath=(~/.rvm/scripts/extras/completion.zsh/ $fpath)
 
 ############################# PROMPT ####################################
@@ -135,7 +146,7 @@ $PR_CYAN» '
 #     RPROMPT=' $PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_HBAR$PR_SHIFT_OUT\
 # ($PR_YELLOW%D{%a,%b%d}$PR_CYAN)$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_LRCORNER$PR_SHIFT_OUT$PR_NO_COLOUR'
 
-
+# This version has the git info
 RPROMPT=' $PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_HBAR$PR_SHIFT_OUT\
 ($PR_YELLOW$(gitprompt)$PR_CYAN)$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_LRCORNER$PR_SHIFT_OUT$PR_NO_COLOUR'
 
