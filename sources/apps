@@ -22,16 +22,15 @@ ttf-dejavu
 ttf-symbola
 ttf-inconsolata
 noto-fonts-emoji
+ripgrep
 tree
 cups
-imv
 
 jdk8-openjdk
 elixir
 crystal
 shards
 python-pip
-python-pyside
 intellij-idea-community-edition
 
 pulseaudio
@@ -41,6 +40,7 @@ ncmpcpp
 maim
 slop
 feh
+imv
 thunar
 thunar-volman
 thunar-archive-plugin
