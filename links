@@ -7,6 +7,10 @@ ln -sfv ${DOTFILES_DIR}/zlogin ~/.zlogin 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/zprofile ~/.zprofile 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/zshenv ~/.zshenv 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/zkeys ~/.zkeys 1> /dev/null
+
+# git
+ln -sfv ${DOTFILES_DIR}/gitconfig ~/.gitconfig 1> /dev/null
+
 # sublime
 ln -sfv ${DOTFILES_DIR}/subl_keys ~/.config/sublime-text-3/Packages/User/Default" (Linux)".sublime-keymap 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/subl_settings ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings 1> /dev/null

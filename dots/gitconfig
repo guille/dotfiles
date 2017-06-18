@@ -1,0 +1,7 @@
+[user]
+	name = guille
+	email = guillerg96@gmail.com
+[credential "https://github.com"]
+	username = guille
+[core]
+	autocrlf = input
