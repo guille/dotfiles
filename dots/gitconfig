@@ -5,3 +5,26 @@
 	username = guille
 [core]
 	autocrlf = input
+[alias]
+  st = status
+  di = diff
+  dc = diff --cached
+  pullff = pull --ff-only
+  
+  # Stats
+  ds = diff --stat=160,120
+
+  # Fancy logging.
+  #   h = head
+  #   hp = head with patch
+  #   r = recent commits, only current branch
+  #   ra = recent commits, all reachable refs
+  #   l = all commits, only current branch
+  #   la = all commits, all reachable refs
+  head = !git r -1
+  h = !git head
+  hp = "!. ~/.githelpers && show_git_head"
+  r = !GIT_NO_PAGER=1 git l -30
+  ra = !git r --all
+  l = "!. ~/.githelpers && pretty_git_log"
+  la = !git l --all
