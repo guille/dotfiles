@@ -207,6 +207,7 @@ assign [class="Chromium"] $ws1
 assign [class="Subl"] $ws2
 assign [class="Evince"] $ws4
 assign [class="feh"] $ws4
+assign [class="imv"] $ws4
 assign [class="Vlc"] $ws5
 assign [class="Transmission-gtk"] $ws6
 assign [class="jetbrains"] $ws8
@@ -214,8 +215,6 @@ for_window [title="Preferences$"] floating enable
 for_window [class="Vlc"] fullscreen enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Oblogout"] floating enable
-# Pyside GUI development
-for_window [class=".py$"] floating enable
 
 # Two monitors
 workspace $ws1 output HDMI-1
@@ -226,7 +225,8 @@ workspace $ws5 output DVI-I-1
 # Startup
 exec --no-startup-id i3-msg "workspace $ws2; append_layout ~/.config/i3/dev.json; exec subl3; exec i3-sensible-terminal; exec i3-sensible-terminal"
 exec_always --no-startup-id feh --bg-fill --randomize ~/Wallpapers/*
-exec --no-startup-id compton -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null --focus-exclude "class_g*='Vlc'"
+exec --no-startup-id compton -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null --focus-exclude "class_g*='Vlc'" --focus-exclude "name~='Youtube'" --focus-exclude "name*='YouTube - Chromium'"
+
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
 exec --no-startup-id numlockx on
