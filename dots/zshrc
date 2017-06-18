@@ -1,4 +1,3 @@
-# SEE http://aperiodic.net/phil/prompt/ FOR PROMPT
 
 ###
 # Splits words at / too, useful for paths
@@ -20,11 +19,16 @@ zstyle ':vcs_info:git*' stagedstr '+'
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 HISTFILE=~/.histfile
 HISTSIZE=1000
-SAVEHIST=1000
+SAVEHIST=$HISTSIZE
 unsetopt beep
 bindkey -e
+# Disable ctrl s
+stty stop undef
+
+# fpath=(~/.rvm/scripts/extras/completion.zsh/ $fpath)
 
 ############################# PROMPT ####################################
+# SEE http://aperiodic.net/phil/prompt/ FOR PROMPT
 
 function precmd {
 
