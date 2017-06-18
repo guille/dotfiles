@@ -43,9 +43,10 @@ else
 	xargs -a <(cat sources/gems) gem install
 fi
 
+infoprint "Installing pip packages"
+xargs -a <(cat sources/pip) pip install --user
 
 # MPD and NCMPCPP
-mkdir -p ~/.mpd
 mkdir -p ~/.mpd/lyrics
 mkdir -p ~/.mpd/playlists
 mkdir -p ~/.ncmpcpp
@@ -54,9 +55,6 @@ touch ~/.mpd/tag_cache
 touch ~/.mpd/mpdstate
 touch ~/.mpd/mpd.pid
 touch ~/.mpd/sticker.sql
-
-infoprint "Installing pip packages"
-xargs -a <(cat sources/pip) pip install --user
 
 # Create to-do list
 infoprint "Creating a to-do file with more possible configurations"

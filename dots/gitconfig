@@ -1,10 +1,10 @@
 [user]
-	name = guille
-	email = guille@users.noreply.github.com
+  name = guille
+  email = guille@users.noreply.github.com
 [credential "https://github.com"]
-	username = guille
+  username = guille
 [core]
-	autocrlf = input
+  autocrlf = input
 [alias]
   st = status
   di = diff
