@@ -17,6 +17,7 @@ alias df='df -h'
 alias du='du -h'
 alias cls='clear'
 alias calc='bc -q -l'
+function cdf() { cd *$1*/ } # fuzzy cd
 
 # Notifications
 alias dnd='notify-send "DUNST_COMMAND_PAUSE"'
