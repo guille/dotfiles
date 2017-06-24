@@ -23,5 +23,3 @@ suspend = systemctl suspend
 #hibernate = systemctl hibernate
 logout = i3-msg exit
 #lock = i3lock -c d3d3d3
-#switchuser = gdm-control --switch-user
-#safesuspend = safesuspend
