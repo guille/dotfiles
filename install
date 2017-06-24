@@ -59,7 +59,6 @@ touch ~/.mpd/sticker.sql
 # Create to-do list
 infoprint "Creating a to-do file with more possible configurations"
 
-echo "* Set up git config --global user.name and user.email" >> todo
 echo "* localectl set-x11-keymap es" >> todo
 echo "* Gtk themes with lxappearance" >> todo
 echo "* Install AUR packages" >> todo
