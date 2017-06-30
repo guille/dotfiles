@@ -24,7 +24,7 @@ ttf-inconsolata
 noto-fonts-emoji
 ripgrep
 tree
-cups
+# cups
 
 jdk8-openjdk
 elixir
