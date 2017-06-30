@@ -11,6 +11,10 @@ infoprint () {
 	echo -e "${COLOR}${1}${NC}"
 }
 
+aur_dl () {
+	curl -L -O "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz"
+}
+
 # Select the right install command and update system
 INSTALL="sudo pacman -S --needed --noconfirm --noprogressbar"
 # sudo pacman -Syuq --noconfirm
@@ -55,6 +59,21 @@ touch ~/.mpd/tag_cache
 touch ~/.mpd/mpdstate
 touch ~/.mpd/mpd.pid
 touch ~/.mpd/sticker.sql
+
+# Install pacaur
+
+mkdir temp
+cd temp
+aur_dl cower
+aur_dl pacaur
+cd cower
+makepkg -sri --skippgpcheck
+cd ../pacaur
+makepkg -sri
+cd ..
+rm -rf temp
+
+# Install AUR packages
 
 # Create to-do list
 infoprint "Creating a to-do file with more possible configurations"
