@@ -12,11 +12,12 @@ infoprint () {
 }
 
 aur_dl () {
-	curl -L -O "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz"
+	\curl -L -O "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz"
 }
 
 # Select the right install command and update system
 INSTALL="sudo pacman -S --needed --noconfirm --noprogressbar"
+infoprint "Updating system"
 sudo pacman -Syuq --noconfirm
 
 # Install zsh and set it as default shell
@@ -28,15 +29,14 @@ else
 fi
 
 infoprint "Installing programs from source/apps"
-xargs -a <(cat sources/apps) sudo pacman -S --needed --noconfirm --noprogressbar
-# Allows comments on source lists
-# xargs -a <(cat sources/apps | \grep -v '^#') sudo pacman -S --needed --noconfirm --noprogressbar
+xargs -a <(cat sources/apps | \grep -v '^#') $INSTALL
 
 # RUBY
 if command_exists rvm; then
 	infoprint "rvm already installed"
+	infoprint "updating rvm..."
 	rvm get head 1> /dev/null
-	gem update -q 1> /dev/null
+	gem update -q
 else
 	infoprint "Installing rvm"
 	\curl -sSL https://get.rvm.io | bash -s head
@@ -50,15 +50,11 @@ fi
 
 # PYTHON
 infoprint "Installing pip packages"
-xargs -a <(cat sources/pip) pip install --user
+xargs -a <(cat sources/pip) pip install --user -qq
 
 # ELIXIR
 # mix local.hex
 # mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
-
-# AUR
-
-xargs -a <(cat sources/aur | \grep -v '^#') sudo pacaur -S --needed --noconfirm --noprogressbar
 
 # MPD and NCMPCPP
 mkdir -p ~/.mpd/lyrics
@@ -71,24 +67,35 @@ touch ~/.mpd/mpd.pid
 touch ~/.mpd/sticker.sql
 
 # Install pacaur
-
-mkdir temp
-cd temp
-aur_dl cower
-aur_dl pacaur
-cd cower
-makepkg -sri --skippgpcheck
-cd ../pacaur
-makepkg -sri
-cd ..
-rm -rf temp
+if command_exists pacaur; then
+	infoprint "pacaur already installed"
+else
+	mkdir temp
+	cd temp
+	aur_dl cower
+	aur_dl pacaur
+	tar -xvf cower*
+	tar -xvf pacaur*
+	cd cower
+	makepkg -sri --skippgpcheck
+	cd ../pacaur
+	makepkg -sri
+	cd ../..
+	rm -rf temp
+fi
 
 # Install AUR packages
+xargs -a <(cat sources/aur | \grep -v '^#') pacaur -S --needed --noconfirm --noprogressbar
+
+infoprint "setting spanish keyboard"
+localectl set-x11-keymap es
+
+infoprint "creating symbolic links..."
+source links
 
 # Create to-do list
-infoprint "Creating a to-do file with more possible configurations"
+infoprint "creating a to-do file with more possible configurations..."
 
-echo "* localectl set-x11-keymap es" >> todo
 echo "* Gtk themes with lxappearance" >> todo
 echo "* Install package control for Sublime" >> todo
 echo "   * Install Agila" >> todo
@@ -97,4 +104,3 @@ echo "   * Install BracketHighlighter" >> todo
 echo "   * Install Elixir" >> todo
 echo "   * Install Crystal" >> todo
 echo "   * Install SublimeLinter, -contrib-elixirc, -ruby" >> todo
-echo "* Create the symbolic links running \"source links\"" >> todo
