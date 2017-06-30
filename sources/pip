@@ -1,6 +1,6 @@
+requests
 numpy
 pandas
 scikit-learn
-nltk
 pillow
 jupyter
