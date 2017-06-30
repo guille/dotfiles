@@ -17,6 +17,7 @@ alias df='df -h'
 alias du='du -h'
 alias cls='clear'
 alias calc='bc -q -l'
+alias cal='cal -m'
 function cdf() { cd *$1*/ } # fuzzy cd
 
 # Notifications
@@ -34,7 +35,7 @@ alias starwars='telnet towel.blinkenlights.nl'
 # Media functions
 alias music='play_music'
 alias hdmi='xrandr --output HDMI-1 --auto --same-as eDP-1'
-alias rn='~/projects/tvutils/bin/rename .'
+alias rn='~/projects/tvutils/bin/rename'
 alias tvmove='~/projects/tvutils/bin/tvmove ~/Downloads ~/Series'
 alias dl='tv -d'
 
