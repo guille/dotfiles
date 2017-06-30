@@ -4,7 +4,7 @@ COLOR='\033[0;32m'
 NC='\033[0m' # No Color
 
 command_exists () {
-    type "$1" &> /dev/null ;
+	type "$1" &> /dev/null ;
 }
 
 infoprint () {
@@ -13,7 +13,7 @@ infoprint () {
 
 # Select the right install command and update system
 INSTALL="sudo pacman -S --needed --noconfirm --noprogressbar"
-# sudo pacman -Syuq --noconfirm
+sudo pacman -Syuq --noconfirm
 
 # Install zsh and set it as default shell
 if command_exists zsh; then
@@ -25,13 +25,14 @@ fi
 
 infoprint "Installing programs from source/apps"
 xargs -a <(cat sources/apps) sudo pacman -S --needed --noconfirm --noprogressbar
-# TODO: Add banshee
+# Allows comments on source lists
+# xargs -a <(cat sources/apps | \grep -v '^#') sudo pacman -S --needed --noconfirm --noprogressbar
 
+# RUBY
 if command_exists rvm; then
 	infoprint "rvm already installed"
-	# rvm get head 1> /dev/null
-	# gem update -q 1> /dev/null
-
+	rvm get head 1> /dev/null
+	gem update -q 1> /dev/null
 else
 	infoprint "Installing rvm"
 	\curl -sSL https://get.rvm.io | bash -s head
@@ -43,8 +44,17 @@ else
 	xargs -a <(cat sources/gems) gem install
 fi
 
+# PYTHON
 infoprint "Installing pip packages"
 xargs -a <(cat sources/pip) pip install --user
+
+# ELIXIR
+# mix local.hex
+# mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
+
+# AUR
+
+xargs -a <(cat sources/aur | \grep -v '^#') sudo pacaur -S --needed --noconfirm --noprogressbar
 
 # MPD and NCMPCPP
 mkdir -p ~/.mpd/lyrics
@@ -61,12 +71,6 @@ infoprint "Creating a to-do file with more possible configurations"
 
 echo "* localectl set-x11-keymap es" >> todo
 echo "* Gtk themes with lxappearance" >> todo
-echo "* Install AUR packages" >> todo
-echo "   * sublime-text-dev" >> todo
-echo "   * heroku-toolbelt" >> todo
-echo "   * focuswriter" >> todo
-echo "   * pepper-flash" >> todo
-echo "   * chromium-widevine" >> todo
 echo "* Install package control for Sublime" >> todo
 echo "   * Install Agila" >> todo
 echo "   * Install AllAutoComplete" >> todo
