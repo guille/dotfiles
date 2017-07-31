@@ -27,13 +27,13 @@ order += "tztime local"
 volume speakers {
         format = "🔊: %volume"
         format_muted = "🔈: muted (%volume)"
-        device = "pulse:1"
+        device = "pulse:0"
 }
 
 volume jack {
         format = "🎧: %volume"
         format_muted = "🎧: muted (%volume)"
-        device = "pulse:0"
+        device = "pulse:1"
 }
 
 cpu_temperature 0 {
