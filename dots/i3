@@ -234,6 +234,7 @@ exec --no-startup-id dunst
 exec --no-startup-id nm-applet
 exec --no-startup-id numlockx on
 exec --no-startup-id thunar --daemon
+exec --no-startup-id redshift
 
 # focus_follows_mouse no
 workspace_auto_back_and_forth yes
