@@ -11,7 +11,7 @@
     # <http://developer.gnome.org/pango/stable/PangoMarkupFormat.html>.
     # If markup is not allowed, those tags will be stripped out of the
     # message.
-    allow_markup = yes
+    markup = yes
     
     # The format of the message.  Possible variables are:
     #   %a  appname
@@ -73,7 +73,7 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing windowmanager is
     # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 25
+    transparency = 0
     
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
@@ -147,9 +147,9 @@
     # Paths to default icons.
     icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
 
-[frame]
-    width = 1
-    color = "#EEEEEE"
+    # Frame
+    frame_width = 1
+    frame_color = "#EEEEEE"
 
 [shortcuts]
 
