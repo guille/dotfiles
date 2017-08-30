@@ -186,7 +186,7 @@ bindsym XF86MonBrightnessUp exec light -A 10
 bindsym XF86MonBrightnessDown exec light -U 10
 
 # Workspaces
-bindsym $mod+c exec chromium
+bindsym $mod+c exec firefox
 set $ws1 "1 web"
 set $ws2 "2 work"
 set $ws4 "4 view"
@@ -204,7 +204,7 @@ for_window [class=".*"] focus
 
 # Specific apps
 
-assign [class="Chromium"] $ws1
+assign [class="Firefox"] $ws1
 assign [class="Subl"] $ws2
 assign [class="Evince"] $ws4
 assign [class="feh"] $ws4
@@ -228,7 +228,7 @@ workspace $ws5 output DVI-I-1
 # Startup
 exec --no-startup-id i3-msg "workspace $ws2; append_layout ~/.config/i3/dev.json; exec subl3; exec i3-sensible-terminal; exec i3-sensible-terminal"
 exec_always --no-startup-id feh --bg-fill --randomize ~/Wallpapers/*
-exec --no-startup-id compton -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null --focus-exclude "class_g*='Vlc'" --focus-exclude "name~='Youtube'" --focus-exclude "name*='YouTube - Chromium'"
+exec --no-startup-id compton -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null --focus-exclude "class_g*='Vlc'" --focus-exclude "name~='Youtube'" --focus-exclude "name*='YouTube - Mozilla Firefox'"
 
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
