@@ -15,10 +15,17 @@ aur_dl () {
 	\curl -L -O "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz"
 }
 
+install_sublime_repo () {
+	infoprint "Installing sublime text GPG key and repository"
+	\curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
+	echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
+}
+
+# If we can't find sublime-text, add the repository
+pacman -Ss sublime-text &> /dev/null || install_sublime_repo
+
 # Select the right install command and update system
-INSTALL="sudo pacman -S --needed --noconfirm --noprogressbar"
-infoprint "Updating system"
-sudo pacman -Syuq --noconfirm
+INSTALL="sudo pacman -Syu --needed --noconfirm --noprogressbar"
 
 # Install zsh and set it as default shell
 if command_exists zsh; then
@@ -27,10 +34,6 @@ else
 	$INSTALL zsh
 	chsh -s /bin/zsh
 fi
-
-infoprint "Installing sublime text GPG key and repository"
-\curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
-echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
 
 infoprint "Installing programs from source/apps"
 xargs -a <(cat sources/apps | \grep -v '^#') $INSTALL
@@ -57,7 +60,7 @@ infoprint "Installing pip packages"
 xargs -a <(cat sources/pip) pip install --user -qq
 
 # NPM
-mkdir ~/.npm-packages
+mkdir -p ~/.npm-packages
 npm config set prefix "${HOME}/.npm-packages"
 
 # ELIXIR
