@@ -26,7 +26,6 @@ alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
 
 # App shortcuts
 alias g='chromium --process-per-site'
-alias subl='subl3'
 
 # Misc
 alias snast='sudo nast -i wlan1 -m'

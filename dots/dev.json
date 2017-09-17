@@ -13,7 +13,7 @@
     "percent": 0.6,
     "swallows": [
        {
-        "class": "^Subl"
+        "class": "^Sublime_text"
         // "instance": "^subl3$",
         // "title": "^\\~\\/a\\.json\\ \\•\\ \\-\\ Sublime\\ Text\\ \\(UNREGISTERED\\)$",
         // "transient_for": "^$"
