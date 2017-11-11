@@ -4,3 +4,4 @@ nokogiri
 minitest
 download_tv
 rubocop
+pry
