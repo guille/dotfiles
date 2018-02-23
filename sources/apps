@@ -35,7 +35,6 @@ shards
 python-pip
 pypy3
 intellij-idea-community-edition
-npm
 
 redshift
 pulseaudio
