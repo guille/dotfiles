@@ -60,11 +60,12 @@ infoprint "Installing pip packages"
 xargs -a <(cat sources/pip) pip install --user -qq
 
 # NPM
-mkdir -p ~/.npm-packages
-npm config set prefix "${HOME}/.npm-packages"
+# mkdir -p ~/.npm-packages
+# npm config set prefix "${HOME}/.npm-packages"
 
-# ELIXIR
-# mix local.hex
+# ELIXIR - hex
+mix local.hex
+# ELIXIR - phoenix
 # mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
 
 # MPD and NCMPCPP
