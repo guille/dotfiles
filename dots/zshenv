@@ -20,6 +20,9 @@ alias calc='bc -q -l'
 alias cal='cal -m'
 function cdf() { cd *$1*/ } # fuzzy cd
 
+# Log in as postgres
+alias pg='sudo -u postgres -i'
+
 # Notifications
 alias dnd='notify-send "DUNST_COMMAND_PAUSE"'
 alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
