@@ -43,6 +43,7 @@ if command_exists rvm; then
 	infoprint "rvm already installed"
 	infoprint "updating rvm..."
 	rvm get head 1> /dev/null
+	gem update --system -q
 	gem update -q
 else
 	infoprint "Installing rvm"
@@ -116,3 +117,4 @@ echo "   * Install BracketHighlighter" >> todo
 echo "   * Install Elixir" >> todo
 echo "   * Install Crystal" >> todo
 echo "   * Install SublimeLinter, -contrib-elixirc, -ruby" >> todo
+echo "   * Install Elm-Language-Support and configure the elm_format_binary path" >> todo
