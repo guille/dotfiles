@@ -43,7 +43,9 @@ if command_exists rvm; then
 	infoprint "rvm already installed"
 	infoprint "updating rvm..."
 	rvm get head 1> /dev/null
+	infoprint "updating rubygems..."
 	gem update --system -q
+	infoprint "updating installed gems..."
 	gem update -q
 else
 	infoprint "Installing rvm"
@@ -61,9 +63,11 @@ infoprint "Installing pip packages"
 xargs -a <(cat sources/pip) pip install --user -qq
 
 # YARN
-xargs -a <(cat sources/pip) yarn global add --silent
+infoprint "Installing yarn packages"
+xargs -a <(cat sources/yarn) yarn global add --silent
 
 # ELIXIR - hex
+infoprint "Installing/upgrading hex"
 mix local.hex
 # ELIXIR - phoenix
 # mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
