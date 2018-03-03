@@ -60,9 +60,8 @@ fi
 infoprint "Installing pip packages"
 xargs -a <(cat sources/pip) pip install --user -qq
 
-# NPM
-# mkdir -p ~/.npm-packages
-# npm config set prefix "${HOME}/.npm-packages"
+# YARN
+xargs -a <(cat sources/pip) yarn global add --silent
 
 # ELIXIR - hex
 mix local.hex
