@@ -203,13 +203,13 @@ assign [class="Evince"] $ws4
 assign [class="feh"] $ws4
 assign [title="LibreOffice"] $ws4
 assign [class="imv"] $ws4
-assign [class="Vlc"] $ws5
+assign [class="vlc"] $ws5
 assign [class="Transmission-gtk"] $ws6
 assign [class="texmaker"] $ws7
 assign [class="jetbrains"] $ws8
 for_window [title="Preferences$"] floating enable
 for_window [title="Library$"] floating enable
-for_window [class="Vlc"] fullscreen enable
+for_window [class="vlc"] fullscreen enable
 for_window [class="Oblogout"] fullscreen enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Oblogout"] floating enable
@@ -223,7 +223,7 @@ workspace $ws5 output DVI-I-1
 # Startup
 exec --no-startup-id i3-msg "workspace $ws2; append_layout ~/.config/i3/dev.json; exec subl; exec i3-sensible-terminal; exec i3-sensible-terminal"
 exec_always --no-startup-id feh --bg-fill --randomize ~/Wallpapers/*
-exec --no-startup-id compton -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null --focus-exclude "class_g*='Vlc'" --focus-exclude "name~='Youtube'" --focus-exclude "name*='YouTube - Mozilla Firefox'"
+exec --no-startup-id compton -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null --focus-exclude "class_g*='vlc'" --focus-exclude "name~='Youtube'" --focus-exclude "name*='YouTube - Mozilla Firefox'"
 
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
