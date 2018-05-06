@@ -6,6 +6,7 @@
 	"font_size": 12,
 	"ignored_packages":
 	[
+		"SublimeLinter-contrib-elixirc",
 		"Vintage"
 	],
 	"tab_size": 2,
