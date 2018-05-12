@@ -172,7 +172,7 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% #decr
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 
 # Print screen
-bindsym Print exec maim -s ~/Screenshots/$(date +%F-%T).png
+bindsym --release Print exec --no-startup-id scrot -s ~/Screenshots/$(date +%F-%T).png
 
 # Backlight controls
 bindsym XF86MonBrightnessUp exec light -A 10
@@ -193,7 +193,6 @@ hide_edge_borders vertical
 
 focus_on_window_activation focus
 for_window [class=".*"] focus
-#force_display_urgency_hint 0 ms
 
 # Specific apps
 
@@ -209,10 +208,9 @@ assign [class="texmaker"] $ws7
 assign [class="jetbrains"] $ws8
 for_window [title="Preferences$"] floating enable
 for_window [title="Library$"] floating enable
-for_window [class="vlc"] fullscreen enable
-for_window [class="Oblogout"] fullscreen enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Oblogout"] floating enable
+for_window [class="Oblogout"] fullscreen enable
 
 # Two monitors
 workspace $ws1 output HDMI-1
@@ -231,5 +229,4 @@ exec --no-startup-id numlockx on
 exec --no-startup-id thunar --daemon
 exec --no-startup-id redshift
 
-# focus_follows_mouse no
 workspace_auto_back_and_forth yes
