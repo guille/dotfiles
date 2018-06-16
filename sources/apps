@@ -16,8 +16,9 @@ dunst
 mlocate
 htop
 qt4
-numix-gtk-theme
 lxappearance
+arc-gtk-theme
+papirus-icon-theme
 compton
 ttf-dejavu
 ttf-symbola
