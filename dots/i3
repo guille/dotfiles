@@ -95,7 +95,7 @@ bindsym $mod+3 workspace 3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
+bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
@@ -107,7 +107,7 @@ bindsym $mod+Shift+3 move container to workspace 3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
@@ -185,7 +185,6 @@ set $ws2 "2 work"
 set $ws4 "4 view"
 set $ws5 "5 vlc"
 set $ws6 "6 torrent"
-set $ws7 "7 tex"
 set $ws8 "8 dev"
 
 new_window pixel 4
@@ -204,7 +203,6 @@ assign [title="LibreOffice"] $ws4
 assign [class="imv"] $ws4
 assign [class="vlc"] $ws5
 assign [class="Transmission-gtk"] $ws6
-assign [class="texmaker"] $ws7
 assign [class="jetbrains"] $ws8
 for_window [title="Preferences$"] floating enable
 for_window [title="Library$"] floating enable

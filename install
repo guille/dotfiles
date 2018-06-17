@@ -112,7 +112,7 @@ source links
 # Create to-do list
 infoprint "Creating a to-do file with more possible configurations..."
 
-echo "* Gtk themes with lxappearance" >> todo
+echo "* lxappearance: Arc-Darker + Papirus" >> todo
 echo "* Install package control for Sublime" >> todo
 echo "   * Install Agila" >> todo
 echo "   * Install AllAutoComplete" >> todo
