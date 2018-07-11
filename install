@@ -97,7 +97,7 @@ else
 fi
 
 # Install AUR packages
-xargs -a <(cat sources/aur | \grep -v '^#') pacaur -S --needed --noconfirm --noprogressbar
+xargs -a <(cat sources/aur | \grep -v '^#') aurman -S --needed --noconfirm --noprogressbar
 
 infoprint "Setting spanish keyboard"
 localectl set-x11-keymap es
