@@ -82,20 +82,16 @@ touch ~/.mpd/mpdstate
 touch ~/.mpd/mpd.pid
 touch ~/.mpd/sticker.sql
 
-# Install pacaur
-if command_exists pacaur; then
-	infoprint "pacaur already installed"
+# Install aurman
+if command_exists aurman; then
+	infoprint "aurman already installed"
 else
 	mkdir temp
 	cd temp
-	aur_dl cower
-	aur_dl pacaur
-	tar -xvf cower*
-	tar -xvf pacaur*
-	cd cower
-	makepkg -sri --skippgpcheck
-	cd ../pacaur
-	makepkg -sri
+	aur_dl aurman
+	tar -xvf aurman*
+	cd aurman
+	makepkg -si --skippgpcheck
 	cd ../..
 	rm -rf temp
 fi
