@@ -113,7 +113,8 @@ echo "* Install package control for Sublime" >> todo
 echo "   * Install Agila" >> todo
 echo "   * Install AllAutoComplete" >> todo
 echo "   * Install BracketHighlighter" >> todo
-echo "   * Install Elixir" >> todo
 echo "   * Install Crystal" >> todo
+echo "   * Install Elixir" >> todo
+echo "   * Install Kotlin" >> todo
 echo "   * Install SublimeLinter, -contrib-elixirc, -ruby" >> todo
 echo "   * Install Elm-Language-Support and configure the elm_format_binary path" >> todo
