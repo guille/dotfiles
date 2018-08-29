@@ -62,7 +62,8 @@ evince
 transmission-gtk
 libreoffice-fresh
 hunspell
-hunspell-es
-hunspell-en
+hunspell-es_es
+hunspell-en_GB
+hunspell-en_US
 
 aircrack-ng
