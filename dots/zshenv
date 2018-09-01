@@ -27,12 +27,8 @@ alias pg='sudo -u postgres -i'
 alias dnd='notify-send "DUNST_COMMAND_PAUSE"'
 alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
 
-# App shortcuts
-alias g='chromium --process-per-site'
-
 # Misc
 alias snast='sudo nast -i wlan1 -m'
-alias starwars='telnet towel.blinkenlights.nl'
 
 # Media functions
 alias music='play_music'
@@ -45,11 +41,15 @@ command_exists() {
     type "$1" &> /dev/null ;
 }
 
-# Exiting
-alias q='exit'
-alias bye='sudo shutdown -t 0'
-
 play_music() {
 	mpd
 	ncmpcpp && mpd --kill
 }
+
+csh() {
+	\curl http://cheat.sh/$1
+}
+
+# Exiting
+alias q='exit'
+alias bye='sudo shutdown -t 0'
