@@ -33,8 +33,7 @@ alias snast='sudo nast -i wlan1 -m'
 # Media functions
 alias music='play_music'
 alias hdmi='xrandr --output HDMI-1 --auto --same-as eDP-1'
-alias rn='~/projects/tvutils/bin/rename'
-alias tvmove='~/projects/tvutils/bin/tvmove ~/Downloads ~/Series'
+alias rn='~/projects/tvrename/bin/rename'
 alias dl='tv -d'
 
 command_exists() {
