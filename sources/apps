@@ -37,6 +37,7 @@ python-pip
 pypy3
 intellij-idea-community-edition
 yarn
+dotnet-sdk
 
 redshift
 pulseaudio
