@@ -64,7 +64,7 @@ xargs -a <(cat sources/pip) pip install --user -qq
 
 # YARN
 infoprint "Installing yarn packages"
-yarn global update
+yarn global upgrade
 xargs -a <(cat sources/yarn) yarn global add --silent
 
 # ELIXIR - hex
