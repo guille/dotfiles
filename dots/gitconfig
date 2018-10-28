@@ -7,9 +7,10 @@
   autocrlf = input
 [alias]
   st = status
+  co = checkout
   di = diff
   dc = diff --cached
-  pullff = pull --ff-only
+  dh1 = diff HEAD~1
   
   # Stats
   ds = diff --stat=160,120
