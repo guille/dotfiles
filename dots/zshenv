@@ -32,7 +32,7 @@ alias snast='sudo nast -i wlan1 -m'
 
 # Media functions
 alias music='play_music'
-alias hdmi='xrandr --output HDMI-1 --auto --same-as eDP-1'
+alias hdmi='xrandr --output HDMI-1 --auto --right-of eDP-1'
 alias rn='~/projects/tvrename/bin/rename'
 alias dl='tv -d'
 
