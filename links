@@ -37,3 +37,7 @@ sudo ln -sfv ${DOTFILES_DIR}/oblogout /etc/oblogout.conf 1> /dev/null
 # mpd & ncmpcpp
 ln -sfv ${DOTFILES_DIR}/mpdconf ~/.mpdconf 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/ncmpcpp ~/.ncmpcpp/config 1> /dev/null
+
+# neovim
+ln -sfv ${DOTFILES_DIR}/vimrc ~/.config/nvim/init.vim
+ln -sfv ${DOTFILES_DIR}/vimcolor ~/.config/nvim/colors/molokai.vim

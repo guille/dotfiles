@@ -29,6 +29,7 @@ pacman-contrib
 # cups
 
 sublime-text
+neovim
 jdk8-openjdk
 elixir
 crystal
