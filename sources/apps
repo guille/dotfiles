@@ -25,6 +25,7 @@ ttf-inconsolata
 noto-fonts-emoji
 ripgrep
 tree
+rsync
 pacman-contrib
 # cups
 
