@@ -11,7 +11,8 @@
   di = diff
   dc = diff --cached
   dh1 = diff HEAD~1
-  
+  amend = commit --amend
+
   # Stats
   ds = diff --stat=160,120
 
