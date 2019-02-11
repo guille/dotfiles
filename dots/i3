@@ -156,9 +156,9 @@ bindsym $mod+x move workspace to output right
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar { 
-        wheel_up_cmd nop
-        wheel_down_cmd nop
+bar {
+        bindsym button4 nop
+        bindsym button5 nop
         status_command i3status
         colors{
                 background #232323
@@ -198,6 +198,7 @@ for_window [class=".*"] focus
 assign [class="Firefox"] $ws1
 assign [class="Subl"] $ws2
 assign [class="Evince"] $ws4
+assign [class="bookworm"] $ws4
 assign [class="feh"] $ws4
 assign [title="LibreOffice"] $ws4
 assign [class="imv"] $ws4
@@ -206,14 +207,16 @@ assign [class="Transmission-gtk"] $ws6
 assign [class="jetbrains"] $ws8
 for_window [title="Preferences$"] floating enable
 for_window [title="Library$"] floating enable
+for_window [title="Pocket: Add Item - "] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Oblogout"] floating enable
 for_window [class="Oblogout"] fullscreen enable
 
 # Two monitors
-workspace $ws1 output HDMI-1
-workspace $ws2 output DVI-I-1
-workspace $ws5 output DVI-I-1
+workspace $ws5 output HDMI-1
+# workspace $ws1 output HDMI-1
+# workspace $ws2 output DVI-I-1
+# workspace $ws5 output DVI-I-1
 
 
 # Startup
