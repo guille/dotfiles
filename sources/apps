@@ -32,6 +32,7 @@ pacman-contrib
 sublime-text
 neovim
 jdk8-openjdk
+java-openjfx
 elixir
 crystal
 shards

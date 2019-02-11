@@ -42,14 +42,14 @@ xargs -a <(cat sources/apps | \grep -v '^#') $INSTALL
 if command_exists rvm; then
 	infoprint "rvm already installed"
 	infoprint "updating rvm..."
-	rvm get head 1> /dev/null
+	rvm get stable 1> /dev/null
 	infoprint "updating rubygems..."
 	gem update --system -q
 	infoprint "updating installed gems..."
 	gem update -q
 else
 	infoprint "Installing rvm"
-	\curl -sSL https://get.rvm.io | bash -s head
+	\curl -sSL https://get.rvm.io | bash -s stable
 	source ~/.rvm/scripts/rvm
 	rvm install ruby-head
 	#rvm install jruby-head

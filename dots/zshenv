@@ -12,13 +12,14 @@ alias top='htop'
 alias diff='diff -wu'
 alias pgrep='pgrep -l'
 alias grep='grep -n --color=auto'
-alias rg='rg -n'
+alias rg='rg -n --smart-case'
 alias df='df -h'
 alias du='du -h'
 alias cls='clear'
 alias calc='bc -q -l'
-alias cal='cal -m'
+alias cal='cal --monday'
 function cdf() { cd *$1*/ } # fuzzy cd
+alias vim='nvim'
 
 # Log in as postgres
 alias pg='sudo -u postgres -i'
@@ -27,14 +28,10 @@ alias pg='sudo -u postgres -i'
 alias dnd='notify-send "DUNST_COMMAND_PAUSE"'
 alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
 
-# Misc
-alias snast='sudo nast -i wlan1 -m'
-
 # Media functions
 alias music='play_music'
 alias hdmi='xrandr --output HDMI-1 --auto --right-of eDP-1'
 alias rn='~/projects/tvrename/bin/rename'
-alias dl='tv -d'
 
 command_exists() {
     type "$1" &> /dev/null ;
