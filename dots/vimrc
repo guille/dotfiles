@@ -1,19 +1,97 @@
 set number
+" Incremental search with smart case
 set incsearch
+set hlsearch
 set ignorecase smartcase
-set autoindent
 " Allow backspacing over everything in insert mode.
-set backspace=indent,eol,start
-set ruler       " show the cursor position all the time
-set showcmd     " display incomplete commands
-set wildmenu        " display completion matches in a status line
-set cursorline
+set ruler        " show the cursor position all the time
+set showcmd      " display incomplete commands
+set wildmenu     " display completion matches in a status line
+set wildmode=longest:full " complete to longest match
+set scrolloff=3  " keep 3 lines off the bottom when scrolling
+set gdefault     " Subtitute globally by default
+set hidden       " Easily create hidden buffers
+set nojoinspaces " Prevents inserting two spaces after punctuation on join (J)
 " If a file is changed outside of vim, automatically reload it without asking
 set autoread
+set showmode
+set cursorline
+set splitbelow
+set splitright
 
 syntax on
 filetype plugin indent on
 
+" Tabs
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set autoindent
+if has("autocmd")
+	filetype on
+	" Syntax of these languages is fussy over tabs Vs spaces
+	autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+	autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
+end
+
+" KEYBOARD SHORTCUTS
+let mapleader=","
+" Leader twice to switch open files
+nnoremap <leader><leader> <c-^>
+" leader + Space clears search highlight
+nnoremap <silent> <leader><Space> :nohlsearch<CR>
+" leader + W strips all trailing whitespace
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+" leader + v to select text that was just pasted
+nnoremap <leader>v V`]
+" Leader + o to open new vertical split and switch to it
+nnoremap <leader>o <C-w>v<C-w>l
+" Leader + s to start replace command
+nmap <Leader>s :%s//<Left>
+" Leader + e to start :e in the open file's directory
+cnoremap <expr> %% expand('%:h').'/'
+map <leader>e :edit %%
+" Move up/down by visual lines, not file lines
+nnoremap j gj
+nnoremap k gk
+" Easier moving around splits
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+
+"""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion.
+"""""""""""""
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+inoremap <expr> <tab> InsertTabWrapper()
+inoremap <s-tab> <c-n>
+
+" Learning crutch
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+" Nvim - vim compatibility
+set nocompatible
+set history=10000
+set backspace=indent,eol,start
+
+" Appearance
 set termguicolors
 let g:rehash256 = 1
 colorscheme molokai
+:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+set colorcolumn=85
+
