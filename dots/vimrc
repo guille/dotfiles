@@ -96,3 +96,13 @@ colorscheme molokai
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 set colorcolumn=85
 
+" Search down into subfolders for file related cmds
+set path+=**
+" VIM file browser. v on selected for vsplitting file
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_liststyle=3     " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+
+" Snippets
+" insert ipdb trace on next line
+nnoremap <leader>ipdb oimport ipdb; ipdb.set_trace()<Esc>

@@ -3,3 +3,4 @@ nokogiri
 download_tv
 rubocop
 pry
+bundler

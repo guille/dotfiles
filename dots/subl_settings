@@ -2,6 +2,7 @@
 	"auto_complete_commit_on_tab": true,
 	"color_scheme": "Packages/User/SublimeLinter/Agila Monokai Extended (SL).tmTheme",
 	"draw_white_space": "all",
+	"ensure_newline_at_eof_on_save": true,
 	"font_face": "Inconsolata",
 	"font_size": 12,
 	"ignored_packages":
@@ -9,8 +10,9 @@
 		"SublimeLinter-contrib-elixirc",
 		"Vintage"
 	],
-	"tab_size": 2,
+	"tab_size": 4,
 	"theme": "Agila Monokai.sublime-theme",
 	"theme_agila_compact_sidebar": true,
-	"theme_agila_sidebar_small": true
+	"theme_agila_sidebar_small": true,
+	"trim_trailing_white_space_on_save": true
 }
