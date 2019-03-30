@@ -40,7 +40,7 @@ python-pip
 pypy3
 intellij-idea-community-edition
 yarn
-dotnet-sdk
+# dotnet-sdk
 
 redshift
 pulseaudio
@@ -63,6 +63,7 @@ gvfs-mtp
 firefox
 vlc
 evince
+bookworm
 transmission-gtk
 libreoffice-fresh
 hunspell
