@@ -15,6 +15,7 @@ set nojoinspaces " Prevents inserting two spaces after punctuation on join (J)
 let loaded_matchparen = 1 " Disable bracket highlighting
 " If a file is changed outside of vim, automatically reload it without asking
 set autoread
+set noswapfile
 set showmode
 set cursorline
 set splitbelow
@@ -28,6 +29,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set autoindent
+set noexpandtab
 if has("autocmd")
 	filetype on
 	" Syntax of these languages is fussy over tabs Vs spaces
@@ -62,6 +64,15 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+function! StripTrailingWhitespace()
+    " Don't strip on these filetypes
+    if &ft =~ 'sql\|markdown'
+        return
+    endif
+    %s/\s\+$//e
+endfun
+autocmd BufWritePre * call StripTrailingWhitespace()
+
 
 """""""""""""
 " MULTIPURPOSE TAB KEY
@@ -77,6 +88,7 @@ function! InsertTabWrapper()
 endfunction
 inoremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-n>
+nmap <tab> %
 
 " Learning crutch
 nnoremap <up> <nop>
@@ -88,6 +100,10 @@ nnoremap <right> <nop>
 set nocompatible
 set history=10000
 set backspace=indent,eol,start
+set ttyfast
+" save as sudo. only works on vim, not nvim :(
+cmap w!! w !sudo tee % > /dev/null
+
 
 " Appearance
 set termguicolors
@@ -95,6 +111,7 @@ let g:rehash256 = 1
 colorscheme molokai
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 set colorcolumn=85
+set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 
 " Search down into subfolders for file related cmds
 set path+=**
