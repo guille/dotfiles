@@ -8,7 +8,6 @@ alias pacc='paccache -rk 1 && paccache -ruk0 && sudo pacman -Rns $(pacman -Qtdq)
 alias ls='ls -F --color=auto'
 alias la='ls -AF --color=auto'
 alias ll='ls -AoFh --color=auto'
-alias top='htop'
 alias diff='diff -wu'
 alias pgrep='pgrep -l'
 alias grep='grep -n --color=auto'
@@ -18,8 +17,8 @@ alias du='du -h'
 alias cls='clear'
 alias calc='bc -q -l'
 alias cal='cal --monday'
-function cdf() { cd *$1*/ } # fuzzy cd
 alias vim='nvim'
+if [[ -x `which htop` ]]; then alias top="htop"; fi
 
 # Log in as postgres
 alias pg='sudo -u postgres -i'
@@ -32,6 +31,16 @@ alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
 alias music='play_music'
 alias hdmi='xrandr --output HDMI-1 --auto --right-of eDP-1'
 alias rn='~/projects/tvrename/bin/rename'
+
+# Helpful functions
+# fuzzy cd
+function cdf() { cd $1*/ }
+# removes returns for "grep" on greps of ps output
+function pps() { ps aux | grep "$@" | grep -v "grep"; }
+# kills all processes returned by `pps`
+function ppsk() { pps $@ | awk '{print $2}' | xargs kill -9; }
+function cpcd() { cp $1 $2 && cd $2; }
+function mvcd() { mv $1 $2 && cd $2; }
 
 command_exists() {
     type "$1" &> /dev/null ;
