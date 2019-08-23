@@ -18,7 +18,10 @@ alias cls='clear'
 alias calc='bc -q -l'
 alias cal='cal --monday'
 alias vim='nvim'
+alias py='python'
 if [[ -x `which htop` ]]; then alias top="htop"; fi
+
+function dl() { tv --no-auto -d "$*" }
 
 # Log in as postgres
 alias pg='sudo -u postgres -i'
@@ -41,6 +44,8 @@ function pps() { ps aux | grep "$@" | grep -v "grep"; }
 function ppsk() { pps $@ | awk '{print $2}' | xargs kill -9; }
 function cpcd() { cp $1 $2 && cd $2; }
 function mvcd() { mv $1 $2 && cd $2; }
+
+function untilfail() { while $@; do :; done }
 
 command_exists() {
     type "$1" &> /dev/null ;

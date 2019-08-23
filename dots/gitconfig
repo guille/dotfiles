@@ -11,6 +11,7 @@
   di = diff
   dc = diff --cached
   dh1 = diff HEAD~1
+  last = show --quiet
   amend = commit --amend
 
   # Stats

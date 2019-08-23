@@ -9,6 +9,7 @@ set showcmd      " display incomplete commands
 set wildmenu     " display completion matches in a status line
 set wildmode=longest:full,list:full " complete (kinda) like zsh
 set scrolloff=3  " keep 3 lines off the bottom when scrolling
+set linebreak    " soft wrapping
 set gdefault     " Subtitute globally by default
 set hidden       " Easily create hidden buffers
 set nojoinspaces " Prevents inserting two spaces after punctuation on join (J)
