@@ -19,6 +19,14 @@ alias calc='bc -q -l'
 alias cal='cal --monday'
 alias vim='nvim'
 alias py='python'
+
+# navigate directories simply using .
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+
 if [[ -x `which htop` ]]; then alias top="htop"; fi
 
 function dl() { tv --no-auto -d "$*" }
