@@ -17,6 +17,7 @@ ln -sfv ${DOTFILES_DIR}/subl_keys ~/.config/sublime-text-3/Packages/User/Default
 ln -sfv ${DOTFILES_DIR}/subl_settings ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/subl_ruby ~/.config/sublime-text-3/Packages/User/Ruby.sublime-settings 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/subl_elixir ~/.config/sublime-text-3/Packages/User/Elixir.sublime-settings 1> /dev/null
+ln -sfv ${DOTFILES_DIR}/subl_gitcommit ~/.config/sublime-text-3/Packages/User/Git\ Commit.sublime-settings 1> /dev/null
 
 # Xfce-terminal
 ln -sfv ${DOTFILES_DIR}/terminalrc ~/.config/xfce4/terminal/terminalrc 1> /dev/null
@@ -39,5 +40,5 @@ ln -sfv ${DOTFILES_DIR}/mpdconf ~/.mpdconf 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/ncmpcpp ~/.ncmpcpp/config 1> /dev/null
 
 # neovim
-ln -sfv ${DOTFILES_DIR}/vimrc ~/.config/nvim/init.vim
-ln -sfv ${DOTFILES_DIR}/vimcolor ~/.config/nvim/colors/molokai.vim
+ln -sfv ${DOTFILES_DIR}/vimrc ~/.config/nvim/init.vim 1> /dev/null
+ln -sfv ${DOTFILES_DIR}/vimcolor ~/.config/nvim/colors/molokai.vim 1> /dev/null
