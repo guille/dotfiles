@@ -224,7 +224,7 @@ workspace $ws5 output HDMI-1
 # Startup
 exec --no-startup-id i3-msg "workspace $ws2; append_layout ~/.config/i3/dev.json; exec subl; exec i3-sensible-terminal; exec i3-sensible-terminal"
 exec_always --no-startup-id feh --bg-fill --randomize ~/Wallpapers/*
-exec --no-startup-id compton -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null --focus-exclude "class_g*='vlc'" --focus-exclude "class_g*='bookworm'" --focus-exclude "name~='Youtube'" --focus-exclude "name*='YouTube - Mozilla Firefox'"
+exec --no-startup-id picom -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null --focus-exclude "class_g*='vlc'" --focus-exclude "class_g*='bookworm'" --focus-exclude "name~='Youtube'" --focus-exclude "name*='YouTube - Mozilla Firefox'"
 
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet

@@ -19,7 +19,7 @@ qt4
 lxappearance
 arc-gtk-theme
 papirus-icon-theme
-compton
+picom
 ttf-dejavu
 ttf-inconsolata
 noto-fonts
