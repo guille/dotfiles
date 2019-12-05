@@ -32,4 +32,6 @@
   l = "!. ~/.githelpers && pretty_git_log"
   la = !git l --all
 [pull]
-	rebase = true
+  rebase = true
+[rebase]
+  autoStash = true
