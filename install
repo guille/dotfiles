@@ -122,4 +122,3 @@ echo "   * Install Elixir" >> todo
 echo "   * Install Kotlin" >> todo
 echo "   * Install Vue Syntax Highlight" >> todo
 echo "   * Install SublimeLinter, -annotations, -contrib-elixirc, -ruby" >> todo
-echo "   * Install Elm-Language-Support and configure the elm_format_binary path" >> todo
