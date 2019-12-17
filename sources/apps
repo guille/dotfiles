@@ -10,6 +10,7 @@ xorg-xprop
 i3-wm
 i3status
 dmenu
+rofi
 oblogout
 xfce4-terminal
 dunst

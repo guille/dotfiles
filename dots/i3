@@ -34,8 +34,8 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-# bindsym $mod+e exec --no-startup-id exec rofi -show run -font "Inconsolata 10" -lines 6 -i -separator-style solid -opacity "90"
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id exec rofi -show drun -font "Inconsolata 10" -lines 6 -i -modi drun -separator-style solid -no-drun-show-actions -drun-match-fields name -opacity "90" -matching fuzzy
 
 
 # change focus
@@ -198,6 +198,8 @@ for_window [class=".*"] focus
 assign [class="Firefox"] $ws1
 assign [class="firefox"] $ws1
 assign [class="Subl"] $ws2
+assign [class="thunar"] workspace 3
+assign [class="Thunar"] workspace 3
 assign [class="Evince"] $ws4
 assign [class="bookworm"] $ws4
 assign [class="feh"] $ws4
