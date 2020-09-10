@@ -6,5 +6,6 @@
 	{ "keys": ["ctrl+tab"], "command": "next_view" },
 	{ "keys": ["ctrl+shift+tab"], "command": "prev_view" },
 	{ "keys": ["ctrl+m"], "command": "toggle_comment", "args": { "block": false } },
-  { "keys": ["ctrl+."], "command": "reindent"}
+	{ "keys": ["ctrl+."], "command": "reindent"},
+	{ "keys": ["ctrl+shift+d"], "command": "find_all_under" }
 ]

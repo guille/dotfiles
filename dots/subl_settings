@@ -1,6 +1,6 @@
 {
 	"auto_complete_commit_on_tab": true,
-	"color_scheme": "Packages/User/SublimeLinter/Agila Monokai Extended (SL).tmTheme",
+	"color_scheme": "Packages/Agila Theme/Agila Monokai Extended.tmTheme",
 	"draw_white_space": "all",
 	"ensure_newline_at_eof_on_save": true,
 	"font_face": "Inconsolata",
