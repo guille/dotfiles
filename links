@@ -18,6 +18,9 @@ ln -sfv ${DOTFILES_DIR}/subl_settings ~/.config/sublime-text-3/Packages/User/Pre
 ln -sfv ${DOTFILES_DIR}/subl_ruby ~/.config/sublime-text-3/Packages/User/Ruby.sublime-settings 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/subl_elixir ~/.config/sublime-text-3/Packages/User/Elixir.sublime-settings 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/subl_gitcommit ~/.config/sublime-text-3/Packages/User/Git\ Commit.sublime-settings 1> /dev/null
+ln -sfv ${DOTFILES_DIR}/ipdb.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
+ln -sfv ${DOTFILES_DIR}/pry.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
+ln -sfv ${DOTFILES_DIR}/byebug.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
 
 # Xfce-terminal
 ln -sfv ${DOTFILES_DIR}/terminalrc ~/.config/xfce4/terminal/terminalrc 1> /dev/null
