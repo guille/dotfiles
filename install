@@ -120,5 +120,5 @@ echo "   * Install BracketHighlighter" >> todo
 echo "   * Install Crystal" >> todo
 echo "   * Install Elixir" >> todo
 echo "   * Install Kotlin" >> todo
-echo "   * Install Vue Syntax Highlight" >> todo
+echo "   * Install Babel" >> todo
 echo "   * Install SublimeLinter, -annotations, -contrib-elixirc, -ruby" >> todo

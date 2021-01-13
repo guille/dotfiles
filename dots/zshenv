@@ -42,6 +42,7 @@ alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
 alias music='play_music'
 alias hdmi='xrandr --output HDMI-1 --auto --right-of eDP-1'
 alias rn='~/projects/tvrename/bin/rename'
+alias j='subl ~/journal/$(date +%Y_%m_%d.md)'
 
 # Helpful functions
 # fuzzy cd
