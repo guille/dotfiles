@@ -66,14 +66,14 @@ battery 0 {
 
 run_watch DHCP {
         pidfile = "/var/run/dhclient*.pid"
-}	
+}
 
 run_watch VPN {
         pidfile = "/var/run/vpnc/pid"
 }
 
 tztime local {
-        format = "📅 %Y-%m-%d ⏲ %H:%M:%S"
+        format = "📅 %Y-%m-%d %a ⏲ %H:%M:%S"
 }
 
 load {
