@@ -9,6 +9,8 @@ mpd_crossfade_time = 5
 autocenter_mode = yes
 centered_cursor = yes
 
+volume_normalization		"yes"
+
 # FIFO visualizer
 visualizer_data_source = /tmp/mpd.fifo
 visualizer_output_name = "FIFO"
