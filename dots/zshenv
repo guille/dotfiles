@@ -62,7 +62,7 @@ command_exists() {
 
 play_music() {
 	mpd
-	ncmpcpp && mpd --kill
+	ncmpcpp -q && mpd --kill
 }
 
 csh() {
