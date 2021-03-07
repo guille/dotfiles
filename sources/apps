@@ -42,6 +42,7 @@ python-pip
 pypy3
 intellij-idea-community-edition
 yarn
+rustup
 # dotnet-sdk
 
 redshift

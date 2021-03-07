@@ -201,6 +201,9 @@ setprompt
 
 ##################################
 
+# Map compose key
+setxkbmap -option compose:menu
+
 ###
 # Modifying enviroment variables
 
