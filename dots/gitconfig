@@ -13,6 +13,7 @@
   dh1 = diff HEAD~1
   last = show --quiet
   amend = commit --amend
+  pushf = push --force-with-lease
 
   # Stats
   ds = diff --stat=160,120
