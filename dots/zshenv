@@ -16,7 +16,7 @@ alias df='df -h'
 alias du='du -h'
 alias cls='clear'
 alias calc='bc -q -l'
-alias cal='cal --monday'
+alias cal='cal --monday --three'
 alias vim='nvim'
 alias py='python'
 
