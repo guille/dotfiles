@@ -26,8 +26,8 @@
     suspend = P
     hibernate = H
     logout = L
-    restart = R
-    shutdown = S
+    restart = r
+    shutdown = s
 
 [card]
     # set background color and border radius for card
