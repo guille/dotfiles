@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 COLOR='\033[0;32m'
 NC='\033[0m' # No Color
 
@@ -59,19 +61,25 @@ else
 fi
 
 # PYTHON
-infoprint "Installing pip packages"
-xargs -a <(cat sources/pip) pip install --user -qq
+if command_exists pip; then
+	infoprint "Installing pip packages"
+	xargs -a <(cat sources/pip) pip install --user -qq
+fi
 
 # YARN
-infoprint "Installing yarn packages"
-yarn global upgrade
-xargs -a <(cat sources/yarn) yarn global add --silent
+if command_exists yarn; then
+	infoprint "Installing yarn packages"
+	yarn global upgrade
+	xargs -a <(cat sources/yarn) yarn global add --silent
+fi
 
 # ELIXIR - hex
-infoprint "Installing/upgrading hex"
-mix local.hex
-# ELIXIR - phoenix
-# mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
+if command_exists mix; then
+	infoprint "Installing/upgrading hex"
+	mix local.hex
+	# ELIXIR - phoenix
+	# mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
+fi
 
 # nvim
 mkdir -p ~/.config/nvim/colors
@@ -101,7 +109,7 @@ else
 fi
 
 # Install AUR packages
-xargs -a <(cat sources/aur | \grep -v '^#') aurman -S --needed --noconfirm --noprogressbar
+xargs -a <(cat sources/aur | \grep -v '^#') aurman -S --needed --noconfirm
 
 infoprint "Setting spanish keyboard"
 localectl set-x11-keymap es
