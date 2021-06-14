@@ -66,12 +66,13 @@ gvfs-mtp
 firefox
 vlc
 evince
-bookworm
+foliate
 transmission-gtk
 libreoffice-fresh
 hunspell
 hunspell-es_es
 hunspell-en_GB
 hunspell-en_US
+electrum
 
 aircrack-ng
