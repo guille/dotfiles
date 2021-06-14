@@ -9,11 +9,12 @@
 	[
 		"Rust",
 		"SublimeLinter-contrib-elixirc",
-		"Vintage"
+		"Vintage",
 	],
+	"rulers": [100],
 	"tab_size": 4,
 	"theme": "Agila Monokai.sublime-theme",
 	"theme_agila_compact_sidebar": true,
 	"theme_agila_sidebar_small": true,
-	"trim_trailing_white_space_on_save": true
+	"trim_trailing_white_space_on_save": true,
 }
