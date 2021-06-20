@@ -210,6 +210,7 @@ setxkbmap -option compose:menu
 export EDITOR="subl -w"
 
 export PATH=$PATH:~/.local/bin # Add pip user installs
+export PATH=~/mybin:$PATH # Add scripts
 
 [[ -f "$HOME/.zkeys" ]] && . "$HOME/.zkeys"
 
