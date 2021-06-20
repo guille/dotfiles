@@ -34,6 +34,7 @@ alias ......="cd ../../../../.."
 if [[ -x `which htop` ]]; then alias top="htop"; fi
 
 function dl() { tv --no-auto -d "$*" }
+function ytmp3() { youtube-dl --extract-audio --audio-format mp3 "$*" }
 
 # Log in as postgres
 alias pg='sudo -u postgres -i'
