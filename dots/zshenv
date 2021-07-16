@@ -59,6 +59,7 @@ function ppsk() { pps $@ | awk '{print $2}' | xargs kill -9; }
 function cpcd() { cp $1 $2 && cd $2; }
 function mvcd() { mv $1 $2 && cd $2; }
 
+function untilok() { until $@; do :; done }
 function untilfail() { while $@; do :; done }
 
 command_exists() {
