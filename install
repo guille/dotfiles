@@ -117,6 +117,10 @@ localectl set-x11-keymap es
 infoprint "Creating symbolic links..."
 source links
 
+# (for redshift, this isn't ideal if you move around a lot but Geoclue was giving me issues)
+infoprint "Setting \$COORDINATES..."
+\curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | awk 'OFS=":" {print $3,$5}' | tr -d ',}' | xargs -I % sed -i 's/COORDINATES=.*/COORDINATES=%/' $HOME/.zprofile
+
 # Create to-do list
 infoprint "Creating a to-do file with more possible configurations..."
 
