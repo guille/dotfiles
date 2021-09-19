@@ -3,4 +3,6 @@ nokogiri
 download_tv
 rubocop
 pry
+byebug
 bundler
+parallel
