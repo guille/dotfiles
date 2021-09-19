@@ -8,6 +8,7 @@ alias pacc='paccache -rk 1 && paccache -ruk0 && sudo pacman -Rns $(pacman -Qtdq)
 alias ls='ls -F --color=auto'
 alias la='ls -AF --color=auto'
 alias ll='ls -AoFh --color=auto'
+alias lsd='ls -d */'
 alias diff='diff -wu'
 alias pgrep='pgrep -l'
 alias grep='grep -n --color=auto'
@@ -19,6 +20,7 @@ alias calc='bc -q -l'
 alias cal='cal --monday --three'
 alias vim='nvim'
 alias py='python'
+alias resource='source ~/.zshrc && source ~/.zshenv'
 
 # Git cleanup, easier here than in gitconfig
 alias _gitpruneo="git remote prune origin || true"
@@ -58,6 +60,12 @@ function pps() { ps aux | grep "$@" | grep -v "grep"; }
 function ppsk() { pps $@ | awk '{print $2}' | xargs kill -9; }
 function cpcd() { cp $1 $2 && cd $2; }
 function mvcd() { mv $1 $2 && cd $2; }
+# Go to the root of git directory
+function groot() {
+    if git_root=$(git rev-parse --show-toplevel 2>/dev/null); then
+        pushd "${git_root}"
+    fi
+}
 
 function untilok() { until $@; do :; done }
 function untilfail() { while $@; do :; done }
