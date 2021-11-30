@@ -20,7 +20,11 @@ alias calc='bc -q -l'
 alias cal='cal --monday --three'
 alias vim='nvim'
 alias py='python'
+alias youtube-dl='yt-dlp'
 alias resource='source ~/.zshrc && source ~/.zshenv'
+
+# Serves current dir in 0.0.0.0:8000
+alias pyserve='python -m http.server 8000'
 
 # Git cleanup, easier here than in gitconfig
 alias _gitpruneo="git remote prune origin || true"
@@ -36,7 +40,7 @@ alias ......="cd ../../../../.."
 if [[ -x `which htop` ]]; then alias top="htop"; fi
 
 function dl() { tv --no-auto -d "$*" }
-function ytmp3() { youtube-dl --extract-audio --audio-format mp3 "$*" }
+function ytmp3() { yt-dlp --extract-audio --audio-format mp3 "$*" }
 
 # Log in as postgres
 alias pg='sudo -u postgres -i'
