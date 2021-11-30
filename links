@@ -7,6 +7,7 @@ ln -sfv ${DOTFILES_DIR}/zlogin ~/.zlogin 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/zprofile ~/.zprofile 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/zshenv ~/.zshenv 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/zkeys ~/.zkeys 1> /dev/null
+ln -sfv ${DOTFILES_DIR}/zsh-history-substring-search.zsh ~/.zhist_substr 1> /dev/null
 
 # git
 ln -sfv ${DOTFILES_DIR}/gitconfig ~/.gitconfig 1> /dev/null

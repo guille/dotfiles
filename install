@@ -37,6 +37,8 @@ else
 	chsh -s /bin/zsh
 fi
 
+\curl -L -o dots/zsh-history-substring-search.zsh https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
+
 infoprint "Installing programs from source/apps"
 xargs -a <(cat sources/apps | \grep -v '^#') $INSTALL
 

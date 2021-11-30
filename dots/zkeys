@@ -31,6 +31,13 @@ bindkey '^[[3;5~' kill-word
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
+# re-bind up/down if the history substring plugin is found
+if [[ -f "$HOME/.zhist_substr" ]]; then
+    . "$HOME/.zhist_substr"
+    bindkey "${key[Up]}" history-substring-search-up
+    bindkey "${key[Down]}" history-substring-search-down
+fi
+
 # Finally, make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
 if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
