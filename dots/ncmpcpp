@@ -6,6 +6,8 @@ mpd_music_dir = ~/Music
 mpd_host = localhost
 mpd_crossfade_time = 5
 
+lyrics_fetchers = azlyrics, metrolyrics, musixmatch, genius, sing365, justsomelyrics, jahlyrics, plyrics, tekstowo, zeneszoveg, internet
+
 autocenter_mode = yes
 centered_cursor = yes
 
