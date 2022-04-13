@@ -28,6 +28,7 @@ ripgrep
 tree
 rsync
 pacman-contrib
+git-delta
 # cups
 # light
 

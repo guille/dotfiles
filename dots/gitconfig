@@ -5,6 +5,7 @@
   username = guille
 [core]
   autocrlf = input
+  pager = delta
 [alias]
   st = status
   co = checkout
@@ -37,3 +38,16 @@
 [rebase]
   autoStash = true
   autosquash = true
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    syntax-theme = Monokai Extended
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
