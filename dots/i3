@@ -202,6 +202,7 @@ assign [class="thunar"] workspace 3
 assign [class="Thunar"] workspace 3
 assign [class="Evince"] $ws4
 assign [class="Foliate"] $ws4
+assign [class="obsidian"] $ws4
 assign [class="feh"] $ws4
 assign [title="LibreOffice"] $ws4
 assign [class="imv"] $ws4
