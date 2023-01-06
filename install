@@ -56,7 +56,6 @@ else
 	\curl -sSL https://get.rvm.io | bash -s stable
 	source ~/.rvm/scripts/rvm
 	rvm install ruby-head
-	#rvm install jruby-head
 	rvm use --default ruby-head
 	infoprint "Installing gems"
 	xargs -a <(cat sources/gems) gem install
