@@ -183,7 +183,7 @@ bindsym $mod+c exec firefox
 set $ws1 "1 web"
 set $ws2 "2 work"
 set $ws4 "4 view"
-set $ws5 "5 vlc"
+set $ws5 "5 vid"
 set $ws6 "6 torrent"
 set $ws8 "8 dev"
 
@@ -206,7 +206,7 @@ assign [class="obsidian"] $ws4
 assign [class="feh"] $ws4
 assign [title="LibreOffice"] $ws4
 assign [class="imv"] $ws4
-assign [class="vlc"] $ws5
+assign [class="mpv"] $ws5
 assign [class="Transmission-gtk"] $ws6
 assign [class="jetbrains"] $ws8
 for_window [title="Preferences$"] floating enable
@@ -225,7 +225,7 @@ workspace $ws5 output HDMI-1
 # Startup
 exec --no-startup-id i3-msg "workspace $ws2; append_layout ~/.config/i3/dev.json; exec subl; exec i3-sensible-terminal; exec i3-sensible-terminal"
 exec_always --no-startup-id feh --bg-fill --randomize ~/Wallpapers/*
-exec --no-startup-id picom -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null --focus-exclude "class_g*='vlc'" --focus-exclude "class_g*='Foliate'" --focus-exclude "name~='Youtube'" --focus-exclude "name*='YouTube — Mozilla Firefox'"
+exec --no-startup-id picom -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null --focus-exclude "class_g*='mpv'" --focus-exclude "class_g*='Foliate'" --focus-exclude "name~='Youtube'" --focus-exclude "name*='YouTube — Mozilla Firefox'"
 
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
