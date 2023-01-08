@@ -1,2 +1,4 @@
 UP add volume +5
 DOWN add volume -5
++ add speed +0.1
+- add speed -0.1
