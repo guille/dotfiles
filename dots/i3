@@ -214,6 +214,7 @@ for_window [title="Library$"] floating enable
 for_window [title="Pocket: Add Item - "] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Foliate"] fullscreen enable
+for_window [class="mpv"] fullscreen enable
 
 # Two monitors
 workspace $ws5 output HDMI-1

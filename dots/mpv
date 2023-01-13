@@ -1,3 +1,4 @@
+# fs=yes
 save-position-on-quit
-fs=yes
 profile=gpu-hq # disable if on lower hardware
+video-sync=display-resample

@@ -1,4 +1,7 @@
+# Default binds:
+# https://github.com/mpv-player/mpv/blob/master/etc/input.conf
 UP add volume +5
 DOWN add volume -5
 + add speed +0.1
 - add speed -0.1
+j cycle sub
