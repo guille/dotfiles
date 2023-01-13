@@ -1,2 +1,3 @@
 xset b off
+xinput --set-prop "PixArt HP 100 USB Optical Mouse" "libinput Accel Speed" -0.5
 exec i3
