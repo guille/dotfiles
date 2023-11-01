@@ -40,14 +40,17 @@
   autosquash = true
 
 [interactive]
-    diffFilter = delta --color-only
+  diffFilter = delta --color-only
 
 [delta]
-    navigate = true  # use n and N to move between diff sections
-    syntax-theme = Monokai Extended
+  navigate = true  # use n and N to move between diff sections
+  syntax-theme = Monokai Extended
 
 [merge]
-    conflictstyle = diff3
+  conflictstyle = diff3
 
 [diff]
-    colorMoved = default
+  colorMoved = default
+
+[init]
+	defaultBranch = master
