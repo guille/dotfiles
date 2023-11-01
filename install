@@ -129,10 +129,10 @@ echo "* lxappearance: Arc-Darker + Papirus" >> todo
 echo "* Install package control for Sublime" >> todo
 echo "   * Install Agila" >> todo
 echo "   * Install AllAutoComplete" >> todo
+echo "   * Install Babel" >> todo
 echo "   * Install BracketHighlighter" >> todo
-echo "   * Install Crystal" >> todo
 echo "   * Install Elixir" >> todo
 echo "   * Install Kotlin" >> todo
-echo "   * Install Babel" >> todo
+echo "   * Install MoveTab" >> todo
 echo "   * Install Rust Enhanced" >> todo
 echo "   * Install SublimeLinter, -annotations, -contrib-elixirc, -ruby" >> todo
