@@ -204,27 +204,14 @@ setprompt
 # Map compose key
 setxkbmap -option compose:menu
 
-###
-# Modifying enviroment variables
-
-export EDITOR="subl -w"
-
-export PATH=$PATH:~/.local/bin # Add pip user installs
-export PATH=~/mybin:$PATH # Add scripts
-
 [[ -f "$HOME/.zkeys" ]] && . "$HOME/.zkeys"
-
-export NPM_PACKAGES="$HOME/.npm-packages"
-export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
-export PATH="$NPM_PACKAGES/bin:$HOME/.yarn/bin:$PATH"
-unset MANPATH  # delete if you already modified MANPATH elsewhere in your config
-export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 local seconds_since_pacman=$(expr $(date +"%s" ) - $(tail /var/log/pacman.log -n1 | awk '{print substr($1, 2, 24)}'  | xargs date +"%s" -d))
 local days_since_pacman=$(expr $seconds_since_pacman / 86400)
 if [[ $days_since_pacman -ge 7 ]]; then
     echo "Days since last pacman run: ${days_since_pacman}"
 fi
+
+#Aliases
+
+[[ -f "$HOME/.zaliases" ]] && . "$HOME/.zaliases"
