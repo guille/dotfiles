@@ -35,6 +35,10 @@
   la = !git l --all
 [pull]
   rebase = true
+
+[push]
+  autoSetupRemote = true
+
 [rebase]
   autoStash = true
   autosquash = true
