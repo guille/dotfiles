@@ -1,0 +1,15 @@
+configuration {
+	modi: "window,drun,ssh,combi";
+	font: "Inconsolata 12";
+	combi-modi: "drun";
+	case-sensitive: false;
+	normalize-match: true;
+	show-icons: true;
+	icon-theme: "Papirus";
+	matching: "fuzzy";
+	display-drun: "Apps";
+	drun {
+		fallback-icon: "application-x-addon";
+	}
+}
+@theme "launcher.rasi"

@@ -126,6 +126,7 @@ source links
 infoprint "Creating a to-do file with more possible configurations..."
 
 echo "* lxappearance: Arc-Darker + Papirus" >> todo
+echo "* Download and install Inconsolata Nerd Font" >> todo
 echo "* Install package control for Sublime" >> todo
 echo "   * Install Agila" >> todo
 echo "   * Install AllAutoComplete" >> todo
