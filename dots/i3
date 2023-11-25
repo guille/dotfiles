@@ -192,6 +192,10 @@ hide_edge_borders vertical
 focus_on_window_activation focus
 for_window [class=".*"] focus
 
+# Gaps
+gaps inner 10
+smart_gaps on
+
 # Specific apps
 
 assign [class="Firefox"] $ws1
