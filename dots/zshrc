@@ -51,7 +51,7 @@ function precmd {
 
 
     local TERMWIDTH
-    (( TERMWIDTH = ${COLUMNS} - 1 ))
+    (( TERMWIDTH = ${COLUMNS} ))
 
 
     ###
@@ -181,11 +181,16 @@ setxkbmap -option compose:menu
 
 [[ -f "$HOME/.zkeys" ]] && . "$HOME/.zkeys"
 
-local seconds_since_pacman=$(expr $(date +"%s" ) - $(tail /var/log/pacman.log -n1 | awk '{print substr($1, 2, 24)}'  | xargs date +"%s" -d))
-local days_since_pacman=$(expr $seconds_since_pacman / 86400)
-if [[ $days_since_pacman -ge 7 ]]; then
-    echo "Days since last pacman run: ${days_since_pacman}"
-fi
+check_pacman() {
+    local seconds_since_pacman=$(expr $(date +"%s" ) - $(tail /var/log/pacman.log -n1 | awk '{print substr($1, 2, 24)}'  | xargs date +"%s" -d))
+    local days_since_pacman=$(expr $seconds_since_pacman / 86400)
+    if [[ $days_since_pacman -ge 7 ]]; then
+        echo "Days since last pacman run: ${days_since_pacman}"
+    fi
+}
+
+check_pacman
+
 
 #Aliases
 
