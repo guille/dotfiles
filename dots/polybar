@@ -150,7 +150,7 @@ type = internal/date
 interval = 1
 
 date = %H:%M
-date-alt = %Y-%m-%d %H:%M:%S
+date-alt = %a %Y-%m-%d %H:%M:%S
 format = 󰥔  <label>
 format-foreground = ${colors.primary}
 
@@ -165,7 +165,7 @@ host = 127.0.0.1
 port = 6600
 interval = 2
 
-format-online = 󰋋 <toggle> <icon-next> <bar-progress>
+format-online = %{F#ffd204}󰎈%{F-}  <toggle> <icon-next> <bar-progress>
 ;<label-song>
 
 label-song = %artist% - %title%
@@ -182,13 +182,23 @@ bar-progress-empty = ─
 [module/battery]
 type = internal/battery
 low-at = 15
+
+format-charging = <label-charging>
 format-charging-foreground = ${colors.primary}
-label-charging = 🔌 %percentage%%
+label-charging =   %percentage%%
 label-charging-foreground = ${colors.foreground}
 
+format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-foreground = ${colors.primary}
-label-discharging = ⚡ %percentage%%
+label-discharging = %percentage%%
 label-discharging-foreground = ${colors.foreground}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
 label-low-foreground = ${colors.alert}
 
 
