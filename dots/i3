@@ -154,15 +154,15 @@ bindsym $mod+x move workspace to output right
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        bindsym button4 nop
-        bindsym button5 nop
-        status_command i3status
-        colors{
-                background #232323
-                statusline #DCDCDC
-        }
-}
+# bar {
+#         bindsym button4 nop
+#         bindsym button5 nop
+#         status_command i3status
+#         colors{
+#                 background #232323
+#                 statusline #DCDCDC
+#         }
+# }
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
@@ -226,6 +226,7 @@ workspace $ws5 output HDMI-1
 
 
 # Startup
+exec_always --no-startup-id polybar
 exec --no-startup-id i3-msg "workspace $ws2; append_layout ~/.config/i3/dev.json; exec subl; exec i3-sensible-terminal; exec i3-sensible-terminal"
 exec_always --no-startup-id feh --bg-fill --randomize ~/Wallpapers/*
 exec --no-startup-id picom -b --no-fading-openclose -i 0.8 --inactive-opacity-override --config /dev/null --focus-exclude "class_g*='mpv'" --focus-exclude "class_g*='Foliate'" --focus-exclude "name~='Youtube'" --focus-exclude "name*='YouTube — Mozilla Firefox'"

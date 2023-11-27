@@ -32,7 +32,10 @@ ln -sfv ${DOTFILES_DIR}/i3 ~/.config/i3/config 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/dev.json ~/.config/i3/dev.json 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/i3status ~/.config/i3status/config 1> /dev/null
 
-# Rofi
+# polybar
+ln -sfv ${DOTFILES_DIR}/polybar ~/.config/polybar/config.ini 1> /dev/null
+
+# rofi
 ln -sfv ${DOTFILES_DIR}/rofi ~/.config/rofi 1> /dev/null
 
 # dunst

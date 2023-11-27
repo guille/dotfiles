@@ -9,6 +9,7 @@ xorg-xrandr
 xorg-xprop
 i3-wm
 i3status
+polybar
 dmenu
 rofi
 xfce4-terminal
