@@ -40,39 +40,39 @@ fi
 \curl -L -o dots/zsh-history-substring-search.zsh https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
 
 infoprint "Installing programs from source/apps"
-# xargs -a <(cat sources/apps | \grep -v '^#') $INSTALL
+xargs -a <(cat sources/apps | \grep -v '^#') $INSTALL
 
 # RUBY
-# if command_exists rvm; then
-# 	infoprint "rvm already installed"
-# 	infoprint "updating rvm..."
-# 	rvm get stable 1> /dev/null
-# 	infoprint "updating rubygems..."
-# 	gem update --system -q
-# 	infoprint "updating installed gems..."
-# 	gem update -q
-# else
-# 	infoprint "Installing rvm"
-# 	\curl -sSL https://get.rvm.io | bash -s stable
-# 	source ~/.rvm/scripts/rvm
-# 	rvm install ruby-head
-# 	rvm use --default ruby-head
-# 	infoprint "Installing gems"
-# 	xargs -a <(cat sources/gems) gem install
-# fi
+if command_exists rvm; then
+	infoprint "rvm already installed"
+	infoprint "updating rvm..."
+	rvm get stable 1> /dev/null
+	infoprint "updating rubygems..."
+	gem update --system -q
+	infoprint "updating installed gems..."
+	gem update -q
+else
+	infoprint "Installing rvm"
+	\curl -sSL https://get.rvm.io | bash -s stable
+	source ~/.rvm/scripts/rvm
+	rvm install ruby-head
+	rvm use --default ruby-head
+	infoprint "Installing gems"
+	xargs -a <(cat sources/gems) gem install
+fi
 
 # PYTHON
-# if command_exists pip; then
-# 	infoprint "Installing pip packages"
-# 	xargs -a <(cat sources/pip) pip install --user -qq
-# fi
+if command_exists pip; then
+	infoprint "Installing pip packages"
+	xargs -a <(cat sources/pip) pip install --user -qq
+fi
 
 # YARN
-# if command_exists yarn; then
-# 	infoprint "Installing yarn packages"
-# 	yarn global upgrade
-# 	xargs -a <(cat sources/yarn) yarn global add --silent
-# fi
+if command_exists yarn; then
+	infoprint "Installing yarn packages"
+	yarn global upgrade
+	xargs -a <(cat sources/yarn) yarn global add --silent
+fi
 
 # ELIXIR - hex
 if command_exists mix; then
@@ -95,9 +95,6 @@ touch ~/.mpd/mpdstate
 touch ~/.mpd/mpd.pid
 touch ~/.mpd/sticker.sql
 
-# mpv
-mkdir ~/.config/mpv
-
 # Install aurman
 if command_exists aurman; then
 	infoprint "aurman already installed"
@@ -113,7 +110,7 @@ else
 fi
 
 # Install AUR packages
-# xargs -a <(cat sources/aur | \grep -v '^#') aurman -S --needed --noconfirm
+xargs -a <(cat sources/aur | \grep -v '^#') aurman -S --needed --noconfirm
 
 infoprint "Setting spanish keyboard"
 localectl set-x11-keymap es
