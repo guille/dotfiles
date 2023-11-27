@@ -82,6 +82,10 @@ if command_exists mix; then
 	# mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
 fi
 
+# Fonts
+cp -r fonts/* ~/.local/share/fonts
+fc-cache
+
 # nvim
 mkdir -p ~/.config/nvim/colors
 
@@ -132,7 +136,6 @@ source links
 infoprint "Creating a to-do file with more possible configurations..."
 
 echo "* lxappearance: Arc-Darker + Papirus" >> todo
-echo "* Download and install Inconsolata Nerd Font" >> todo
 echo "* Install package control for Sublime" >> todo
 echo "   * Install Agila" >> todo
 echo "   * Install AllAutoComplete" >> todo
