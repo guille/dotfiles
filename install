@@ -95,6 +95,12 @@ touch ~/.mpd/mpdstate
 touch ~/.mpd/mpd.pid
 touch ~/.mpd/sticker.sql
 
+# mpv
+mkdir ~/.config/mpv
+
+# polybar
+mkdir ~/.config/polybar
+
 # Install aurman
 if command_exists aurman; then
 	infoprint "aurman already installed"
