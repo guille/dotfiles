@@ -178,12 +178,12 @@ bindsym XF86MonBrightnessDown exec light -U 10
 
 # Workspaces
 bindsym $mod+c exec firefox
-set $ws1 "1 web"
-set $ws2 "2 work"
-set $ws4 "4 view"
-set $ws5 "5 vid"
+set $ws1 "1"
+set $ws2 "2"
+set $ws4 "4"
+set $ws5 "5"
 set $ws6 "6"
-set $ws8 "8 dev"
+set $ws8 "8"
 
 new_window pixel 4
 hide_edge_borders vertical
