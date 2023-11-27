@@ -6,6 +6,7 @@ primary = #ffd204
 secondary = #8ABEB7
 alert = #ee2e24
 disabled = #959ca1
+; some are hardcoded below too
 
 [bar/example]
 width = 100%
@@ -90,7 +91,7 @@ interval = 25
 mount-0 = /
 mount-1 = /home/guille
 
-label-mounted = %{F#F0C674}%mountpoint%%{F-} %percentage_used%%
+label-mounted = %{F#ffd204}%mountpoint%%{F-} %percentage_used%%
 
 label-unmounted =
 label-unmounted-foreground = ${colors.disabled}
@@ -98,13 +99,19 @@ label-unmounted-foreground = ${colors.disabled}
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume-prefix = "󰋋 "
+;format-volume-prefix = "󰖁 "
 format-volume-prefix-foreground = ${colors.primary}
-format-volume = <label-volume>
+format-volume = <ramp-volume> <label-volume>
+format-volume-foreground = ${colors.primary}
+
+ramp-volume-0 = 󰕿
+ramp-volume-1 = 󰖀
+ramp-volume-2 = 󰕾
 
 label-volume = %percentage%%
+label-volume-foreground = ${colors.foreground}
 
-label-muted = muted
+label-muted = 󰖁 muted
 label-muted-foreground = ${colors.disabled}
 
 [module/memory]
@@ -124,14 +131,19 @@ label = %percentage:2%%
 [network-base]
 type = internal/network
 interval = 5
-format-connected = <label-connected>
-format-disconnected = <label-disconnected>
-label-disconnected = %{F#F0C674}󰖪 %{F#707880} disconnected
 
 [module/wlan]
 inherit = network-base
 interface-type = wireless
-label-connected = %{F#F0C674}󰖩 %{F-} %essid%
+
+format-connected = 󰖩  <label-connected>
+format-connected-foreground = ${colors.primary}
+label-connected = %essid%
+label-connected-foreground = ${colors.foreground}
+
+format-disconnected = 󰖪  <label-disconnected>
+format-disconnected-foreground = ${colors.disabled}
+label-disconnected = disconnected
 
 [module/date]
 type = internal/date
@@ -139,9 +151,11 @@ interval = 1
 
 date = %H:%M
 date-alt = %Y-%m-%d %H:%M:%S
+format = 󰥔  <label>
+format-foreground = ${colors.primary}
 
-label = 󰥔  %date%
-label-foreground = ${colors.primary}
+label = %date%
+label-foreground = ${colors.foreground}
 
 
 [module/music]
@@ -151,7 +165,7 @@ host = 127.0.0.1
 port = 6600
 interval = 2
 
-format-online = 󰽰 <toggle> <icon-next> <bar-progress>
+format-online = 󰋋 <toggle> <icon-next> <bar-progress>
 ;<label-song>
 
 label-song = %artist% - %title%
