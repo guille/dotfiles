@@ -17,22 +17,23 @@ volume_normalization		"yes"
 visualizer_data_source = /tmp/mpd.fifo
 visualizer_output_name = "FIFO"
 visualizer_in_stereo = yes
-visualizer_type = wave_filled
+visualizer_type = ellipse
 #wave/spectrum/wave_filled/ellipse
-visualizer_look = ●▮
+visualizer_autoscale = no
+visualizer_look = "●▮"
 
-song_columns_list_format = (40)[yellow]{t|f:Title} (30)[green]{a} (30)[magenta]{b} (7f)[blue]{l}
+song_columns_list_format = (5)[]{} (55)[yellow]{t|f:Title} (35)[white]{ar} (5)[]{}
 
-song_list_format = "{[%l]}{%t }$R{%a - %b}"
-song_status_format = "{%a - }{%t - }{%b}"
-now_playing_prefix = "$b$8"
-now_playing_suffix = "$/b$9"
+song_list_format = "{%t }$R{%b}"
+now_playing_prefix = "$b$u>>"
+now_playing_suffix = "$/b$/u"
 mouse_support = no
 execute_on_song_change="notify-send "Now playing" "$(ncmpcpp --current-song="{%a - }{%t}|{%f}")""
 
 # Colors
 colors_enabled                 = "yes"
 empty_tag_color                = "cyan"
+header_window_color            = "black"
 volume_color                   = "cyan"
 state_line_color               = "black"
 state_flags_color              = "magenta"
@@ -41,9 +42,20 @@ color1                         = "white"
 color2                         = "black"
 current_item_prefix            = "$(yellow)$r"
 current_item_suffix            = "$/r$(end)"
-progressbar_color              = "red"
 current_item_inactive_column_prefix = "$(white)$r"
 current_item_inactive_column_suffix = "$/r$(end)"
+
+
+header_visibility = "yes"
+titles_visibility = "no"
+
+[statusbar]
+progressbar_look = "▃▃▃"
+progressbar_color = "red"
+progressbar_elapsed_color = "cyan"
+statusbar_visibility = "no"
+statusbar_color = "3"
+song_status_format = "{%t - %a}"
 
 
 ##### song format #####

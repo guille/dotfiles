@@ -50,9 +50,14 @@ alias dnd='notify-send "DUNST_COMMAND_PAUSE"'
 alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
 
 # Media functions
-alias music='play_music'
 alias hdmi='xrandr --output HDMI-1 --auto --right-of eDP-1'
 alias rn='~/projects/tvrename/bin/rename'
+
+music() {
+    mpc play -q
+    ncmpcpp -q 2>/dev/null
+    mpc pause -q
+}
 
 # Helpful functions
 # fuzzy cd
@@ -75,11 +80,6 @@ function untilfail() { while $@; do :; done }
 
 command_exists() {
     type "$1" &> /dev/null ;
-}
-
-play_music() {
-    mpd
-    ncmpcpp -q && mpd --kill
 }
 
 csh() {
