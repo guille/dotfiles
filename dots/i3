@@ -182,7 +182,7 @@ set $ws1 "1 web"
 set $ws2 "2 work"
 set $ws4 "4 view"
 set $ws5 "5 vid"
-set $ws6 "6 torrent"
+set $ws6 "6"
 set $ws8 "8 dev"
 
 new_window pixel 4
