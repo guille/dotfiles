@@ -31,8 +31,8 @@ module-margin = 1
 separator = |
 separator-foreground = ${colors.disabled}
 
-font-0 = Inconsolata Nerd Font;0
-font-1 = Noto Color Emoji:scale=10;0
+font-0 = Inconsolata Nerd Font;2
+font-1 = Noto Color Emoji:scale=10;2
 
 modules-left = xworkspaces
 modules-center = music
@@ -150,7 +150,7 @@ type = internal/date
 interval = 1
 
 date = %H:%M
-date-alt = %a %Y-%m-%d %H:%M:%S
+date-alt = %a %d/%m %H:%M:%S
 format = 󰥔  <label>
 format-foreground = ${colors.primary}
 
