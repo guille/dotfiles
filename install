@@ -37,6 +37,8 @@ else
 	chsh -s /bin/zsh
 fi
 
+# zsh stuff
+git clone --depth=1 git@github.com:romkatv/powerlevel10k.git ~/.powerlevel10k
 \curl -L -o dots/zsh-history-substring-search.zsh https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
 
 infoprint "Installing programs from source/apps"

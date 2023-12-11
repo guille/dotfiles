@@ -1,5 +1,18 @@
+# Two prompt styles
+# phil: see http://aperiodic.net/phil/prompt/
+# p10k: see https://github.com/romkatv/powerlevel10k
+local PROMPT_STYLE="phil"
 
-###
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ ${PROMPT_STYLE} = "p10k" &&  -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+
+
+####
 # Splits words at / too, useful for paths
 autoload -U select-word-style
 select-word-style bash
@@ -40,10 +53,9 @@ unsetopt flowcontrol
 # fpath=(~/.rvm/scripts/extras/completion.zsh/ $fpath)
 
 ############################# PROMPT ####################################
-# SEE http://aperiodic.net/phil/prompt/ FOR PROMPT
 
-function precmd {
 
+precmd_phil() {
     ###
     # Start up compinit and vcs_info
     compinit
@@ -71,7 +83,7 @@ function precmd {
 }
 
 
-setprompt () {
+setprompt_phil() {
     ###
     # Need this so the prompt will work.
 
@@ -172,7 +184,13 @@ gitarrows () {
     fi
 }
 
-setprompt
+
+if [[ ${PROMPT_STYLE} = "phil" ]]; then
+    precmd() { precmd_phil }
+    setprompt_phil
+fi
+
+
 
 ##################################
 
@@ -195,3 +213,9 @@ check_pacman
 #Aliases
 
 [[ -f "$HOME/.zaliases" ]] && . "$HOME/.zaliases"
+
+if [[ ${PROMPT_STYLE} = "p10k" ]]; then
+    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+    source ~/.powerlevel10k/powerlevel10k.zsh-theme
+    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
