@@ -8,7 +8,6 @@
 	"ignored_packages":
 	[
 		"Rust",
-		"SublimeLinter-contrib-elixirc",
 		"Vintage",
 	],
 	"rulers": [100],
@@ -17,4 +16,5 @@
 	"theme_agila_compact_sidebar": true,
 	"theme_agila_sidebar_small": true,
 	"trim_trailing_white_space_on_save": true,
+	"index_files": true,
 }

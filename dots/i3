@@ -213,7 +213,6 @@ assign [class="transmission-gtk"] $ws6
 assign [class="jetbrains"] $ws8
 for_window [title="Preferences$"] floating enable
 for_window [title="Library$"] floating enable
-for_window [title="Pocket: Add Item - "] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Foliate"] fullscreen enable
 for_window [class="mpv"] fullscreen enable
