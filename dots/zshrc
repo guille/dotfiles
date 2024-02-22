@@ -208,10 +208,12 @@ check_pacman() {
 
 check_pacman
 
-
-#Aliases
-
+# Aliases
 [[ -f "$HOME/.zaliases" ]] && . "$HOME/.zaliases"
+
+# fzf
+. /usr/share/fzf/key-bindings.zsh
+. /usr/share/fzf/completion.zsh
 
 if [[ ${PROMPT_STYLE} = "p10k" ]]; then
     # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

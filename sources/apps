@@ -30,6 +30,7 @@ tree
 rsync
 pacman-contrib
 git-delta
+fzf
 mupdf-tools
 # cups
 # light
