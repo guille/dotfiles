@@ -43,8 +43,8 @@ elixir
 crystal
 shards
 python-pip
-pypy3
-intellij-idea-community-edition
+# pypy3
+# intellij-idea-community-edition
 yarn
 rustup
 obsidian
