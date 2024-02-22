@@ -10,8 +10,6 @@ if [[ ${PROMPT_STYLE} = "p10k" &&  -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-inst
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-
-
 ####
 # Splits words at / too, useful for paths
 autoload -U select-word-style
@@ -53,7 +51,6 @@ unsetopt flowcontrol
 # fpath=(~/.rvm/scripts/extras/completion.zsh/ $fpath)
 
 ############################# PROMPT ####################################
-
 
 precmd_phil() {
     ###
@@ -188,6 +185,8 @@ gitarrows () {
 if [[ ${PROMPT_STYLE} = "phil" ]]; then
     precmd() { precmd_phil }
     setprompt_phil
+else
+    compinit
 fi
 
 
