@@ -11,7 +11,7 @@ disabled = #959ca1
 [bar/example]
 width = 100%
 height = 24pt
-radius = 6
+radius = 0
 
 ; dpi = 96
 
