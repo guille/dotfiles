@@ -26,6 +26,7 @@ noto-fonts
 noto-fonts-emoji
 noto-fonts-cjk
 ripgrep
+bat
 tree
 rsync
 pacman-contrib
@@ -68,6 +69,7 @@ zip
 unzip
 gvfs
 gvfs-mtp
+magic-wormhole
 
 firefox
 mpv
@@ -83,5 +85,7 @@ hunspell-en_US
 electrum
 yt-dlp
 pinta
+jellyfin-server
+jellyfin-web
 
 aircrack-ng
