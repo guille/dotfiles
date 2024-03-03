@@ -24,7 +24,7 @@ visualizer_look = "●▮"
 
 song_columns_list_format = (5)[]{} (55)[yellow]{t|f:Title} (35)[white]{ar} (5)[]{}
 
-song_list_format = "{%t }$R{%b}"
+song_list_format = "{%t }|{%f }$R{%b}"
 now_playing_prefix = "$b$u>>"
 now_playing_suffix = "$/b$/u"
 mouse_support = no
@@ -55,7 +55,7 @@ progressbar_color = "red"
 progressbar_elapsed_color = "cyan"
 statusbar_visibility = "no"
 statusbar_color = "3"
-song_status_format = "{%t - %a}"
+song_status_format = "{%t - %a}|{%f}"
 
 
 ##### song format #####
