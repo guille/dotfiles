@@ -69,13 +69,6 @@ if command_exists pip; then
 	xargs -a <(cat sources/pip) pip install --user -qq
 fi
 
-# YARN
-if command_exists yarn; then
-	infoprint "Installing yarn packages"
-	yarn global upgrade
-	xargs -a <(cat sources/yarn) yarn global add --silent
-fi
-
 # ELIXIR - hex
 if command_exists mix; then
 	infoprint "Installing/upgrading hex"

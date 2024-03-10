@@ -46,7 +46,6 @@ shards
 python-pip
 # pypy3
 # intellij-idea-community-edition
-yarn
 rustup
 obsidian
 # dotnet-sdk
