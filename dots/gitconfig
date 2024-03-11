@@ -39,6 +39,7 @@
 
 [push]
   autoSetupRemote = true
+  followtags = true
 
 [rebase]
   autoStash = true
@@ -54,8 +55,16 @@
 [merge]
   conflictstyle = zdiff3
 
+[fetch]
+  prune = true
+
+[status]
+  submoduleSummary = true
+
 [diff]
   colorMoved = default
+  algorithm = histogram
+  submodule = log
 
 [init]
   defaultBranch = master
@@ -71,3 +80,6 @@
 
 [column]
   ui = auto
+
+[help]
+  autocorrect = prompt
