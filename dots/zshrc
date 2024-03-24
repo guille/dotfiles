@@ -1,7 +1,17 @@
 # Two prompt styles
 # phil: see http://aperiodic.net/phil/prompt/
 # p10k: see https://github.com/romkatv/powerlevel10k
-local PROMPT_STYLE="phil"
+local PROMPT_STYLE="p10k"
+
+check_pacman() {
+    local seconds_since_pacman=$(expr $(date +"%s" ) - $(tail /var/log/pacman.log -n1 | awk '{print substr($1, 2, 24)}'  | xargs date +"%s" -d))
+    local days_since_pacman=$(expr $seconds_since_pacman / 86400)
+    if [[ $days_since_pacman -ge 7 ]]; then
+        echo "Days since last pacman run: ${days_since_pacman}"
+    fi
+}
+
+check_pacman
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -197,16 +207,6 @@ fi
 setxkbmap -option compose:menu
 
 [[ -f "$HOME/.zkeys" ]] && . "$HOME/.zkeys"
-
-check_pacman() {
-    local seconds_since_pacman=$(expr $(date +"%s" ) - $(tail /var/log/pacman.log -n1 | awk '{print substr($1, 2, 24)}'  | xargs date +"%s" -d))
-    local days_since_pacman=$(expr $seconds_since_pacman / 86400)
-    if [[ $days_since_pacman -ge 7 ]]; then
-        echo "Days since last pacman run: ${days_since_pacman}"
-    fi
-}
-
-check_pacman
 
 # Aliases
 [[ -f "$HOME/.zaliases" ]] && . "$HOME/.zaliases"
