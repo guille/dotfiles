@@ -47,6 +47,7 @@ python-pip
 # pypy3
 # intellij-idea-community-edition
 rustup
+hugo
 obsidian
 # dotnet-sdk
 
