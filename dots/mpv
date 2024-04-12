@@ -3,3 +3,4 @@ save-position-on-quit
 profile=gpu-hq # disable if on lower hardware
 video-sync=display-resample
 subs-fallback=yes
+slang=en,eng,es
