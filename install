@@ -44,6 +44,16 @@ git clone --depth=1 git@github.com:romkatv/powerlevel10k.git ~/.powerlevel10k
 infoprint "Installing programs from source/apps"
 xargs -a <(cat sources/apps | \grep -v '^#') $INSTALL
 
+# Firewall
+systemctl enable --now ufw
+sudo ufw default deny
+# Jellyfin
+sudo ufw allow from 192.168.1.0/24 to any port 8096
+# Disable ping
+sudo sed -i 's/-A ufw-before-input -p icmp --icmp-type echo-request -j ACCEPT/-A ufw-before-input -p icmp --icmp-type echo-request -j DROP/' /etc/ufw/before.rules
+sudo ufw enable
+sudo ufw logging off
+
 # RUBY
 if command_exists rvm; then
 	infoprint "rvm already installed"
