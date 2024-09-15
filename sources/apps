@@ -14,7 +14,7 @@ dmenu
 rofi
 xfce4-terminal
 dunst
-mlocate
+plocate
 htop
 lxappearance
 arc-gtk-theme
