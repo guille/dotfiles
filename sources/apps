@@ -34,6 +34,7 @@ pacman-contrib
 git-delta
 fzf
 mupdf-tools
+lsof
 # cups
 # light
 
