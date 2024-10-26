@@ -23,6 +23,7 @@ ln -sfv ${DOTFILES_DIR}/subl_elixir ~/.config/sublime-text-3/Packages/User/Elixi
 ln -sfv ${DOTFILES_DIR}/subl_gitcommit ~/.config/sublime-text-3/Packages/User/Git\ Commit.sublime-settings 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/ipdb.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/pry.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
+ln -sfv ${DOTFILES_DIR}/rdbg.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/byebug.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
 
 # Xfce-terminal
