@@ -170,7 +170,7 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% #decr
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 
 # Print screen
-bindsym --release Print exec --no-startup-id scrot -s ~/Screenshots/$(date +%F-%T).png
+bindsym --release Print exec --no-startup-id maim -s ~/Screenshots/$(date +%F-%T).png
 
 # Backlight controls
 bindsym XF86MonBrightnessUp exec light -A 10
