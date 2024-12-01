@@ -35,6 +35,7 @@ git-delta
 fzf
 mupdf-tools
 lsof
+jq
 # cups
 # light
 
