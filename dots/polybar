@@ -91,7 +91,7 @@ interval = 25
 mount-0 = /
 mount-1 = /home/guille
 
-label-mounted = %{F#ffd204}%mountpoint%%{F-} %percentage_used%%
+label-mounted = %{F#ffd204}%mountpoint%%{F-} %percentage_used%% used
 
 label-unmounted =
 label-unmounted-foreground = ${colors.disabled}
