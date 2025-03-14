@@ -11,8 +11,6 @@ lyrics_fetchers = azlyrics, metrolyrics, musixmatch, genius, sing365, justsomely
 autocenter_mode = yes
 centered_cursor = yes
 
-volume_normalization		"yes"
-
 # FIFO visualizer
 visualizer_data_source = /tmp/mpd.fifo
 visualizer_output_name = "FIFO"
