@@ -49,26 +49,29 @@ systemctl enable --now ufw
 sudo ufw default deny
 # Jellyfin
 sudo ufw allow from 192.168.1.0/24 to any port 8096
+# Expo Go
+sudo ufw allow from 192.168.1.0/24 to any port 8081
 # Disable ping
 sudo sed -i 's/-A ufw-before-input -p icmp --icmp-type echo-request -j ACCEPT/-A ufw-before-input -p icmp --icmp-type echo-request -j DROP/' /etc/ufw/before.rules
 sudo ufw enable
 sudo ufw logging off
 
+# Mise autocomplete
+mise use --global usage
+sudo chown -R $(whoami):$(id -gn) /usr/local/share/zsh
+mkdir -p /usr/local/share/zsh/site-functions
+mise completion zsh  > /usr/local/share/zsh/site-functions/_mise
+
 # RUBY
-if command_exists rvm; then
-	infoprint "rvm already installed"
-	infoprint "updating rvm..."
-	rvm get stable 1> /dev/null
+if command_exists gem; then
+	infoprint "ruby already installed"
 	infoprint "updating rubygems..."
 	gem update --system -q
 	infoprint "updating installed gems..."
 	gem update -q
 else
-	infoprint "Installing rvm"
-	\curl -sSL https://get.rvm.io | bash -s stable
-	source ~/.rvm/scripts/rvm
-	rvm install ruby-head
-	rvm use --default ruby-head
+	infoprint "Installing ruby"
+	mise use --global ruby@3.4
 	infoprint "Installing gems"
 	xargs -a <(cat sources/gems) gem install
 fi

@@ -6,12 +6,14 @@ local PROMPT_STYLE="p10k"
 check_pacman() {
     local seconds_since_pacman=$(expr $(date +"%s" ) - $(tail /var/log/pacman.log -n1 | awk '{print substr($1, 2, 24)}'  | xargs date +"%s" -d))
     local days_since_pacman=$(expr $seconds_since_pacman / 86400)
-    if [[ $days_since_pacman -ge 7 ]]; then
+    if [[ $days_since_pacman -ge 6 ]]; then
         echo "Days since last pacman run: ${days_since_pacman}"
     fi
 }
 
 check_pacman
+
+eval "$(mise activate zsh)"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -56,9 +58,6 @@ unsetopt beep
 bindkey -e
 # Disable ctrl s
 unsetopt flowcontrol
-
-# Uncomment for rvm options completion
-# fpath=(~/.rvm/scripts/extras/completion.zsh/ $fpath)
 
 ############################# PROMPT ####################################
 

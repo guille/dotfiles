@@ -24,6 +24,8 @@ alias py='python'
 alias youtube-dl='yt-dlp'
 alias resource='source ~/.zshrc && source ~/.zshenv'
 
+alias x="mise x --"
+
 # Serves current dir in 0.0.0.0:8000
 alias pyserve='python -m http.server 8000'
 
