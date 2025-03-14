@@ -2,6 +2,6 @@ download_tv
 mechanize
 nokogiri
 rubocop
-pry
-byebug
+pry-byebug
 parallel
+ruby-lsp

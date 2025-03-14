@@ -157,3 +157,4 @@ echo "   * Install Kotlin" >> todo
 echo "   * Install MoveTab" >> todo
 echo "   * Install Rust Enhanced" >> todo
 echo "   * Install SublimeLinter, -annotations, -contrib-elixirc, -ruby" >> todo
+echo "   * Install LSP (+ servers)" >> todo
