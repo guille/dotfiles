@@ -28,6 +28,7 @@ noto-fonts-emoji
 noto-fonts-cjk
 ripgrep
 bat
+fd
 tree
 rsync
 pacman-contrib
