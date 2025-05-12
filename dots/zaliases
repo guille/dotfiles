@@ -21,7 +21,7 @@ alias calc='bc -q -l'
 alias cal='cal --monday --three'
 alias vim='nvim'
 alias py='python'
-alias youtube-dl='yt-dlp'
+alias yt-dlp="yt-dlp --downloader aria2c --output '%(title)s.%(ext)s' --restrict-filenames"
 alias resource='source ~/.zshrc && source ~/.zshenv'
 
 alias x="mise x --"
