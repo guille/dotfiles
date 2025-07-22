@@ -23,6 +23,7 @@ picom
 ufw
 ttf-dejavu
 ttf-inconsolata
+ttf-inconsolata-nerd
 noto-fonts
 noto-fonts-emoji
 noto-fonts-cjk
