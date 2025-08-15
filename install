@@ -148,7 +148,7 @@ echo "   - [ ] Install Babel" >> todo
 echo "   - [ ] Install BracketHighlighter" >> todo
 echo "   - [ ] Install Elixir" >> todo
 echo "   - [ ] Install Increment Selection" >> todo
-echo "   - [ ] Install LSP (+ gopls, json, ruby-lsp)" >> todo
+echo "   - [ ] Install LSP (+ gopls, json)" >> todo
 echo "   - [ ] Install Kotlin" >> todo
 echo "   - [ ] Install MoveTab" >> todo
 echo "   - [ ] Install RSpec" >> todo

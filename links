@@ -23,6 +23,7 @@ ln -sfv ${DOTFILES_DIR}/subl_colors ~/.config/sublime-text-3/Packages/User/Agila
 ln -sfv ${DOTFILES_DIR}/subl_ruby ~/.config/sublime-text-3/Packages/User/Ruby.sublime-settings 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/subl_elixir ~/.config/sublime-text-3/Packages/User/Elixir.sublime-settings 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/subl_gitcommit ~/.config/sublime-text-3/Packages/User/Git\ Commit.sublime-settings 1> /dev/null
+ln -sfv ${DOTFILES_DIR}/subl_lsp ~/.config/sublime-text-3/Packages/User/LSP.sublime-settings 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/ipdb.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/pry.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/rdbg.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
