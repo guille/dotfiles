@@ -133,12 +133,8 @@ fi
 # Install AUR packages
 xargs -a <(cat sources/aur | \grep -v '^#') aurman -S --needed --noconfirm
 
-infoprint "Setting spanish keyboard"
+infoprint "Setting spanish keyboard layout"
 localectl set-x11-keymap es
-
-# (for redshift, this isn't ideal if you move around a lot but Geoclue was giving me issues)
-infoprint "Setting \$COORDINATES..."
-\curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | awk 'OFS=":" {print $3,$5}' | tr -d ',}' | xargs -I % sed 's/COORDINATES=.*/COORDINATES=%/' dots/zprofile_base > dots/zprofile
 
 infoprint "Creating symbolic links..."
 source links
@@ -146,15 +142,17 @@ source links
 # Create to-do list
 infoprint "Creating a to-do file with more possible configurations..."
 
-echo "* lxappearance: Arc-Darker + Papirus" >> todo
-echo "* Install package control for Sublime" >> todo
-echo "   * Install Agila" >> todo
-echo "   * Install AllAutoComplete" >> todo
-echo "   * Install Babel" >> todo
-echo "   * Install BracketHighlighter" >> todo
-echo "   * Install Elixir" >> todo
-echo "   * Install Kotlin" >> todo
-echo "   * Install MoveTab" >> todo
-echo "   * Install Rust Enhanced" >> todo
-echo "   * Install SublimeLinter, -annotations, -contrib-elixirc, -ruby" >> todo
-echo "   * Install LSP (+ servers)" >> todo
+echo "- [ ] Disable telemetry for Tailscale (see Arch wiki)" >> todo
+echo "- [ ] lxappearance: Arc-Darker + Papirus" >> todo
+echo "- [ ] Install package control for Sublime" >> todo
+echo "   - [ ] Install Agila" >> todo
+echo "   - [ ] Install AllAutoComplete" >> todo
+echo "   - [ ] Install Babel" >> todo
+echo "   - [ ] Install BracketHighlighter" >> todo
+echo "   - [ ] Install Elixir" >> todo
+echo "   - [ ] Install Increment Selection" >> todo
+echo "   - [ ] Install LSP (+ gopls, json, ruby-lsp)" >> todo
+echo "   - [ ] Install Kotlin" >> todo
+echo "   - [ ] Install MoveTab" >> todo
+echo "   - [ ] Install RSpec" >> todo
+echo "   - [ ] Install SublimeLinter, -annotations, -contrib-elixirc, -rubocop" >> todo

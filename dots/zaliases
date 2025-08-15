@@ -4,7 +4,7 @@ alias pacu='sudo pacman -Syu'
 alias pacuw='sudo pacman -Syuw'
 alias pacc='paccache -rk 1 && paccache -ruk0 && sudo pacman -Rns $(pacman -Qtdq)'
 
-# Terminal
+# Terminal: better defaults
 alias ls='ls -F --color=auto'
 alias la='ls -AF --color=auto'
 alias ll='ls -AoFh --color=auto'
@@ -16,85 +16,49 @@ alias rg='rg -n --smart-case'
 alias not='\rg --smart-case -v'
 alias df='df -h'
 alias du='du -h'
-alias cls='clear'
-alias calc='bc -q -l'
+alias calc='bc --quiet --mathlib'
 alias cal='cal --monday --three'
 alias vim='nvim'
-alias py='python'
 alias yt-dlp="yt-dlp --downloader aria2c --output '%(title)s.%(ext)s' --restrict-filenames"
+
+if [[ -x `which htop` ]]; then alias top="htop"; fi
+if [[ -x `which bat` ]]; then alias cat="bat --theme-dark 'Monokai Extended'"; fi
+
 alias resource='source ~/.zshrc && source ~/.zshenv'
-
-alias x="mise x --"
-
-# Serves current dir in 0.0.0.0:8000
-alias pyserve='python -m http.server 8000'
 
 # Git cleanup, easier here than in gitconfig
 alias _gitpruneo="git remote prune origin || true"
 alias gitbclean="_gitpruneo && git branch -r | awk '{print \$1}' | \egrep -v -f /dev/fd/0 <(git branch -vv | \grep origin) | awk '{print \$1}' | xargs git branch -D"
 
-# navigate directories simply using .
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ......="cd ../../../../.."
+# Go to the root of git directory
+groot() {
+    if git_root=$(git rev-parse --show-toplevel 2>/dev/null); then
+        pushd "${git_root}"
+    fi
+}
 
-if [[ -x `which htop` ]]; then alias top="htop"; fi
+alias x="mise x --"
 
-function dl() { tv --no-auto -d "$*" }
-function ytmp3() { yt-dlp --extract-audio --audio-format mp3 "$*" }
-
-# Log in as postgres
-alias pg='sudo -u postgres -i'
-
-# Notifications
-alias dnd='notify-send "DUNST_COMMAND_PAUSE"'
-alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
-
-# Media functions
-alias hdmi='xrandr --output HDMI-1 --auto --right-of eDP-1'
+alias j='subl ~/Documents/j --command "set_file_type {\"syntax\": \"Packages/Markdown/Markdown.sublime-syntax\"}"'
 alias rn='~/projects/tvrename/bin/rename'
 
+dl() { tv --no-auto -d "$*" }
+ytmp3() { yt-dlp --extract-audio --audio-format mp3 "$*" }
 music() {
     mpc play -q
     ncmpcpp -q 2>/dev/null
     mpc pause -q
 }
 
-# Helpful functions
-# fuzzy cd
-function cdf() { cd $1*/ }
-# removes returns for "grep" on greps of ps output
-function pps() { ps aux | grep "$@" | grep -v "grep"; }
-# kills all processes returned by `pps`
-function ppsk() { pps $@ | awk '{print $2}' | xargs kill -9; }
-function cpcd() { cp $1 $2 && cd $2; }
-function mvcd() { mv $1 $2 && cd $2; }
-# Go to the root of git directory
-function groot() {
-    if git_root=$(git rev-parse --show-toplevel 2>/dev/null); then
-        pushd "${git_root}"
-    fi
-}
+# Notifications
+alias dnd='notify-send "DUNST_COMMAND_PAUSE"'
+alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
 
-function untilok() { until $@; do :; done }
-function untilfail() { while $@; do :; done }
+untilok() { until $@; do :; done }
+untilfail() { while $@; do :; done }
 
 command_exists() {
     type "$1" &> /dev/null ;
-}
-
-csh() {
-    \curl http://cheat.sh/$1
-}
-
-activate_virtualenv() {
-    if [ -f env/bin/activate ]; then . env/bin/activate;
-    elif [ -f ../env/bin/activate ]; then . ../env/bin/activate;
-    elif [ -f ../../env/bin/activate ]; then . ../../env/bin/activate;
-    elif [ -f ../../../env/bin/activate ]; then . ../../../env/bin/activate;
-    fi
 }
 
 # Exiting

@@ -16,8 +16,10 @@ ln -sfv ${DOTFILES_DIR}/gitconfig ~/.gitconfig 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/githelpers ~/.githelpers 1> /dev/null
 
 # sublime
+# TODO: on a fresh install it might be `~/.config/sublime-text`??
 ln -sfv ${DOTFILES_DIR}/subl_keys ~/.config/sublime-text-3/Packages/User/Default" (Linux)".sublime-keymap 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/subl_settings ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings 1> /dev/null
+ln -sfv ${DOTFILES_DIR}/subl_colors ~/.config/sublime-text-3/Packages/User/Agila\ Monokai\ Extended.sublime-color-scheme
 ln -sfv ${DOTFILES_DIR}/subl_ruby ~/.config/sublime-text-3/Packages/User/Ruby.sublime-settings 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/subl_elixir ~/.config/sublime-text-3/Packages/User/Elixir.sublime-settings 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/subl_gitcommit ~/.config/sublime-text-3/Packages/User/Git\ Commit.sublime-settings 1> /dev/null

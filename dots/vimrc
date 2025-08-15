@@ -119,7 +119,7 @@ set path+=**
 " VIM file browser. v on selected for vsplitting file
 let g:netrw_banner=0        " disable annoying banner
 let g:netrw_liststyle=3     " tree view
-let g:netrw_list_hide=netrw_gitignore#Hide()
+" let g:netrw_list_hide=netrw_gitignore#Hide()
 
 " Snippets
 " insert ipdb trace on next line

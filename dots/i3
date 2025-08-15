@@ -188,7 +188,9 @@ set $ws8 "8"
 new_window pixel 4
 hide_edge_borders vertical
 
+# steal focus when a window is activated
 focus_on_window_activation focus
+# focus newly opened windows
 for_window [class=".*"] focus
 
 # Gaps
