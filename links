@@ -58,3 +58,7 @@ ln -sfv ${DOTFILES_DIR}/vimcolor ~/.config/nvim/colors/molokai.vim 1> /dev/null
 # mpv
 ln -sfv ${DOTFILES_DIR}/mpv ~/.config/mpv/mpv.conf 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/mpv_input ~/.config/mpv/input.conf 1> /dev/null
+
+# redshift
+mkdir -p ~/.config/redshift
+ln -sfv ${DOTFILES_DIR}/redshift ~/.config/redshift/redshift.conf 1> /dev/null
