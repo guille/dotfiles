@@ -1,6 +1,7 @@
 ###
 # Modifying enviroment variables
 
+export TERMINAL="ghostty"
 export EDITOR="subl -w"
 
 export PATH=$PATH:~/.local/bin # Add pip user installs

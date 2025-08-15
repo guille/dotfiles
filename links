@@ -28,8 +28,8 @@ ln -sfv ${DOTFILES_DIR}/pry.sublime-snippet ~/.config/sublime-text-3/Packages/Us
 ln -sfv ${DOTFILES_DIR}/rdbg.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/byebug.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
 
-# Xfce-terminal
-ln -sfv ${DOTFILES_DIR}/xfce4-terminal ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-terminal.xml 1> /dev/null
+# ghostty
+ln -sfv ${DOTFILES_DIR}/ghostty ~/.config/ghostty/config 1> /dev/null
 
 # i3
 ln -sfv ${DOTFILES_DIR}/i3 ~/.config/i3/config 1> /dev/null

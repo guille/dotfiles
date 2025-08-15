@@ -12,7 +12,7 @@ i3status
 polybar
 dmenu
 rofi
-xfce4-terminal
+ghostty
 dunst
 plocate
 htop
