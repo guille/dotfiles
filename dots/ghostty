@@ -33,3 +33,5 @@ palette = 12=#009ddc
 palette = 13=#98005d
 palette = 14=#85cebc
 palette = 15=#ffffff
+
+resize-overlay = never
