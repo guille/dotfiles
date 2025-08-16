@@ -1,0 +1,169 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 30,
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode",
+        "sway/scratchpad"
+    ],
+    "modules-center": [
+        "mpd"
+    ],
+    "modules-right": [
+        "power-profiles-daemon",
+        "backlight",
+        "battery",
+        "disk",
+        "disk#disk2",
+        "custom/separator",
+        "pulseaudio",
+        "custom/separator",
+        "cpu",
+        "custom/separator",
+        "memory",
+        "custom/separator",
+        "network",
+        "custom/separator",
+        "clock",
+        "custom/separator",
+        "custom/power",
+        "custom/separator",
+        "tray"
+    ],
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "warp-on-scroll": false,
+        "format": "{name}{icon}",
+        "format-icons": {
+            "urgent": " ",
+            "default": ""
+        }
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "sway/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": [
+            "",
+            ""
+        ],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+    "mpd": {
+        "format": "<span color=\"#ffd204\">󰎈</span> {stateIcon}",
+        "format-disconnected": "󰎊",
+        "format-stopped": "<span color=\"#ffd204\">󰎈</span> Stopped",
+        "unknown-tag": "N/A",
+        "interval": 5,
+        "state-icons": {
+            // Swapped so it's clearer that clicking changes it
+            "paused": "󰐊",
+            "playing": "󰏤"
+        },
+        "on-click": "mpc toggle",
+        "on-click-right": "mpc next",
+        "tooltip": "false"
+    },
+    "tray": {},
+    "clock": {
+        "interval": 5,
+        "tooltip": false,
+        "format": "<span color=\"#ffd204\">󰥔</span>  {:%H:%M}",
+        "format-alt": "<span color=\"#ffd204\">󰥔</span>  {:%a %d/%m %H:%M:%S}"
+    },
+    "cpu": {
+        "format": "<span color=\"#ffd204\">CPU</span> {usage}%",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "<span color=\"#ffd204\">RAM</span> {}%"
+    },
+    "backlight": {
+        "format": "<span color=\"#ffd204\">{icon}</span> {percent}%",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "<span color=\"#ffd204\">{icon}</span> {capacity}%",
+        "format-full": "<span color=\"#ffd204\">{icon}</span> {capacity}%",
+        "format-plugged": "<span color=\"#ffd204\"></span>  {capacity}%",
+        "format-alt": "<span color=\"#ffd204\">{icon}</span> {time}",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
+    },
+    "network": {
+        "format-wifi": "<span color=\"#ffd204\">󰖩 </span> {essid}",
+        "format-ethernet": "{ipaddr}/{cidr}",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "<span color=\"#ffd204\">󰖪 </span>  Disconnected"
+    },
+    "disk": {
+        "interval": 30,
+        "format": "<span color=\"#ffd204\">{path}</span> {percentage_used}% used",
+        "path": "/"
+    },
+    "disk#disk2": {
+        "interval": 30,
+        "format": "<span color=\"#ffd204\">{path}</span> {percentage_used}% used",
+        "path": "/home/guille"
+    },
+    "pulseaudio": {
+        // Scrolling changes volume
+        "format": "<span color=\"#ffd204\">{icon}</span>  {volume}%",
+        "tooltip": false,
+        "format-muted": "<span color=\"#959ca1\">󰖁</span>",
+        "format-icons": {
+            "default": [
+                "󰕿",
+                "󰖀",
+                "󰕾"
+            ]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/power": {
+        "format": "<span color=\"#ee2e24\"> </span>",
+        "tooltip": false,
+        "on-click": "~/mybin/rofi_logout.sh"
+    },
+    "custom/separator": {
+        "format": "|",
+        "interval": "once",
+        "tooltip": false
+    }
+}

@@ -35,3 +35,4 @@ palette = 14=#85cebc
 palette = 15=#ffffff
 
 resize-overlay = never
+gtk-titlebar = false

@@ -202,8 +202,10 @@ fi
 
 ##################################
 
-# Map compose key
-setxkbmap -option compose:menu
+# Map compose key in X11
+if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$DISPLAY" ]; then
+    setxkbmap -option compose:menu
+fi
 
 [[ -f "$HOME/.zkeys" ]] && . "$HOME/.zkeys"
 

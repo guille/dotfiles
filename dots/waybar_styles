@@ -1,0 +1,188 @@
+/* Copied & adapted from robertjk/dotfiles */
+
+/* -----------------------------------------------------------------------------
+ * Keyframes
+ * -------------------------------------------------------------------------- */
+
+ @keyframes blink-warning {
+  70% {
+    color: #d9d8d8;
+  }
+
+  to {
+    color: #d9d8d8;
+    background-color: orange;
+  }
+}
+
+@keyframes blink-critical {
+  70% {
+    color: #d9d8d8;
+  }
+
+  to {
+    color: #d9d8d8;
+    background-color: red;
+  }
+}
+
+
+/* -----------------------------------------------------------------------------
+ * Base styles
+ * -------------------------------------------------------------------------- */
+
+/* Reset all styles */
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* The whole bar */
+#waybar {
+  background: #2c2c2c;
+  color: #d9d8d8;
+  font-family: Inconsolata Nerd Font, sans-serif;
+  font-size: 16px;
+}
+
+/* Each module */
+#backlight,
+#battery,
+#clock,
+#cpu,
+#custom-power,
+#disk,
+#memory,
+#mode,
+#network,
+#power-profiles-daemon,
+#pulseaudio,
+#temperature,
+#tray {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+
+/* -----------------------------------------------------------------------------
+ * Module styles
+ * -------------------------------------------------------------------------- */
+
+ #battery {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#battery.warning {
+  color: orange;
+}
+
+#battery.critical {
+  color: red;
+}
+
+#battery.warning.discharging {
+  animation-name: blink-warning;
+  animation-duration: 3s;
+}
+
+#battery.critical.discharging {
+  animation-name: blink-critical;
+  animation-duration: 2s;
+}
+
+#clock {
+  font-weight: bold;
+}
+
+#cpu {
+  /* No styles */
+}
+
+#cpu.warning {
+  color: orange;
+}
+
+#cpu.critical {
+  color: red;
+}
+
+#memory {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#memory.warning {
+  color: orange;
+}
+
+#memory.critical {
+  color: red;
+  animation-name: blink-critical;
+  animation-duration: 2s;
+}
+
+#network {
+  /* No styles */
+}
+
+#network.disconnected {
+  color: orange;
+}
+
+#pulseaudio {
+  /* No styles */
+}
+
+#pulseaudio.muted {
+  /* No styles */
+}
+
+#tray {
+  /* No styles */
+}
+
+#window {
+  font-weight: bold;
+}
+
+#workspaces button {
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #959ca1;
+}
+
+#workspaces button.focused {
+  box-shadow:  inset 0 -3px #ffd204;
+  color: #d9d8d8;
+  background-color: #5a5758;
+}
+
+#workspaces button.urgent {
+  border-color: #ee2e24;
+  color: #ee2e24;
+}
+
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+  box-shadow: inherit;
+  text-shadow: inherit;
+  background-color: #fbf3f6;
+}
+
+#mode {
+  background: #64727D;
+  box-shadow:  inset 0 -2px #d9d8d8;
+}
+
+#custom-separator {
+  color: #959ca1;
+  margin: 0 1px;
+}
+

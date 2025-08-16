@@ -94,9 +94,6 @@ fi
 cp -r fonts/* ~/.local/share/fonts
 fc-cache
 
-# nvim
-mkdir -p ~/.config/nvim/colors
-
 # MPD and NCMPCPP
 mkdir -p ~/.mpd/lyrics
 mkdir -p ~/.mpd/playlists
@@ -106,12 +103,6 @@ touch ~/.mpd/tag_cache
 touch ~/.mpd/mpdstate
 touch ~/.mpd/mpd.pid
 touch ~/.mpd/sticker.sql
-
-# mpv
-mkdir ~/.config/mpv
-
-# polybar
-mkdir ~/.config/polybar
 
 # Install aurman
 if command_exists aurman; then
@@ -140,7 +131,6 @@ source links
 infoprint "Creating a to-do file with more possible configurations..."
 
 echo "- [ ] Disable telemetry for Tailscale (see Arch wiki)" >> todo
-echo "- [ ] lxappearance: Arc-Darker + Papirus" >> todo
 echo "- [ ] Install package control for Sublime" >> todo
 echo "   - [ ] Install Agila" >> todo
 echo "   - [ ] Install AllAutoComplete" >> todo

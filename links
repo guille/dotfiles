@@ -30,15 +30,17 @@ ln -sfv ${DOTFILES_DIR}/rdbg.sublime-snippet ~/.config/sublime-text-3/Packages/U
 ln -sfv ${DOTFILES_DIR}/byebug.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
 
 # ghostty
+mkdir -p ~/.config/ghostty
 ln -sfv ${DOTFILES_DIR}/ghostty ~/.config/ghostty/config 1> /dev/null
 
-# i3
-ln -sfv ${DOTFILES_DIR}/i3 ~/.config/i3/config 1> /dev/null
-ln -sfv ${DOTFILES_DIR}/dev.json ~/.config/i3/dev.json 1> /dev/null
-ln -sfv ${DOTFILES_DIR}/i3status ~/.config/i3status/config 1> /dev/null
+# sway
+mkdir -p ~/.config/sway
+ln -sfv ${DOTFILES_DIR}/sway ~/.config/sway/config 1> /dev/null
 
-# polybar
-ln -sfv ${DOTFILES_DIR}/polybar ~/.config/polybar/config.ini 1> /dev/null
+# waybar
+mkdir -p ~/.config/waybar
+ln -sfv ${DOTFILES_DIR}/waybar ~/.config/waybar/config 1> /dev/null
+ln -sfv ${DOTFILES_DIR}/waybar_styles ~/.config/waybar/style.css 1> /dev/null
 
 # rofi
 ln -sfv ${DOTFILES_DIR}/rofi ~/.config/rofi 1> /dev/null
@@ -47,21 +49,16 @@ ln -sfv ${DOTFILES_DIR}/rofi ~/.config/rofi 1> /dev/null
 mkdir -p ~/.config/dunst
 ln -sfv ${DOTFILES_DIR}/dunst ~/.config/dunst/dunstrc 1> /dev/null
 
-# xinitrc
-ln -sfv ${DOTFILES_DIR}/xinitrc ~/.xinitrc 1> /dev/null
-
 # mpd & ncmpcpp
 ln -sfv ${DOTFILES_DIR}/mpdconf ~/.mpdconf 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/ncmpcpp ~/.ncmpcpp/config 1> /dev/null
 
 # neovim
+mkdir -p ~/.config/nvim/colors
 ln -sfv ${DOTFILES_DIR}/vimrc ~/.config/nvim/init.vim 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/vimcolor ~/.config/nvim/colors/molokai.vim 1> /dev/null
 
 # mpv
+mkdir -p ~/.config/mpv
 ln -sfv ${DOTFILES_DIR}/mpv ~/.config/mpv/mpv.conf 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/mpv_input ~/.config/mpv/input.conf 1> /dev/null
-
-# redshift
-mkdir -p ~/.config/redshift
-ln -sfv ${DOTFILES_DIR}/redshift ~/.config/redshift/redshift.conf 1> /dev/null
