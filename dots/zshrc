@@ -216,6 +216,8 @@ fi
 . /usr/share/fzf/key-bindings.zsh
 . /usr/share/fzf/completion.zsh
 
+eval "$(zoxide init zsh)"
+
 if [[ ${PROMPT_STYLE} = "p10k" ]]; then
     # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
     source ~/.powerlevel10k/powerlevel10k.zsh-theme
