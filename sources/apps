@@ -1,3 +1,4 @@
+##
 # basic system stuff and wm
 blueman
 bluez
@@ -22,7 +23,7 @@ waybar
 wl-clipboard
 xdg-desktop-portal-wlr
 xorg-xwayland
-
+##
 # terminal utils
 bat
 fd
@@ -41,11 +42,12 @@ plocate
 ripgrep
 rsync
 tailscale
+tinyxxd
 tree
 wlsunset
 yt-dlp
 zoxide
-
+##
 # gui
 electrum
 evince
@@ -53,27 +55,25 @@ firefox
 foliate
 ghostty
 hunspell
-hunspell-en_GB
-hunspell-en_US
+hunspell-en_gb
+hunspell-en_us
 hunspell-es_es
 imv
 libreoffice-fresh
 mpv
 obsidian
-pinta
 sigil
 sublime-text
 transmission-gtk
-
+##
 # proglands and sdks
 crystal
 elixir
 hugo
-java-openjfx
 jdk8-openjdk
 python-pip
 shards
-
+##
 # media
 jellyfin-server
 jellyfin-web
@@ -82,7 +82,7 @@ mpd
 ncmpcpp
 pavucontrol
 pulseaudio
-
+##
 # files
 gvfs
 gvfs-mtp
@@ -93,9 +93,8 @@ thunar-volman
 unzip
 xarchiver
 zip
-
+##
 # looks and fonts
-arc-gtk-theme
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji

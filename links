@@ -61,3 +61,7 @@ ln -sfv ${DOTFILES_DIR}/vimcolor ~/.config/nvim/colors/molokai.vim 1> /dev/null
 mkdir -p ~/.config/mpv
 ln -sfv ${DOTFILES_DIR}/mpv ~/.config/mpv/mpv.conf 1> /dev/null
 ln -sfv ${DOTFILES_DIR}/mpv_input ~/.config/mpv/input.conf 1> /dev/null
+
+# Thunar
+mkdir -p ~/.config/Thunar
+ln -sfv ${DOTFILES_DIR}/thunar_actions ~/.config/Thunar/uca.xml 1> /dev/null

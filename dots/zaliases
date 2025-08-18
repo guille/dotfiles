@@ -40,6 +40,11 @@ groot() {
 
 alias x="mise x --"
 
+# Wayland focus activation :(
+# https://github.com/sublimehq/sublime_text/issues/6236#issuecomment-2219709650
+# https://bugs.kde.org/show_bug.cgi?id=442265
+alias subl='swaymsg exec subl'
+
 alias j='subl ~/Documents/j --command "set_file_type {\"syntax\": \"Packages/Markdown/Markdown.sublime-syntax\"}"'
 alias rn='~/projects/tvrename/bin/rename'
 

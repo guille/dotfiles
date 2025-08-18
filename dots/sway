@@ -167,7 +167,7 @@ bindsym Shift+Mod1+Tab workspace prev
 # Move to the next output
 bindsym $mod+x move workspace to output right
 
-# steal focus when a window is activated
+# steal focus when a window is activated (Xwayland)
 focus_on_window_activation focus
 # focus newly opened windows
 for_window [class=".*"] focus

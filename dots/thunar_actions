@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>com.mitchellh.ghostty</icon>
+	<name>Open Terminal here</name>
+	<submenu></submenu>
+	<unique-id>1755529238589111-1</unique-id>
+	<command>ghostty --working-directory=&quot;$f&quot;</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+</actions>
