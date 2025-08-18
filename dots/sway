@@ -180,7 +180,8 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec --no-startup-id ~/mybin/rofi_logout.sh
 
 # Wallpaper
-exec --no-startup-id swaybg -i $(find ~/Wallpapers/. -type f | shuf -n1) -m fill &
+set $wallpapers_path $HOME/Wallpapers
+output * bg $(find $wallpapers_path -type f | shuf -n 1) fill
 
 # resize window (you can also use the mouse for that)
 mode "󰁌 resize" {
@@ -217,8 +218,8 @@ bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ t
 
 
 ## Startup config
-# sublime & 2 terminals, sway doesn't support layours
-exec swaymsg workspace 2 && swaymsg exec subl && swaymsg splith && swaymsg exec ghostty && sleep 1 && swaymsg splitv && swaymsg exec ghostty && sleep 1 && swaymsg 'focus left' && swaymsg 'resize set width 60ppt'
+# sublime & a terminal, sway doesn't support layouts
+exec swaymsg workspace 2 && swaymsg exec subl && swaymsg exec ghostty && sleep 2 && swaymsg splitv && swaymsg 'resize set width 40ppt'
 
 # bar
 bar swaybar_command waybar
