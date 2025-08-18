@@ -1,71 +1,101 @@
 #!/bin/bash
 
-# Log output:
-#
-# * 51c333e    (12 days)    <Gary Bernhardt>   add vim-eunuch
-#
-# Branch output:
-#
-# * release/v1.1    (13 days)    <Leyan Lo>   add pretty_git_branch
-#
-# The time massaging regexes start with ^[^<]* because that ensures that they
-# only operate before the first "<". That "<" will be the beginning of the
-# author name, ensuring that we don't destroy anything in the commit message
-# that looks like time.
-#
-# The log format uses } characters between each field, and `column` is later
-# used to split on them. A } in the commit subject or any other field will
-# break this.
+#!/bin/bash
 
-LOG_HASH="%C(always,yellow)%h%C(always,reset)"
-LOG_RELATIVE_TIME="%C(always,green)(%ar)%C(always,reset)"
-LOG_AUTHOR="%C(always,blue)<%an>%C(always,reset)"
-LOG_SUBJECT="%s"
-LOG_REFS="%C(always,red)%d%C(always,reset)"
+# Stole this in full, I'm just adding some doc comments
+# https://github.com/Phantas0s/the_valuable_dev_companion/blob/main/guide-fzf-git/fzf_git_commits.sh
 
-LOG_FORMAT="$LOG_HASH}$LOG_RELATIVE_TIME}$LOG_AUTHOR}$LOG_REFS $LOG_SUBJECT"
+# General shortcuts
+# F1              toggle header
+# F2              toggle preview panel
+# Ctrl + arrows   navigate preview panel
+# Ctrl + S        switch mode (All Commits / Branch Commits)
+# ENTER           display the diff with less
 
-BRANCH_PREFIX="%(HEAD)"
-BRANCH_REF="%(color:red)%(color:bold)%(refname:short)%(color:reset)"
-BRANCH_HASH="%(color:yellow)%(objectname:short)%(color:reset)"
-BRANCH_DATE="%(color:green)(%(committerdate:relative))%(color:reset)"
-BRANCH_AUTHOR="%(color:blue)%(color:bold)<%(authorname)>%(color:reset)"
-BRANCH_CONTENTS="%(contents:subject)"
+# All Commits mode (default)
+# Alt + C         checkout the commit
+# ALT + R         soft reset to the commit
+# ALT + I         rebase interactively until the commit (autosquash)
 
-BRANCH_FORMAT="$BRANCH_PREFIX}$BRANCH_REF}$BRANCH_HASH}$BRANCH_DATE}$BRANCH_AUTHOR}$BRANCH_CONTENTS"
+# Branch Commits mode
+# Alt + P         cherry pick
 
-show_git_head() {
-    pretty_git_log -1
-    git show -p --pretty="tformat:"
+
+function fzf_git_commits() {
+	local -r git_log=$(cat <<-EOF
+		git log --graph --color --format="%C(white)%h - %C(green)%cs - %C(blue)%s%C(red)%d"
+	EOF
+	)
+
+	local -r git_log_all=$(cat <<-EOF
+		git log --all --graph --color --format="%C(white)%h - %C(green)%cs - %C(blue)%s%C(red)%d"
+	EOF
+	)
+
+
+	local get_hash
+	read -r -d '' get_hash <<-'EOF'
+		echo {} | grep -o "[a-f0-9]\{7\}" | sed -n "1p"
+	EOF
+
+	local -r git_show="[[ \$($get_hash) != '' ]] && git show --color \$($get_hash)"
+	local -r git_show_subshell=$(cat <<-EOF
+		[[ \$($get_hash) != '' ]] && sh -c "git show --color \$($get_hash) | less -R"
+	EOF
+	)
+
+	local -r git_checkout="[[ \$($get_hash) != '' ]] && git checkout \$($get_hash)"
+	local -r git_reset="[[ \$($get_hash) != '' ]] && git reset \$($get_hash)"
+	local -r git_rebase_interactive="[[ \$($get_hash) != '' ]] && git rebase --interactive \$($get_hash)"
+	local -r git_cherry_pick="[[ \$($get_hash) != '' ]] && git cherry-pick \$($get_hash)"
+
+	local -r header=$(cat <<-EOF
+		> ENTER to display the diff with less
+	EOF
+	)
+
+	local -r header_branch=$(cat <<-EOF
+		$header
+		> CTRL-S to switch to All Commits mode
+		> ALT-C to checkout the commit | ALT-R to reset to the commit
+		> ALT-I to rebase interactively until the commit
+	EOF
+	)
+
+	local -r header_all=$(cat <<-EOF
+		$header
+		> CTRL-S to switch to Branch Commits mode
+		> ALT-P to cherry pick
+	EOF
+	)
+
+	local -r branch_prompt='Branch > '
+	local -r all_prompt='All > '
+
+	local -r mode_all="change-prompt($all_prompt)+reload($git_log_all)+change-header($header_all)+unbind(alt-c)+unbind(alt-r)+unbind(alt-i)+rebind(alt-p)"
+	local -r mode_branch="change-prompt($branch_prompt)+reload($git_log)+change-header($header_branch)+rebind(alt-c)+rebind(alt-r)+rebind(alt-i)+unbind(alt-p)"
+
+	eval "$git_log" | fzf \
+		--ansi \
+		--reverse \
+		--no-sort \
+		--prompt="$branch_prompt" \
+		--header-first \
+		--header="$header_branch" \
+		--preview="$git_show" \
+		--bind='start:unbind(alt-p)' \
+		--bind="ctrl-s:transform:[[ \$FZF_PROMPT =~ '$branch_prompt' ]] && echo '$mode_all' || echo '$mode_branch'" \
+		--bind="enter:execute($git_show_subshell)" \
+		--bind="alt-c:execute($git_checkout)+abort" \
+		--bind="alt-r:execute($git_reset)+abort" \
+		--bind="alt-i:execute($git_rebase_interactive)+abort" \
+		--bind="alt-p:execute($git_cherry_pick)+abort" \
+		--bind='f1:toggle-header' \
+		--bind='f2:toggle-preview' \
+		--bind='ctrl-y:preview-up' \
+		--bind='ctrl-e:preview-down' \
+		--bind='ctrl-u:preview-half-page-up' \
+		--bind='ctrl-d:preview-half-page-down'
 }
 
-pretty_git_log() {
-    git log --graph --pretty="tformat:${LOG_FORMAT}" $* | pretty_git_format | git_page_maybe
-}
-
-pretty_git_branch() {
-    git branch -v --color=always --format=${BRANCH_FORMAT} $* | pretty_git_format
-}
-
-pretty_git_branch_sorted() {
-    git branch -v --format=${BRANCH_FORMAT} --sort=-committerdate $* | pretty_git_format
-}
-
-pretty_git_format() {
-    # Replace (2 years ago) with (2 years)
-    sed -Ee 's/(^[^<]*) ago\)/\1)/' |
-    # Replace (2 years, 5 months) with (2 years)
-    sed -Ee 's/(^[^<]*), [[:digit:]]+ .*months?\)/\1)/' |
-    # Line columns up based on } delimiter
-    column -s '}' -t
-}
-
-git_page_maybe() {
-    # Page only if we're asked to.
-    if [ -n "$GIT_NO_PAGER" ]; then
-        cat
-    else
-        # Page only if needed.
-        less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
-    fi
-}
+fzf_git_commits "$@"

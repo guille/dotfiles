@@ -1,41 +1,41 @@
 [user]
   name = guille
   email = guille@users.noreply.github.com
+
 [credential "https://github.com"]
   username = guille
+
 [core]
   autocrlf = input
   pager = delta
+
+[init]
+  defaultBranch = master
+
+[branch]
+  sort = -committerdate
+
+[tag]
+  sort = -version:refname
+
 [alias]
   st = status
   co = checkout
   di = diff
   dc = diff --cached
-  dh1 = diff HEAD~1
   last = show --quiet
   amend = commit --amend
   qamend = commit --amend --no-edit
   pushf = push --force-with-lease
   autosquash = rebase --autosquash
   fixup = commit --fixup
-
   # Stats
   ds = diff --stat=160,120
+  # fancy fzf helper
+  cs = "! ~/.githelpers"
 
-  # Fancy logging.
-  #   h = head
-  #   hp = head with patch
-  #   r = recent commits, only current branch
-  #   ra = recent commits, all reachable refs
-  #   l = all commits, only current branch
-  #   la = all commits, all reachable refs
-  head = !git r -1
-  h = !git head
-  hp = "!. ~/.githelpers && show_git_head"
-  r = !GIT_NO_PAGER=1 git l -30
-  ra = !git r --all
-  l = "!. ~/.githelpers && pretty_git_log"
-  la = !git l --all
+[status]
+  submoduleSummary = true
 
 [pull]
   rebase = true
@@ -48,6 +48,9 @@
   autoStash = true
   autosquash = true
 
+[fetch]
+  prune = true
+
 [interactive]
   diffFilter = delta --color-only
 
@@ -58,25 +61,10 @@
 [merge]
   conflictstyle = zdiff3
 
-[fetch]
-  prune = true
-
-[status]
-  submoduleSummary = true
-
 [diff]
   colorMoved = default
   algorithm = histogram
   submodule = log
-
-[init]
-  defaultBranch = master
-
-[branch]
-  sort = -committerdate
-
-[tag]
-  sort = -version:refname
 
 [rerere]
   enabled = true
@@ -85,4 +73,4 @@
   ui = auto
 
 [help]
-  autocorrect = prompt
+  autocorrect = 20
