@@ -1,9 +1,7 @@
 [user]
   name = guille
   email = guille@users.noreply.github.com
-
-[credential "https://github.com"]
-  username = guille
+  signingKey = ~/.ssh/id_ed25519_sign.pub
 
 [core]
   autocrlf = input
@@ -17,6 +15,13 @@
 
 [tag]
   sort = -version:refname
+  gpgSign = true
+
+[commit]
+  gpgSign = true
+
+[gpg]
+  format = ssh
 
 [alias]
   st = status
@@ -42,11 +47,11 @@
 
 [push]
   autoSetupRemote = true
-  followtags = true
+  followTags = true
 
 [rebase]
   autoStash = true
-  autosquash = true
+  autoSquash = true
 
 [fetch]
   prune = true
@@ -59,7 +64,7 @@
   syntax-theme = Monokai Extended
 
 [merge]
-  conflictstyle = zdiff3
+  conflictStyle = zdiff3
 
 [diff]
   colorMoved = default
