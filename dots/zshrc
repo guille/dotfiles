@@ -1,7 +1,4 @@
-# Two prompt styles
-# phil: see http://aperiodic.net/phil/prompt/
-# p10k: see https://github.com/romkatv/powerlevel10k
-local PROMPT_STYLE="p10k"
+# Prompt is powerlevel10k: see https://github.com/romkatv/powerlevel10k
 
 check_pacman() {
     local seconds_since_pacman=$(expr $(date +"%s" ) - $(tail /var/log/pacman.log -n1 | awk '{print substr($1, 2, 24)}'  | xargs date +"%s" -d))
@@ -10,34 +7,23 @@ check_pacman() {
         echo "Days since last pacman run: ${days_since_pacman}"
     fi
 }
-
 check_pacman
-
-eval "$(mise activate zsh)"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ ${PROMPT_STYLE} = "p10k" &&  -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-####
+eval "$(mise activate zsh)"
+
+autoload -U compinit
+compinit
+
 # Splits words at / too, useful for paths
 autoload -U select-word-style
 select-word-style bash
-
-###
-# Autoload compinit and vcs info
-autoload -U compinit
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:git*' check-for-changes true
-zstyle ':vcs_info:git*' formats "%b %m%u%c "
-zstyle ':vcs_info:git*' unstagedstr '!'
-zstyle ':vcs_info:git*' stagedstr '+'
-
-###
 # Case insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 # Menu pops at 5 entries
@@ -45,159 +31,18 @@ zstyle ':completion:*' menu select=5
 # Autocomplete on cd ..
 zstyle ':completion:*' special-dirs true
 
-###
-# Sane history defaults
-HISTFILE=~/.histfile
-HISTSIZE=100000
-SAVEHIST=$HISTSIZE
-setopt histignoredups
-setopt share_history
-
 unsetopt beep
 # emacs mode
 bindkey -e
 # Disable ctrl s
 unsetopt flowcontrol
 
-############################# PROMPT ####################################
-
-precmd_phil() {
-    ###
-    # Start up compinit and vcs_info
-    compinit
-    vcs_info
-
-
-    local TERMWIDTH
-    (( TERMWIDTH = ${COLUMNS} ))
-
-
-    ###
-    # Truncate the path if it's too long.
-
-    PR_FILLBAR=""
-    PR_PWDLEN=""
-
-    local promptsize=${#${(%):---(%n@%m:%l)---()--}}
-    local pwdsize=${#${(%):-%~}}
-
-    if [[ "$promptsize + $pwdsize" -gt $TERMWIDTH ]]; then
-        ((PR_PWDLEN=$TERMWIDTH - $promptsize))
-    else
-    PR_FILLBAR="\${(l.(($TERMWIDTH - ($promptsize + $pwdsize)))..${PR_HBAR}.)}"
-    fi
-}
-
-
-setprompt_phil() {
-    ###
-    # Need this so the prompt will work.
-
-    setopt prompt_subst
-
-
-    ###
-    # See if we can use colors.
-
-    autoload colors zsh/terminfo
-    if [[ "$terminfo[colors]" -ge 8 ]]; then
-    colors
-    fi
-    for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
-    eval PR_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
-    eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
-    (( count = $count + 1 ))
-    done
-    PR_NO_COLOUR="%{$terminfo[sgr0]%}"
-
-
-    ###
-    # See if we can use extended characters to look nicer.
-
-    typeset -A altchar
-    set -A altchar ${(s..)terminfo[acsc]}
-    PR_SET_CHARSET="%{$terminfo[enacs]%}"
-    PR_SHIFT_IN="%{$terminfo[smacs]%}"
-    PR_SHIFT_OUT="%{$terminfo[rmacs]%}"
-    PR_HBAR=${altchar[q]:--}
-    PR_ULCORNER=${altchar[l]:--}
-    PR_LLCORNER=${altchar[m]:--}
-    PR_LRCORNER=${altchar[j]:--}
-    PR_URCORNER=${altchar[k]:--}
-
-    ###
-    # Finally, the prompt.
-
-    PROMPT='$PR_SET_CHARSET\
-$PR_CYAN$PR_SHIFT_IN$PR_ULCORNER$PR_CYAN$PR_HBAR$PR_SHIFT_OUT(\
-$PR_BLUE%(!.%SROOT%s.%n)$PR_BLUE@%m\
-$PR_CYAN)$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_HBAR${(e)PR_FILLBAR}$PR_CYAN$PR_HBAR$PR_HBAR$PR_HBAR$PR_HBAR$PR_HBAR$PR_HBAR$PR_SHIFT_OUT(\
-$PR_GREEN%$PR_PWDLEN<...<%~%<<\
-$PR_CYAN)$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_URCORNER$PR_SHIFT_OUT\
-
-$PR_CYAN$PR_SHIFT_IN$PR_LLCORNER$PR_CYAN$PR_HBAR$PR_SHIFT_OUT(\
-%(?..$PR_LIGHT_RED%?$PR_CYAN:)\
-$PR_YELLOW%D{%H:%M}\
-$PR_CYAN)$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
-$PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
-$PR_CYAN» '
-
-    # Right-hand prompt
-
-    #     RPROMPT=' $PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_HBAR$PR_SHIFT_OUT\
-    # ($PR_YELLOW%D{%a,%b%d}$PR_CYAN)$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_LRCORNER$PR_SHIFT_OUT$PR_NO_COLOUR'
-
-    # This version has the git info
-    RPROMPT=' $PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_HBAR$PR_SHIFT_OUT\
-($PR_YELLOW$(gitprompt)$PR_CYAN)$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_LRCORNER$PR_SHIFT_OUT$PR_NO_COLOUR'
-
-    # Continuation prompt
-    PS2='$PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
-$PR_BLUE$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT(\
-$PR_LIGHT_GREEN%_$PR_BLUE)$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
-$PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_NO_COLOUR '
-}
-
-# Used in the right hand prompt
-gitprompt () {
-    if [[ -z  $vcs_info_msg_0_ ]]; then
-        echo 📅 $(date +%a,%b%d)
-    else
-        echo $vcs_info_msg_0_$(gitarrows)
-    fi
-}
-
-###
-# Adapted from pure zsh theme (https://github.com/sindresorhus/pure)
-gitarrows () {
-    local arrow_status
-    # check git left and right arrow_status
-    arrow_status="$(command git rev-list --left-right --count HEAD...@'{upstream}' 2>/dev/null)"
-    # exit if the command failed
-    # (( !$? )) || return
-
-    # left and right are tab-separated, split on tab and store as array
-    arrow_status=(${(ps:\t:)arrow_status})
-    local arrows left=${arrow_status[1]} right=${arrow_status[2]}
-
-    (( ${right:-0} > 0 )) && arrows+="${:-⇣}"
-    (( ${left:-0} > 0 )) && arrows+="${:-⇡}"
-
-    if [[ ! -n $arrows ]]; then
-        echo ""
-    else
-        echo "--" $arrows
-    fi
-}
-
-
-if [[ ${PROMPT_STYLE} = "phil" ]]; then
-    precmd() { precmd_phil }
-    setprompt_phil
-else
-    compinit
-fi
-
+# Sane history defaults
+HISTFILE=~/.histfile
+HISTSIZE=100000
+SAVEHIST=$HISTSIZE
+setopt histignoredups
+setopt share_history
 
 
 ##################################
@@ -208,18 +53,11 @@ if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$DISPLAY" ]; then
 fi
 
 [[ -f "$HOME/.zkeys" ]] && . "$HOME/.zkeys"
-
-# Aliases
 [[ -f "$HOME/.zaliases" ]] && . "$HOME/.zaliases"
 
-# fzf
-. /usr/share/fzf/key-bindings.zsh
-. /usr/share/fzf/completion.zsh
-
+source <(fzf --zsh)
 eval "$(zoxide init zsh)"
 
-if [[ ${PROMPT_STYLE} = "p10k" ]]; then
-    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-    source ~/.powerlevel10k/powerlevel10k.zsh-theme
-    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-fi
+# To customize prompt, edit dots/p10k
+source ~/.powerlevel10k/powerlevel10k.zsh-theme
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
