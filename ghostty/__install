@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# Ghostty
+##
+
+module_name=ghostty
+
+
+mkdir -p ~/.config/ghostty
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/config ~/.config/ghostty/config 1> /dev/null

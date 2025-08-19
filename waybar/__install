@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# Waybar
+##
+
+module_name=waybar
+
+
+# Linux only
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	exit
+fi
+
+mkdir -p ~/.config/waybar
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/config ~/.config/waybar/config 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/style.css ~/.config/waybar/style.css 1> /dev/null

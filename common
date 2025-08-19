@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# sets it for all
+# set -e
+
+# Helper vars
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NO_COLOR='\033[0m'
+
+# Helper functions
+command_exists () {
+	type "$1" &> /dev/null ;
+}
+infoprint () {
+	echo -e "${GREEN}${1}${NO_COLOR}"
+}
+errorprint () {
+	echo -e "${RED}${1}${NO_COLOR}"
+}

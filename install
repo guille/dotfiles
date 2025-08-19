@@ -2,144 +2,90 @@
 
 set -e
 
-COLOR='\033[0;32m'
-NC='\033[0m' # No Color
+# Exported so the module install scripts have a ref to the base
+export SCRIPT_BASE_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
-command_exists () {
-	type "$1" &> /dev/null ;
+source "$SCRIPT_BASE_DIR/common" || exit 1
+
+populate_os_zvars() {
+	os="$(uname -s)"
+
+	case "$os" in
+	Linux*)
+		echo "export DOTFILES_OS=Linux" > "$SCRIPT_BASE_DIR/dots/zvars"
+		;;
+	Darwin*)
+		echo "export DOTFILES_OS=OSX" > "$SCRIPT_BASE_DIR/dots/zvars"
+		;;
+	*)
+		errorprint "Unsupported OS: $os"
+		exit 1
+		;;
+	esac
 }
 
-infoprint () {
-	echo -e "${COLOR}${1}${NC}"
+populate_profile_zvars() {
+	choices=("personal" "work" "hybrid")
+
+	if command_exists fzf; then
+		profile=$(printf "%s\n" "${choices[@]}" | fzf --prompt="Select profile: ")
+	else
+		echo "Select profile:"
+		select opt in "${choices[@]}"; do
+			if [[ -n "$opt" ]]; then
+				profile="$opt"
+				break
+			fi
+		done
+	fi
+
+	# If user aborted, bail
+	if [[ -z "${profile:-}" ]]; then
+		errorprint "No profile selected."
+		exit 1
+	fi
+
+	echo "export DOTFILES_PROFILE=$profile" >> "$SCRIPT_BASE_DIR/dots/zvars"
 }
 
-aur_dl () {
-	\curl -L -O "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz"
-}
+populate_os_zvars
+populate_profile_zvars
 
-install_sublime_repo () {
-	infoprint "Installing sublime text GPG key and repository"
-	\curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
-	echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/aarch64" | sudo tee -a /etc/pacman.conf
-}
+source "$SCRIPT_BASE_DIR/dots/zvars"
+infoprint "[main] configured & loaded zvars"
 
-# If we can't find sublime-text, add the repository
-pacman -Ss sublime-text &> /dev/null || install_sublime_repo
+# System module - general setup & packages
+infoprint "[system] installing..."
+bash "$SCRIPT_BASE_DIR/system/__install"
+infoprint "[main] system done"
 
-# Select the right install command and update system
-INSTALL="sudo pacman -Syu --needed --noconfirm --noprogressbar"
 
-# Install zsh and set it as default shell
-if command_exists zsh; then
-	infoprint "zsh already installed"
-else
-	$INSTALL zsh
-	chsh -s /bin/zsh
-fi
+modules_to_install=(
+	zsh
+	mise
+	ruby
+	mpd
+	git
+	sublime
+	ghostty
+	sway
+	waybar
+	mpv
+	thunar
+	nvim
+	rofi
+	dunst
+	tailscale
+)
 
-# zsh stuff
-git clone --depth=1 git@github.com:romkatv/powerlevel10k.git ~/.powerlevel10k
-\curl -L -o dots/zsh-history-substring-search.zsh https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
+for module in "${modules_to_install[@]}"; do
+	infoprint "[$module] installing..."
+	bash "$SCRIPT_BASE_DIR/$module/__install"
+	infoprint "[main] $module done"
+done
 
-infoprint "Installing programs from source/apps"
-xargs -a <(cat sources/apps | \grep -v '^#') $INSTALL
 
-# Firewall
-systemctl enable --now ufw
-sudo ufw default deny
-# Jellyfin
-sudo ufw allow from 192.168.1.0/24 to any port 8096
-# Expo Go
-sudo ufw allow from 192.168.1.0/24 to any port 8081
-# Disable ping
-sudo sed -i 's/-A ufw-before-input -p icmp --icmp-type echo-request -j ACCEPT/-A ufw-before-input -p icmp --icmp-type echo-request -j DROP/' /etc/ufw/before.rules
-sudo ufw enable
-sudo ufw logging off
+infoprint "[main] creating symlinks for mybin folder..."
+ln -sfv ${SCRIPT_BASE_DIR}/mybin/ ~/mybin 1> /dev/null
 
-# Mise autocomplete
-mise use --global usage
-sudo chown -R $(whoami):$(id -gn) /usr/local/share/zsh
-mkdir -p /usr/local/share/zsh/site-functions
-mise completion zsh  > /usr/local/share/zsh/site-functions/_mise
-
-# RUBY
-if command_exists gem; then
-	infoprint "ruby already installed"
-	infoprint "updating rubygems..."
-	gem update --system -q
-	infoprint "updating installed gems..."
-	gem update -q
-else
-	infoprint "Installing ruby"
-	mise use --global ruby@3.4
-	infoprint "Installing gems"
-	xargs -a <(cat sources/gems) gem install
-fi
-
-# PYTHON
-if command_exists pip; then
-	infoprint "Installing pip packages"
-	xargs -a <(cat sources/pip) pip install --user -qq
-fi
-
-# ELIXIR - hex
-if command_exists mix; then
-	infoprint "Installing/upgrading hex"
-	mix local.hex
-	# ELIXIR - phoenix
-	# mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
-fi
-
-# Fonts
-cp -r fonts/* ~/.local/share/fonts
-fc-cache
-
-# MPD and NCMPCPP
-mkdir -p ~/.mpd/lyrics
-mkdir -p ~/.mpd/playlists
-mkdir -p ~/.ncmpcpp
-touch ~/.mpd/mpd.log
-touch ~/.mpd/tag_cache
-touch ~/.mpd/mpdstate
-touch ~/.mpd/mpd.pid
-touch ~/.mpd/sticker.sql
-
-# Install aurman
-if command_exists aurman; then
-	infoprint "aurman already installed"
-else
-	mkdir temp
-	cd temp
-	aur_dl aurman
-	tar -xvf aurman*
-	cd aurman
-	makepkg -si --skippgpcheck
-	cd ../..
-	rm -rf temp
-fi
-
-# Install AUR packages
-xargs -a <(cat sources/aur | \grep -v '^#') aurman -S --needed --noconfirm
-
-infoprint "Setting spanish keyboard layout"
-localectl set-x11-keymap es
-
-infoprint "Creating symbolic links..."
-source links
-
-# Create to-do list
-infoprint "Creating a to-do file with more possible configurations..."
-
-echo "- [ ] Disable telemetry for Tailscale (see Arch wiki)" >> todo
-echo "- [ ] Install package control for Sublime" >> todo
-echo "   - [ ] Install Agila" >> todo
-echo "   - [ ] Install AllAutoComplete" >> todo
-echo "   - [ ] Install Babel" >> todo
-echo "   - [ ] Install BracketHighlighter" >> todo
-echo "   - [ ] Install Elixir" >> todo
-echo "   - [ ] Install Increment Selection" >> todo
-echo "   - [ ] Install LSP (+ gopls, json)" >> todo
-echo "   - [ ] Install Kotlin" >> todo
-echo "   - [ ] Install MoveTab" >> todo
-echo "   - [ ] Install RSpec" >> todo
-echo "   - [ ] Install SublimeLinter, -annotations, -contrib-elixirc, -rubocop" >> todo
+infoprint "[main] done"

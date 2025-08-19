@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# MPD and NCMPCPP
+##
+
+module_name=mpd
+
+
+# Linux only
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	exit
+fi
+
+
+infoprint "[$module_name] creating config files..."
+mkdir -p ~/.mpd/lyrics
+mkdir -p ~/.mpd/playlists
+mkdir -p ~/.ncmpcpp
+touch ~/.mpd/mpd.log
+touch ~/.mpd/tag_cache
+touch ~/.mpd/mpdstate
+touch ~/.mpd/mpd.pid
+touch ~/.mpd/sticker.sql
+
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/mpdconf ~/.mpdconf 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/ncmpcpp ~/.ncmpcpp/config 1> /dev/null

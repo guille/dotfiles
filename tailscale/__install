@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# tailscale
+##
+
+module_name=tailscale
+
+
+
+if [ -f "/etc/default/tailscaled" ]; then
+	infoprint "[$module_name] disabling telemetry..."
+	grep -qxF "TS_NO_LOGS_NO_SUPPORT=true" /etc/default/tailscaled || echo "TS_NO_LOGS_NO_SUPPORT=true" | sudo tee -a /etc/default/tailscaled
+	grep -qF -- "--no-logs-no-support" /etc/default/tailscaled || sudo sed -i 's/FLAGS="/FLAGS="--no-logs-no-support /' /etc/default/tailscaled
+fi

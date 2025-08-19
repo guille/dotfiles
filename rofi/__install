@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# rofi
+##
+
+module_name=rofi
+
+
+# Linux only
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	exit
+fi
+
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/config ~/.config/rofi 1> /dev/null

@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# Installs zsh plugins and symlinks the config(s)
+##
+
+module_name=zsh
+
+##
+# zsh complements: p10k prompt
+##
+# XXX: This should probably be a submodule to avoid random hijacks...
+if [ ! -d ~/.powerlevel10k ]; then
+	infoprint "[$module_name] cloning powerlevel10k..."
+	git clone --depth=1 git@github.com:romkatv/powerlevel10k.git ~/.powerlevel10k
+fi
+
+
+##
+# symlinks
+##
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/zshrc ~/.zshrc 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/zprofile ~/.zprofile 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/zshenv ~/.zshenv 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/zkeys ~/.zkeys 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/zaliases ~/.zaliases 1> /dev/null
+
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/zvars ~/.zvars 1> /dev/null
+
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/p10k ~/.p10k.zsh 1> /dev/null
+
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/zsh-history-substring-search.zsh ~/.zhist_substr 1> /dev/null

@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# Installs packages and system-wide configurations
+##
+
+module_name=system
+
+
+##
+# helper functions
+##
+
+install_sublime_repo () {
+	infoprint "[$module_name] Installing sublime text GPG key and repository"
+	\curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
+	echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/aarch64" | sudo tee -a /etc/pacman.conf
+}
+
+aur_dl () {
+	\curl -L -O "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz"
+}
+
+
+##
+# Pre-requisites
+##
+
+if [[ "$DOTFILES_OS" == "Linux" ]]; then
+	# Select the right install command and update system
+	INSTALL="sudo pacman -Syu --needed --noconfirm --noprogressbar"
+elif [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	# Install Homebrew
+	infoprint "[$module_name] installing homebrew"
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+	INSTALL="brew install"
+fi
+
+##
+# Shared setup
+##
+
+# Install zsh and set it as default shell
+if [[ "$SHELL" =~ zsh$ ]]; then
+	infoprint "[$module_name] zsh is already the user shell"
+else
+	infoprint "[$module_name] installing zsh and setting as the user shell"
+	$INSTALL zsh
+	chsh -s $(which zsh)
+fi
+
+
+##
+# Arch Linux setup
+##
+
+if [[ "$DOTFILES_OS" == "Linux" ]]; then
+    # If we can't find sublime-text, add the repository
+    pacman -Ss sublime-text &> /dev/null || install_sublime_repo
+
+    infoprint "[$module_name] installing programs from source/apps"
+    xargs -a <(cat "$SCRIPT_BASE_DIR/sources/apps" | \grep -v '^#') $INSTALL
+
+    # Install fonts if available and reload fonts
+    infoprint "[$module_name] installing custom fonts and reloading"
+    [ -d "$SCRIPT_BASE_DIR/fonts" ] && cp -r "$SCRIPT_BASE_DIR/fonts/"* ~/.local/share/fonts
+    fc-cache
+
+    # Firewall
+    infoprint "[$module_name] setting up firewall"
+    sudo systemctl enable --now ufw
+    sudo ufw default deny
+    # Jellyfin
+    sudo ufw allow from 192.168.1.0/24 to any port 8096
+    # Expo Go
+    sudo ufw allow from 192.168.1.0/24 to any port 8081
+    # DNI-E
+    sudo ufw allow from 192.168.1.0/24 to any port 34803
+    # Disable ping
+    sudo sed -i 's/-A ufw-before-input -p icmp --icmp-type echo-request -j ACCEPT/-A ufw-before-input -p icmp --icmp-type echo-request -j DROP/' /etc/ufw/before.rules
+    sudo ufw enable
+    sudo ufw logging off
+
+    if command_exists aurman; then
+    	infoprint "[$module_name] aurman already installed"
+    else
+    	infoprint "[$module_name] installing aurman"
+    	mkdir temp && cd temp
+    	aur_dl aurman
+    	tar -xvf aurman*
+    	cd aurman
+    	makepkg -si --skippgpcheck
+    	cd ../..
+    	rm -rf temp
+    fi
+
+    infoprint "[$module_name] installing AUR packages"
+    xargs -a <(cat "$SCRIPT_BASE_DIR/sources/aur" | \grep -v '^#') aurman -S --needed --noconfirm
+
+    infoprint "[$module_name] setting spanish keyboard layout (X11)"
+    localectl set-x11-keymap es
+fi
+
+
+##
+# OS X setup
+##
+
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	# Install Homebrew
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+	INSTALL="brew install"
+
+    infoprint "[$module_name] installing programs from source/brew_formulae"
+    xargs -a <(cat "$SCRIPT_BASE_DIR/sources/brew_formulae" | \grep -v '^#') $INSTALL
+
+    infoprint "[$module_name] installing programs from source/brew_casks"
+    xargs -a <(cat "$SCRIPT_BASE_DIR/sources/brew_casks" | \grep -v '^#') $INSTALL --cask
+
+    infoprint "[$module_name] setting up nicer Dock defaults"
+    defaults write com.apple.dock show-recents -bool no
+    defaults write com.apple.dock recent-apps -array
+fi

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# Sublime Text
+##
+
+module_name=sublime
+
+
+infoprint "[$module_name] installing Package Control"
+# using `command` to avoid the hack for Wayland...
+command subl --command "install_package_control"
+
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+# TODO: on a fresh install it might be `~/.config/sublime-text`??
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_packages ~/.config/sublime-text-3/Packages/User/Package\ Control.sublime-settings 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_keys ~/.config/sublime-text-3/Packages/User/Default" (Linux)".sublime-keymap 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_settings ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_colors ~/.config/sublime-text-3/Packages/User/Agila\ Monokai\ Extended.sublime-color-scheme 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_ruby ~/.config/sublime-text-3/Packages/User/Ruby.sublime-settings 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_elixir ~/.config/sublime-text-3/Packages/User/Elixir.sublime-settings 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_gitcommit ~/.config/sublime-text-3/Packages/User/Git\ Commit.sublime-settings 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_lsp ~/.config/sublime-text-3/Packages/User/LSP.sublime-settings 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/ipdb.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/pry.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/rdbg.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/byebug.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null

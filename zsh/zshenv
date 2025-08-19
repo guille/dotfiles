@@ -1,6 +1,8 @@
 ###
 # Modifying enviroment variables
 
+[[ -f "$HOME/.zvars" ]] && . "$HOME/.zvars"
+
 export TERMINAL="ghostty"
 export EDITOR="subl -w"
 

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# dunst
+##
+
+module_name=dunst
+
+
+# Linux only
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	exit
+fi
+
+mkdir -p ~/.config/dunst
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/dunstrc ~/.config/dunst/dunstrc 1> /dev/null

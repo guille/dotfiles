@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# Thunar
+##
+
+module_name=thunar
+
+
+# Linux only
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	exit
+fi
+
+
+mkdir -p ~/.config/Thunar
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+
+ln -sfv ${SCRIPT_BASE_DIR}/$module_name/uca.xml ~/.config/Thunar/uca.xml 1> /dev/null
