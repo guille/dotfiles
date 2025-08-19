@@ -35,4 +35,11 @@ palette = 14=#85cebc
 palette = 15=#ffffff
 
 resize-overlay = never
+
+# Linux only
 gtk-titlebar = false
+
+# Mac only
+macos-titlebar-style = tabs
+# applies to Alt+w in Linux
+keybind = option+w=text:\x1b\x7f
