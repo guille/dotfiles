@@ -44,10 +44,7 @@ alias x="mise x --"
 # https://github.com/sublimehq/sublime_text/issues/6236#issuecomment-2219709650
 # https://bugs.kde.org/show_bug.cgi?id=442265
 # https://github.com/swaywm/sway/pull/8017#issuecomment-1972210180
-subl() {
-    echo "${PWD}/$*"
-    swaymsg exec subl "${PWD}/$*"
-}
+subl() { swaymsg exec subl "${PWD}/$*" }
 xdg-open() { swaymsg exec xdg-open "$*" }
 
 alias j='subl ~/Documents/j --command "set_file_type {\"syntax\": \"Packages/Markdown/Markdown.sublime-syntax\"}"'

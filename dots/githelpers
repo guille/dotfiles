@@ -1,6 +1,4 @@
-#!/bin/bash
-
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Stole this in full, I'm just adding some doc comments
 # https://github.com/Phantas0s/the_valuable_dev_companion/blob/main/guide-fzf-git/fzf_git_commits.sh
@@ -91,11 +89,7 @@ function fzf_git_commits() {
 		--bind="alt-i:execute($git_rebase_interactive)+abort" \
 		--bind="alt-p:execute($git_cherry_pick)+abort" \
 		--bind='f1:toggle-header' \
-		--bind='f2:toggle-preview' \
-		--bind='ctrl-y:preview-up' \
-		--bind='ctrl-e:preview-down' \
-		--bind='ctrl-u:preview-half-page-up' \
-		--bind='ctrl-d:preview-half-page-down'
+		--bind='f2:toggle-preview'
 }
 
 fzf_git_commits "$@"
