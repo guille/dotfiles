@@ -5,16 +5,17 @@
 	"ensure_newline_at_eof_on_save": true,
 	"font_face": "Inconsolata",
 	"font_size": 14,
-	"ignored_packages":
-	[
+	"ignored_packages": [
 		"Rust",
 		"Vintage",
 	],
-	"rulers": [100],
+	"rulers": [
+		100
+	],
 	"tab_size": 4,
 	"theme": "Agila Monokai.sublime-theme",
 	"theme_agila_compact_sidebar": true,
 	"theme_agila_sidebar_small": true,
-	"trim_trailing_white_space_on_save": true,
+	"trim_trailing_white_space_on_save": "all",
 	"index_files": true,
 }
