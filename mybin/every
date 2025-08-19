@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+# Example usage:
+# every 30 s "echo 'Hello World'"                        # Run indefinitely
+# every 2 min "ls -la"                                   # Run indefinitely
+# every 5 s "ping -c 2 google.com" --until-ok            # Stop when ping succeeds
+# every 10 s "curl -f http://localhost:8080" --until-ok  # Stop when server is up
+# every 3 s "test -f /tmp/done.txt" --until-ok           # Stop when file exists
+# every 5 s "pgrep myprocess" --until-fail               # Stop when process dies
+
+every() {
+    # Check if we have enough parameters
+    if [ $# -lt 3 ] || [ $# -gt 4 ]; then
+        echo "Usage: every <number> <unit> <command> [--until-ok|--until-fail]"
+        echo "  number: positive integer"
+        echo "  unit: 's' for seconds or 'min' for minutes"
+        echo "  command: command to execute"
+        echo "  --until-ok: stop when command succeeds (exit code 0)"
+        echo "  --until-fail: stop when command fails (exit code != 0)"
+        return 1
+    fi
+
+    local number="$1"
+    local unit="$2"
+    local command="$3"
+    local condition="$4"
+
+    # Validate that number is a positive integer
+    if ! [[ "$number" =~ ^[1-9][0-9]*$ ]]; then
+        echo "Error: First parameter must be a positive integer"
+        return 1
+    fi
+
+    # Validate unit parameter
+    if [[ "$unit" != "s" && "$unit" != "min" ]]; then
+        echo "Error: Second parameter must be 's' or 'min'"
+        return 1
+    fi
+
+    # Validate condition parameter if provided
+    if [ -n "$condition" ] && [[ "$condition" != "--until-ok" && "$condition" != "--until-fail" ]]; then
+        echo "Error: Fourth parameter must be '--until-ok' or '--until-fail'"
+        return 1
+    fi
+
+    # Calculate sleep interval in seconds
+    local sleep_interval
+    if [ "$unit" = "s" ]; then
+        sleep_interval="$number"
+    else
+        sleep_interval=$((number * 60))
+    fi
+
+    if [ -n "$condition" ]; then
+        echo "Running '$command' every $number $unit until condition met (Ctrl+C to stop)"
+    else
+        echo "Running '$command' every $number $unit (Ctrl+C to stop)"
+    fi
+
+    # Main execution loop
+    while true; do
+        echo "[$(date +"%Y-%m-%d %R:%S")] Executing: $command"
+        eval "$command"
+        local exit_code=$?
+
+        # Check exit conditions
+        if [ -n "$condition" ]; then
+            if [ "$condition" = "--until-ok" ] && [ $exit_code -eq 0 ]; then
+                echo "[$(date +"%Y-%m-%d %R:%S")] Command succeeded (exit code 0). Stopping execution."
+                break
+            elif [ "$condition" = "--until-fail" ] && [ $exit_code -ne 0 ]; then
+                echo "[$(date +"%Y-%m-%d %R:%S")] Command failed (exit code $exit_code). Stopping execution."
+                break
+            fi
+        fi
+
+        echo "[$(date +"%Y-%m-%d %R:%S")] Sleeping for $sleep_interval seconds..."
+        sleep "$sleep_interval"
+    done
+}
+
+# Call the function with all script arguments
+every "$@"

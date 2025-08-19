@@ -65,3 +65,7 @@ ln -sfv ${DOTFILES_DIR}/mpv_input ~/.config/mpv/input.conf 1> /dev/null
 # Thunar
 mkdir -p ~/.config/Thunar
 ln -sfv ${DOTFILES_DIR}/thunar_actions ~/.config/Thunar/uca.xml 1> /dev/null
+
+# personal scripts
+MYBIN_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/mybin"
+ln -sfv ${MYBIN_DIR}/ ~/mybin 1> /dev/null

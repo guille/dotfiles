@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# Determine the argument to use
+if [ -n "$1" ]; then
+    arg="$1"
+else
+    # Check if File.ascm exists in current directory
+    if [ -f "URLLink.acsm" ]; then
+        arg="URLLink.acsm"
+        echo "No argument provided, using URLLink.acsm from current directory"
+    else
+        echo "Error: No argument provided and URLLink.acsm not found in current directory"
+        exit 1
+    fi
+fi
+
+# Download the ACSM data
+output=$(acsmdownloader "$arg" 2>&1)
+
+# Print the output so user can see what happened
+echo "$output"
+
+# Extract filename from the line starting with "Created "
+filename=$(echo "$output" | \grep "^Created " | sed 's/^Created //')
+
+# Check if we found a filename
+if [ -n "$filename" ]; then
+    echo "Extracted filename: $filename"
+
+    echo "Removing DRM from $filename"
+    if adept_remove "$filename"; then
+        rm "$arg"
+    else
+        exit 1
+    fi
+else
+    echo "Error: Could not find a line starting with 'Created ' in the output"
+    exit 1
+fi
