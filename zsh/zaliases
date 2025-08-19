@@ -1,8 +1,27 @@
-# Pacman
-alias paci='sudo pacman -S'
-alias pacu='sudo pacman -Syu'
-alias pacuw='sudo pacman -Syuw'
-alias pacc='paccache -rk 1 && paccache -ruk0 && sudo pacman -Rns $(pacman -Qtdq)'
+if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
+    # Pacman
+    alias paci='sudo pacman -S'
+    alias pacu='sudo pacman -Syu'
+    alias pacuw='sudo pacman -Syuw'
+    alias pacc='paccache -rk 1 && paccache -ruk0 && sudo pacman -Rns $(pacman -Qtdq)'
+
+    # Wayland focus activation :(
+    # https://github.com/sublimehq/sublime_text/issues/6236#issuecomment-2219709650
+    # https://bugs.kde.org/show_bug.cgi?id=442265
+    # https://github.com/swaywm/sway/pull/8017#issuecomment-1972210180
+    subl() { swaymsg exec subl "${PWD}/$*" }
+    xdg-open() { swaymsg exec xdg-open "$*" }
+
+    # Notifications
+    alias dnd='notify-send "DUNST_COMMAND_PAUSE"'
+    alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
+fi
+
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+    # Force of habit
+    alias pidof='pgrep'
+fi
+
 
 # Terminal: better defaults
 alias cal='cal --monday --three'
@@ -28,8 +47,14 @@ if [[ -x `which bat` ]]; then alias cat="bat --theme-dark 'Monokai Extended'"; f
 alias resource='source ~/.zshrc && source ~/.zshenv'
 
 # Git cleanup, easier here than in gitconfig
-alias _gitpruneo="git remote prune origin || true"
-alias gitbclean="_gitpruneo && git branch -r | awk '{print \$1}' | \egrep -v -f /dev/fd/0 <(git branch -vv | \grep origin) | awk '{print \$1}' | xargs git branch -D"
+# alias _gitpruneo='git remote prune origin || true'
+# alias gitbclean="_gitpruneo && git branch -r | awk '{print \$1}' | \egrep -v -f /dev/fd/0 <(git branch -vv | \grep origin) | awk '{print \$1}' | xargs git branch -D"
+# Cleans branches that were tracking a remote but deleted from the remote
+gitbclean() {
+    git fetch -p && for branch in $(git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == "[gone]" {sub("refs/heads/", "", $1); print $1}'); do git branch -D $branch; done
+}
+
+alias docclean='docker ps -aq | xargs -I "{}" bash -c "docker rm --force {}"'
 
 # Go to the root of git directory
 groot() {
@@ -39,13 +64,6 @@ groot() {
 }
 
 alias x="mise x --"
-
-# Wayland focus activation :(
-# https://github.com/sublimehq/sublime_text/issues/6236#issuecomment-2219709650
-# https://bugs.kde.org/show_bug.cgi?id=442265
-# https://github.com/swaywm/sway/pull/8017#issuecomment-1972210180
-subl() { swaymsg exec subl "${PWD}/$*" }
-xdg-open() { swaymsg exec xdg-open "$*" }
 
 alias j='subl ~/Documents/j --command "set_file_type {\"syntax\": \"Packages/Markdown/Markdown.sublime-syntax\"}"'
 alias rn='~/projects/tvrename/bin/rename'
@@ -58,17 +76,9 @@ music() {
     mpc pause -q
 }
 
-# Notifications
-alias dnd='notify-send "DUNST_COMMAND_PAUSE"'
-alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
-
 untilok() { until $@; do :; done }
 untilfail() { while $@; do :; done }
 
 command_exists() {
     type "$1" &> /dev/null ;
 }
-
-# Exiting
-alias q='exit'
-alias bye='sudo shutdown -t 0'

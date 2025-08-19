@@ -27,9 +27,23 @@ key[PageDown]=${terminfo[knp]}
 [[ -n "${key[Right]}"   ]]  && bindkey  "${key[Right]}"   forward-char
 # Ctrl delete / backspace
 bindkey '^[[3;5~' kill-word
-# Ctrl left / right
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
+
+if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
+    # Ctrl left / right
+    bindkey "^[[1;5C" forward-word
+    bindkey "^[[1;5D" backward-word
+fi
+
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+    # Option left / right (don't seem needed in ghostty)
+    # bindkey "\e[1;9D" backward-word     # ⌥←
+    # bindkey "^[[1;3D" backward-word     # ⌥←
+    # bindkey "\e[1;9C" forward-word      # ⌥→
+    # bindkey "^[[1;3C" forward-word      # ⌥→
+
+    # treat option+space as a normal space...
+    bindkey "\xC2\xA0" magic-space
+fi
 
 # re-bind up/down if the history substring plugin is found
 if [[ -f "$HOME/.zhist_substr" ]]; then
