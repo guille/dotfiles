@@ -26,12 +26,20 @@ sed "/###PACKAGES###/{
 # TODO: on a fresh install it might be `~/.config/sublime-text`??
 if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	SUBL_CONFIG="$HOME/Library/Application Support/Sublime Text 3/Packages/User"
+	FONT_SIZE=18
 elif [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	SUBL_CONFIG="$HOME/.config/sublime-text-3/Packages/User"
+	FONT_SIZE=14
 else
 	errorprint "Needs \$DOTFILES_OS set"
 	exit 1
 fi
+
+# https://github.com/sublimehq/sublime_text/issues/32
+
+sed "s/###FONT_SIZE###/${FONT_SIZE}/" $SCRIPT_BASE_DIR/$module_name/subl_settings.base > $SCRIPT_BASE_DIR/$module_name/subl_settings
+
+
 
 infoprint "[$module_name] creating dotfiles symlinks..."
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_packages" "$SUBL_CONFIG/Package Control.sublime-settings" 1> /dev/null

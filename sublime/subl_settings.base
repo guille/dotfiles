@@ -5,7 +5,7 @@
 	"draw_white_space": "all",
 	"ensure_newline_at_eof_on_save": true,
 	"font_face": "Inconsolata Nerd Font",
-	"font_size": 14,
+	"font_size": ###FONT_SIZE###,
 	"ignored_packages": [
 		"Rust",
 		"Vintage",
