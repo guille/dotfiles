@@ -2,6 +2,17 @@
 
 set -e
 
+# flags
+SELECT=0
+while (($#)); do
+  case "$1" in
+    -s|--select) SELECT=1 ;;
+    --) shift; break ;;
+    *) echo "unknown option: $1" >&2; exit 2 ;;
+  esac
+  shift
+done
+
 # Exported so the module install scripts have a ref to the base
 export SCRIPT_BASE_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -54,13 +65,9 @@ populate_profile_zvars
 source "$SCRIPT_BASE_DIR/zsh/zvars"
 infoprint "[main] configured & loaded zvars"
 
-# System module - general setup & packages
-infoprint "[system] installing..."
-bash "$SCRIPT_BASE_DIR/system/__install"
-infoprint "[main] system done"
-
 
 modules_to_install=(
+	system # always first!
 	zsh
 	mise
 	ruby
@@ -77,6 +84,16 @@ modules_to_install=(
 	dunst
 	tailscale
 )
+
+# interactively pick modules
+if (( SELECT )); then
+	if ! command_exists fzf; then
+		errorprint "error: --select/-s requires fzf"
+		exit 1
+	fi
+	choices=$(printf "%s\n" "${modules_to_install[@]}" | sort -r | fzf -m --bind enter:accept-non-empty --prompt="Select modules to install > ")
+	modules_to_install=( $(echo "$choices") )
+fi
 
 for module in "${modules_to_install[@]}"; do
 	infoprint "[$module] installing..."

@@ -16,11 +16,31 @@ infoprint () {
 	echo -e "${GREEN}${1}${NO_COLOR}"
 }
 errorprint () {
-	echo -e "${RED}${1}${NO_COLOR}"
+	echo -e "${RED}${1}${NO_COLOR}" >&2
 }
 is_work() {
 	[[ "$DOTFILES_PROFILE" == "work" || "$DOTFILES_PROFILE" == "hybrid" ]]
 }
 is_personal() {
 	[[ "$DOTFILES_PROFILE" == "personal" || "$DOTFILES_PROFILE" == "hybrid" ]]
+}
+prepare_profiled_config() {
+	if [ -z "$module_name" ]; then
+		errorprint "error: \$module_name not set!"
+		return 1
+    fi
+
+	local filename="$1"
+	local target="${SCRIPT_BASE_DIR}/${module_name}/${filename}"
+
+	# reset from base
+	cp "${target}.base" "$target"
+
+	if is_personal; then
+	    cat "${target}.personal" >> "$target"
+	fi
+
+	if is_work; then
+	    cat "${target}.work" >> "$target"
+	fi
 }

@@ -5,5 +5,5 @@ System installation script and dotfiles symlinks.
 ```bash
 git clone https://github.com/guille/dotfiles.git
 cd dotfiles
-./install
+./install [-s|--select]
 ```
