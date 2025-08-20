@@ -62,7 +62,6 @@ groot() {
 alias x="mise x --"
 
 alias j='subl ~/Documents/j --command "set_file_type {\"syntax\": \"Packages/Markdown/Markdown.sublime-syntax\"}"'
-alias rn='~/projects/tvrename/bin/rename'
 
 dl() { tv --no-auto -d "$*" }
 ytmp3() { yt-dlp --extract-audio --audio-format mp3 "$*" }

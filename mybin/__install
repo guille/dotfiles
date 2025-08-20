@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# mybin
+##
+
+module_name=mybin
+
+
+infoprint "[$module_name] clearing existing symlinks in ~/mybin..."
+find ~/mybin -type l -delete 2>/dev/null || true
+
+infoprint "[$module_name] creating symlinks for mybin folder..."
+mkdir -p ~/mybin
+ln -sf ${SCRIPT_BASE_DIR}/$module_name/both/* ~/mybin/
+
+if is_personal; then
+    ln -sf ${SCRIPT_BASE_DIR}/$module_name/personal/* ~/mybin/ 1> /dev/null
+fi
+
