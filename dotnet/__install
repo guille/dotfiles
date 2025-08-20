@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# Set up dotnet
+##
+
+module_name=dotnet
+
+DOTNET_VERSION=9
+
+
+if is_work_or_hybrid; then
+	mise use --global dotnet@$DOTNET_VERSION
+fi

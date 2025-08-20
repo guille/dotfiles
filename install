@@ -83,6 +83,7 @@ modules_to_install=(
 	rofi
 	dunst
 	tailscale
+	dotnet
 )
 
 # interactively pick modules
