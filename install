@@ -84,12 +84,11 @@ for module in "${modules_to_install[@]}"; do
 	infoprint "[main] $module done"
 done
 
-
 infoprint "[main] clearing existing symlinks in ~/mybin..."
-mkdir -p ~/mybin
-find ~/mybin -type l -delete
+find ~/mybin -type l -delete 2>/dev/null || true
 
 infoprint "[main] creating symlinks for mybin folder..."
+mkdir -p ~/mybin
 ln -sf ${SCRIPT_BASE_DIR}/mybin/both/* ~/mybin/
 
 if is_personal; then

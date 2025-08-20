@@ -100,7 +100,7 @@ if [[ "$DOTFILES_OS" == "Linux" ]]; then
 	fi
 
 	infoprint "[$module_name] installing AUR packages"
-	\grep -v '^#' "$SCRIPT_BASE_DIR/sources/aur" | xargs aurman -S --needed --noconfirm
+	\grep -v '^#' "$SCRIPT_BASE_DIR/sources/aur" | xargs aurman -S --needed --noconfirm --noedit
 
 	infoprint "[$module_name] setting spanish keyboard layout (X11)"
 	localectl set-x11-keymap es
