@@ -49,10 +49,8 @@ yt-dlp
 zoxide
 ##
 # gui
-electrum
 evince
 firefox
-foliate
 ghostty
 hunspell
 hunspell-en_gb
@@ -61,10 +59,7 @@ hunspell-es_es
 imv
 libreoffice-fresh
 mpv
-obsidian
-sigil
 sublime-text
-transmission-gtk
 ##
 # proglands and sdks
 crystal
@@ -75,11 +70,6 @@ python-pip
 shards
 ##
 # media
-jellyfin-server
-jellyfin-web
-mpc
-mpd
-ncmpcpp
 pavucontrol
 pulseaudio
 ##

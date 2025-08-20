@@ -64,7 +64,8 @@ if [[ "$DOTFILES_OS" == "Linux" ]]; then
 	pacman -Ss sublime-text &> /dev/null || install_sublime_repo
 
 	infoprint "[$module_name] installing programs from source/pacman"
-	\grep -v '^#' "$SCRIPT_BASE_DIR/sources/pacman" | xargs $INSTALL
+	prepare_profiled_config "pacman"
+	\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/pacman" | xargs $INSTALL
 
 	# Install fonts if available and reload fonts
 	infoprint "[$module_name] installing custom fonts and reloading"
@@ -100,7 +101,8 @@ if [[ "$DOTFILES_OS" == "Linux" ]]; then
 	fi
 
 	infoprint "[$module_name] installing AUR packages"
-	\grep -v '^#' "$SCRIPT_BASE_DIR/sources/aur" | xargs aurman -S --needed --noconfirm --noedit
+	prepare_profiled_config "aur"
+	\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/aur" | xargs aurman -S --needed --noconfirm --noedit
 
 	infoprint "[$module_name] setting spanish keyboard layout (X11)"
 	localectl set-x11-keymap es
@@ -113,10 +115,10 @@ fi
 
 if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	infoprint "[$module_name] installing programs from source/brew_formulae"
-	\grep -v '^#' "$SCRIPT_BASE_DIR/sources/brew_formulae" | xargs $INSTALL
+	\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/brew_formulae" | xargs $INSTALL
 
 	infoprint "[$module_name] installing programs from source/brew_casks"
-	\grep -v '^#' "$SCRIPT_BASE_DIR/sources/brew_casks" | xargs $INSTALL --cask
+	\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/brew_casks" | xargs $INSTALL --cask
 
 	infoprint "[$module_name] setting up nicer defaults"
 	# Dock: hide recents
