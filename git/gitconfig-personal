@@ -1,0 +1,7 @@
+[user]
+  name = guille
+  email = guille@users.noreply.github.com
+  signingKey = ~/.ssh/id_ed25519_sign.pub
+
+[core]
+  sshCommand = "ssh -i ~/.ssh/id_ed25519 -F /dev/null"
