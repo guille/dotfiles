@@ -36,6 +36,8 @@
   fixup = commit --fixup
   # Stats
   ds = diff --stat=160,120
+  # Interactive rebase with the given number of latest commits.
+  reb = "!r() { git rebase -i HEAD~$1; }; r"
   # fancy fzf helper
   cs = "! ~/.githelpers"
 
