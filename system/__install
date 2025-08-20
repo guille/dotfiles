@@ -118,7 +118,15 @@ if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	infoprint "[$module_name] installing programs from source/brew_casks"
 	\grep -v '^#' "$SCRIPT_BASE_DIR/sources/brew_casks" | xargs $INSTALL --cask
 
-	infoprint "[$module_name] setting up nicer Dock defaults"
+	infoprint "[$module_name] setting up nicer defaults"
+	# Dock: hide recents
 	defaults write com.apple.dock show-recents -bool no
 	defaults write com.apple.dock recent-apps -array
+	# disable the sound effects on boot
+	sudo nvram SystemAudioVolume=" "
+	# Finder: show all filename extensions
+	defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+	# Avoid creating .DS_Store files on network or USB volumes
+	defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+	defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 fi
