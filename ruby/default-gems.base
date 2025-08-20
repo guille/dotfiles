@@ -1,6 +1,3 @@
-download_tv
-mechanize
-nokogiri
 rubocop
 pry-byebug
 parallel

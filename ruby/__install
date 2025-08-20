@@ -18,8 +18,21 @@ mise use --global ruby@$RUBY_VERSION
 mise settings add idiomatic_version_file_enable_tools ruby
 mise settings ruby.default_packages_file=~/.default-gems
 
+##
+# Prepare profiled config
+##
+cp "${SCRIPT_BASE_DIR}/$module_name/default-gems.base" "${SCRIPT_BASE_DIR}/$module_name/default-gems"
 
-# Links
+if is_personal; then
+	cat "${SCRIPT_BASE_DIR}/$module_name/default-gems.personal" >> "${SCRIPT_BASE_DIR}/$module_name/default-gems"
+fi
 
+if is_work; then
+	cat "${SCRIPT_BASE_DIR}/$module_name/default-gems.work" >> "${SCRIPT_BASE_DIR}/$module_name/default-gems"
+fi
+
+##
+# Symlinks
+##
 infoprint "[$module_name] creating dotfiles symlinks..."
 ln -sfv ${SCRIPT_BASE_DIR}/$module_name/default-gems ~/.default-gems 1> /dev/null
