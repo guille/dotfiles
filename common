@@ -19,9 +19,15 @@ errorprint () {
 	echo -e "${RED}${1}${NO_COLOR}" >&2
 }
 is_work() {
-	[[ "$DOTFILES_PROFILE" == "work" || "$DOTFILES_PROFILE" == "hybrid" ]]
+	[[ "$DOTFILES_PROFILE" == "work" ]]
 }
 is_personal() {
+	[[ "$DOTFILES_PROFILE" == "personal" ]]
+}
+is_work_or_hybrid() {
+	[[ "$DOTFILES_PROFILE" == "work" || "$DOTFILES_PROFILE" == "hybrid" ]]
+}
+is_personal_or_hybrid() {
 	[[ "$DOTFILES_PROFILE" == "personal" || "$DOTFILES_PROFILE" == "hybrid" ]]
 }
 prepare_profiled_config() {
@@ -36,11 +42,11 @@ prepare_profiled_config() {
 	# reset from base
 	cp "${target}.base" "$target"
 
-	if is_personal; then
+	if is_personal_or_hybrid; then
 	    cat "${target}.personal" >> "$target"
 	fi
 
-	if is_work; then
+	if is_work_or_hybrid; then
 	    cat "${target}.work" >> "$target"
 	fi
 }

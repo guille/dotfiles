@@ -12,7 +12,7 @@ module_name=mpd
 
 
 # Linux only, personal only
-if [[ "${DOTFILES_OS:-}" == "OSX" || "${DOTFILES_PROFILE:-}" == "work" ]]; then
+if [[ "${DOTFILES_OS:-}" == "OSX" ]] || is_work; then
 	exit
 fi
 

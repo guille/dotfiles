@@ -1,23 +1,16 @@
-{
-	"in_process_packages": [
-	],
-	"installed_packages": [
 		"Agila Theme",
 		"All Autocomplete",
 		"Babel",
 		"BracketHighlighter",
-		"Elixir",
 		"Increment Selection",
 		"LSP",
-		"LSP-gopls",
 		"LSP-json",
+		"LSP-yaml",
 		"MoveTab",
 		"Package Control",
+		"PasteRepeater",
 		"RSpec",
 		"SublimeLinter",
 		"SublimeLinter-annotations",
 		"SublimeLinter-rubocop",
 		"SublimeLinter-ruby",
-	],
-	"bootstrapped": true,
-}

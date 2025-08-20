@@ -4,7 +4,7 @@
 	"color_scheme": "Packages/Agila Theme/Agila Monokai Extended.tmTheme",
 	"draw_white_space": "all",
 	"ensure_newline_at_eof_on_save": true,
-	"font_face": "Inconsolata",
+	"font_face": "Inconsolata Nerd Font",
 	"font_size": 14,
 	"ignored_packages": [
 		"Rust",
