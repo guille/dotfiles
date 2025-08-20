@@ -13,7 +13,7 @@
             "selector": "source.ruby | text.html.ruby",
             "initializationOptions": {
                 "enabledFeatures": {
-                    "diagnostics": true
+                    "diagnostics": false
                 },
                 "experimentalFeaturesEnabled": true
             }

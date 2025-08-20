@@ -79,3 +79,6 @@
 
 [help]
   autocorrect = 20
+
+[include]
+  path = ~/.gitconfig.local

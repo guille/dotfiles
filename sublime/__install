@@ -16,17 +16,27 @@ infoprint "[$module_name] installing Package Control"
 command subl --command "install_package_control"
 
 
-infoprint "[$module_name] creating dotfiles symlinks..."
 # TODO: on a fresh install it might be `~/.config/sublime-text`??
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_packages ~/.config/sublime-text-3/Packages/User/Package\ Control.sublime-settings 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_keys ~/.config/sublime-text-3/Packages/User/Default" (Linux)".sublime-keymap 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_settings ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_colors ~/.config/sublime-text-3/Packages/User/Agila\ Monokai\ Extended.sublime-color-scheme 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_ruby ~/.config/sublime-text-3/Packages/User/Ruby.sublime-settings 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_elixir ~/.config/sublime-text-3/Packages/User/Elixir.sublime-settings 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_gitcommit ~/.config/sublime-text-3/Packages/User/Git\ Commit.sublime-settings 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/subl_lsp ~/.config/sublime-text-3/Packages/User/LSP.sublime-settings 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/ipdb.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/pry.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/rdbg.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/byebug.sublime-snippet ~/.config/sublime-text-3/Packages/User/ 1> /dev/null
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	SUBL_CONFIG="$HOME/Library/Application Support/Sublime Text 3/Packages/User"
+elif [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
+	SUBL_CONFIG="$HOME/.config/sublime-text-3/Packages/User"
+else
+	errorprint "Needs \$DOTFILES_OS set"
+	exit 1
+fi
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_packages" "$SUBL_CONFIG/Package Control.sublime-settings" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_keys.linux" "$SUBL_CONFIG/Default (Linux).sublime-keymap" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_keys.osx" "$SUBL_CONFIG/Default (OSX).sublime-keymap" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_settings" "$SUBL_CONFIG/Preferences.sublime-settings" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_colors" "$SUBL_CONFIG/Agila Monokai Extended.sublime-color-scheme" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_ruby" "$SUBL_CONFIG/Ruby.sublime-settings" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_elixir" "$SUBL_CONFIG/Elixir.sublime-settings" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_gitcommit" "$SUBL_CONFIG/Git Commit.sublime-settings" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_lsp" "$SUBL_CONFIG/LSP.sublime-settings" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ipdb.sublime-snippet" "$SUBL_CONFIG/ipdb.sublime-snippet" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/pry.sublime-snippet" "$SUBL_CONFIG/pry.sublime-snippet" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/rdbg.sublime-snippet" "$SUBL_CONFIG/rdbg.sublime-snippet" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/byebug.sublime-snippet" "$SUBL_CONFIG/byebug.sublime-snippet" 1> /dev/null

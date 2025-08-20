@@ -12,10 +12,10 @@ populate_os_zvars() {
 
 	case "$os" in
 	Linux*)
-		echo "export DOTFILES_OS=Linux" > "$SCRIPT_BASE_DIR/dots/zvars"
+		echo "export DOTFILES_OS=Linux" > "$SCRIPT_BASE_DIR/zsh/zvars"
 		;;
 	Darwin*)
-		echo "export DOTFILES_OS=OSX" > "$SCRIPT_BASE_DIR/dots/zvars"
+		echo "export DOTFILES_OS=OSX" > "$SCRIPT_BASE_DIR/zsh/zvars"
 		;;
 	*)
 		errorprint "Unsupported OS: $os"
@@ -45,13 +45,13 @@ populate_profile_zvars() {
 		exit 1
 	fi
 
-	echo "export DOTFILES_PROFILE=$profile" >> "$SCRIPT_BASE_DIR/dots/zvars"
+	echo "export DOTFILES_PROFILE=$profile" >> "$SCRIPT_BASE_DIR/zsh/zvars"
 }
 
 populate_os_zvars
 populate_profile_zvars
 
-source "$SCRIPT_BASE_DIR/dots/zvars"
+source "$SCRIPT_BASE_DIR/zsh/zvars"
 infoprint "[main] configured & loaded zvars"
 
 # System module - general setup & packages
@@ -85,7 +85,15 @@ for module in "${modules_to_install[@]}"; do
 done
 
 
+infoprint "[main] clearing existing symlinks in ~/mybin..."
+mkdir -p ~/mybin
+find ~/mybin -type l -delete
+
 infoprint "[main] creating symlinks for mybin folder..."
-ln -sfv ${SCRIPT_BASE_DIR}/mybin/ ~/mybin 1> /dev/null
+ln -sf ${SCRIPT_BASE_DIR}/mybin/both/* ~/mybin/
+
+if is_personal; then
+    ln -sf ${SCRIPT_BASE_DIR}/mybin/personal/* ~/mybin/ 1> /dev/null
+fi
 
 infoprint "[main] done"

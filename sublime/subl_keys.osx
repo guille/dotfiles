@@ -1,0 +1,14 @@
+[
+	{ "keys": ["ctrl+."], "command": "reindent"},
+	{ "keys": ["ctrl+m"], "command": "toggle_comment", "args": { "block": false } },
+	{ "keys": ["ctrl+shift+d"], "command": "find_all_under" },
+	{ "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+	{ "keys": ["ctrl+tab"], "command": "next_view" },
+	{ "keys": ["option+left"], "command": "move", "args": {"by": "subwords", "forward": false} },
+	{ "keys": ["option+m"], "command": "toggle_comment", "args": { "block": false } },
+	{ "keys": ["option+right"], "command": "move", "args": {"by": "subword_ends", "forward": true} },
+	{ "keys": ["option+shift+d"], "command": "find_all_under" },
+	{ "keys": ["option+shift+left"], "command": "move", "args": {"by": "subwords", "forward": false, "extend": true} },
+	{ "keys": ["option+shift+right"], "command": "move", "args": {"by": "subword_ends", "forward": true, "extend": true} },
+	{ "keys": ["option+space"], "command": "insert", "args": {"characters": " "} }
+]

@@ -18,3 +18,9 @@ infoprint () {
 errorprint () {
 	echo -e "${RED}${1}${NO_COLOR}"
 }
+is_work() {
+	[[ "$DOTFILES_PROFILE" == "work" || "$DOTFILES_PROFILE" == "hybrid" ]]
+}
+is_personal() {
+	[[ "$DOTFILES_PROFILE" == "personal" || "$DOTFILES_PROFILE" == "hybrid" ]]
+}
