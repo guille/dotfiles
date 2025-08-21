@@ -1,6 +1,7 @@
 [core]
   autocrlf = input
   pager = delta
+  excludesFile = ~/.gitignore
 
 [init]
   defaultBranch = master
