@@ -1,6 +1,7 @@
 // Settings in here override those in "LSP/LSP.sublime-settings"
 {
     "lsp_format_on_save": true,
+    "log_max_size": 0,
     "clients": {
         "ruby": {
             "enabled": false
