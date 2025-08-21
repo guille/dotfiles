@@ -1,0 +1,6 @@
+[user]
+  name = Guillermo Rodríguez
+  signingKey = ~/.ssh/git_work_sign.pub
+
+[core]
+  sshCommand = "ssh -i ~/.ssh/git_work -F /dev/null"

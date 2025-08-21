@@ -77,11 +77,12 @@
 [help]
   autocorrect = 20
 
+# Usually: work email, maintenance repos
+[include]
+  path = ~/.gitconfig.local
+
 [includeIf "gitdir:~/projects/"]
   path = ~/.gitconfig-personal
 
-# [includeIf "gitdir:~/work/"]
-#   path = ~/.gitconfig-work
-
-[include]
-  path = ~/.gitconfig.local
+[includeIf "gitdir:~/work/"]
+  path = ~/.gitconfig-work
