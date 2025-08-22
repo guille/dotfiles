@@ -20,5 +20,5 @@ mkdir -p ~/.config/waybar
 
 infoprint "[$module_name] creating dotfiles symlinks..."
 
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/config ~/.config/waybar/config 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/style.css ~/.config/waybar/style.css 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/config" ~/.config/waybar/config 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/style.css" ~/.config/waybar/style.css 1> /dev/null

@@ -18,7 +18,7 @@ fi
 
 
 infoprint "[$module_name] creating dotfiles symlinks..."
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/gitconfig ~/.gitconfig 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/gitconfig-personal ~/.gitconfig-personal 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/gitconfig-work ~/.gitconfig-work 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/githelpers ~/.githelpers 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/gitconfig" ~/.gitconfig 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/gitconfig-personal" ~/.gitconfig-personal 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/gitconfig-work" ~/.gitconfig-work 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/githelpers" ~/.githelpers 1> /dev/null

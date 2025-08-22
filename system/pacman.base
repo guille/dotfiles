@@ -41,6 +41,7 @@ pacman-contrib
 plocate
 ripgrep
 rsync
+shellcheck
 tailscale
 tinyxxd
 tree

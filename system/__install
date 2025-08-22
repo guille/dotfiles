@@ -51,7 +51,7 @@ if [[ "$SHELL" =~ zsh$ ]]; then
 else
 	infoprint "[$module_name] installing zsh and setting as the user shell"
 	$INSTALL zsh
-	chsh -s $(which zsh)
+	chsh -s "$(which zsh)"
 fi
 
 
@@ -65,6 +65,7 @@ if [[ "$DOTFILES_OS" == "Linux" ]]; then
 
 	infoprint "[$module_name] installing programs from source/pacman"
 	prepare_profiled_config "pacman"
+	# shellcheck disable=SC2086
 	\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/pacman" | xargs $INSTALL
 
 	# Install fonts if available and reload fonts
@@ -115,9 +116,11 @@ fi
 
 if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	infoprint "[$module_name] installing programs from source/brew_formulae"
+	# shellcheck disable=SC2086
 	\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/brew_formulae" | xargs $INSTALL
 
 	infoprint "[$module_name] installing programs from source/brew_casks"
+	# shellcheck disable=SC2086
 	\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/brew_casks" | xargs $INSTALL --cask
 
 	infoprint "[$module_name] setting up nicer defaults"

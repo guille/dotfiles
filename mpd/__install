@@ -29,5 +29,5 @@ touch ~/.mpd/sticker.sql
 
 
 infoprint "[$module_name] creating dotfiles symlinks..."
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/mpdconf ~/.mpdconf 1> /dev/null
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/ncmpcpp ~/.ncmpcpp/config 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/mpdconf" ~/.mpdconf 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ncmpcpp" ~/.ncmpcpp/config 1> /dev/null

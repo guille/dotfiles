@@ -24,4 +24,4 @@ prepare_profiled_config "default-gems"
 # Symlinks
 ##
 infoprint "[$module_name] creating dotfiles symlinks..."
-ln -sfv ${SCRIPT_BASE_DIR}/$module_name/default-gems ~/.default-gems 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/default-gems" ~/.default-gems 1> /dev/null

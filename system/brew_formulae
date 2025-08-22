@@ -17,6 +17,7 @@ neovim
 openssl@3
 readline
 ripgrep
+shellcheck
 sqlite
 util-linux
 watch

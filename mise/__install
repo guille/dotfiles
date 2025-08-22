@@ -21,7 +21,7 @@ fi
 
 
 if [ ! -f /usr/local/share/zsh/site-functions/_mise ]; then
-	sudo chown -R $(whoami):$(id -gn) /usr/local/share/zsh
+	sudo chown -R "$(whoami)":"$(id -gn)" /usr/local/share/zsh
 	mkdir -p /usr/local/share/zsh/site-functions
 	mise completion zsh  > /usr/local/share/zsh/site-functions/_mise
 fi

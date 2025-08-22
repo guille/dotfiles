@@ -16,9 +16,9 @@ find ~/mybin -type l -delete 2>/dev/null || true
 
 infoprint "[$module_name] creating symlinks for mybin folder..."
 mkdir -p ~/mybin
-ln -sf ${SCRIPT_BASE_DIR}/$module_name/both/* ~/mybin/
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/both/"* ~/mybin/
 
-if is_personal; then
-    ln -sf ${SCRIPT_BASE_DIR}/$module_name/personal/* ~/mybin/ 1> /dev/null
+if is_personal_or_hybrid; then
+    ln -sf "${SCRIPT_BASE_DIR}/$module_name/personal/"* ~/mybin/ 1> /dev/null
 fi
 

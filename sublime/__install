@@ -21,7 +21,7 @@ prepare_profiled_config "packages"
 sed "/###PACKAGES###/{
     r $SCRIPT_BASE_DIR/$module_name/packages
     d
-}" $SCRIPT_BASE_DIR/$module_name/subl_packages.base > $SCRIPT_BASE_DIR/$module_name/subl_packages
+}" "$SCRIPT_BASE_DIR/$module_name/subl_packages.base" > "$SCRIPT_BASE_DIR/$module_name/subl_packages"
 
 
 # TODO: on a fresh install it might be `~/.config/sublime-text`??
@@ -38,7 +38,7 @@ fi
 
 # https://github.com/sublimehq/sublime_text/issues/32
 
-sed "s/###FONT_SIZE###/${FONT_SIZE}/" $SCRIPT_BASE_DIR/$module_name/subl_settings.base > $SCRIPT_BASE_DIR/$module_name/subl_settings
+sed "s/###FONT_SIZE###/${FONT_SIZE}/" "$SCRIPT_BASE_DIR/$module_name/subl_settings.base" > "$SCRIPT_BASE_DIR/$module_name/subl_settings"
 
 
 
