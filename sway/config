@@ -230,6 +230,7 @@ exec --no-startup-id swayidle timeout 360 'swaymsg "output * dpms off"' resume '
 exec --no-startup-id mpd
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
+exec --no-startup-id wl-clip-persist --clipboard regular
 exec --no-startup-id thunar --daemon
 exec --no-startup-id wlsunset -l $latitude -L $longitude
 
