@@ -44,6 +44,8 @@ alias yt-dlp="yt-dlp --downloader aria2c --output '%(title)s.%(ext)s' --restrict
 if [[ -x `which htop` ]]; then alias top="htop"; fi
 if [[ -x `which bat` ]]; then alias cat="bat --theme-dark 'Monokai Extended'"; fi
 
+alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+
 alias resource='source ~/.zshrc && source ~/.zshenv'
 
 # Cleans branches that were tracking a remote that has been deleted
