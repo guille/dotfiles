@@ -40,6 +40,7 @@ keybind = shift+enter=text:\n
 
 # Linux only
 gtk-titlebar = false
+gtk-single-instance = true
 
 # Mac only
 macos-titlebar-style = tabs
