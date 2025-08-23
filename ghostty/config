@@ -36,6 +36,8 @@ palette = 15=#ffffff
 
 resize-overlay = never
 
+keybind = shift+enter=text:\n
+
 # Linux only
 gtk-titlebar = false
 
