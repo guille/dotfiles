@@ -7,6 +7,7 @@ configuration {
 	show-icons: true;
 	icon-theme: "Papirus";
 	matching: "fuzzy";
+	sorting-method: "fzf";
 	display-drun: "Apps";
 	drun {
 		fallback-icon: "application-x-addon";
