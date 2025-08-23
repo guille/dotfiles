@@ -28,8 +28,13 @@
   amend = commit --amend
   qamend = commit --amend --no-edit
   pushf = push --force-with-lease
-  autosquash = rebase --autosquash
-  fixup = commit --fixup
+  # autosquash = rebase --autosquash
+  # fixup = commit --fixup
+  # trying these out
+  fixup = "!git log --oneline $(git merge-base HEAD ${@:-'@{u}'})..HEAD | fzf --preview 'git show --color=always {1}' | cut -d' ' -f1 | xargs -r git commit --fixup"
+  autosquash = "!git rebase --autostash --autosquash $(git merge-base HEAD ${@:-'@{u}'})"
+  # weirdly useful
+  git = !git
   # Stats
   ds = diff --stat=160,120
   # Interactive rebase with the given number of latest commits.
@@ -77,6 +82,9 @@
 
 [help]
   autocorrect = 20
+
+[url "git@github.com:"]
+    pushInsteadOf = "https://github.com/"
 
 # Usually: work email, maintenance repos
 [include]
