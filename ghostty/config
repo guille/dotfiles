@@ -37,6 +37,9 @@ palette = 15=#ffffff
 resize-overlay = never
 
 keybind = shift+enter=text:\n
+# copy if anything selected, send interrupt otherwise
+keybind = performable:ctrl+c=copy_to_clipboard
+keybind = performable:ctrl+v=paste_from_clipboard
 
 # Linux only
 gtk-titlebar = false
