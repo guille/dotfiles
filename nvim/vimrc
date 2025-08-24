@@ -1,43 +1,3 @@
-set number
-" Incremental search with smart case
-set incsearch
-set hlsearch
-set ignorecase smartcase
-" Allow backspacing over everything in insert mode.
-set ruler        " show the cursor position all the time
-set showcmd      " display incomplete commands
-set wildmenu     " display completion matches in a status line
-set wildmode=longest:full,list:full " complete (kinda) like zsh
-set scrolloff=3  " keep 3 lines off the bottom when scrolling
-set linebreak    " soft wrapping
-set gdefault     " Subtitute globally by default
-set hidden       " Easily create hidden buffers
-set nojoinspaces " Prevents inserting two spaces after punctuation on join (J)
-let loaded_matchparen = 1 " Disable bracket highlighting
-" If a file is changed outside of vim, automatically reload it without asking
-set autoread
-set noswapfile
-set showmode
-set cursorline
-set splitbelow
-set splitright
-
-syntax on
-filetype plugin indent on
-
-" Tabs
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set autoindent
-set noexpandtab
-if has("autocmd")
-	filetype on
-	" Syntax of these languages is fussy over tabs Vs spaces
-	autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-	autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-	autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
-end
 
 " KEYBOARD SHORTCUTS
 let mapleader=","
@@ -65,16 +25,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-function! StripTrailingWhitespace()
-    " Don't strip on these filetypes
-    if &ft =~ 'sql\|markdown'
-        return
-    endif
-    %s/\s\+$//e
-endfun
-autocmd BufWritePre * call StripTrailingWhitespace()
-
-
 """""""""""""
 " MULTIPURPOSE TAB KEY
 " Indent if we're at the beginning of a line. Else, do completion.
@@ -91,36 +41,6 @@ inoremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-n>
 nmap <tab> %
 
-" Learning crutch
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-
-" Nvim - vim compatibility
-set nocompatible
-set history=10000
-set backspace=indent,eol,start
-set ttyfast
-" save as sudo. only works on vim, not nvim :(
-cmap w!! w !sudo tee % > /dev/null
-
-
 " Appearance
-set termguicolors
-let g:rehash256 = 1
-colorscheme molokai
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-set colorcolumn=85
 set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
-
-" Search down into subfolders for file related cmds
-set path+=**
-" VIM file browser. v on selected for vsplitting file
-let g:netrw_banner=0        " disable annoying banner
-let g:netrw_liststyle=3     " tree view
-" let g:netrw_list_hide=netrw_gitignore#Hide()
-
-" Snippets
-" insert ipdb trace on next line
-nnoremap <leader>ipdb oimport ipdb; ipdb.set_trace()<Esc>
