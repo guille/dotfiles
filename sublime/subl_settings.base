@@ -4,19 +4,25 @@
 	"color_scheme": "Packages/Agila Theme/Agila Monokai Extended.tmTheme",
 	"draw_white_space": "all",
 	"ensure_newline_at_eof_on_save": true,
+	"find_selected_text": false,
 	"font_face": "Inconsolata Nerd Font",
 	"font_size": ###FONT_SIZE###,
+	"hide_tab_scrolling_buttons": true,
+	"highlight_line": true,
 	"ignored_packages": [
 		"Rust",
 		"Vintage",
 	],
+	"index_files": true,
 	"rulers": [
 		100
 	],
+	"show_git_status_in_status_bar": false,
+	"sublime_merge_path": null,
 	"tab_size": 4,
 	"theme": "Agila Monokai.sublime-theme",
 	"theme_agila_compact_sidebar": true,
 	"theme_agila_sidebar_small": true,
+	"trim_only_modified_white_space": false,
 	"trim_trailing_white_space_on_save": "all",
-	"index_files": true,
 }

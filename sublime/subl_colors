@@ -3,7 +3,8 @@
 	"variables": {},
 	"globals": {
 		"background": "#2c2c2c",
-		"invisibles": "#555555"
+		"invisibles": "#555555",
+		"line_highlight": "#444444"
 	},
 	"rules": []
 }
