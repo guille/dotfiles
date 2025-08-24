@@ -1,21 +1,21 @@
 # Prompt is powerlevel10k: see https://github.com/romkatv/powerlevel10k
 
 if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
-    check_pacman() {
-        local seconds_since_pacman=$(expr $(date +"%s" ) - $(tail /var/log/pacman.log -n1 | awk '{print substr($1, 2, 24)}'  | xargs date +"%s" -d))
-        local days_since_pacman=$(expr $seconds_since_pacman / 86400)
-        if [[ $days_since_pacman -ge 6 ]]; then
-            echo "Days since last pacman run: ${days_since_pacman}"
-        fi
-    }
-    check_pacman
+	check_pacman() {
+		local seconds_since_pacman=$(expr $(date +"%s" ) - $(tail /var/log/pacman.log -n1 | awk '{print substr($1, 2, 24)}'  | xargs date +"%s" -d))
+		local days_since_pacman=$(expr $seconds_since_pacman / 86400)
+		if [[ $days_since_pacman -ge 6 ]]; then
+			echo "Days since last pacman run: ${days_since_pacman}"
+		fi
+	}
+	check_pacman
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 eval "$(mise activate zsh)"
@@ -47,14 +47,14 @@ setopt histignoredups
 setopt share_history
 
 if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
-    export WORDCHARS=''
+	export WORDCHARS=''
 fi
 
 ##################################
 
 # Map compose key in X11
 if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$DISPLAY" ]; then
-    setxkbmap -option compose:menu
+	setxkbmap -option compose:menu
 fi
 
 [[ -f "$HOME/.zkeys" ]] && . "$HOME/.zkeys"
