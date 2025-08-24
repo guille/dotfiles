@@ -1,97 +1,102 @@
 [core]
-  autocrlf = input
-  pager = delta
-  excludesFile = ~/.gitignore
+	autocrlf = input
+	pager = delta
+	excludesFile = ~/.gitignore
+	editor = nvim +startinsert
 
 [init]
-  defaultBranch = master
+	defaultBranch = master
 
 [branch]
-  sort = -committerdate
+	sort = -committerdate
 
 [tag]
-  sort = -version:refname
-  gpgSign = true
+	sort = -version:refname
+	gpgSign = true
 
 [commit]
-  gpgSign = true
+	gpgSign = true
 
 [gpg]
-  format = ssh
+	format = ssh
+
+# Separate editor for eg interactive rebases
+[sequence]
+	editor = subl -w
 
 [alias]
-  st = status
-  co = checkout
-  di = diff
-  dc = diff --cached
-  last = show --quiet
-  amend = commit --amend
-  qamend = commit --amend --no-edit
-  pushf = push --force-with-lease
-  # autosquash = rebase --autosquash
-  # fixup = commit --fixup
-  # trying these out
-  fixup = "!git log --oneline $(git merge-base HEAD ${@:-'@{u}'})..HEAD | fzf --preview 'git show --color=always {1}' | cut -d' ' -f1 | xargs -r git commit --fixup"
-  autosquash = "!git rebase --autostash --autosquash $(git merge-base HEAD ${@:-'@{u}'})"
-  # weirdly useful
-  git = !git
-  # Stats
-  ds = diff --stat=160,120
-  # Interactive rebase with the given number of latest commits.
-  reb = "!r() { git rebase -i HEAD~$1; }; r"
-  # fancy fzf helper
-  cs = "! fzf_git_commits"
+	st = status
+	co = checkout
+	di = diff
+	dc = diff --cached
+	last = show --quiet
+	amend = commit --amend
+	qamend = commit --amend --no-edit
+	pushf = push --force-with-lease
+	# autosquash = rebase --autosquash
+	# fixup = commit --fixup
+	# trying these out
+	fixup = "!git log --oneline $(git merge-base HEAD ${@:-'@{u}'})..HEAD | fzf --preview 'git show --color=always {1}' | cut -d' ' -f1 | xargs -r git commit --fixup"
+	autosquash = "!git rebase --autostash --autosquash $(git merge-base HEAD ${@:-'@{u}'})"
+	# weirdly useful
+	git = !git
+	# Stats
+	ds = diff --stat=160,120
+	# Interactive rebase with the given number of latest commits.
+	reb = "!r() { git rebase -i HEAD~$1; }; r"
+	# fancy fzf helper
+	cs = "! fzf_git_commits"
 
 [status]
-  submoduleSummary = true
+	submoduleSummary = true
 
 [pull]
-  rebase = true
+	rebase = true
 
 [push]
-  autoSetupRemote = true
-  followTags = true
+	autoSetupRemote = true
+	followTags = true
 
 [rebase]
-  autoStash = true
-  autoSquash = true
+	autoStash = true
+	autoSquash = true
 
 [fetch]
-  prune = true
+	prune = true
 
 [interactive]
-  diffFilter = delta --color-only
+	diffFilter = delta --color-only
 
 [delta]
-  navigate = true  # use n and N to move between diff sections
-  syntax-theme = Monokai Extended
+	navigate = true  # use n and N to move between diff sections
+	syntax-theme = Monokai Extended
 
 [merge]
-  conflictStyle = zdiff3
+	conflictStyle = zdiff3
 
 [diff]
-  colorMoved = default
-  algorithm = histogram
-  submodule = log
+	colorMoved = default
+	algorithm = histogram
+	submodule = log
 
 [rerere]
-  enabled = true
+	enabled = true
 
 [column]
-  ui = auto
+	ui = auto
 
 [help]
-  autocorrect = 20
+	autocorrect = 20
 
 [url "git@github.com:"]
-    pushInsteadOf = "https://github.com/"
+		pushInsteadOf = "https://github.com/"
 
 # Usually: work email, maintenance repos
 [include]
-  path = ~/.gitconfig.local
+	path = ~/.gitconfig.local
 
 [includeIf "gitdir:~/projects/"]
-  path = ~/.gitconfig-personal
+	path = ~/.gitconfig-personal
 
 [includeIf "gitdir:~/work/"]
-  path = ~/.gitconfig-work
+	path = ~/.gitconfig-work
