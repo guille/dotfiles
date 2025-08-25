@@ -2,6 +2,7 @@
 
 # Usage: as part of a grep into fzf preview pipeline
 # rg --vimgrep foo | fzf --delimiter=: --preview "fzf-bat-preview {1} {2}"
+# Copied from https://github.com/sharkdp/bat/issues/388#issuecomment-652292548
 
 set -eEuCo pipefail
 

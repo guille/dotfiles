@@ -9,7 +9,7 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	# https://github.com/sublimehq/sublime_text/issues/6236#issuecomment-2219709650
 	# https://bugs.kde.org/show_bug.cgi?id=442265
 	# https://github.com/swaywm/sway/pull/8017#issuecomment-1972210180
-	# this works for most cases except absolute paths
+	# this works for most cases except absolute paths and URLs
 	subl() { swaymsg exec -- "subl $(printf ' %q' "${PWD}/$@")" }
 	xdg-open() { swaymsg exec -- "xdg-open $(printf ' %q' "${PWD}/$@")" }
 
@@ -47,6 +47,8 @@ alias ls='eza --icons=auto --color=auto --group-directories-first'
 alias ll='eza --icons=auto --color=auto --group-directories-first -l'
 alias la='eza --icons=auto --color=auto --group-directories-first -a'
 alias lsd='eza --icons=auto --color=auto -D'
+alias lla='eza --icons=auto --color=auto --group-directories-first -la'
+alias laa='eza --icons=auto --color=auto --group-directories-first -la'
 
 # Nicer help texts with bat
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
