@@ -35,6 +35,9 @@ palette = 14=#85cebc
 palette = 15=#ffffff
 
 resize-overlay = never
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
 
 keybind = shift+enter=text:\n
 # copy if anything selected, send interrupt otherwise
