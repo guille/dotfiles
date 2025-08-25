@@ -33,17 +33,18 @@
 	amend = commit --amend
 	qamend = commit --amend --no-edit
 	pushf = push --force-with-lease
-	# autosquash = rebase --autosquash
-	# fixup = commit --fixup
-	# trying these out
+	# amending local changes before pushing
 	fixup = "!git log --oneline $(git merge-base HEAD ${@:-'@{u}'})..HEAD | fzf --preview 'git show --color=always {1}' | cut -d' ' -f1 | xargs -r git commit --fixup"
-	autosquash = "!git rebase --autostash --autosquash $(git merge-base HEAD ${@:-'@{u}'})"
+	autosquash = "!git rebase --autosquash $(git merge-base HEAD ${@:-'@{u}'})"
+	# same but including pushed commits
+	fixupall = "!git log --since='1 month ago' --oneline | fzf --preview 'git show --color=always {1}' | cut -d' ' -f1 | xargs -r git commit --fixup"
 	# weirdly useful
 	git = !git
 	# Stats
 	ds = diff --stat=160,120
-	# Interactive rebase with the given number of latest commits.
-	reb = "!r() { git rebase -i HEAD~$1; }; r"
+	# Rebase with the given number of latest commits.
+	reb = "!r() { git rebase --autosquash HEAD~$1; }; r"
+	rebi = "!r() { git rebase -i HEAD~$1; }; r"
 	# fancy fzf helper
 	cs = "! fzf_git_commits"
 
