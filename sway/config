@@ -206,7 +206,7 @@ bindsym $mod+r mode "󰁌 resize"
 
 ## Extra keyboard stuff
 # Print screen
-bindsym Print exec grim -g "$(slurp)" ~/Screenshots/$(date +%F-%T).png
+bindsym Print exec grim -g "$(slurp)" - | tee ~/Screenshots/$(date +%F-%T).png | wl-copy
 
 # Pulse Audio controls
 bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
