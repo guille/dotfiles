@@ -42,6 +42,8 @@ bindsym $mod+Return exec $term
 bindsym $mod+d exec --no-startup-id exec $menu
 # browser
 bindsym $mod+c exec firefox
+# emoji picker
+bindsym $mod+j exec emoji --rofi
 
 # kill focused window
 bindsym $mod+Shift+q kill
