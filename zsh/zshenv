@@ -8,8 +8,4 @@ export EDITOR="subl -w"
 
 export PATH=~/mybin:$PATH # Add scripts
 
-if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
-	export PATH="/usr/local/opt/util-linux/bin:$PATH"
-	export PATH="/usr/local/opt/util-linux/sbin:$PATH"
-fi
 [[ ! -f ~/.zshenv.local ]] || source ~/.zshenv.local
