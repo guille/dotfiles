@@ -45,7 +45,7 @@ alias vim='nvim'
 alias yt-dlp="yt-dlp --downloader aria2c --output '%(title)s.%(ext)s' --restrict-filenames"
 
 if [[ -x `which htop` ]]; then alias top="htop"; fi
-if [[ -x `which bat` ]]; then alias cat="bat --theme-dark 'Monokai Extended'"; fi
+if [[ -x `which bat` ]]; then alias cat="bat"; fi
 
 alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
 

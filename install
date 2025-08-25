@@ -85,6 +85,7 @@ modules_to_install=(
 	tailscale
 	dotnet
 	mybin
+	bat
 )
 
 # interactively pick modules

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# bat
+##
+
+module_name=bat
+
+
+mkdir -p "$(bat --config-dir)/themes"
+
+# Install custom theme matching custom Sublime theme:
+# 1. downloaded "Monokai Extended.tmTheme" from gh:jonschlinkert/sublime-monokai-extended
+# 2. applied patch from https://github.com/sharkdp/bat/blob/master/assets/patches/Monokai-Extended.tmTheme.patch
+#    (last revision 27ba45d)
+# 3. applied personal tweaks
+
+
+##
+# Symlinks
+##
+infoprint "[$module_name] creating dotfiles symlinks..."
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/custom.tmTheme" "$(bat --config-dir)/themes/custom.tmTheme" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/config" "$(bat --config-file)" 1> /dev/null
+
+bat cache --build
