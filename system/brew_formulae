@@ -2,6 +2,7 @@ awscli
 awslogs
 bat
 coreutils
+eza
 fzf
 gh
 git

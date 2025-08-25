@@ -27,6 +27,7 @@ xorg-xwayland
 ##
 # terminal utils
 bat
+eza
 fd
 fzf
 git

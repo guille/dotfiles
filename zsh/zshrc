@@ -63,8 +63,7 @@ fi
 source <(fzf --zsh)
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_ALT_C_COMMAND='fd --type d'
-# TODO: Replace with eza?
-export FZF_ALT_C_OPTS="--preview 'ls {}'"
+export FZF_ALT_C_OPTS="--preview 'eza -1 --icons=always --color=always {}'"
 export FZF_CTRL_T_COMMAND="fd --strip-cwd-prefix"
 export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --line-range=:500 {}"'
 eval "$(zoxide init zsh)"
