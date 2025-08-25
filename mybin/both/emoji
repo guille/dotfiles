@@ -2,25 +2,37 @@
 
 # Stole most from https://leahneukirchen.org/dotfiles/bin/dmoji
 
+OS=$(uname -s)
+
 case "${1:-}" in
-    --rofi)
-        PICKER_CMD="rofi -dmenu -i -sorting-method 'fzf' -sort -matching 'fuzzy' -p 'Emoji:'"
-        ;;
-    --console|"")
-        PICKER_CMD="fzf --height ~50% --reverse"
-        ;;
-    *)
-        echo "Usage: $0 [--rofi|--console]" >&2
-        exit 1
-        ;;
+	--rofi)
+		if [ "$OS" = "Darwin" ]; then
+			echo "Error: --rofi is not supported on macOS." >&2
+			exit 1
+		fi
+		PICKER_CMD="rofi -dmenu -i -sorting-method 'fzf' -sort -matching 'fuzzy' -p 'Emoji:'"
+		;;
+	--console|"")
+		PICKER_CMD="fzf --height ~50% --reverse"
+		;;
+	*)
+		echo "Usage: $0 [--rofi|--console]" >&2
+		exit 1
+		;;
 esac
 
-# Extract emoji using the selected picker
-EMOJI=$(sed '1,/^exit/d' "$0" | eval "$PICKER_CMD" | grep -Po '^[^ ]*')
+EMOJI=$(sed '1,/^exit/d' "$0" | eval "$PICKER_CMD" | awk '{print $1}')
 
 if [ "$EMOJI" ]; then
-	printf %s "$EMOJI" | wl-copy
-	notify-send "Emoji copied" "$EMOJI"
+	if [ "$OS" = "Linux" ]; then
+	    printf %s "$EMOJI" | wl-copy
+	    notify-send "Emoji copied" "$EMOJI"
+	elif [ "$OS" = "Darwin" ]; then
+	    printf %s "$EMOJI" | pbcopy
+	    echo "Emoji copied: $EMOJI"
+	else
+	    echo "Unsupported OS. Emoji: $EMOJI"
+    fi
 	exit $?
 fi
 # made with: curl -sL https://raw.githubusercontent.com/milesj/emojibase/master/packages/data/en/data.raw.json  | jq -r '.[] | .emoji + " " + (.label | ascii_upcase) + " " + (.tags | .? | map("#" + .) | join(" "))'
