@@ -48,6 +48,10 @@ if [[ -x `which htop` ]]; then alias top="htop"; fi
 if [[ -x `which bat` ]]; then alias cat="bat"; fi
 
 alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+# ripgrep with preview, open selected matches in sublime
+rgp() {
+  rg --vimgrep "$@" | fzf -m --delimiter=: --preview "fzf-bat-preview {1} {2}" | awk -F: '{print $1":"$2}' | xargs subl
+}
 
 alias resource='source ~/.zshrc && source ~/.zshenv'
 
