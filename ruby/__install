@@ -13,12 +13,12 @@ module_name=ruby
 
 RUBY_VERSION=3.4
 
-mise use --global ruby@$RUBY_VERSION
-
 mise settings add idiomatic_version_file_enable_tools ruby
 mise settings ruby.default_packages_file=~/.default-gems
 
 prepare_profiled_config "default-gems"
+
+mise use --global ruby@$RUBY_VERSION
 
 ##
 # Symlinks
