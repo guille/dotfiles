@@ -5,7 +5,7 @@
 	<name>Open Terminal here</name>
 	<submenu></submenu>
 	<unique-id>1755529238589111-1</unique-id>
-	<command>ghostty --working-directory=&quot;$f&quot;</command>
+	<command>ghostty --gtk-single-instance=false --working-directory=&quot;$f&quot;</command>
 	<description></description>
 	<range>*</range>
 	<patterns>*</patterns>
