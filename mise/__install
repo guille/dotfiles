@@ -14,6 +14,8 @@ module_name=mise
 infoprint "[$module_name] setting up mise's autocompletion"
 mise use --global usage
 
+gitignore "mise.toml"
+
 if [ ! -d /usr/local/share/zsh ]; then
 	errorprint "Can't find /usr/local/share/zsh, find another \$fpath. See https://mise.jdx.dev/installing-mise.html#autocompletion"
 	exit 1

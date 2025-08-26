@@ -50,3 +50,9 @@ prepare_profiled_config() {
 	    cat "${target}.work" >> "$target"
 	fi
 }
+# Adds a line to the global gitignore if it doesn't exist already
+gitignore() {
+	infoprint "[$module_name] adding $1 to global gitignore"
+	touch ~/.gitignore
+	grep -qxF "$1" ~/.gitignore || echo "$1" >> ~/.gitignore
+}

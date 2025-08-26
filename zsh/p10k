@@ -36,6 +36,7 @@
     context                 # user@hostname
     virtualenv              # python virtual environment
     aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+    mise                    # custom (https://github.com/romkatv/powerlevel10k/issues/2212)
     # =========================[ Line #2 ]=========================
     newline                 # \n
     prompt_char             # prompt symbol

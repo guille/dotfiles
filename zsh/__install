@@ -35,5 +35,6 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zaliases" ~/.zaliases 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zvars" ~/.zvars 1> /dev/null
 
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/p10k" ~/.p10k.zsh 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/p10k.mise.zsh" ~/.p10k.mise.zsh 1> /dev/null
 
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zsh-history-substring-search.zsh" ~/.zhist_substr 1> /dev/null

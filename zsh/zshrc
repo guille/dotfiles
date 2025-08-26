@@ -77,3 +77,4 @@ fi
 # To customize prompt, edit dots/p10k
 source ~/.powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f ~/.p10k.mise.zsh ]] || source ~/.p10k.mise.zsh
