@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+# Adapted from Wenxuan Zhang's forgit: https://github.com/wfxr/forgit/
+# Removed other functionality, got rid of compatibility code for easier readability
+# and made minor changes to formatting and usability
+
+
+SCRIPT_PATH="$(realpath "$0")"
+
+get_single_file_from_add_line() {
+	# NOTE: paths listed by 'git status -su' mixed with quoted and unquoted style
+	# remove indicators | remove original path for rename case | remove surrounding quotes
+	sed 's/^.*]  //' |
+	sed 's/.* -> //' |
+	sed -e 's/^\"//' -e 's/\"$//'
+}
+
+add_preview() {
+	file=$(echo "$1" | get_single_file_from_add_line)
+	# $file can be a directory when status.showUntrackedFiles is explicitly set to 'normal'
+	# In this case, show the content of the directory and return
+	[ -d "$file" ] && eza --tree "$file" && return 0
+
+	if (git status -s -- "$file" | grep '^??') &>/dev/null; then  # diff with /dev/null for untracked files
+		git diff --color=always --no-index -- /dev/null "$file" | delta | sed '2 s/added:/untracked:/'
+	else
+		git diff --color=always -- "$file" | delta
+	fi
+}
+
+edit_add_file() {
+	local input_line=$1
+	filename=$(echo "$input_line" | get_single_file_from_add_line)
+	$EDITOR "$filename" >/dev/tty </dev/tty
+}
+
+add() {
+	git rev-parse --is-inside-work-tree >/dev/null || return 1
+
+	local changed unmerged untracked files opts show_untracked
+
+	local -r header=$(cat <<-EOF
+		> ENTER  to add the file
+		> Ctr+A  to select/unselect all
+		> Alt+E  to open file in editor
+		> ?      to hide preview
+	EOF
+	)
+
+	changed=$(git config --get-color color.status.changed red)
+	unmerged=$(git config --get-color color.status.unmerged red)
+	untracked=$(git config --get-color color.status.untracked red)
+	opts="
+		$FZF_DEFAULT_OPTS
+		--ansi
+		--reverse
+		--height='100%'
+		--header-first
+		--header=\"$header\"
+		--bind='alt-k:preview-up,alt-p:preview-up'
+		--bind='alt-j:preview-down,alt-n:preview-down'
+		--bind='ctrl-a:toggle-all'
+		--bind='ctrl-s:toggle-sort'
+		--bind='?:toggle-preview'
+		--bind='alt-w:toggle-preview-wrap'
+		--preview-window='right:60%'
+		+1
+		-0 -m --nth 2..,..
+		--preview=\"$SCRIPT_PATH add_preview {}\"
+		--bind=\"alt-e:execute($SCRIPT_PATH edit_add_file {})+refresh-preview\"
+	"
+	show_untracked=$(git config status.showUntrackedFiles)
+
+	mapfile -t selected < <(
+	  git -c color.status=always \
+	      -c status.relativePaths=true \
+	      -c core.quotePath=false \
+	      status -s --untracked="${show_untracked:-all}" |
+	    grep -F -e "$changed" -e "$unmerged" -e "$untracked" |
+	    sed -E 's/^(..[^[:space:]]*)[[:space:]]+(.*)$/[\1]  \2/' |
+	    FZF_DEFAULT_OPTS="$opts" fzf |
+	    get_single_file_from_add_line
+	)
+	files+=("${selected[@]}")
+
+	[[ "${#files[@]}" -gt 0 ]] && git add "$@" "${files[@]}" && git status -s && return
+
+	echo 'Nothing to add.'
+}
+
+cmd="$1"
+shift
+"${cmd:-add}" "$@"

@@ -45,8 +45,10 @@
 	# Rebase with the given number of latest commits.
 	reb = "!r() { git rebase --autosquash HEAD~$1; }; r"
 	rebi = "!r() { git rebase -i HEAD~$1; }; r"
-	# fancy fzf helper
+	# fancy fzf helpers
 	cs = "! fzf_git_commits"
+	ga = "! fzf_git_add"
+	gap = "! fzf_git_add add -p"
 
 [status]
 	submoduleSummary = true
