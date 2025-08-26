@@ -1,6 +1,7 @@
 awscli
 awslogs
 bat
+bash
 coreutils
 eza
 fzf
