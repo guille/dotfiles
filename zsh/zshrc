@@ -68,6 +68,12 @@ export FZF_CTRL_T_COMMAND="fd --strip-cwd-prefix"
 export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --line-range=:500 {}"'
 eval "$(zoxide init zsh)"
 
+# Won't work in MacOS / Mandoc: https://github.com/sharkdp/bat/issues/1145
+if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
+	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+	export MANROFFOPT="-c"
+fi
+
 # To customize prompt, edit dots/p10k
 source ~/.powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

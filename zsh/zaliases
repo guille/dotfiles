@@ -62,6 +62,8 @@ rgp() {
 }
 
 awsp() {
+	[[ ! -f ~/.aws/config ]] && echo "No aws config file found" && return 1
+
 	# Use fzf for profile selection, aws CLI is VERY slow so just grep the config
 	selected_profile=$(rg profile ~/.aws/config | awk '{print substr($2, 1, length($2)-1)}' | fzf -1 --prompt="AWS Profile: ")
 
