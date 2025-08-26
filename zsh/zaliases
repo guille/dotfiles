@@ -61,6 +61,18 @@ rgp() {
 	rg --vimgrep "$@" | fzf -m --delimiter=: --preview "fzf-bat-preview {1} {2}" | awk -F: '{print $1":"$2}' | xargs subl
 }
 
+awsp() {
+	# Use fzf for profile selection, aws CLI is VERY slow so just grep the config
+	selected_profile=$(rg profile ~/.aws/config | awk '{print substr($2, 1, length($2)-1)}' | fzf -1 --prompt="AWS Profile: ")
+
+	if [ "$selected_profile" ]; then
+		export AWS_PROFILE="$selected_profile"
+	else
+		echo "Unsetting profile"
+		unset AWS_PROFILE
+	fi
+}
+
 alias docclean='docker ps -aq | xargs -I "{}" bash -c "docker rm --force {}"'
 
 # Cleans branches that were tracking a remote that has been deleted
