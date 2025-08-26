@@ -26,15 +26,15 @@ fi
 
 infoprint "[$module_name] creating dotfiles symlinks..."
 
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zshrc" ~/.zshrc 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zprofile" ~/.zprofile 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zshenv" ~/.zshenv 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zkeys" ~/.zkeys 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zaliases" ~/.zaliases 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zshrc.zsh" ~/.zshrc 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zprofile.zsh" ~/.zprofile 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zshenv.zsh" ~/.zshenv 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zkeys.zsh" ~/.zkeys 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zaliases.zsh" ~/.zaliases 1> /dev/null
 
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zvars" ~/.zvars 1> /dev/null
 
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/p10k" ~/.p10k.zsh 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/p10k.zsh" ~/.p10k.zsh 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/p10k.mise.zsh" ~/.p10k.mise.zsh 1> /dev/null
 
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zsh-history-substring-search.zsh" ~/.zhist_substr 1> /dev/null
