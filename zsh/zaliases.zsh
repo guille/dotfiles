@@ -58,7 +58,7 @@ alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
 
 # ripgrep with preview, open selected matches in sublime
 rgp() {
-	rg --vimgrep "$@" | fzf -m --delimiter=: --preview "fzf-bat-preview {1} {2}" | awk -F: '{print $1":"$2}' | xargs subl
+	rg -o --vimgrep "$@" | awk -F: '{print $1":"$2}' | fzf -m --delimiter=: --preview "fzf-bat-preview {1} {2}" --preview-window='right:70%' | xargs subl
 }
 
 awsp() {
