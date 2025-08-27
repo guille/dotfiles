@@ -4,7 +4,8 @@
 	"globals": {
 		"background": "#2c2c2c",
 		"invisibles": "#555555",
-		"line_highlight": "#444444"
+		"line_highlight": "#444444",
+		"selection": "#666666"
 	},
 	"rules": []
 }
