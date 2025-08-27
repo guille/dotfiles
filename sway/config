@@ -35,6 +35,7 @@ smart_gaps on
 
 default_border pixel 4
 hide_edge_borders vertical
+smart_borders on
 
 # start a terminal
 bindsym $mod+Return exec $term
@@ -182,7 +183,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec --no-startup-id ~/mybin/rofi_logout.sh
 
 # Wallpaper
-set $wallpapers_path $HOME/Wallpapers
+set $wallpapers_path $HOME/Wallpapers/Single
 output * bg $(find $wallpapers_path -type f | shuf -n 1) fill
 
 # resize window (you can also use the mouse for that)
