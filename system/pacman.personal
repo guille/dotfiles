@@ -1,4 +1,10 @@
 ##
+# terminal utils
+age
+par2cmdline
+rclone
+restic
+##
 # gui
 electrum
 foliate

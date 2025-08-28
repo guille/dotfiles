@@ -86,6 +86,7 @@ modules_to_install=(
 	dotnet
 	mybin
 	bat
+	restic
 )
 
 # interactively pick modules

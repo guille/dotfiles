@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# Set up restic
+##
+
+module_name=restic
+
+
+# Linux only, personal only
+if [[ "${DOTFILES_OS:-}" == "OSX" ]] || is_work; then
+	exit
+fi
+
+
+infoprint "[$module_name] setting up restic's autocompletion"
+
+if [ ! -d /usr/local/share/zsh ]; then
+	errorprint "Can't find /usr/local/share/zsh, find another \$fpath"
+	exit 1
+fi
+
+
+if [ ! -f /usr/local/share/zsh/site-functions/_restic ]; then
+	mkdir -p /usr/local/share/zsh/site-functions
+	restic generate --zsh-completion /usr/local/share/zsh/site-functions/_restic
+fi
