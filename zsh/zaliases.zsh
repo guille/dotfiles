@@ -9,9 +9,11 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	# https://github.com/sublimehq/sublime_text/issues/6236#issuecomment-2219709650
 	# https://bugs.kde.org/show_bug.cgi?id=442265
 	# https://github.com/swaywm/sway/pull/8017#issuecomment-1972210180
-	# this works for most cases except absolute paths and URLs
-	subl() { swaymsg exec -- "subl $(printf ' %q' "${PWD}/$@")" }
-	xdg-open() { swaymsg exec -- "xdg-open $(printf ' %q' "${PWD}/$@")" }
+	subl() {
+		command subl "$@"
+		swaymsg '[app_id="sublime_text"] focus'
+	}
+	xdg-open() { swaymsg exec xdg-open "$(printf ' %q' "$@")" }
 
 	# Notifications
 	alias dnd='notify-send "DUNST_COMMAND_PAUSE"'
