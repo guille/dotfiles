@@ -14,16 +14,18 @@ module_name=mise
 infoprint "[$module_name] setting up mise's autocompletion"
 mise use --global usage
 
-gitignore "mise.toml"
-
 if [ ! -d /usr/local/share/zsh ]; then
 	errorprint "Can't find /usr/local/share/zsh, find another \$fpath. See https://mise.jdx.dev/installing-mise.html#autocompletion"
 	exit 1
 fi
-
 
 if [ ! -f /usr/local/share/zsh/site-functions/_mise ]; then
 	sudo chown -R "$(whoami)":"$(id -gn)" /usr/local/share/zsh
 	mkdir -p /usr/local/share/zsh/site-functions
 	mise completion zsh  > /usr/local/share/zsh/site-functions/_mise
 fi
+
+infoprint "[$module_name] mise config flags"
+mise settings set experimental true
+
+gitignore "mise.toml"
