@@ -70,6 +70,7 @@ hugo
 jdk8-openjdk
 python-pip
 shards
+uv
 ##
 # media
 pavucontrol
