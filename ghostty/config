@@ -38,11 +38,7 @@ resize-overlay = never
 cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
-
-keybind = shift+enter=text:\n
-# copy if anything selected, send interrupt otherwise
-keybind = performable:ctrl+c=copy_to_clipboard
-keybind = performable:ctrl+v=paste_from_clipboard
+mouse-hide-while-typing = true
 
 # Linux only
 gtk-titlebar = false
@@ -50,5 +46,25 @@ gtk-single-instance = true
 
 # Mac only
 macos-titlebar-style = tabs
+window-save-state = always
+keybind = global:cmd+grave_accent=new_window
 # applies to Alt+w in Linux
 keybind = option+w=text:\x1b\x7f
+
+keybind = ctrl+s>right=new_split:right
+keybind = ctrl+s>down=new_split:down
+keybind = ctrl+s>left=new_split:left
+keybind = ctrl+s>up=new_split:up
+
+# should work properly soon? (v1.1.4?)
+# https://github.com/ghostty-org/ghostty/pull/8210
+keybind = ctrl+shift+left=goto_split:left
+keybind = ctrl+shift+right=goto_split:right
+keybind = ctrl+shift+up=goto_split:up
+keybind = ctrl+shift+down=goto_split:down
+
+# Global
+keybind = shift+enter=text:\n
+# copy if anything selected, send interrupt otherwise
+keybind = performable:ctrl+c=copy_to_clipboard
+keybind = performable:ctrl+v=paste_from_clipboard
