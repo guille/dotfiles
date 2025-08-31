@@ -108,4 +108,6 @@ command_exists() {
 	type "$1" &> /dev/null ;
 }
 
+alias q='exit'
+
 [[ ! -f ~/.zaliases.local ]] || source ~/.zaliases.local
