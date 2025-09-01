@@ -7,9 +7,13 @@
 # # Empty values are used to reset config keys to default.
 # key =
 
+##
+# Font
 font-family = Inconsolata Nerd Font
 font-size = 14
 
+##
+# Colours
 background = #2c2c2c
 foreground = #e1e1e1
 cursor-color = #45b7cf
@@ -34,11 +38,14 @@ palette = 13=#98005d
 palette = 14=#85cebc
 palette = 15=#ffffff
 
+##
+# Settings
 resize-overlay = never
 cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
 mouse-hide-while-typing = true
+window-inherit-working-directory = false
 
 # Linux only
 gtk-titlebar = false
@@ -47,24 +54,28 @@ gtk-single-instance = true
 # Mac only
 macos-titlebar-style = tabs
 window-save-state = always
-keybind = global:cmd+grave_accent=new_window
-# applies to Alt+w in Linux
-keybind = option+w=text:\x1b\x7f
 
+##
+# Keybinds
+# Splits
 keybind = ctrl+s>right=new_split:right
 keybind = ctrl+s>down=new_split:down
 keybind = ctrl+s>left=new_split:left
 keybind = ctrl+s>up=new_split:up
 
-# should work properly soon? (v1.1.4?)
+# bit wacky but should work properly soon? (v1.1.4?)
 # https://github.com/ghostty-org/ghostty/pull/8210
 keybind = ctrl+shift+left=goto_split:left
 keybind = ctrl+shift+right=goto_split:right
 keybind = ctrl+shift+up=goto_split:up
 keybind = ctrl+shift+down=goto_split:down
 
-# Global
+# mistypes
 keybind = shift+enter=text:\n
 # copy if anything selected, send interrupt otherwise
 keybind = performable:ctrl+c=copy_to_clipboard
 keybind = performable:ctrl+v=paste_from_clipboard
+# Mac-only
+keybind = global:cmd+grave_accent=new_window
+# applies to Alt+w in Linux
+keybind = option+w=text:\x1b\x7f
