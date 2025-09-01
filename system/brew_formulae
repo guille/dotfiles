@@ -4,6 +4,7 @@ bat
 bash
 coreutils
 eza
+fd
 fzf
 gh
 git
