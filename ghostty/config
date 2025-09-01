@@ -62,6 +62,7 @@ keybind = ctrl+s>right=new_split:right
 keybind = ctrl+s>down=new_split:down
 keybind = ctrl+s>left=new_split:left
 keybind = ctrl+s>up=new_split:up
+keybind = ctrl+s>enter=toggle_split_zoom
 
 # bit wacky but should work properly soon? (v1.1.4?)
 # https://github.com/ghostty-org/ghostty/pull/8210
