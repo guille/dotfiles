@@ -434,11 +434,12 @@
       res+="${meta}:${clean}${(V)VCS_STATUS_REMOTE_BRANCH//\%/%%}"
     fi
 
+    # (EDITED) Hide stashes
     # (EDITED) Local status comes first
     # (EDITED) Only care about numbers for conflicts in this part
 
     # *42 if have stashes.
-    (( VCS_STATUS_STASHES        )) && res+=" ${clean}*"
+    # (( VCS_STATUS_STASHES        )) && res+=" ${clean}*"
     # 'merge' if the repo is in an unusual state.
     [[ -n $VCS_STATUS_ACTION     ]] && res+=" ${conflicted}${VCS_STATUS_ACTION}"
     # ~42 if have merge conflicts.
