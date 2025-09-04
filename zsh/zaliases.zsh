@@ -77,6 +77,21 @@ awsp() {
 	fi
 }
 
+# Logs in to AWS with SSO, then use credential helper to log into Docker
+# Uses AWS_PROFILE from environment or defaults to 'dev-read', exporting it at the end
+# Uses AWS_REGION or the default region configured for the profile if unset
+awsl() {
+	local profile="${AWS_PROFILE:-dev-read}"
+	export AWS_PROFILE="$profile"
+
+	aws sso login
+
+	local account_id=$(aws sts get-caller-identity --query Account --output text)
+	local region=${AWS_REGION:-$(aws configure get region)}
+
+	aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin "${account_id}.dkr.ecr.${region}.amazonaws.com"
+}
+
 alias docclean='docker ps -aq | xargs -I "{}" bash -c "docker rm --force {}"'
 
 # Cleans branches that were tracking a remote that has been deleted
