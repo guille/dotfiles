@@ -115,13 +115,9 @@ fi
 ##
 
 if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
-	infoprint "[$module_name] installing programs from source/brew_formulae"
-	# shellcheck disable=SC2086
-	\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/brew_formulae" | xargs $INSTALL
-
-	infoprint "[$module_name] installing programs from source/brew_casks"
-	# shellcheck disable=SC2086
-	\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/brew_casks" | xargs $INSTALL --cask
+	infoprint "[$module_name] installing from Brewfile"
+	export HOMEBREW_BUNDLE_FILE="$SCRIPT_BASE_DIR/$module_name/Brewfile"
+	HOMEBREW_NO_AUTO_UPDATE=1 brew bundle check 1>/dev/null || brew bundle install
 
 	infoprint "[$module_name] setting up nicer defaults"
 	# Dock: hide recents
