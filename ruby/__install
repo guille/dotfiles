@@ -25,3 +25,6 @@ mise use --global ruby@$RUBY_VERSION
 ##
 infoprint "[$module_name] creating dotfiles symlinks..."
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/default-gems" ~/.default-gems 1> /dev/null
+
+mkdir -p "$XDG_CONFIG_HOME/irb"
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/irbrc" "$XDG_CONFIG_HOME/irb/irbrc" 1> /dev/null

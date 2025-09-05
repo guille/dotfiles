@@ -1,0 +1,27 @@
+# frozen_string_literal: true
+
+begin
+  Warning[:deprecated] = true
+  Warning[:performance] = true
+rescue ArgumentError => e
+  puts e
+end
+
+IRB.conf[:PROMPT_MODE] = :SIMPLE
+
+# Credit for reline_fzf_patch: https://github.com/CKolkey/config
+patches = %w[
+  reline_fzf_patch
+]
+
+patches.each do |patch|
+  # From dotfiles dir, not symlinked home
+  require_relative "irb/#{patch}"
+rescue StandardError => e
+  puts "(irbrc: couldn't require patch: '#{patch}' - #{e})"
+end
+
+if File.exist? File.join(Dir.pwd, '.irbrc')
+  puts "Loading .irbrc from #{Dir.pwd}"
+  load '.irbrc'
+end
