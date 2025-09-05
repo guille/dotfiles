@@ -11,11 +11,6 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=sublime
 
 
-infoprint "[$module_name] installing Package Control"
-# using `command` to avoid the hack for Wayland...
-command subl --command "install_package_control"
-# NOTE: Mac might need this: https://github.com/wbond/package_control/issues/1612
-
 prepare_profiled_config "packages"
 
 sed "/###PACKAGES###/{
@@ -26,15 +21,27 @@ sed "/###PACKAGES###/{
 
 # TODO: on a fresh install it might be `~/.config/sublime-text`??
 if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	SUBL_ROOT="$HOME/Library/Application Support/Sublime Text 3"
 	SUBL_CONFIG="$HOME/Library/Application Support/Sublime Text 3/Packages/User"
 	FONT_SIZE=18
 elif [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
+	SUBL_ROOT="$HOME/.config/sublime-text-3"
 	SUBL_CONFIG="$HOME/.config/sublime-text-3/Packages/User"
 	FONT_SIZE=14
 else
 	errorprint "Needs \$DOTFILES_OS set"
 	exit 1
 fi
+
+
+if [ ! -f "$SUBL_ROOT/Installed Packages/Package Control.sublime-package" ]; then
+	infoprint "[$module_name] installing Package Control"
+	# using `command` to avoid the hack for Wayland...
+	command subl --command "install_package_control"
+
+	# NOTE: Mac might need this after installing: https://github.com/wbond/package_control/issues/1612
+fi
+
 
 # https://github.com/sublimehq/sublime_text/issues/32
 
