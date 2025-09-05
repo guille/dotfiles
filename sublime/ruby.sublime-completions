@@ -1,0 +1,13 @@
+{
+   "scope": "source.ruby",
+   "completions": [
+      {
+         "trigger": "rdbg",
+         "contents": "require 'debug'\nbinding.break\n"
+      },
+      {
+         "trigger": "pry",
+         "contents": "require 'pry-byebug'\nbinding.pry\n"
+      }
+   ]
+}

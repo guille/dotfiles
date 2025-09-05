@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[require 'debug'; binding.break]]></content>
-    <tabTrigger>rdbg</tabTrigger>
-    <scope>source.ruby</scope>
-    <description>ruby debug</description>
-</snippet>

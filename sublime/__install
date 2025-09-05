@@ -52,7 +52,5 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_ruby" "$SUBL_CONFIG/Ruby.sublime-s
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_elixir" "$SUBL_CONFIG/Elixir.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_gitcommit" "$SUBL_CONFIG/Git Commit.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_lsp" "$SUBL_CONFIG/LSP.sublime-settings" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ruby.sublime-completions" "$SUBL_CONFIG/ruby.sublime-completions" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ipdb.sublime-snippet" "$SUBL_CONFIG/ipdb.sublime-snippet" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/pry.sublime-snippet" "$SUBL_CONFIG/pry.sublime-snippet" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/rdbg.sublime-snippet" "$SUBL_CONFIG/rdbg.sublime-snippet" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/byebug.sublime-snippet" "$SUBL_CONFIG/byebug.sublime-snippet" 1> /dev/null
