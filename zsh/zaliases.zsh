@@ -20,11 +20,6 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
 fi
 
-if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
-	# Force of habit
-	alias pidof='pgrep'
-fi
-
 # https://unix.stackexchange.com/questions/148545/why-does-sudo-ignore-aliases
 alias sudo='sudo '
 
