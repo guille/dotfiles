@@ -12,5 +12,4 @@
 		"RSpec",
 		"SublimeLinter",
 		"SublimeLinter-annotations",
-		"SublimeLinter-rubocop",
 		"SublimeLinter-shellcheck",
