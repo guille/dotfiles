@@ -20,5 +20,5 @@ fi
 
 infoprint "[$module_name] creating dotfiles symlinks..."
 # Avoids nested symlinks
-[ -e ~/.config/rofi ] && rm -rf ~/.config/rofi
+[ -L ~/.config/rofi ] && unlink ~/.config/rofi
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/config/" ~/.config/rofi 1> /dev/null
