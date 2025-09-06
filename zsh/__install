@@ -12,13 +12,18 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=zsh
 
 ##
-# zsh complements: p10k prompt
+# zsh plugins
 ##
-# XXX: This should probably be a submodule to avoid random hijacks...
-if [ ! -d ~/.powerlevel10k ]; then
-	infoprint "[$module_name] cloning powerlevel10k..."
-	git clone --depth=1 git@github.com:romkatv/powerlevel10k.git ~/.powerlevel10k
-fi
+
+git submodule update --init
+
+[ -L ~/.powerlevel10k ] && unlink ~/.powerlevel10k
+infoprint "[$module_name] linking powerlevel10k..."
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/powerlevel10k" ~/.powerlevel10k 1> /dev/null
+
+[ -L ~/.fzf-tab ] && unlink ~/.fzf-tab
+infoprint "[$module_name] linking fzf-tab..."
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/fzf-tab" ~/.fzf-tab 1> /dev/null
 
 
 ##

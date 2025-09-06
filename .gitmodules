@@ -1,0 +1,8 @@
+[submodule "zsh/fzf-tab"]
+	path = zsh/fzf-tab
+	url = git@github.com:Aloxaf/fzf-tab.git
+	shallow = true
+[submodule "zsh/powerlevel10k"]
+	path = zsh/powerlevel10k
+	url = git@github.com:romkatv/powerlevel10k.git
+	shallow = true

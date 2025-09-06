@@ -26,12 +26,26 @@ compinit
 # Splits words at / too, useful for paths
 autoload -U select-word-style
 select-word-style bash
+
+source ~/.fzf-tab/fzf-tab.plugin.zsh
+
+# fzf-tab enabled:
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons=always --color=always $realpath'
+
+# useful without fzf-tab
 # Case insensitive completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 # Menu pops at 5 entries
-zstyle ':completion:*' menu select=5
+# zstyle ':completion:*' menu select=5
 # Autocomplete on cd ..
-zstyle ':completion:*' special-dirs true
+# zstyle ':completion:*' special-dirs true
+
+
 
 unsetopt beep
 # emacs mode
