@@ -1,6 +1,8 @@
 # Prompt is powerlevel10k: see https://github.com/romkatv/powerlevel10k
 
-if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
+# ════════════════════ Pacman reminder ════════════════════
+
+if type pacman &> /dev/null; then
 	check_pacman() {
 		local seconds_since_pacman=$(expr $(date +"%s" ) - $(tail /var/log/pacman.log -n1 | awk '{print substr($1, 2, 24)}'  | xargs date +"%s" -d))
 		local days_since_pacman=$(expr $seconds_since_pacman / 86400)
@@ -11,14 +13,15 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	check_pacman
 fi
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# ══════════════════ p10k instant prompt ══════════════════
+
+# Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-eval "$(mise activate zsh)"
+# ══════════════════════ zsh options ══════════════════════
 
 autoload -U compinit
 compinit
@@ -26,6 +29,23 @@ compinit
 # Splits words at / too, useful for paths
 autoload -U select-word-style
 select-word-style bash
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	export WORDCHARS=''
+fi
+
+bindkey -e            # emacs mode
+unsetopt beep         # Disable console beeps
+unsetopt flowcontrol  # Disable ctrl s
+
+# Sane history defaults
+HISTFILE=~/.histfile
+HISTSIZE=100000
+SAVEHIST=$HISTSIZE
+setopt share_history       # Share history among other zsh sessions
+setopt hist_ignore_dups    # Don't record an event that was just recorded
+setopt hist_ignore_space   # Don't record events starting with a space
+
+# ════════════════════ zsh completions ════════════════════
 
 # fzf-tab: https://github.com/Aloxaf/fzf-tab/wiki/
 source ~/.fzf-tab/fzf-tab.plugin.zsh
@@ -62,33 +82,7 @@ zstyle ':completion:*' list-separator ' =>'
 
 # ═════════════════════════ tools ═════════════════════════
 
-
-unsetopt beep
-# emacs mode
-bindkey -e
-# Disable ctrl s
-unsetopt flowcontrol
-
-# Sane history defaults
-HISTFILE=~/.histfile
-HISTSIZE=100000
-SAVEHIST=$HISTSIZE
-setopt histignoredups
-setopt share_history
-
-if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
-	export WORDCHARS=''
-fi
-
-##################################
-
-# Map compose key in X11
-if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$DISPLAY" ]; then
-	setxkbmap -option compose:menu
-fi
-
-[[ -f "$HOME/.zkeys" ]] && . "$HOME/.zkeys"
-[[ -f "$HOME/.zaliases" ]] && . "$HOME/.zaliases"
+eval "$(mise activate zsh)"
 
 source <(fzf --zsh)
 # Similar to base16-tube
@@ -123,6 +117,11 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 	export MANROFFOPT="-c"
 fi
+
+# ══════════════════════ extra files ══════════════════════
+
+[[ -f "$HOME/.zkeys" ]] && . "$HOME/.zkeys"
+[[ -f "$HOME/.zaliases" ]] && . "$HOME/.zaliases"
 
 # To customize prompt, edit dots/p10k
 source ~/.powerlevel10k/powerlevel10k.zsh-theme
