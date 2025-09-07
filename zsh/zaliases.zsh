@@ -40,11 +40,11 @@ alias du='du --human-readable'
 alias grep='grep --color=auto'
 alias imv='imv-dir'
 alias not='\rg --smart-case -v'
-alias pgrep='pgrep -l'
+alias pgrep='pgrep -il'
 alias rg='rg -n --smart-case'
 alias vim='nvim'
 alias top='htop'
-alias cat="bat"
+alias cat='bat'
 alias fd='fd --hidden'
 # eza
 alias ls='eza --icons=auto --color=auto --group-directories-first'
