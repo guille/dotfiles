@@ -96,10 +96,10 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
  --color=marker:#85cebc,fg+:#e7e7e8,prompt:#ffd204,query:#ffffff,hl+:#ffffff \
 "
 
-export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_ALT_C_COMMAND='fd --type d'
+export FZF_DEFAULT_COMMAND='fd --hidden --type f'
+export FZF_ALT_C_COMMAND='fd --hidden --type d'
 export FZF_ALT_C_OPTS="--preview 'eza -1 --icons=always --color=always {}'"
-export FZF_CTRL_T_COMMAND="fd --strip-cwd-prefix"
+export FZF_CTRL_T_COMMAND="fd --hidden --strip-cwd-prefix"
 export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
 eval "$(zoxide init zsh)"
