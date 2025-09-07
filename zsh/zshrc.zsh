@@ -107,7 +107,16 @@ export FZF_ALT_C_COMMAND='fd --type d'
 export FZF_ALT_C_OPTS="--preview 'eza -1 --icons=always --color=always {}'"
 export FZF_CTRL_T_COMMAND="fd --strip-cwd-prefix"
 export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --line-range=:500 {}"'
+
 eval "$(zoxide init zsh)"
+# fuzzy search zoxide from its own db, with full paths (unlike zi)
+function zz() {
+  local result
+  result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --query "${@:-}" --preview 'eza -1 --icons=always --color=always {}')
+  if [[ -n "$result" ]]; then
+    z "$result"
+  fi
+}
 
 # Won't work in MacOS / Mandoc: https://github.com/sharkdp/bat/issues/1145
 if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
