@@ -39,6 +39,7 @@ alias rg='rg -n --smart-case'
 alias vim='nvim'
 alias top='htop'
 alias cat="bat"
+alias fd='fd --hidden'
 # eza
 alias ls='eza --icons=auto --color=auto --group-directories-first'
 alias ll='eza --icons=auto --color=auto --group-directories-first -l'

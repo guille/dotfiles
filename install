@@ -88,6 +88,7 @@ modules_to_install=(
 	mybin
 	bat
 	restic
+	fd
 )
 
 # interactively pick modules

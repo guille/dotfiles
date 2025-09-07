@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# fd
+##
+
+module_name=fd
+
+mkdir -p ~/.config/fd
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/fdignore" ~/.config/fd/ignore 1> /dev/null
