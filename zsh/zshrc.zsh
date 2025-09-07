@@ -29,11 +29,6 @@ select-word-style bash
 
 # fzf-tab: https://github.com/Aloxaf/fzf-tab/wiki/
 source ~/.fzf-tab/fzf-tab.plugin.zsh
-# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-zstyle ':completion:*' menu no
-zstyle ':completion:*:descriptions' format ' [%d]'
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle' 'ctrl-a:toggle-all'
 zstyle ':fzf-tab:*' prefix '> '
@@ -42,6 +37,7 @@ zstyle ':fzf-tab:*' fzf-min-height 100
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
 # fzf-tab previews
+zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1 --icons=always --color=always $realpath'
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons=always --color=always $realpath'
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
@@ -49,16 +45,22 @@ zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word 
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
 zstyle ':fzf-tab:complete:pacman:*' fzf-preview 'pacman -Si $word'
 
-# Case insensitive completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+# Menu pops at 5 entries
+# zstyle ':completion:*' menu select=5
+# Show group descriptions
+zstyle ':completion:*:descriptions' format ' [%d]'
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# Case insensitive completion, with substring matching
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 # Autocomplete on cd ..
 zstyle ':completion:*' special-dirs true
 # Nicer than "--"
 zstyle ':completion:*' list-separator ' =>'
 
-# only without fzf-tab
-# Menu pops at 5 entries
-# zstyle ':completion:*' menu select=5
+# ═════════════════════════ tools ═════════════════════════
 
 
 unsetopt beep
