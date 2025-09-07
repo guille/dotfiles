@@ -91,6 +91,17 @@ fi
 [[ -f "$HOME/.zaliases" ]] && . "$HOME/.zaliases"
 
 source <(fzf --zsh)
+# Similar to base16-tube
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+ --reverse \
+ --border=rounded \
+ --header-border=rounded \
+ --color=border:#959ca1 \
+ --color=bg+:#444444,gutter:#444444,hl:#ffffff \
+ --color=fg:#959ca1,header:#959ca1,info:#ffd204,pointer:#85cebc \
+ --color=marker:#85cebc,fg+:#e7e7e8,prompt:#ffd204,query:#ffffff,hl+:#ffffff \
+"
+
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_ALT_C_COMMAND='fd --type d'
 export FZF_ALT_C_OPTS="--preview 'eza -1 --icons=always --color=always {}'"
