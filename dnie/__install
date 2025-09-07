@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# DNI-e Remote
+##
+
+module_name=dnie
+
+
+# Linux only, personal only
+if [[ "${DOTFILES_OS:-}" == "OSX" ]] || is_work; then
+	exit
+fi
+
+infoprint "[$module_name] hardcoding wifi port..."
+touch ~/dnieRemote.cfg
+grep -qxF "wifiport=34803;" ~/dnieRemote.cfg || echo "wifiport=34803;" >> ~/dnieRemote.cfg
