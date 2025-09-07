@@ -34,7 +34,6 @@
     # =========================[ Line #1 ]=========================
     # os_icon               # os identifier
     context                 # user@hostname
-    virtualenv              # python virtual environment
     aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
     mise                    # custom (https://github.com/romkatv/powerlevel10k/issues/2212)
     # =========================[ Line #2 ]=========================
@@ -53,6 +52,7 @@
     status                  # exit code of the last command
     vcs                     # git status
     dir                     # current directory
+    # virtualenv            # python virtual environment
     # direnv                # direnv status (https://direnv.net/)
     # asdf                  # asdf version manager (https://github.com/asdf-vm/asdf)
     # anaconda              # conda environment (https://conda.io/)
