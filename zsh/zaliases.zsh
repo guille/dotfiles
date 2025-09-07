@@ -129,6 +129,20 @@ command_exists() {
 	type "$1" &> /dev/null ;
 }
 
+pskill() {
+	ps -e -o pid,ruser=RealUser,comm=Command,args=Args | fzf \
+		--bind 'ctrl-r:reload(ps -e -o pid,ruser=RealUser,comm=Command,args=Args),enter:execute(kill {2})+reload(ps -e -o pid,ruser=RealUser,comm=Command,args=Args)' \
+		--header 'Press CTRL-R to reload
+		' \
+		--header-lines=1 \
+		--height=50
+}
+
+# Start a program but immediately disown it and detach it from the terminal
+function runfree() {
+	"$@" > /dev/null 2>&1 & disown
+}
+
 alias q='exit'
 
-[[ ! -f ~/.zaliases.local ]] || source ~/.zaliases.local
+[[ -f ~/.zaliases.local ]] && source ~/.zaliases.local
