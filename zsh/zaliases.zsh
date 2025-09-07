@@ -16,8 +16,14 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	xdg-open() { swaymsg exec xdg-open "$(printf ' %q' "$@")" }
 
 	# Notifications
-	alias dnd='notify-send "DUNST_COMMAND_PAUSE"'
-	alias dnd-='notify-send "DUNST_COMMAND_RESUME"'
+	dnd() {
+		dunstctl set-paused toggle
+		if dunstctl is-paused --exit-code; then
+		    echo "DND activated"
+		else
+		    echo "DND deactivated"
+		fi
+	}
 fi
 
 # https://unix.stackexchange.com/questions/148545/why-does-sudo-ignore-aliases
