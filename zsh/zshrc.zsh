@@ -29,8 +29,11 @@ compinit
 # Splits words at / too, useful for paths
 autoload -U select-word-style
 select-word-style bash
+# Random stupid stuff I have to deal with in macOS
 if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	export WORDCHARS=''
+	# Move prepended Homebrew's fpath to the end: https://github.com/orgs/Homebrew/discussions/2797
+	fpath=(${fpath[@]:1} $fpath[1])
 fi
 
 bindkey -e            # emacs mode
