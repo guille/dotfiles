@@ -23,12 +23,10 @@ fi
 
 # ══════════════════════ zsh options ══════════════════════
 
-autoload -U compinit
-compinit
-
 # Splits words at / too, useful for paths
 autoload -U select-word-style
 select-word-style bash
+
 # Random stupid stuff I have to deal with in macOS
 if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	export WORDCHARS=''
@@ -49,6 +47,9 @@ setopt hist_ignore_dups    # Don't record an event that was just recorded
 setopt hist_ignore_space   # Don't record events starting with a space
 
 # ════════════════════ zsh completions ════════════════════
+
+autoload -U compinit
+compinit
 
 # fzf-tab: https://github.com/Aloxaf/fzf-tab/wiki/
 source ~/.fzf-tab/fzf-tab.plugin.zsh
