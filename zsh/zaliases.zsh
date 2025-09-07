@@ -58,6 +58,10 @@ alias laa='eza --icons=auto --color=auto --group-directories-first -la'
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
+# Don't interpret brackets in arguments as glob patterns.
+alias bundle='noglob bundle'
+alias rake='noglob rake'
+
 alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
 
 # ripgrep with preview, open selected matches in sublime
