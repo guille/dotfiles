@@ -109,15 +109,18 @@ elif [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 fi
 
 export FZF_DEFAULT_COMMAND='fd --hidden --type f'
+# CTRL-R - Paste the selected command from history onto the command-line
 export FZF_CTRL_R_OPTS=$'--preview \'echo {}\'
 --preview-window down:5:hidden:wrap
 --bind \'?:toggle-preview\'
 --bind \'ctrl-y:execute-silent(echo -n {2..} | '"$COPY_CMD"$')\'
 --header \'> CTRL-Y to copy command into clipboard\n> ? to toggle preview\''
+# ALT-C - cd into the selected directory
 export FZF_ALT_C_COMMAND='fd --hidden --type d'
 export FZF_ALT_C_OPTS="--preview 'eza -1 --icons=always --color=always {}'"
-export FZF_CTRL_T_COMMAND="fd --hidden --strip-cwd-prefix"
-export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --line-range=:500 {}"'
+# CTRL-T - Paste the selected files and directories onto the command-line
+export FZF_CTRL_T_COMMAND='fd --hidden --strip-cwd-prefix'
+export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || eza -1 --icons=always --color=always {}"'
 
 eval "$(zoxide init zsh)"
 # fuzzy search zoxide from its own db, with full paths (unlike zi)
