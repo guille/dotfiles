@@ -32,6 +32,7 @@ if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	export WORDCHARS=''
 	# Move prepended Homebrew's fpath to the end: https://github.com/orgs/Homebrew/discussions/2797
 	fpath=(${fpath[@]:1} $fpath[1])
+	fpath=($fpath $(brew --prefix)/share/zsh-completions)
 fi
 
 bindkey -e            # emacs mode

@@ -27,6 +27,7 @@ brew 'watch'
 brew 'wget'
 brew 'zoxide'
 brew 'zsh'
+brew 'zsh-completions'
 
 cask 'font-inconsolata-nerd-font'
 cask 'ghostty'

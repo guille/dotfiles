@@ -120,12 +120,14 @@ if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	export HOMEBREW_BUNDLE_FILE="$SCRIPT_BASE_DIR/$module_name/Brewfile"
 	HOMEBREW_NO_AUTO_UPDATE=1 brew bundle check 1>/dev/null || brew bundle install
 
+	infoprint "[$module_name] fixing permissions for zsh-completions"
+	chmod go-w "$(brew --prefix)/share"
+	chmod -R go-w "$(brew --prefix)/share/zsh"
+
 	infoprint "[$module_name] setting up nicer defaults"
 	# Dock: hide recents
 	defaults write com.apple.dock show-recents -bool no
 	defaults write com.apple.dock recent-apps -array
-	# disable the sound effects on boot
-	sudo nvram SystemAudioVolume=" "
 	# Finder: show all filename extensions
 	defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 	# Avoid creating .DS_Store files on network or USB volumes
