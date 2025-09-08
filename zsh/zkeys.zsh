@@ -43,6 +43,8 @@ if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 
     # treat option+space as a normal space...
     bindkey "\xC2\xA0" magic-space
+    # alt+c in macOS (ES layout)
+    bindkey "©" fzf-cd-widget
 fi
 
 # re-bind up/down if the history substring plugin is found
