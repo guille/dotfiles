@@ -27,6 +27,7 @@
         "custom/separator",
         "clock",
         "custom/separator",
+        "custom/pacman",
         "custom/dunst",
         "custom/power",
         "custom/separator",
@@ -156,6 +157,13 @@
             ]
         },
         "on-click": "pavucontrol"
+    },
+    "custom/pacman": {
+        "format": " <span color=\"#ffd204\">󰣇 </span>{} ",
+        "tooltip": false,
+        "hide-empty-text": true,
+        "exec": "~/.config/waybar/scripts/pacman.sh",
+        "interval": "once"
     },
     "custom/dunst": {
         "format": " <span color=\"#ffd204\">{}</span>",

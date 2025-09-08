@@ -1,17 +1,6 @@
 # Prompt is powerlevel10k: see https://github.com/romkatv/powerlevel10k
 
-# ════════════════════ Pacman reminder ════════════════════
-
-if type pacman &> /dev/null; then
-	check_pacman() {
-		local seconds_since_pacman=$(expr $(date +"%s" ) - $(tail /var/log/pacman.log -n1 | awk '{print substr($1, 2, 24)}'  | xargs date +"%s" -d))
-		local days_since_pacman=$(expr $seconds_since_pacman / 86400)
-		if [[ $days_since_pacman -ge 6 ]]; then
-			echo "Days since last pacman run: ${days_since_pacman}"
-		fi
-	}
-	check_pacman
-fi
+# zmodload zsh/zprof
 
 # ══════════════════ p10k instant prompt ══════════════════
 
@@ -177,3 +166,5 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue,bold'
 ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green,bold'
 ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=yellow,bold'
 ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
+
+# zprof
