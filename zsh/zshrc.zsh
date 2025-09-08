@@ -129,7 +129,37 @@ fi
 [[ -f "$HOME/.zkeys" ]] && . "$HOME/.zkeys"
 [[ -f "$HOME/.zaliases" ]] && . "$HOME/.zaliases"
 
+# ════════════════════════ plugins ════════════════════════
+
 # To customize prompt, edit dots/p10k
 source ~/.powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [[ ! -f ~/.p10k.mise.zsh ]] || source ~/.p10k.mise.zsh
+
+# Plugins
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+	source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
+	source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+	source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8,bold"
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+ZSH_HIGHLIGHT_STYLES[arg0]=fg=12,bold
+ZSH_HIGHLIGHT_STYLES[function]=fg=12,bold,underline
+ZSH_HIGHLIGHT_STYLES[precommand]=fg=40,underline
+ZSH_HIGHLIGHT_STYLES[alias]=fg=12
+ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=12,bold
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=40
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=40
+ZSH_HIGHLIGHT_STYLES[commandseparator]=fg=11,bold
+ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=141
+
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=yellow,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'

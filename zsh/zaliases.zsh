@@ -19,9 +19,9 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	dnd() {
 		dunstctl set-paused toggle
 		if dunstctl is-paused --exit-code; then
-		    echo "DND activated"
+			echo "DND activated"
 		else
-		    echo "DND deactivated"
+			echo "DND deactivated"
 		fi
 	}
 fi
@@ -146,5 +146,13 @@ function runfree() {
 }
 
 alias q='exit'
+
+palette() {
+	local -a colors
+	for i in {000..255}; do
+		colors+=("%F{$i}$i%f")
+	done
+	print -cP $colors
+}
 
 [[ -f ~/.zaliases.local ]] && source ~/.zaliases.local

@@ -49,7 +49,9 @@ tree
 wlsunset
 yt-dlp
 zoxide
+zsh-autosuggestions
 zsh-completions
+zsh-syntax-highlighting
 ##
 # gui
 evince
