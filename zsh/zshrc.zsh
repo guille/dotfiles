@@ -149,13 +149,13 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8,bold"
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-ZSH_HIGHLIGHT_STYLES[arg0]=fg=12,bold
-ZSH_HIGHLIGHT_STYLES[function]=fg=12,bold,underline
+ZSH_HIGHLIGHT_STYLES[arg0]=fg=none,bold
+ZSH_HIGHLIGHT_STYLES[function]=fg=none,bold
+ZSH_HIGHLIGHT_STYLES[alias]=fg=none,bold
 ZSH_HIGHLIGHT_STYLES[precommand]=fg=40,underline
-ZSH_HIGHLIGHT_STYLES[alias]=fg=12
 ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=12,bold
-ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=40
-ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=40
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=12
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=12
 ZSH_HIGHLIGHT_STYLES[commandseparator]=fg=11,bold
 ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=141
 
