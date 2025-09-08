@@ -13,7 +13,7 @@ fi
 # ══════════════════════ zsh options ══════════════════════
 
 # Splits words at / too, useful for paths
-autoload -U select-word-style
+autoload -Uz select-word-style
 select-word-style bash
 
 # Random stupid stuff I have to deal with in macOS
@@ -27,18 +27,21 @@ fi
 bindkey -e            # emacs mode
 unsetopt beep         # Disable console beeps
 unsetopt flowcontrol  # Disable ctrl s
+setopt correct        # Command corrections
 
 # Sane history defaults
 HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
-setopt share_history       # Share history among other zsh sessions
-setopt hist_ignore_dups    # Don't record an event that was just recorded
-setopt hist_ignore_space   # Don't record events starting with a space
+setopt share_history           # Share history among other zsh sessions
+setopt hist_ignore_dups        # Don't record an event that was just recorded
+setopt hist_ignore_space       # Don't record events starting with a space
+setopt hist_expire_dups_first  # Expire a duplicate event first when trimming history.
+
 
 # ════════════════════ zsh completions ════════════════════
 
-autoload -U compinit
+autoload -Uz compinit
 compinit
 
 # fzf-tab: https://github.com/Aloxaf/fzf-tab/wiki/
