@@ -38,6 +38,7 @@ elif [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	if ! command_exists brew; then
 		infoprint "[$module_name] installing homebrew"
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+		brew analytics off
 	fi
 	INSTALL="brew install"
 fi
