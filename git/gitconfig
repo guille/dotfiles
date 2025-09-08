@@ -49,6 +49,7 @@
 	cs = "! fzf_git_commits"
 	ga = "! fzf_git_add"
 	gap = "! fzf_git_add add -p"
+	undo = "! fzf_git_restore_file"
 
 [status]
 	submoduleSummary = true
