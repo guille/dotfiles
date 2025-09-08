@@ -27,6 +27,7 @@
         "custom/separator",
         "clock",
         "custom/separator",
+        "custom/dunst",
         "custom/power",
         "custom/separator",
         "tray"
@@ -155,6 +156,13 @@
             ]
         },
         "on-click": "pavucontrol"
+    },
+    "custom/dunst": {
+        "format": " <span color=\"#ffd204\">{}</span>",
+        "tooltip": false,
+        "exec": "~/.config/waybar/scripts/dunst.sh",
+        "on-click": "dunstctl set-paused toggle",
+        "restart-interval": 1
     },
     "custom/power": {
         "format": "<span color=\"#ee2e24\"> </span>",
