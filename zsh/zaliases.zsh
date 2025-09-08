@@ -85,6 +85,13 @@ awsp() {
 	fi
 }
 
+awsr() {
+	local region=$(echo "eu-west-1\nus-east-1" | fzf --bind=enter:replace-query+print-query)
+	if [ "$region" ]; then
+		export AWS_REGION="$region"
+	fi
+}
+
 # Logs in to AWS with SSO, then use credential helper to log into Docker
 # Uses AWS_PROFILE from environment or defaults to 'dev-read', exporting it at the end
 # Uses AWS_REGION or the default region configured for the profile if unset
