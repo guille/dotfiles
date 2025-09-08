@@ -102,7 +102,18 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
  --color=marker:#85cebc,fg+:#e7e7e8,prompt:#ffd204,query:#ffffff,hl+:#ffffff \
 "
 
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	COPY_CMD=pbcopy
+elif [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
+	COPY_CMD=wl-copy
+fi
+
 export FZF_DEFAULT_COMMAND='fd --hidden --type f'
+export FZF_CTRL_R_OPTS=$'--preview \'echo {}\'
+--preview-window down:5:hidden:wrap
+--bind \'?:toggle-preview\'
+--bind \'ctrl-y:execute-silent(echo -n {2..} | '"$COPY_CMD"$')\'
+--header \'> CTRL-Y to copy command into clipboard\n> ? to toggle preview\''
 export FZF_ALT_C_COMMAND='fd --hidden --type d'
 export FZF_ALT_C_OPTS="--preview 'eza -1 --icons=always --color=always {}'"
 export FZF_CTRL_T_COMMAND="fd --hidden --strip-cwd-prefix"
@@ -111,11 +122,11 @@ export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --line-ran
 eval "$(zoxide init zsh)"
 # fuzzy search zoxide from its own db, with full paths (unlike zi)
 function zz() {
-  local result
-  result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --query "${@:-}" --preview 'eza -1 --icons=always --color=always {}')
-  if [[ -n "$result" ]]; then
-    z "$result"
-  fi
+	local result
+	result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --query "${@:-}" --preview 'eza -1 --icons=always --color=always {}')
+	if [[ -n "$result" ]]; then
+		z "$result"
+	fi
 }
 
 # Won't work in MacOS / Mandoc: https://github.com/sharkdp/bat/issues/1145
