@@ -86,6 +86,7 @@ modules_to_install=(
 	tailscale
 	dotnet
 	mybin
+	node
 	bat
 	restic
 	fd

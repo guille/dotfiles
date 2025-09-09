@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# node
+##
+
+module_name=node
+
+
+mise use -g node@latest
