@@ -163,7 +163,7 @@
         "tooltip": false,
         "hide-empty-text": true,
         "exec": "~/.config/waybar/scripts/pacman.sh",
-        "interval": "once"
+        "interval": "3600"
     },
     "custom/dunst": {
         "format": " <span color=\"#ffd204\">{}</span>",
