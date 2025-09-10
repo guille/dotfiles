@@ -79,7 +79,7 @@ awsp() {
 	[[ ! -f ~/.aws/config ]] && echo "No aws config file found" && return 1
 
 	# Use fzf for profile selection, aws CLI is VERY slow so just grep the config
-	selected_profile=$(rg profile ~/.aws/config | awk '{print substr($2, 1, length($2)-1)}' | fzf -1 --prompt="AWS Profile: ")
+	selected_profile=$(rg profile ~/.aws/config | awk '{print substr($2, 1, length($2)-1)}' | fzf --query ${1:-""} -1 --prompt="AWS Profile: ")
 
 	if [ "$selected_profile" ]; then
 		export AWS_PROFILE="$selected_profile"
@@ -90,7 +90,7 @@ awsp() {
 }
 
 awsr() {
-	local region=$(echo "eu-west-1\nus-east-1" | fzf --bind=enter:replace-query+print-query)
+	local region=$(echo "eu-west-1\nus-east-1" | fzf --query ${1:-""} -1 --bind=enter:replace-query+print-query)
 	if [ "$region" ]; then
 		export AWS_REGION="$region"
 	fi
