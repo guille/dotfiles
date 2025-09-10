@@ -76,7 +76,5 @@ keybind = shift+enter=text:\n
 # copy if anything selected, send interrupt otherwise
 keybind = performable:ctrl+c=copy_to_clipboard
 keybind = performable:ctrl+v=paste_from_clipboard
-# Mac-only
-keybind = global:cmd+grave_accent=new_window
 # applies to Alt+w in Linux
 keybind = option+w=text:\x1b\x7f
