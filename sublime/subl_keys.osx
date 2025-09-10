@@ -1,5 +1,4 @@
 [
-	{ "keys": ["ctrl+."], "command": "reindent"},
 	{ "keys": ["ctrl+m"], "command": "toggle_comment", "args": { "block": false } },
 	{ "keys": ["ctrl+shift+d"], "command": "find_all_under" },
 	{ "keys": ["ctrl+shift+tab"], "command": "prev_view" },

@@ -1,23 +1,25 @@
 // Settings in here override those in "LSP/LSP.sublime-settings"
 {
-    "lsp_format_on_save": true,
-    "log_max_size": 0,
-    "clients": {
-        "ruby": {
-            "enabled": false
-        },
-        "ruby-lsp": {
-            "enabled": true,
-            "command": [
-                "ruby-lsp"
-            ],
-            "selector": "source.ruby | text.html.ruby",
-            "initializationOptions": {
-                "enabledFeatures": {
-                    "diagnostics": true
-                },
-                "experimentalFeaturesEnabled": true
-            }
-        }
-    }
+	"show_diagnostics_count_in_view_status": true,
+	"show_diagnostics_panel_on_save": 1,
+	"lsp_format_on_save": true,
+	"log_max_size": 0,
+	"clients": {
+		"ruby": {
+			"enabled": false
+		},
+		"ruby-lsp": {
+			"enabled": true,
+			"command": [
+				"ruby-lsp"
+			],
+			"selector": "source.ruby | text.html.ruby",
+			"initializationOptions": {
+				"enabledFeatures": {
+					"diagnostics": true
+				},
+				"experimentalFeaturesEnabled": true
+			}
+		}
+	}
 }

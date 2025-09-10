@@ -1,8 +1,8 @@
 {
-	"in_process_packages": [
-	],
+	"in_process_packages": [],
 	"installed_packages": [
 		###PACKAGES###
 	],
+	"submit_usage": false,
 	"bootstrapped": true,
 }

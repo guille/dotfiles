@@ -62,3 +62,4 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_gitcommit" "$SUBL_CONFIG/Git Commi
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_lsp" "$SUBL_CONFIG/LSP.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ruby.sublime-completions" "$SUBL_CONFIG/ruby.sublime-completions" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ipdb.sublime-snippet" "$SUBL_CONFIG/ipdb.sublime-snippet" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/SingleLastSelectionCommand.py" "$SUBL_CONFIG/SingleLastSelectionCommand.py" 1> /dev/null

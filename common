@@ -9,13 +9,13 @@ RED='\033[0;31m'
 NO_COLOR='\033[0m'
 
 # Helper functions
-command_exists () {
+command_exists() {
 	type "$1" &> /dev/null ;
 }
-infoprint () {
+infoprint() {
 	echo -e "${GREEN}${1}${NO_COLOR}"
 }
-errorprint () {
+errorprint() {
 	echo -e "${RED}${1}${NO_COLOR}" >&2
 }
 is_work() {
