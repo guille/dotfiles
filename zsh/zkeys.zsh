@@ -50,6 +50,7 @@ fi
 # re-bind up/down if the history substring plugin is found
 if [[ -f "$HOME/.zhist_substr" ]]; then
     . "$HOME/.zhist_substr"
+    export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
     bindkey "${key[Up]}" history-substring-search-up
     bindkey "${key[Down]}" history-substring-search-down
 fi
