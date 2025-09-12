@@ -1,0 +1,12 @@
+[
+    {
+        "caption": "New project from root",
+        "command": "new_project_from_root",
+    },
+    // Doesn't show in command palette by default
+    {
+        "caption": "Show Console",
+        "command": "show_panel",
+        "args": {"panel": "console", "toggle": true}
+    },
+]
