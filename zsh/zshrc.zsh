@@ -60,9 +60,10 @@ zstyle ':fzf-tab:*' fzf-flags '--info=hidden'
 # fzf-tab previews
 zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1 --icons=always --color=always $realpath'
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons=always --color=always $realpath'
+zstyle ':fzf-tab:complete:eza:*:args' fzf-preview 'eza -1 --icons=always --color=always $realpath'
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
-zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta'
+zstyle ':fzf-tab:complete:git-(add|diff|restore):argument-rest' fzf-preview 'git diff $word | delta'
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
 zstyle ':fzf-tab:complete:pacman:*' fzf-preview 'pacman -Si $word'
 
@@ -78,6 +79,8 @@ zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 # Autocomplete on cd ..
 zstyle ':completion:*' special-dirs true
+# Better processes
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,comm,args -ww"
 # Nicer than "--"
 zstyle ':completion:*' list-separator ' =>'
 # nicer colors

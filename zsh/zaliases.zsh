@@ -44,6 +44,7 @@ alias pgrep='pgrep -il'
 alias rg='rg -n --smart-case'
 alias vim='nvim'
 alias top='htop'
+alias c='\cat'
 alias cat='bat'
 alias fd='fd --hidden'
 # Safe ops. Ask the user before doing anything destructive.

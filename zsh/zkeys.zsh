@@ -67,3 +67,19 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     zle -N zle-line-init
     zle -N zle-line-finish
 fi
+
+
+# robbyki's dotfiles
+# ctrl+z can now back&forth with suspended jobs
+# if there's text in the buffer, save it for next line
+fancyctrlz() {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancyctrlz
+bindkey '^Z' fancyctrlz
