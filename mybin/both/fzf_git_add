@@ -21,9 +21,9 @@ add_preview() {
 	[ -d "$file" ] && eza --tree "$file" && return 0
 
 	if (git status -s -- "$file" | grep '^??') &>/dev/null; then  # diff with /dev/null for untracked files
-		git diff --color=always --no-index -- /dev/null "$file" | delta | sed '2 s/added:/untracked:/'
+		git diff --color=always --no-index -- /dev/null "$file" | delta --file-style omit | sed '2 s/added:/untracked:/'
 	else
-		git diff --color=always -- "$file" | delta
+		git diff --color=always -- "$file" | delta --file-style omit
 	fi
 }
 
