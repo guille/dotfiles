@@ -1,0 +1,64 @@
+#!/usr/bin/env zsh
+
+# A (mostly) ChatGPT-generated monstruosity that allows for a fzf-powered  equivalent to `git add -p`
+# Takes in an optional argument for how many lines of context to display
+#
+# Known limitations:
+# - Sometimes the diff preview includes the name of the next file
+# - Running with context=0 can be dangerous, especially when applying multiple hunks
+#
+# I'm not really using it since it's brittle af but I might take the time to polish it eventually
+
+set -e
+
+CONTEXT=${1:-2}
+[ $CONTEXT -eq 0 ]  && apply_flags=--unidiff-zero || apply_flags=''
+
+tmp=$(mktemp)
+git diff --unified=$CONTEXT --no-color > $tmp
+
+choices=$(awk '
+  /^diff --git/ {file=$4; sub(/^b\//,"",file)}
+  /^@@/ {
+    split($0,a," ")
+    split(a[3],b,",")
+    start=b[1]; sub(/^\+/,"",start)
+    print file":"start":"$0
+  }' $tmp |
+fzf --multi --preview '
+  file=$(echo {} | cut -d: -f1)
+  start=$(echo {} | cut -d: -f2)
+  awk -v f="$file" -v s="$start" "
+    /^diff --git/ {show=0}
+    /^diff --git .* $f/ {show=1}
+    /^@@/ && show {
+      match(\$0,/\\+([0-9]+)/,m);
+      if(m[1]==s) {print; printing=1} else printing=0
+      next
+    }
+    show && printing {print}
+  " '"$tmp"' | delta --hunk-header-style plain')
+
+[[ -z $choices ]] && rm "$tmp" && exit
+
+patch=$(mktemp)
+for c in ${(f)choices}; do
+  file=${c%%:*}
+  line=${c#*:}; line=${line%%:*}
+
+  # copy header + the one hunk
+  awk -v f="$file" -v s="$line" '
+    /^diff --git/ {infile=($4==("b/"f))}
+    infile && /^diff --git/ {print; next}
+    infile && /^index/ {print; next}
+    infile && /^---/ {print; next}
+    infile && /^\+\+\+/ {print; next}
+    infile && /^@@/ {
+      match($0,/^@@.*\+([0-9]+)/,m)
+      keep=(m[1]==s)
+    }
+    infile && keep {print}
+  ' "$tmp" >> "$patch"
+done
+
+git apply $apply_flags --cached "$patch" && rm "$tmp" "$patch"

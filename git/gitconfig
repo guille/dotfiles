@@ -42,7 +42,7 @@
 	# weirdly useful
 	git = !git
 	# Stats
-	ds = diff --stat=160,120
+	ds = diff --stat=160,120 --compact-summary
 	# Rebase with the given number of latest commits.
 	reb = "!r() { git rebase --autosquash HEAD~$1; }; r"
 	rebi = "!r() { git rebase -i HEAD~$1; }; r"
@@ -50,6 +50,7 @@
 	cs = "! fzf_git_commits"
 	ga = "! fzf_git_add"
 	gap = "! fzf_git_add add -p"
+	i = "!git add -N . && git gap"
 	undo = "! fzf_git_restore_file"
 
 [status]
@@ -97,7 +98,7 @@
 	autocorrect = 10
 
 [url "git@github.com:"]
-		pushInsteadOf = "https://github.com/"
+	pushInsteadOf = "https://github.com/"
 
 # Usually: work email, maintenance repos
 [include]
