@@ -83,3 +83,9 @@ fancyctrlz() {
 }
 zle -N fancyctrlz
 bindkey '^Z' fancyctrlz
+
+# Edit current command line in vim
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^y" edit-command-line
+zstyle :zle:edit-command-line editor nvim
