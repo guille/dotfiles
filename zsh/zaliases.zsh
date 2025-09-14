@@ -167,4 +167,12 @@ palette() {
 	print -cP $colors
 }
 
+h() {
+	cd ~/$1
+}
+_h() {
+  _files -W $HOME -/
+}
+compdef _h h
+
 [[ -f ~/.zaliases.local ]] && source ~/.zaliases.local
