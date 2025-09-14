@@ -4,6 +4,8 @@
 	# Decorations needs to be first: https://github.com/dandavison/delta/issues/549
 	pager = DELTA_FEATURES=$([[ ${COLUMNS:-$(tput cols)} -gt 120 ]] && echo "+decorations side-by-side" || echo "+") delta
 	excludesFile = ~/.gitignore
+	abbrev = 4
+	editor = nvim
 
 [init]
 	defaultBranch = master
@@ -20,6 +22,9 @@
 
 [gpg]
 	format = ssh
+
+[log]
+	abbrevCommit = true
 
 # Separate editor for eg interactive rebases
 [sequence]
