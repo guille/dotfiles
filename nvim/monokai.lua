@@ -1,16 +1,16 @@
 local vim = vim
--- https://github.com/tanvirtin/monokai.nvim/tree/master
+-- https://github.com/tanvirtin/monokai.nvim/tree/master (rev. b8bd44d)
 -- with some minor adjustments
 local M = {}
 
 M.classic = {
   name = 'monokai',
-  base0 = '#222426',
+  base0 = '#2c2c2c',
   base1 = '#272a30',
   base2 = '#26292C',
   base3 = '#2E323C',
   base4 = '#333842',
-  base5 = '#4d5154',
+  base5 = '#555555',
   base6 = '#9ca0a4',
   base7 = '#b1b1b1',
   base8 = '#e3e3e1',
@@ -30,6 +30,8 @@ M.classic = {
   diff_remove = '#4a0f23',
   diff_change = '#27406b',
   diff_text = '#23324d',
+  line_hl = '#444444',
+  selection = '#666666'
 }
 
 local function remove_italics(config, colors)
@@ -87,16 +89,16 @@ M.load_syntax = function(palette)
       bg = palette.base3,
     },
     CursorLine = {
-      bg = palette.base3,
+      bg = palette.line_hl,
     },
     NonText = { -- used for "eol", "extends" and "precedes" in listchars
       fg = palette.base5,
     },
     Visual = {
-      bg = palette.base4,
+      bg = palette.selection,
     },
     VisualNOS = {
-      bg = palette.base3,
+      bg = palette.selection,
     },
     Search = {
       fg = palette.base2,
@@ -144,7 +146,7 @@ M.load_syntax = function(palette)
       bg = palette.base2,
     },
     StatusLine = {
-      fg = palette.base7,
+      fg = palette.white,
       bg = palette.base3,
     },
     StatusLineNC = {
