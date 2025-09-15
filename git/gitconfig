@@ -39,6 +39,7 @@
 	amend = commit --amend
 	qamend = commit --amend --no-edit
 	pushf = push --force-with-lease
+	up = !git fetch && git rebase refs/remotes/origin/HEAD
 	# amending local changes before pushing
 	fixup = "!git log --oneline $(git merge-base HEAD ${@:-'@{u}'})..HEAD | fzf --preview 'git show --color=always {1}' | cut -d' ' -f1 | xargs -r git commit --fixup"
 	autosquash = "!git rebase --autosquash $(git merge-base HEAD ${@:-'@{u}'})"
