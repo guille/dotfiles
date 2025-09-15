@@ -71,7 +71,7 @@ crystal
 elixir
 hugo
 jdk8-openjdk
-python-pip
+ruff
 shards
 uv
 ##

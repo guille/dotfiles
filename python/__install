@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# python
+##
+
+module_name=python
+
+
+mise settings add idiomatic_version_file_enable_tools python
+mise settings add python.uv_venv_auto true
+
+
+# Install after default packages are in the right place
+mise use --global python@latest
+
+# uv and ruff installed in system packcages
+# pyright installed with npm

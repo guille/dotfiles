@@ -11,6 +11,11 @@ source "$SCRIPT_BASE_DIR/common"
 
 module_name=mise
 
+if command_exists mise; then
+	infoprint "[$module_name] upgrading mise"
+	mise upgrade
+fi
+
 
 infoprint "[$module_name] setting up mise's autocompletion"
 mise use --global usage

@@ -29,6 +29,28 @@
 				"gopls"
 			],
 			"selector": "source.go | source.gomod",
+		},
+		// https://docs.astral.sh/ruff/editors/settings/
+		"ruff": {
+			"enabled": true,
+			"command": [
+				"ruff",
+				"server"
+			],
+			"selector": "source.python",
+		},
+		// https://microsoft.github.io/pyright/#/configuration
+		"pyright": {
+			"enabled": true,
+			"command": [
+				"pyright-langserver",
+				"--stdio"
+			],
+			"settings": {
+				// Ruff handles this
+				"pyright.disableOrganizeImports": false,
+			},
+			"selector": "source.python",
 		}
 	}
 }

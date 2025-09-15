@@ -73,6 +73,7 @@ modules_to_install=(
 	mise
 	ruby
 	go
+	python
 	mpd
 	git
 	sublime
