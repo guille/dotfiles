@@ -5,9 +5,24 @@
 	"lsp_format_on_save": true,
 	"log_max_size": 0,
 	"clients": {
+		// Best docs for configuring servers manually are at https://github.com/neovim/nvim-lspconfig
+		// Disable default servers
+		"erlang-ls": {
+			"enabled": false
+		},
+		"ocaml": {
+			"enabled": false
+		},
+		"polymer-ide": {
+			"enabled": false
+		},
 		"ruby": {
 			"enabled": false
 		},
+		"sorbet": {
+			"enabled": false
+		},
+		// https://shopify.github.io/ruby-lsp/
 		"ruby-lsp": {
 			"enabled": true,
 			"command": [
@@ -51,6 +66,19 @@
 				"pyright.disableOrganizeImports": false,
 			},
 			"selector": "source.python",
+		},
+		// https://github.com/redhat-developer/yaml-language-server
+		"yaml-language-server": {
+			"enabled": true,
+			"command": [
+				"yaml-language-server",
+				"--stdio"
+			],
+			"settings": {
+				"redhat.telemetry.enabled": false,
+				"yaml.format.enable": true,
+			},
+			"selector": "(source.yml | source.yaml) - source.yaml.go",
 		}
 	}
 }
