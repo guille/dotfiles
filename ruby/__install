@@ -12,14 +12,10 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=ruby
 
 
-RUBY_VERSION=3.4
-
 mise settings add idiomatic_version_file_enable_tools ruby
 mise settings ruby.default_packages_file=~/.default-gems
 
 prepare_profiled_config "default-gems"
-
-mise use --global ruby@$RUBY_VERSION
 
 ##
 # Symlinks
@@ -29,3 +25,6 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/default-gems" ~/.default-gems 1> /dev/n
 
 mkdir -p "$XDG_CONFIG_HOME/irb"
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/irbrc" "$XDG_CONFIG_HOME/irb/irbrc" 1> /dev/null
+
+# Install after default gems are in the right place
+mise use --global ruby@latest
