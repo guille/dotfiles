@@ -1,5 +1,5 @@
 -- Pacman already puts fzf in /usr/share/vim, so it gets loaded
--- Needed for homebrew-installed fzf
+-- This is needed for homebrew-installed fzf
 vim.opt.runtimepath:append('/usr/local/opt/fzf')
 
 -- TODO: v0.12.x. Installed manually for now
