@@ -20,6 +20,15 @@
 				},
 				"experimentalFeaturesEnabled": true
 			}
+		},
+		// https://go.dev/gopls/editor/sublime
+		// https://go.dev/gopls/settings
+		"gopls": {
+			"enabled": true,
+			"command": [
+				"gopls"
+			],
+			"selector": "source.go | source.gomod",
 		}
 	}
 }

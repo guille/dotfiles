@@ -72,6 +72,7 @@ modules_to_install=(
 	zsh
 	mise
 	ruby
+	go
 	mpd
 	git
 	sublime

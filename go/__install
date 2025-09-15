@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# golang
+##
+
+module_name=go
+
+
+mise settings go.default_packages_file=~/.default-go-packages
+
+
+##
+# Symlinks
+##
+infoprint "[$module_name] creating dotfiles symlinks..."
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/default-packages" ~/.default-go-packages 1> /dev/null
+
+# Install after default packages are in the right place
+mise use --global go@latest
+
+mise x -- go telemetry off
