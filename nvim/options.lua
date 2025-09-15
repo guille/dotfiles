@@ -26,7 +26,7 @@ vim.o.colorcolumn="100"
 -- complete (kinda) like zsh
 vim.o.wildmode = "longest:full,list:full"
 vim.o.wildignorecase = true
-vim.o.completeopt = "menuone,longest,noselect"
+vim.o.completeopt = "menuone,longest,noselect,fuzzy"
 
 -- subtitute globally by default
 vim.o.gdefault = true
