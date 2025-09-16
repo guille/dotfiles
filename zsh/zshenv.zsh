@@ -7,6 +7,6 @@ export TERMINAL="ghostty"
 export EDITOR="subl -w"
 
 export PATH=~/mybin:$PATH # Add scripts
-export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/ripgreprc"
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/ripgreprc"
 
 [[ ! -f ~/.zshenv.local ]] || source ~/.zshenv.local
