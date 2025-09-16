@@ -4,31 +4,18 @@
 	"show_diagnostics_panel_on_save": 1,
 	"lsp_format_on_save": true,
 	"log_max_size": 0,
+	// Disable default servers, despite SublimeLSP's warnings
+	"default_clients": {},
 	"clients": {
 		// Best docs for configuring servers manually are at https://github.com/neovim/nvim-lspconfig
-		// Disable default servers
-		"erlang-ls": {
-			"enabled": false
-		},
-		"ocaml": {
-			"enabled": false
-		},
-		"polymer-ide": {
-			"enabled": false
-		},
-		"ruby": {
-			"enabled": false
-		},
-		"sorbet": {
-			"enabled": false
-		},
+		//
 		// https://shopify.github.io/ruby-lsp/
 		"ruby-lsp": {
 			"enabled": true,
 			"command": [
 				"ruby-lsp"
 			],
-			"selector": "source.ruby | text.html.ruby",
+			"selector": "source.ruby | text.html.rails",
 			"initializationOptions": {
 				"enabledFeatures": {
 					"diagnostics": true
