@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# ripgrep
+##
+
+module_name=ripgrep
+
+mkdir -p ~/.config/ripgrep
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ripgreprc" ~/.config/ripgrep/ripgreprc 1> /dev/null

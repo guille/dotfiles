@@ -82,6 +82,7 @@ modules_to_install=(
 	waybar
 	mpv
 	thunar
+	ripgrep
 	nvim
 	rofi
 	dunst

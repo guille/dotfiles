@@ -1,0 +1,21 @@
+# Line numbers
+-n
+
+# Search case-insensitively if pattern is all lowercase.
+--smart-case
+
+# Follow symbolic links.
+--follow
+
+# Search hidden files and directories.
+--hidden
+
+# Exclude directories.
+--glob=!{.git,node_modules,Trash}
+
+# Don't print lines longer than this limit.
+--max-columns=500
+
+# Colours
+--colors=path:fg:208
+--colors=line:fg:3
