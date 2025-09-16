@@ -12,9 +12,6 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=go
 
 
-mise settings go.default_packages_file=~/.default-go-packages
-
-
 ##
 # Symlinks
 ##

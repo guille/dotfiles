@@ -13,7 +13,6 @@ module_name=ruby
 
 
 mise settings add idiomatic_version_file_enable_tools ruby
-mise settings ruby.default_packages_file=~/.default-gems
 
 prepare_profiled_config "default-gems"
 
