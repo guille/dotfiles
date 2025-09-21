@@ -75,7 +75,7 @@
     "clock": {
         "interval": 5,
         "tooltip": false,
-        "format": "<span color=\"#ffd204\">󰥔</span>  {:%H:%M}",
+        "format": "<span color=\"#ffd204\">󰥔</span>  {:%d/%m %H:%M}",
         "format-alt": "<span color=\"#ffd204\">󰥔</span>  {:%a %d/%m %H:%M:%S}"
     },
     "cpu": {
