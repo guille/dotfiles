@@ -4,6 +4,10 @@
 	"show_diagnostics_panel_on_save": 1,
 	"lsp_format_on_save": true,
 	"log_max_size": 0,
+	"lsp_code_actions_on_save": {
+	  "source.fixAll": true,
+	  "source.organizeImports": true,
+	},
 	// Disable default servers, despite SublimeLSP's warnings
 	"default_clients": {},
 	"clients": {
@@ -39,18 +43,31 @@
 				"ruff",
 				"server"
 			],
+			"settings": {
+				"organizeImports": true,
+				"lint.enable": true,
+				"lint.extendSelect": ["I"],
+			},
 			"selector": "source.python",
 		},
-		// https://microsoft.github.io/pyright/#/configuration
-		"pyright": {
+		// https://docs.basedpyright.com/latest/configuration/language-server-settings/
+		"basedpyright": {
 			"enabled": true,
 			"command": [
-				"pyright-langserver",
+				"basedpyright-langserver",
 				"--stdio"
 			],
 			"settings": {
 				// Ruff handles this
-				"pyright.disableOrganizeImports": false,
+				"basedpyright.disableOrganizeImports": false,
+				// ["openFilesOnly", "workspace"]
+				"basedpyright.analysis.diagnosticMode": "openFilesOnly",
+				// Automatically add common search paths like 'src'
+				"basedpyright.analysis.autoSearchPaths": true,
+				// Offer auto-import completions.
+				"basedpyright.analysis.autoImportCompletions": true,
+				// Use library implementations to extract type information when type stub is not present.
+				"basedpyright.analysis.useLibraryCodeForTypes": true,
 			},
 			"selector": "source.python",
 		},

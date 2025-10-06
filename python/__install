@@ -20,4 +20,4 @@ mise settings add python.uv_venv_auto true
 mise use --global python@latest
 
 # uv and ruff installed in system packcages
-# pyright installed with npm
+uv pip install --system -r requirements.txt
