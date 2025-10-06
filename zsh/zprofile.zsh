@@ -1,5 +1,5 @@
 # For Sublime Text
-eval "$(mise activate zsh --shims)"
+eval "$(mise activate zsh)"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 

@@ -35,6 +35,7 @@
 	co = checkout
 	di = diff
 	dc = diff --cached
+	blamedeep = blame -w -C -C -C
 	last = show --quiet
 	amend = commit --amend
 	qamend = commit --amend --no-edit

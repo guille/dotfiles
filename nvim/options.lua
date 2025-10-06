@@ -1,6 +1,6 @@
 -- print the line number in front of each line
 vim.o.number = true
--- vim.o.signcolumn = "yes"
+vim.o.signcolumn = "yes"
 
 -- minimal number of screen lines to keep above and below the cursor.
 vim.o.scrolloff = 4
@@ -45,16 +45,10 @@ vim.o.list = true
 vim.o.listchars = "tab:▸ ,space:·"
 
 -- borders for popups disabled (fzf has its own)
-vim.o.winborder = ""
+vim.o.winborder = "rounded"
 
 -- will add it to statusline instead
 vim.o.showmode = false
 
 -- swap is disabled so this is just for CursorHold event triggers, which some plugins use to reload?
 vim.o.updatetime = 1000
-
--- netrw (useful: "-" goes up a dir)
--- no banner
-vim.g.netrw_banner = 0
--- tree view
-vim.g.netrw_liststyle = 3
