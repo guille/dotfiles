@@ -1,5 +1,5 @@
-# For Sublime Text
-eval "$(mise activate zsh)"
+# For Sublime Text, interactive shells activate normally and get rid of the shims
+eval "$(mise activate zsh --shims)"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
