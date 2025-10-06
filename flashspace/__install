@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# FlashSpace
+##
+
+module_name=flashspace
+
+# OSX only
+if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
+	exit
+fi
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/profiles.json" ~/.config/flashspace/profiles.json 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/settings.json" ~/.config/flashspace/settings.json 1> /dev/null

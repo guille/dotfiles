@@ -94,6 +94,7 @@ modules_to_install=(
 	restic
 	fd
 	dnie
+	flashspace
 )
 
 # interactively pick modules

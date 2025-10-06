@@ -1,0 +1,65 @@
+{
+  "profiles" : [
+    {
+      "id" : "19F2B4F1-0352-418E-89BA-C1B13166F725",
+      "name" : "Default",
+      "workspaces" : [
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "org.mozilla.firefox",
+              "iconPath" : "/Applications/Firefox.app/Contents/Resources/firefox.icns",
+              "name" : "Firefox"
+            }
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "578FF166-411B-4C45-84D2-A28CEC3734B2",
+          "name" : "Browser",
+          "openAppsOnActivation" : false,
+          "shortcut" : "cmd+1",
+          "symbolIconName" : "globe"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.sublimetext.4",
+              "iconPath" : "/Applications/Sublime Text.app/Contents/Resources/Sublime Text.icns",
+              "name" : "Sublime Text"
+            },
+            {
+              "bundleIdentifier" : "com.mitchellh.ghostty",
+              "iconPath" : "/Applications/Ghostty.app/Contents/Resources/AppIcon.icns",
+              "name" : "Ghostty"
+            }
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "DEC084FF-F3E2-46B3-B998-49D9D59FE994",
+          "name" : "Code",
+          "openAppsOnActivation" : false,
+          "shortcut" : "cmd+2",
+          "symbolIconName" : "apple.terminal"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.tinyspeck.slackmacgap",
+              "iconPath" : "/Applications/Slack.app/Contents/Resources/electron.icns",
+              "name" : "Slack"
+            },
+            {
+              "bundleIdentifier" : "com.microsoft.teams2",
+              "iconPath" : "/Applications/Microsoft Teams.app/Contents/Resources/AppIcon.icns",
+              "name" : "Microsoft Teams"
+            }
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "E0EDC7F6-F9B8-401A-9E82-B6C9B7A48568",
+          "name" : "Comms",
+          "openAppsOnActivation" : false,
+          "shortcut" : "cmd+3",
+          "symbolIconName" : "headset"
+        }
+      ]
+    }
+  ]
+}
