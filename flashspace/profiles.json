@@ -40,6 +40,11 @@
           "symbolIconName" : "apple.terminal"
         },
         {
+          "appToFocus" : {
+            "bundleIdentifier" : "com.tinyspeck.slackmacgap",
+            "iconPath" : "/Applications/Slack.app/Contents/Resources/electron.icns",
+            "name" : "Slack"
+          },
           "apps" : [
             {
               "bundleIdentifier" : "com.tinyspeck.slackmacgap",
