@@ -14,16 +14,14 @@ module_name=ruby
 
 mise settings add idiomatic_version_file_enable_tools ruby
 
+mise use --global ruby@latest
+
+infoprint "[$module_name] installing default gems..."
 prepare_profiled_config "default-gems"
+\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/default-gems" | xargs gem install
 
 ##
 # Symlinks
 ##
-infoprint "[$module_name] creating dotfiles symlinks..."
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/default-gems" ~/.default-gems 1> /dev/null
-
 mkdir -p "$XDG_CONFIG_HOME/irb"
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/irbrc" "$XDG_CONFIG_HOME/irb/irbrc" 1> /dev/null
-
-# Install after default gems are in the right place
-mise use --global ruby@latest
