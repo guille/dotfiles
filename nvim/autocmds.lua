@@ -22,9 +22,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 	end,
 })
 
+-- format on save for JSON only
 vim.api.nvim_create_user_command(
 	"JsonFmt", "%!jq '.'", { desc = "Format JSON with jq" }
 )
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*.json",
+	callback = function()
+		vim.cmd("JsonFmt")
+	end,
+})
+
 
 --
 -- Sync clipboard between OS and Neovim.
