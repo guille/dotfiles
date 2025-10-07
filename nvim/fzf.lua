@@ -46,9 +46,7 @@ vim.g.fzf_action = {
 	['ctrl-h'] = 'split',
 	['ctrl-t'] = 'tabedit',
 }
--- leader + b for quick buffer switching
-vim.keymap.set('n', '<leader>b', ':Buffers <CR>', {noremap = true, silent = true})
--- leader + e for quick file switching
-vim.keymap.set('n', '<leader>e', ':Files <CR>', {noremap = true, silent = true})
+-- leader + f for quick buffer switching
+vim.keymap.set('n', '<leader>f', ':Buffers <CR>', {noremap = true, silent = true})
 -- control + p for quick file switching (git repo)
 vim.keymap.set('n', '<c-p>', ':GFiles <CR>', {noremap = true, silent = true})
