@@ -58,7 +58,7 @@
 			],
 			"settings": {
 				// Ruff handles this
-				"basedpyright.disableOrganizeImports": false,
+				"basedpyright.disableOrganizeImports": true,
 				// ["openFilesOnly", "workspace"]
 				"basedpyright.analysis.diagnosticMode": "openFilesOnly",
 				// Automatically add common search paths like 'src'

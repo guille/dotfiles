@@ -10,6 +10,8 @@ require('statusline')
 -- overrides some keybinds, so has to come after
 require('fzf')
 
+require('lsp')
+
 --
 -- Appearance
 -- Thicker borders
@@ -33,4 +35,3 @@ monokai.setup {
 		},
 	}
 }
-

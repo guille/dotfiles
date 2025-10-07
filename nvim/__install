@@ -23,3 +23,4 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/keybinds.lua" ~/.config/nvim/lua/keybin
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/options.lua" ~/.config/nvim/lua/options.lua 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/statusline.lua" ~/.config/nvim/lua/statusline.lua 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/monokai.lua" ~/.config/nvim/lua/monokai.lua 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/lsp.lua" ~/.config/nvim/lua/lsp.lua 1> /dev/null
