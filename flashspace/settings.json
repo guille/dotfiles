@@ -46,8 +46,6 @@
   "swipeThreshold" : 0.2,
   "swipeUp3FingerAction" : "none",
   "swipeUp4FingerAction" : "none",
-  "switchToNextWorkspace" : "opt+tab",
-  "switchToPreviousWorkspace" : "opt+shift+tab",
   "switchWorkspaceWhenPipCloses" : true,
   "workspaceTransitionDimming" : 0.2,
   "workspaceTransitionDuration" : 0.3
