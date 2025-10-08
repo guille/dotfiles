@@ -1,5 +1,6 @@
 # For Sublime Text, interactive shells activate normally and get rid of the shims
 eval "$(mise activate zsh --shims)"
+export DOTNET_ROOT=$(mise where dotnet 2>/dev/null)
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
