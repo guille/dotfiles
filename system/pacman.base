@@ -2,6 +2,7 @@
 # basic system stuff and wm
 blueman
 bluez
+dns-over-https
 dunst
 grim
 network-manager-applet
@@ -27,6 +28,7 @@ xorg-xwayland
 ##
 # terminal utils
 bat
+dog
 eza
 fd
 fzf
