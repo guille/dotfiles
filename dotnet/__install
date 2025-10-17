@@ -11,9 +11,7 @@ source "$SCRIPT_BASE_DIR/common"
 
 module_name=dotnet
 
-DOTNET_VERSION=9
-
 
 if is_work_or_hybrid; then
-	mise use --global dotnet@$DOTNET_VERSION
+	mise use --global dotnet@latest
 fi
