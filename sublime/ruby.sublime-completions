@@ -8,6 +8,10 @@
       {
          "trigger": "pry",
          "contents": "require 'pry-byebug'\nbinding.pry\n"
+      },
+      {
+         "trigger": "frozen_string_literal",
+         "contents": "# frozen_string_literal: true\n"
       }
    ]
 }
