@@ -35,3 +35,5 @@ infoprint "[$module_name] mise config flags"
 mise settings set experimental true
 
 gitignore "mise.local.toml"
+
+mise prune
