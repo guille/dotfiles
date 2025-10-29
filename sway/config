@@ -231,6 +231,7 @@ bar swaybar_command waybar
 exec /usr/share/sway-contrib/inactive-windows-transparency.py --opacity 0.85 -g
 exec --no-startup-id swayidle timeout 360 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
 exec --no-startup-id mpd
+exec --no-startup-id lxsession
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
 exec --no-startup-id wl-clip-persist --clipboard regular

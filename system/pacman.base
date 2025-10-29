@@ -5,6 +5,7 @@ bluez
 dns-over-https
 dunst
 grim
+lxsession
 network-manager-applet
 networkmanager
 nm-connection-editor
