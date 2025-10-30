@@ -12,8 +12,6 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=ruby
 
 
-mise settings add idiomatic_version_file_enable_tools ruby
-
 mise use --global ruby@latest
 
 infoprint "[$module_name] installing default gems..."
