@@ -74,6 +74,7 @@ crystal
 elixir
 hugo
 jdk8-openjdk
+postgresql-libs
 ruff
 shards
 uv

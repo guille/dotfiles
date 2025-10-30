@@ -18,5 +18,5 @@ mise settings add python.uv_venv_auto true
 # Install after default packages are in the right place
 mise use --global python@latest
 
-# uv and ruff installed in system packcages
-uv pip install --system -r "$SCRIPT_BASE_DIR/$module_name/requirements.txt"
+# uv and ruff are installed from system packages
+\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/uv_tools.txt" | xargs -n1 uv tool install
