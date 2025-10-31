@@ -65,6 +65,7 @@ alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 # Don't interpret brackets in arguments as glob patterns.
 alias bundle='noglob bundle'
 alias rake='noglob rake'
+alias rails='noglob rails'
 # Same for refspec characters (^, @, ~)
 alias git='noglob git'
 
