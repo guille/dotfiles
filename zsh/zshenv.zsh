@@ -8,6 +8,9 @@ export EDITOR="subl -w"
 
 export PATH=~/mybin:$PATH
 export PATH=~/.local/bin:$PATH
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	export PATH="/usr/local/opt/libpq/bin:$PATH"
+fi
 
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/ripgreprc"
 
