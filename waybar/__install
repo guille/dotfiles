@@ -21,7 +21,7 @@ mkdir -p ~/.config/waybar/scripts
 
 infoprint "[$module_name] creating dotfiles symlinks..."
 
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/config" ~/.config/waybar/config 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/config.json" ~/.config/waybar/config 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/style.css" ~/.config/waybar/style.css 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/scripts/dunst.sh" ~/.config/waybar/scripts/dunst.sh 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/scripts/pacman.sh" ~/.config/waybar/scripts/pacman.sh 1> /dev/null
