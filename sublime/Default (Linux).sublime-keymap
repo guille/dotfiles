@@ -266,11 +266,21 @@
 		],
 		"command": "fold"
 	},
+	// LSP when available
 	{
 		"keys": [
-			"ctrl+shift++"
+			"ctrl+-"
 		],
-		"command": "increase_font_size"
+		"command": "lsp_fold",
+		"args": {
+			"strict": true
+		},
+		"context": [
+			{
+				"key": "lsp.session_with_capability",
+				"operand": "foldingRangeProvider"
+			}
+		]
 	},
 	{
 		"keys": [

@@ -3,6 +3,14 @@
         "caption": "New project from root",
         "command": "new_project_from_root",
     },
+    // LSP
+    {
+        "caption": "LSP: Fold All Comment Blocks",
+        "command": "lsp_fold_all",
+        "args": {
+            "kind": "comment"
+        }
+    },
     // Useful things that don't show in command palette by default
     {
         "caption": "Show Console",
