@@ -1,0 +1,330 @@
+// Documentation at https://www.sublimetext.com/docs/color_schemes.html
+{
+	"variables": {
+		"orange": "#fd971f",
+		"light_red": "#f92672"
+	},
+	"globals": {
+		// TODO: Use variables for all
+		"foreground": "#f8f8f2",
+		"background": "#2c2c2c",
+		"caret": "#f8f8f0",
+		"invisibles": "#555555",
+		"line_highlight": "#474747",
+		"selection": "#666666",
+		"selection_border": "##1c1c1c",
+		"tags_options": "foreground",
+		"tags_foreground": "#a6e22e",
+		"active_guide": "var(orange)",
+		"stack_guide": "#666666",
+		"brackets_options": "bold stippled_underline",
+		"brackets_foreground": "#f8f8f2",
+		"bracket_contents_options": "bold stippled_underline",
+		"bracket_contents_foreground": "#f8f8f2",
+	},
+	"rules": [
+		{
+			"name": "Catch-all variable",
+			"scope": "variable",
+			"foreground": "#f8f8f2",
+		},
+		{
+			"name": "Strings",
+			"scope": "string",
+			"foreground": "#e6db74",
+		},
+		{
+			"name": "String delimiters",
+			"scope": "punctuation.definition.string",
+			"foreground": "var(light_red)",
+		},
+		{
+			"name": "Strings when used as keys",
+			"scope": "string & meta.mapping.key",
+			"foreground": "var(orange)",
+		},
+		{
+			"name": "String delimiters when used as keys",
+			"scope": "punctuation.definition.string & meta.mapping.key",
+			"foreground": "var(orange)",
+		},
+		{
+			"name": "Regexp",
+			"scope": "string.regexp",
+			"foreground": "#f6aa11",
+		},
+		{
+			"name": "Numeric literals",
+			"scope": "constant.numeric",
+			"foreground": "#be84ff",
+		},
+		{
+			"name": "Keywords",
+			"scope": "keyword",
+			"foreground": "var(light_red)",
+		},
+		{
+			"name": "Keywords (modifiers)",
+			"scope": "storage.modifier",
+			"foreground": "var(light_red)",
+		},
+		{
+			"name": "Function definition",
+			"scope": "entity.name.function",
+			"font_style": "bold",
+			"foreground": "var(orange)",
+		},
+		{
+			"name": "Anonymous function definition",
+			"scope": "keyword.declaration.function.anonymous",
+			"font_style": "bold",
+			"foreground": "var(orange)",
+		},
+		{
+			"name": "Function parameter",
+			"scope": "variable.parameter",
+			"foreground": "var(orange)",
+		},
+		{
+			"name": "Constants",
+			"scope": "constant.language | constant.other | constant.character | meta.preprocessor",
+			// "scope": "constant.language | constant.other | constant.character.escape | meta.preprocessor",
+			"foreground": "#be84ff",
+		},
+		{
+			"name": "Types",
+			"scope": "(storage.type - keyword.declaration.function - storage.type.function) | support.type | support.class.typing",
+			"font_style": "italic",
+			"foreground": "#66d9ef",
+		},
+		{
+			"name": "Type definitions",
+			"scope": "entity.name.type",
+			"font_style": "italic",
+			"foreground": "#66d9ef",
+		},
+		{
+			"name": "Class names",
+			"scope": "support.class | entity.name.class",
+			"foreground": "#66d9ef",
+		},
+		{
+			"name": "Constants",
+			"scope": "variable.other.constant",
+			"foreground": "#66d9ef",
+		},
+		{
+			"name": "Symbols",
+			"scope": "constant.other.symbol",
+			"foreground": "#f6f080",
+		},
+		{
+			"name": "Punctuation for variables",
+			"scope": "punctuation.definition.variable",
+			"foreground": "var(orange)",
+		},
+		{
+			"name": "Interpolations",
+			"scope": "punctuation.section.interpolation | meta.interpolation",
+			"font_style": "glow",
+		},
+		{
+			"name": "Tag names",
+			"scope": "entity.name.tag",
+			"foreground": "var(light_red)",
+		},
+		{
+			"name": "Tag attribute names",
+			"scope": "entity.other.attribute-name",
+			"foreground": "var(orange)",
+		},
+		{
+			"name": "Filenames",
+			"scope": "entity.name.filename",
+			"foreground": "var(orange)",
+		},
+		{
+			"name": "Namespaces/Modules",
+			"scope": "entity.name.namespace | constant.other.module",
+			"foreground": "#a6e22e",
+		},
+		{
+			"name": "Class inheritance (superclass)",
+			"scope": "entity.other.inherited-class",
+			"foreground": "#a6e22e",
+		},
+		{
+			"name": "Class inheritance (punctuation)",
+			"scope": "punctuation.separator.inheritance",
+			"foreground": "#a6e22e",
+		},
+		{
+			"name": "Annotation punctuation",
+			"scope": "punctuation.definition.annotation",
+			"foreground": "var(light_red)",
+		},
+		{
+			"name": "Function calls",
+			"scope": "variable.function",
+			"foreground": "#66d9ef",
+		},
+		{
+			"name": "Library functions",
+			"scope": "support.function",
+			"foreground": "#66d9ef",
+		},
+		{
+			"name": "Annotations",
+			"scope": "variable.annotation",
+			"foreground": "#66d9ef",
+		},
+		{
+			"name": "Reserved variable names (this, super, self...) and other vars",
+			"scope": "variable.language | variable.other.alias",
+			"font_style": "italic",
+			"foreground": "var(orange)",
+		},
+		{
+			"name": "Unused / anonymous variables",
+			"scope": "variable.other.unused | variable.parameter.unused | variable.language.anonymous",
+			"font_style": "italic",
+			"foreground": "color(#a7afb6)",
+		},
+		{
+			"name": "Comments",
+			"scope": "comment",
+			"font_style": "bold",
+			"background": "#353535",
+			"foreground": "#75715e",
+		},
+		{
+			"name": "Comment markers / punctuation",
+			"scope": "punctuation.definition.comment",
+			"foreground": "#88939a",
+		},
+		{
+			"name": "Section names",
+			"scope": "entity.name.section - markup",
+			"font_style": "",
+			"foreground": "#a6e22e",
+		},
+		{
+			"name": "Heading punctuation",
+			"scope": "punctuation.definition.heading",
+			"font_style": "bold",
+			"foreground": "var(orange)",
+		},
+		{
+			"name": "List item punctuation",
+			"scope": "punctuation.definition.list_item",
+			"foreground": "#777777",
+		},
+		{
+			"name": "Invalid",
+			"scope": "invalid",
+			"foreground": "#f8f8f0",
+			"background": "var(light_red)",
+		},
+		//
+		// LANGUAGE-SPECIFIC OVERRIDES AND EXTENSIONS
+		//
+		// Markdown
+		{
+			"name": "Markdown: links",
+			"scope": "markup.underline.link",
+			"font_style": "underline",
+			"foreground": "#66d9ef",
+		},
+		{
+			"name": "Markdown: raw inline",
+			"scope": "markup.raw.inline",
+			"foreground": "#ec3533",
+		},
+		{
+			"name": "Markdown: code block",
+			"scope": "markup.raw.code-fence",
+			"background": "#353535",
+			"foreground_adjust": "l(+ 5%) s(+ 50%)"
+		},
+		{
+			"name": "Markdown: code block (punctuation)",
+			"scope": "punctuation.definition.raw.code-fence",
+			"font_style": "glow bold",
+			"foreground": "#777777"
+		},
+		{
+			"name": "Markdown: separator",
+			"scope": "punctuation.definition.thematic-break",
+			"background": "#ffffff0f",
+			"foreground": "#ffffff33"
+		},
+		{
+			"name": "Markdown: table",
+			"scope": "text.html.markdown meta.table",
+			"background": "#ff3a281a", // TODO: Better colour
+		},
+		{
+			"name": "Markdown: bold",
+			"scope": "markup.bold",
+			"font_style": "bold",
+		},
+		{
+			"name": "Markdown: italic",
+			"scope": "markup.italic",
+			"font_style": "italic",
+		},
+		{
+			"name": "Markdown: underline",
+			"scope": "markup.underline",
+			"font_style": "underline"
+		},
+		{
+			"name": "Markdown: bold/italic",
+			"scope": "markup.italic markup.bold | markup.bold markup.italic",
+			"font_style": "bold italic"
+		},
+		{
+			"name": "Markdown: bold/underline",
+			"scope": "markup.underline markup.bold | markup.bold markup.underline",
+			"font_style": "bold underline"
+		},
+		{
+			"name": "Markdown: italic/underline",
+			"scope": "markup.underline markup.italic | markup.italic markup.underline",
+			"font_style": "italic underline"
+		},
+		{
+			"name": "Markdown: bold/italic/underline",
+			"scope": "markup.bold markup.italic markup.underline | markup.bold markup.underline markup.italic | markup.italic markup.bold markup.underline | markup.italic markup.underline markup.bold | markup.underline markup.bold markup.italic | markup.underline markup.italic markup.bold",
+			"font_style": "bold italic underline"
+		},
+		{
+			"name": "Markdown: punctuation",
+			"scope": "text & (punctuation.definition.italic | punctuation.definition.bold | punctuation.definition.raw | punctuation.definition.link | punctuation.definition.metadata | punctuation.definition.image | punctuation.separator.table-cell | punctuation.section.table-header | punctuation.definition.constant)",
+			"foreground": "#777777",
+		},
+		{
+			"name": "Markdown: Heading names",
+			"scope": "markup.heading",
+			"font_style": "bold",
+			"foreground": "#f8f8f2",
+		},
+		// HTML / XML
+		{
+			"name": "HTML / XML: Tag attribute assignment punctuation",
+			"scope": "punctuation.separator.key-value.html | punctuation.separator.key-value.xml",
+			"foreground": "var(orange)",
+		},
+		{
+			"name": "HTML: <script> tag",
+			"scope": "entity.name.tag.script.html",
+			"font_style": "italic",
+		},
+		// Other
+		{
+			"name": "diff.deleted",
+			"scope": "markup.deleted",
+			"foreground": "hsl(338, 95%, 56%)"
+		},
+	]
+}

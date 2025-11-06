@@ -58,7 +58,7 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_packages" "$SUBL_CONFIG/Package Co
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_keys.linux" "$SUBL_CONFIG/Default (Linux).sublime-keymap" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_keys.osx" "$SUBL_CONFIG/Default (OSX).sublime-keymap" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_settings" "$SUBL_CONFIG/Preferences.sublime-settings" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_colors" "$SUBL_CONFIG/Agila Monokai Extended.sublime-color-scheme" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/custom.sublime-color-scheme" "$SUBL_CONFIG/custom.sublime-color-scheme" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_ruby" "$SUBL_CONFIG/Ruby.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_elixir" "$SUBL_CONFIG/Elixir.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_gitcommit" "$SUBL_CONFIG/Git Commit.sublime-settings" 1> /dev/null

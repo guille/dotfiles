@@ -1,7 +1,7 @@
 {
 	"auto_complete_commit_on_tab": true,
 	"close_windows_when_empty": true,
-	"color_scheme": "Packages/Agila Theme/Agila Monokai Extended.tmTheme",
+	"color_scheme": "custom.sublime-color-scheme",
 	"draw_white_space": "all",
 	"ensure_newline_at_eof_on_save": true,
 	"find_selected_text": false,
