@@ -1,0 +1,276 @@
+[
+	{
+		"keys": [
+			"ctrl+left"
+		],
+		"command": "move",
+		"args": {
+			"by": "subwords",
+			"forward": false
+		}
+	},
+	{
+		"keys": [
+			"ctrl+right"
+		],
+		"command": "move",
+		"args": {
+			"by": "subword_ends",
+			"forward": true
+		}
+	},
+	{
+		"keys": [
+			"ctrl+shift+left"
+		],
+		"command": "move",
+		"args": {
+			"by": "subwords",
+			"forward": false,
+			"extend": true
+		}
+	},
+	{
+		"keys": [
+			"ctrl+shift+right"
+		],
+		"command": "move",
+		"args": {
+			"by": "subword_ends",
+			"forward": true,
+			"extend": true
+		}
+	},
+	// Indent when pasting by default
+	{
+		"keys": [
+			"ctrl+v"
+		],
+		"command": "paste_and_indent"
+	},
+	{
+		"keys": [
+			"ctrl+shift+v"
+		],
+		"command": "paste_and_indent"
+	},
+	// Navigate tabs visually, not by recent use
+	{
+		"keys": [
+			"ctrl+tab"
+		],
+		"command": "next_view"
+	},
+	{
+		"keys": [
+			"ctrl+shift+tab"
+		],
+		"command": "prev_view"
+	},
+	// Easier select all matches
+	{
+		"keys": [
+			"ctrl+shift+d"
+		],
+		"command": "find_all_under"
+	},
+	// Skill issues (ES layout)
+	{
+		"keys": [
+			"ctrl+m"
+		],
+		"command": "toggle_comment",
+		"args": {
+			"block": false
+		}
+	},
+	// Instead of build -> Go To Definition
+	{
+		"keys": [
+			"ctrl+b"
+		],
+		"command": "goto_definition"
+	},
+	{
+		"keys": [
+			"ctrl+shift+b"
+		],
+		"command": "goto_definition",
+		"args": {
+			"side_by_side": true,
+			"clear_to_right": true
+		}
+	},
+	// LSP when available
+	{
+		"keys": [
+			"ctrl+b"
+		],
+		"command": "lsp_symbol_definition",
+		"args": {
+			"side_by_side": false,
+			"force_group": true,
+			"fallback": false,
+			"group": -1
+		},
+		"context": [
+			{
+				"key": "lsp.session_with_capability",
+				"operand": "definitionProvider"
+			},
+			{
+				"key": "auto_complete_visible",
+				"operand": false
+			}
+		]
+	},
+	{
+		"keys": [
+			"ctrl+shift+b"
+		],
+		"command": "lsp_symbol_definition",
+		"args": {
+			"side_by_side": true,
+			"force_group": true,
+			"fallback": false,
+			"group": -1
+		},
+		"context": [
+			{
+				"key": "lsp.session_with_capability",
+				"operand": "definitionProvider"
+			},
+			{
+				"key": "auto_complete_visible",
+				"operand": false
+			}
+		]
+	},
+	// Instead of incremental search -> Go To References
+	{
+		"keys": [
+			"ctrl+i"
+		],
+		"command": "goto_reference"
+	},
+	{
+		"keys": [
+			"ctrl+shift+i"
+		],
+		"command": "goto_reference",
+		"args": {
+			"side_by_side": true,
+			"clear_to_right": true
+		}
+	},
+	// LSP when available
+	{
+		"keys": [
+			"ctrl+i"
+		],
+		"command": "lsp_symbol_references",
+		"args": {
+			"side_by_side": false,
+			"force_group": true,
+			"fallback": false,
+			"group": -1,
+			"include_declaration": false
+		},
+		"context": [
+			{
+				"key": "lsp.session_with_capability",
+				"operand": "referencesProvider"
+			}
+		]
+	},
+	{
+		"keys": [
+			"ctrl+shift+i"
+		],
+		"command": "lsp_symbol_references",
+		"args": {
+			"side_by_side": true,
+			"force_group": true,
+			"fallback": false,
+			"group": -1
+		},
+		"context": [
+			{
+				"key": "lsp.session_with_capability",
+				"operand": "referencesProvider"
+			}
+		]
+	},
+	// Instead of slurping -> fold code
+	{
+		"keys": [
+			"ctrl+e"
+		],
+		"command": "fold"
+	},
+	{
+		"keys": [
+			"ctrl+shift+e"
+		],
+		"command": "unfold"
+	},
+	// Exit multi selection but at the latest position
+	{
+		"keys": [
+			"shift+escape"
+		],
+		"command": "single_last_selection",
+		"context": [
+			{
+				"key": "num_selections",
+				"operator": "not_equal",
+				"operand": 1
+			}
+		]
+	},
+	// Swap show symbols in file <-> in project
+	{
+		"keys": [
+			"ctrl+r"
+		],
+		"command": "goto_symbol_in_project"
+	},
+	{
+		"keys": [
+			"ctrl+shift+r"
+		],
+		"command": "show_overlay",
+		"args": {
+			"overlay": "goto",
+			"text": "@"
+		}
+	},
+	// LSP when available (for file search only, LSP is slower for the project-wide one?)
+	{
+		"keys": [
+			"ctrl+shift+r"
+		],
+		"command": "lsp_document_symbols",
+		"context": [
+			{
+				"key": "lsp.session_with_capability",
+				"operand": "documentSymbolProvider"
+			}
+		]
+	},
+	// Nicer diff keybinds
+	{
+		"keys": [
+			"ctrl+j",
+			"ctrl+j"
+		],
+		"command": "toggle_inline_diff"
+	},
+	{
+		"keys": [
+			"ctrl+j",
+			"ctrl+z"
+		],
+		"command": "revert_hunk"
+	},
+]

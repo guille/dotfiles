@@ -1,7 +1,7 @@
 zsh/zvars
 ruby/default-gems
 sublime/packages
-sublime/subl_packages
-sublime/subl_settings
+sublime/Package Control.sublime-settings
+sublime/Preferences.sublime-settings
 system/aur
 system/pacman

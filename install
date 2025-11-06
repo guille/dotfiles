@@ -15,7 +15,8 @@ while (($#)); do
 done
 
 # Exported so the module install scripts have a ref to the base
-export SCRIPT_BASE_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_BASE_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+export SCRIPT_BASE_DIR
 
 source "$SCRIPT_BASE_DIR/common" || exit 1
 

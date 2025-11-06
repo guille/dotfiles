@@ -20,7 +20,7 @@ prepare_profiled_config "packages"
 sed "/###PACKAGES###/{
     r $SCRIPT_BASE_DIR/$module_name/packages
     d
-}" "$SCRIPT_BASE_DIR/$module_name/subl_packages.base" > "$SCRIPT_BASE_DIR/$module_name/subl_packages"
+}" "$SCRIPT_BASE_DIR/$module_name/subl_packages.base" > "$SCRIPT_BASE_DIR/$module_name/Package Control.sublime-settings"
 
 
 # TODO: on a fresh install it might be `~/.config/sublime-text`??
@@ -49,16 +49,16 @@ fi
 
 # https://github.com/sublimehq/sublime_text/issues/32
 
-sed "s/###FONT_SIZE###/${FONT_SIZE}/" "$SCRIPT_BASE_DIR/$module_name/subl_settings.base" > "$SCRIPT_BASE_DIR/$module_name/subl_settings"
+sed "s/###FONT_SIZE###/${FONT_SIZE}/" "$SCRIPT_BASE_DIR/$module_name/subl_settings.base" > "$SCRIPT_BASE_DIR/$module_name/Preferences.sublime-settings"
 
 
 
 infoprint "[$module_name] creating dotfiles symlinks..."
 # Settings (general)
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_packages" "$SUBL_CONFIG/Package Control.sublime-settings" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_keys.linux" "$SUBL_CONFIG/Default (Linux).sublime-keymap" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_keys.osx" "$SUBL_CONFIG/Default (OSX).sublime-keymap" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/subl_settings" "$SUBL_CONFIG/Preferences.sublime-settings" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Default (Linux).sublime-keymap" "$SUBL_CONFIG/Default (Linux).sublime-keymap" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Default (OSX).sublime-keymap" "$SUBL_CONFIG/Default (OSX).sublime-keymap" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Preferences.sublime-settings" "$SUBL_CONFIG/Preferences.sublime-settings" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Package Control.sublime-settings" "$SUBL_CONFIG/Package Control.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/custom.sublime-color-scheme" "$SUBL_CONFIG/custom.sublime-color-scheme" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/LSP.sublime-settings" "$SUBL_CONFIG/LSP.sublime-settings" 1> /dev/null
 
