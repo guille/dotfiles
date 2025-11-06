@@ -3,8 +3,8 @@
 # Adapted from https://github.com/adi1090x/rofi
 
 # CMDs
-uptime="`uptime -p | sed -e 's/up //g'`"
-host=`hostname`
+uptime=$(uptime -p | sed -e 's/up //g')
+host=$(hostname)
 
 # Options
 shutdown='󰐥 Shutdown'
@@ -63,13 +63,13 @@ run_cmd() {
 # Actions
 chosen="$(run_rofi)"
 case ${chosen} in
-    $shutdown)
+    "$shutdown")
 		run_cmd --shutdown
         ;;
-    $reboot)
+    "$reboot")
 		run_cmd --reboot
         ;;
-    $logout)
+    "$logout")
 		run_cmd --logout
         ;;
 esac
