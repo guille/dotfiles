@@ -117,48 +117,5 @@
 [includeIf "gitdir:~/work/"]
 	path = ~/.gitconfig-work
 
-[delta "decorations"]
-	file-style = "#fd971f bold"
-	file-decoration-style = "#84786A box ul"
-	file-added-label = [+]
-	file-copied-label = [==]
-	file-modified-label = [*]
-	file-removed-label = [-]
-	file-renamed-label = [->]
-	hunk-label = " "
-	hunk-header-style = file line-number syntax bold italic
-	hunk-header-decoration-style = "#84786A ul"
-	hunk-header-file-style = "#ff9b00"
-	hunk-header-line-number-style = "#e6db74 bold"
-	line-numbers-left-format = " {nm:>3} │ "
-	line-numbers-right-format = "{np:>3} │ "
-	line-numbers-left-style = "#84786A"
-	line-numbers-right-style = "#84786A"
-	line-numbers-minus-style = "#e95678 bold"
-	line-numbers-plus-style = "#1ac71e bold"
-	line-numbers-zero-style = "#8F908A"
-	# More diff
-	plus-style = "syntax #3d5213"
-	plus-emph-style = "syntax #3d5213 bold"
-	plus-non-emph-style = syntax auto
-	minus-style = "syntax #4a0f23"
-	minus-emph-style = "syntax #4a0f23 dim"
-	minus-non-emph-style = syntax auto
-	inline-hint-style = syntax
-	zero-style = syntax
-	merge-conflict-ours-diff-header-style = "#e6db74 reverse bold"
-	merge-conflict-theirs-diff-header-style = "#e6db74 reverse bold overline"
-	merge-conflict-ours-diff-header-decoration-style = ''
-	merge-conflict-theirs-diff-header-decoration-style = ''
-	# Blame
-	blame-code-style = syntax
-	blame-format = " {author:<18} ({commit:>7}) {timestamp:^13} "
-	blame-separator-style = "#84786A"
-	blame-palette = "#261a12 #362619 #463220 #563e27 #664a2e #765635 #86623c #966e43 #a67a4a #b68651"
-	# grep, don't reallt use it but...
-	grep-file-style = "#fd971f bold"
-	grep-line-number-style = "#e6db74 bold"
-	grep-match-line-style = syntax
-	grep-match-word-style = "syntax bold underline"
-	# Git log / show
-	commit-decoration-style = "#84786A box"
+[include]
+	path = ~/.gitconfig-delta
