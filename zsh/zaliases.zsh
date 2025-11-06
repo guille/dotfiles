@@ -24,6 +24,15 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 			echo "DND deactivated"
 		fi
 	}
+	ping() {
+		paplay /usr/share/sounds/freedesktop/stereo/complete.oga
+	}
+elif [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	ping() {
+		afplay /System/Library/Sounds/Hero.aiff
+	}
+else
+	echo "DOTFILES_OS is unset"
 fi
 
 # https://unix.stackexchange.com/questions/148545/why-does-sudo-ignore-aliases
@@ -124,8 +133,6 @@ groot() {
 		pushd "${git_root}"
 	fi
 }
-
-alias x="mise x --"
 
 alias yt-dlp="yt-dlp --downloader aria2c --output '%(title)s.%(ext)s' --restrict-filenames"
 dl() { tv --no-auto -d "$*" }
