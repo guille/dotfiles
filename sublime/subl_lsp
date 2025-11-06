@@ -1,11 +1,12 @@
 // Settings in here override those in "LSP/LSP.sublime-settings"
 {
 	"show_diagnostics_panel_on_save": 1,
+	"diagnostics_panel_include_severity_level": 1,
 	"lsp_format_on_save": true,
 	"log_max_size": 0,
 	"lsp_code_actions_on_save": {
-	  "source.fixAll": true,
-	  "source.organizeImports": true,
+		"source.fixAll": true,
+		"source.organizeImports": true,
 	},
 	// Disable default servers, despite SublimeLSP's warnings
 	"default_clients": {},
@@ -45,7 +46,9 @@
 			"settings": {
 				"organizeImports": true,
 				"lint.enable": true,
-				"lint.extendSelect": ["I"],
+				"lint.extendSelect": [
+					"I"
+				],
 			},
 			"selector": "source.python",
 		},
