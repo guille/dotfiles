@@ -1,6 +1,8 @@
-import sublime
-import sublime_plugin
 from pathlib import Path
+
+import sublime_plugin
+
+import sublime
 
 
 class NewProjectFromRootCommand(sublime_plugin.WindowCommand):

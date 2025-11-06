@@ -1,9 +1,11 @@
 # Original code copied from
 # https://github.com/STealthy-and-haSTy/SublimeScraps/blob/master/plugins/project_in_statusbar.py
 
-import sublime
-import sublime_plugin
 import os
+
+import sublime_plugin
+
+import sublime
 
 # Related Reading:
 #     https://forum.sublimetext.com/t/displaying-project-name-on-the-rite-side-of-the-status-bar/24721

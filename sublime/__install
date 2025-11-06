@@ -70,3 +70,4 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Default.sublime-commands" "$SUBL_CONFIG
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/SingleLastSelectionCommand.py" "$SUBL_CONFIG/SingleLastSelectionCommand.py" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/NewProjectFromRootCommand.py" "$SUBL_CONFIG/NewProjectFromRootCommand.py" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ProjectInStatusbar.py" "$SUBL_CONFIG/ProjectInStatusbar.py" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/AssignRailsSyntax.py" "$SUBL_CONFIG/AssignRailsSyntax.py" 1> /dev/null
