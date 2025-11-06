@@ -13,8 +13,6 @@
 		"draw_active",
 	],
 	"ignored_packages": [
-		"All Autocomplete",
-		"Rust",
 		"Vintage",
 	],
 	"index_files": true,
