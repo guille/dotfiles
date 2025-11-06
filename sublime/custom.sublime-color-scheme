@@ -12,7 +12,7 @@
 		"invisibles": "#555555",
 		"line_highlight": "#474747",
 		"selection": "#666666",
-		"selection_border": "##1c1c1c",
+		"selection_border": "#1c1c1c",
 		"tags_options": "foreground",
 		"tags_foreground": "#a6e22e",
 		"active_guide": "var(orange)",

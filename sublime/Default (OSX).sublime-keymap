@@ -220,18 +220,82 @@
 			}
 		]
 	},
-	// Instead of slurping -> fold code
+	// Instead of slurping -> go to implementation
+	// When no LSP that supports it, just use Sublime's built in
 	{
 		"keys": [
 			"super+e"
 		],
-		"command": "fold"
+		"command": "goto_definition",
 	},
 	{
 		"keys": [
 			"super+shift+e"
 		],
+		"command": "goto_definition",
+	},
+	// LSP when available
+	{
+		"keys": [
+			"super+e"
+		],
+		"command": "lsp_symbol_implementation",
+		"args": {
+			"side_by_side": false,
+			"force_group": true,
+			"fallback": false,
+			"group": -1,
+		},
+		"context": [
+			{
+				"key": "lsp.session_with_capability",
+				"operand": "implementationProvider"
+			}
+		]
+	},
+	{
+		"keys": [
+			"super+shift+e"
+		],
+		"command": "lsp_symbol_implementation",
+		"args": {
+			"side_by_side": true,
+			"force_group": true,
+			"fallback": false,
+			"group": -1
+		},
+		"context": [
+			{
+				"key": "lsp.session_with_capability",
+				"operand": "implementationProvider"
+			}
+		]
+	},
+	// Instead of adjusting font size -> fold code
+	// (font size is mapped to super+shift instead)
+	{
+		"keys": [
+			"super+plus"
+		],
 		"command": "unfold"
+	},
+	{
+		"keys": [
+			"super+minus"
+		],
+		"command": "fold"
+	},
+	{
+		"keys": [
+			"super+shift+plus"
+		],
+		"command": "increase_font_size"
+	},
+	{
+		"keys": [
+			"ctrl+shift+minus"
+		],
+		"command": "decrease_font_size"
 	},
 	// Exit multi selection but at the latest position
 	{
