@@ -2,6 +2,7 @@
 # basic system stuff and wm
 blueman
 bluez
+bluetui
 dns-over-https
 dunst
 grim
