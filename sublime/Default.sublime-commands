@@ -3,10 +3,20 @@
         "caption": "New project from root",
         "command": "new_project_from_root",
     },
-    // Doesn't show in command palette by default
+    // Useful things that don't show in command palette by default
     {
         "caption": "Show Console",
         "command": "show_panel",
-        "args": {"panel": "console", "toggle": true}
+        "args": {
+            "panel": "console",
+            "toggle": true
+        }
+    },
+    {
+        "caption": "Find in files",
+        "command": "show_panel",
+        "args": {
+            "panel": "find_in_files"
+        }
     },
 ]
