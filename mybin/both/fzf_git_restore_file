@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # From https://github.com/Bhupesh-V/ugit
 fzf_git_restore_file() {
     FILE=$(git ls-files | fzf --ansi --height 20% --reverse --header="Choose a file to restore" | awk '{print $1}')
@@ -21,7 +23,7 @@ fzf_git_restore_file() {
     elif [[ "$COMMIT" != "" && "$FILE" != "" ]] && git restore --source="$COMMIT" "$FILE"; then
         printf "%s\n" "$FILE restored to version at ${BOLD}$COMMIT${RESET}"
     else
-        perror "Error: unable to perform operation"
+        echo "Error: unable to perform operation"
     fi
 }
 fzf_git_restore_file "$@"
