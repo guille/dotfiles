@@ -2,9 +2,10 @@
 {
 	"tab_size": 2,
 	"translate_tabs_to_spaces": true,
+	// Same as default minus "?" and "!" as they are part of the method name in Ruby
 	"word_separators": "./\\()\"'-:,.;<>~@#$%^&*|+=[]{}`~",
-	"extensions":
-	[
-		"ru"
+	"extensions": [
+		"ru", // rackup
+		"html.ui" // custom work stuff :/
 	],
 }
