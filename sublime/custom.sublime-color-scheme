@@ -137,7 +137,7 @@
 		{
 			"name": "Interpolations",
 			"scope": "punctuation.section.interpolation | meta.interpolation",
-			"font_style": "glow",
+			// "font_style": "underline",
 		},
 		{
 			"name": "Tag names",
@@ -335,6 +335,17 @@
 			"name": "HTML: <script> tag",
 			"scope": "entity.name.tag.script.html",
 			"font_style": "italic",
+		},
+		// Containerfile
+		{
+			"name": "Containerfile image name/label",
+			"scope": "entity.name.label.containerfile",
+			"foreground": "var(light_green)"
+		},
+		{
+			"name": "Containerfile FROM statements",
+			"scope": "meta.namespace.containerfile",
+			"font_style": "bold",
 		},
 		// Other
 		{
