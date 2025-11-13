@@ -184,7 +184,7 @@ compdef _h h
 
 notes() {
 	notes_dir=~/notes
-	fd . $notes_dir | ff --multi --delimiter '/' --with-nth -1 --print0 --query ${1:-} | xargs subl
+	fd . $notes_dir | ff --multi --delimiter '/' --with-nth -1 --print0 --query ${1:-""} | xargs subl
 }
 
 [[ -f ~/.zaliases.local ]] && source ~/.zaliases.local
