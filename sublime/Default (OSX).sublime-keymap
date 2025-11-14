@@ -129,7 +129,7 @@
 		"args": {
 			"side_by_side": false,
 			"force_group": true,
-			"fallback": false,
+			"fallback": true,
 			"group": -1
 		},
 		"context": [
@@ -151,7 +151,7 @@
 		"args": {
 			"side_by_side": true,
 			"force_group": true,
-			"fallback": false,
+			"fallback": true,
 			"group": -1
 		},
 		"context": [
@@ -191,7 +191,7 @@
 		"args": {
 			"side_by_side": false,
 			"force_group": true,
-			"fallback": false,
+			"fallback": true,
 			"group": -1,
 			"include_declaration": false
 		},
@@ -210,7 +210,7 @@
 		"args": {
 			"side_by_side": true,
 			"force_group": true,
-			"fallback": false,
+			"fallback": true,
 			"group": -1
 		},
 		"context": [
