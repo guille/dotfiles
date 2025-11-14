@@ -17,3 +17,4 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/ripgreprc"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 [[ ! -f ~/.zshenv.local ]] || source ~/.zshenv.local
+[[ ! -f ~/.zshenv.$(hostname) ]] || source ~/.zshenv.$(hostname)
