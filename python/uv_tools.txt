@@ -1,3 +1,4 @@
 basedpyright
 pgcli
 mycli
+ty

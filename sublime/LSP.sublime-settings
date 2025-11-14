@@ -73,6 +73,16 @@
 			},
 			"selector": "source.python",
 		},
+		// https://docs.astral.sh/ty/
+		"ty": {
+			"enabled": false,
+			"command": [
+				"ty",
+				"server"
+			],
+			"settings": {},
+			"selector": "source.python",
+		},
 		// https://github.com/redhat-developer/yaml-language-server
 		"yaml-language-server": {
 			"enabled": true,
