@@ -1,6 +1,6 @@
 		"CoffeeScript",
-		"ERB Autocomplete",
 		"Kotlin",
+		"LSP-copilot",
 		"LSP-OmniSharp",
 		"LSP-terraform",
 		"Sass",
