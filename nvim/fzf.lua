@@ -47,6 +47,6 @@ vim.g.fzf_action = {
 	['ctrl-t'] = 'tabedit',
 }
 -- leader + f for quick buffer switching
-vim.keymap.set('n', '<leader>f', ':Buffers <CR>', {noremap = true, silent = true})
+vim.keymap.set('n', '<leader>f', ':Buffers <CR>', { noremap = true, silent = true })
 -- control + p for quick file switching (git repo)
-vim.keymap.set('n', '<c-p>', ':GFiles <CR>', {noremap = true, silent = true})
+vim.keymap.set('n', '<c-p>', ':GFiles <CR>', { noremap = true, silent = true })
