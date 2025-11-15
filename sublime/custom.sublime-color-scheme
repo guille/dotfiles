@@ -83,13 +83,13 @@
 			"name": "Function definition",
 			"scope": "entity.name.function",
 			"font_style": "bold",
-			"foreground": "var(orange)",
+			"foreground": "var(light_green)",
 		},
 		{
 			"name": "Anonymous function definition",
 			"scope": "keyword.declaration.function.anonymous",
 			"font_style": "bold",
-			"foreground": "var(orange)",
+			"foreground": "var(light_green)",
 		},
 		{
 			"name": "Function parameter",
