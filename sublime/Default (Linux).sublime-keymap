@@ -307,7 +307,24 @@
 		"keys": [
 			"ctrl+r"
 		],
-		"command": "goto_symbol_in_project"
+		"command": "goto_symbol_in_project",
+	},
+	{
+		"keys": [
+			"ctrl+r"
+		],
+		"command": "show_overlay",
+		"args": {
+			"overlay": "goto",
+			"text": "@"
+		},
+		"context": [
+			{
+				"key": "selector",
+				"operator": "equal",
+				"operand": "text.find-in-files"
+			}
+		]
 	},
 	{
 		"keys": [
@@ -346,5 +363,18 @@
 			"ctrl+z"
 		],
 		"command": "revert_hunk"
+	},
+	{
+		"keys": [
+			"enter"
+		],
+		"command": "open_file_from_find_results",
+		"context": [
+			{
+				"key": "selector",
+				"operator": "equal",
+				"operand": "text.find-in-files"
+			}
+		]
 	},
 ]

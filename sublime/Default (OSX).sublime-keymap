@@ -372,4 +372,17 @@
 		],
 		"command": "revert_hunk"
 	},
+	{
+		"keys": [
+			"enter"
+		],
+		"command": "open_file_from_find_results",
+		"context": [
+			{
+				"key": "selector",
+				"operator": "equal",
+				"operand": "text.find-in-files"
+			}
+		]
+	},
 ]
