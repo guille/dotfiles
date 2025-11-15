@@ -1,3 +1,6 @@
+# ════════════════════════════════════════════════════════════════════════
+# Linux-only
+
 if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	# Pacman
 	alias paci='sudo pacman -S'
@@ -35,12 +38,14 @@ else
 	echo "DOTFILES_OS is unset"
 fi
 
+# ════════════════════════════════════════════════════════════════════════
+# Terminal: better defaults
+
 # https://unix.stackexchange.com/questions/148545/why-does-sudo-ignore-aliases
 alias sudo='sudo '
 
 alias resource='source ~/.zshrc && source ~/.zshenv'
 
-# Terminal: better defaults
 alias cal='cal --monday --three'
 alias calc='bc --quiet --mathlib'
 alias diff='diff --ignore-all-space --unified --color=auto'
@@ -71,13 +76,76 @@ alias laa='eza --icons=auto --color=auto --group-directories-first -la'
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
+alias q='exit'
+
+command_exists() {
+	type "$1" &> /dev/null ;
+}
+
+# Start a program but immediately disown it and detach it from the terminal
+function runfree() {
+	"$@" > /dev/null 2>&1 & disown
+}
+
+# ════════════════════════════════════════════════════════════════════════
+
 # Don't interpret brackets in arguments as glob patterns.
 alias bundle='noglob bundle'
 alias rake='noglob rake'
 alias rails='noglob rails'
 # Same for refspec characters (^, @, ~)
 alias git='noglob git'
+# Allows using parenthesis without escaping
+alias man='noglob man'
 
+# ════════════════════════════════════════════════════════════════════════
+
+alias docclean='docker ps -aq | xargs -I "{}" bash -c "docker rm --force {}"'
+
+# Cleans branches that were tracking a remote that has been deleted
+alias _gitpruneo='git remote prune origin || true'
+alias gitbclean="_gitpruneo && git branch -r | awk '{print \$1}' | \egrep -v -f /dev/fd/0 <(git branch -vv | \grep origin) | awk '{print \$1}' | xargs git branch -D"
+
+# Go to the root of git directory
+groot() {
+	if git_root=$(git rev-parse --show-toplevel 2>/dev/null); then
+		pushd "${git_root}"
+	fi
+}
+
+untilok() { until $@; do :; done }
+untilfail() { while $@; do :; done }
+
+palette() {
+	local -a colors
+	for i in {000..255}; do
+		colors+=("%F{$i}$i%f")
+	done
+	print -cP $colors
+}
+
+h() {
+	cd ~/$1
+}
+_h() {
+  _files -W $HOME -/
+}
+compdef _h h
+
+tempe () {
+  cd "$(mktemp -d)"
+  chmod -R 0700 .
+  if [[ $# -eq 1 ]]; then
+    \mkdir -p "$1"
+    cd "$1"
+    chmod -R 0700 .
+  fi
+}
+
+# ════════════════════════════════════════════════════════════════════════
+# fzf niceties and tools
+
+# ff = fzf with file preview
 alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
 
 # ripgrep with preview, open selected matches in sublime
@@ -121,35 +189,6 @@ awsl() {
 	aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin "${account_id}.dkr.ecr.${region}.amazonaws.com"
 }
 
-alias docclean='docker ps -aq | xargs -I "{}" bash -c "docker rm --force {}"'
-
-# Cleans branches that were tracking a remote that has been deleted
-alias _gitpruneo='git remote prune origin || true'
-alias gitbclean="_gitpruneo && git branch -r | awk '{print \$1}' | \egrep -v -f /dev/fd/0 <(git branch -vv | \grep origin) | awk '{print \$1}' | xargs git branch -D"
-
-# Go to the root of git directory
-groot() {
-	if git_root=$(git rev-parse --show-toplevel 2>/dev/null); then
-		pushd "${git_root}"
-	fi
-}
-
-alias yt-dlp="yt-dlp --downloader aria2c --output '%(title)s.%(ext)s' --restrict-filenames"
-dl() { tv --no-auto -d "$*" }
-ytmp3() { yt-dlp --extract-audio --audio-format mp3 "$*" }
-music() {
-	mpc play -q
-	ncmpcpp -q 2>/dev/null
-	mpc pause -q
-}
-
-untilok() { until $@; do :; done }
-untilfail() { while $@; do :; done }
-
-command_exists() {
-	type "$1" &> /dev/null ;
-}
-
 pskill() {
 	ps -e -o pid,ruser=RealUser,comm=Command,args=Args | fzf \
 		--bind 'ctrl-r:reload(ps -e -o pid,ruser=RealUser,comm=Command,args=Args),enter:execute(kill {2})+reload(ps -e -o pid,ruser=RealUser,comm=Command,args=Args)' \
@@ -159,32 +198,24 @@ pskill() {
 		--height=50
 }
 
-# Start a program but immediately disown it and detach it from the terminal
-function runfree() {
-	"$@" > /dev/null 2>&1 & disown
-}
-
-alias q='exit'
-
-palette() {
-	local -a colors
-	for i in {000..255}; do
-		colors+=("%F{$i}$i%f")
-	done
-	print -cP $colors
-}
-
-h() {
-	cd ~/$1
-}
-_h() {
-  _files -W $HOME -/
-}
-compdef _h h
-
 notes() {
 	notes_dir=~/notes
 	fd . $notes_dir | ff --multi --delimiter '/' --with-nth -1 --print0 --query ${1:-""} | xargs subl
 }
+
+# ════════════════════════════════════════════════════════════════════════
+# Media
+
+alias yt-dlp="yt-dlp --downloader aria2c --output '%(title)s.%(ext)s' --restrict-filenames"
+dl() { tv --no-auto -d "$*" }
+ytmp3() { yt-dlp --extract-audio --audio-format mp3 "$*" }
+music() {
+	mpc play -q
+	ncmpcpp -q 2>/dev/null
+	mpc pause -q
+}
+alias lofi="mpv --volume=40 --really-quiet 'https://live.hunter.fm/lofi_low'"
+
+# ════════════════════════════════════════════════════════════════════════
 
 [[ -f ~/.zaliases.local ]] && source ~/.zaliases.local
