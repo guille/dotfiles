@@ -20,7 +20,7 @@
 		"selection_border": "#1c1c1c",
 		"tags_options": "foreground",
 		"tags_foreground": "var(light_green)",
-		"active_guide": "var(orange)",
+		"active_guide": "var(foreground)",
 		"stack_guide": "#666666",
 		"brackets_options": "bold stippled_underline",
 		"brackets_foreground": "var(foreground)",

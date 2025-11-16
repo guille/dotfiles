@@ -41,7 +41,7 @@
 			"extend": true
 		}
 	},
-	// Indent when pasting by default
+	// Swap paste <-> paste_and_indent
 	{
 		"keys": [
 			"ctrl+v"
@@ -52,7 +52,7 @@
 		"keys": [
 			"ctrl+shift+v"
 		],
-		"command": "paste_and_indent"
+		"command": "paste"
 	},
 	// Navigate tabs visually, not by recent use
 	{
