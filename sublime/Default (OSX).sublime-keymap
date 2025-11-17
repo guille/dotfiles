@@ -1,4 +1,16 @@
 [
+	// trying something here
+	{
+		"keys": [
+			"right"
+		],
+		"command": "copilot_accept_completion",
+		"context": [
+			{
+				"key": "copilot.is_on_completion"
+			}
+		]
+	},
 	{
 		"keys": [
 			"option+left"

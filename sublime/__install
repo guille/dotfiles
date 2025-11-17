@@ -85,3 +85,8 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/NewProjectFromRootCommand.py" "$SUBL_CO
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/OpenFileFromFindResultsCommand.py" "$SUBL_CONFIG/OpenFileFromFindResultsCommand.py" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ProjectInStatusbar.py" "$SUBL_CONFIG/ProjectInStatusbar.py" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/SingleLastSelectionCommand.py" "$SUBL_CONFIG/SingleLastSelectionCommand.py" 1> /dev/null
+
+# Copilot LSP only installed on work machines
+if is_work_or_hybrid; then
+	ln -sfv "${SCRIPT_BASE_DIR}/$module_name/LSP-copilot.sublime-settings" "$SUBL_CONFIG/LSP-copilot.sublime-settings" 1> /dev/null
+fi

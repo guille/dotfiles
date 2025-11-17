@@ -1,0 +1,9 @@
+{
+	"enabled": true,
+	"settings": {
+		"completion_style": "phantom",
+		"commit_completion_on_tab": false
+	},
+	// Disable on plain text
+	"selector": "source | embedding"
+}
