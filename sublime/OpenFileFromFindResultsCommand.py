@@ -20,6 +20,7 @@ class OpenFileFromFindResultsCommand(sublime_plugin.TextCommand):
             # Get the current line
             current_line = view.line(sel)
             line_text = view.substr(current_line).strip()
+            file_path = os.path.expanduser(line_text[:-1])
 
             # The line num of the first occurrence is in the next three lines at most
             line_num = 0
@@ -36,21 +37,14 @@ class OpenFileFromFindResultsCommand(sublime_plugin.TextCommand):
                         line_num = line_match.group(1)
                         break
 
-            match = re.match(r"^(.+):?$", line_text)
-
-            if match:
-                file_path = os.path.expanduser(match.group(1))
-
-                if os.path.exists(file_path):
-                    window = view.window()
-                    if window:
-                        window.open_file(
-                            f"{file_path}:{line_num}", sublime.ENCODED_POSITION
-                        )
-                else:
-                    sublime.status_message(f"Couldn't find file: {file_path}")
+            if os.path.exists(file_path):
+                window = view.window()
+                if window:
+                    window.open_file(
+                        f"{file_path}:{line_num}", sublime.ENCODED_POSITION
+                    )
             else:
-                sublime.status_message(f"Couldn't parse line: {line_text}")
+                sublime.status_message(f"Couldn't find file: {file_path}")
 
     def is_enabled(self):
         """Only enable this command in Find in Files result views"""

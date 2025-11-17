@@ -342,6 +342,23 @@
 	},
 	{
 		"keys": [
+			"super+r"
+		],
+		"command": "show_overlay",
+		"args": {
+			"overlay": "goto",
+			"text": "@"
+		},
+		"context": [
+			{
+				"key": "selector",
+				"operator": "equal",
+				"operand": "text.find-in-files"
+			}
+		]
+	},
+	{
+		"keys": [
 			"super+shift+r"
 		],
 		"command": "show_overlay",
