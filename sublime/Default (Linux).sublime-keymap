@@ -41,6 +41,26 @@
 			"extend": true
 		}
 	},
+	{
+		"keys": [
+			"ctrl+backspace"
+		],
+		"command": "delete_word",
+		"args": {
+			"forward": false,
+			"sub_words": true
+		}
+	},
+	{
+		"keys": [
+			"ctrl+delete"
+		],
+		"command": "delete_word",
+		"args": {
+			"forward": true,
+			"sub_words": true
+		}
+	},
 	// Swap paste <-> paste_and_indent
 	{
 		"keys": [
