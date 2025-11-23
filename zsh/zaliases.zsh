@@ -27,11 +27,11 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 			echo "DND deactivated"
 		fi
 	}
-	ping() {
+	ding() {
 		paplay /usr/share/sounds/freedesktop/stereo/complete.oga
 	}
 elif [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
-	ping() {
+	ding() {
 		afplay /System/Library/Sounds/Hero.aiff
 	}
 else
