@@ -93,8 +93,34 @@
 			"settings": {
 				"redhat.telemetry.enabled": false,
 				"yaml.format.enable": true,
+				// https://www.schemastore.org/api/json/catalog.json
+				"yaml.schemaStore.enable": true,
+				// CloudFormation stuff
+				"yaml.customTags": [
+					"!Ref",
+					"!GetAtt",
+					"!fn",
+					"!And",
+					"!If sequence",
+					"!Not",
+					"!Not sequence",
+					"!Equals",
+					"!Equals sequence",
+					"!Or",
+					"!FindInMap sequence",
+					"!Base64",
+					"!Cidr",
+					"!Sub",
+					"!GetAZs",
+					"!ImportValue",
+					"!Select",
+					"!Select sequence",
+					"!Split",
+					"!Join sequence"
+				]
 			},
-			"selector": "(source.yml | source.yaml) - source.yaml.go",
+			// Leave Go/Helm to its own LSP
+			"selector": "(source.yml | source.yaml) - source.yaml.go - source.yaml.helm",
 		}
 	}
 }
