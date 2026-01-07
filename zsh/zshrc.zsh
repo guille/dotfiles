@@ -144,6 +144,14 @@ function zz() {
 		z "$result"
 	fi
 }
+# fuzzy search zoxide from its own db, with full paths (unlike zi) AND skip the picker, go to best option
+function zzz() {
+	local result
+	result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --filter "${@:-}" | head -n1)
+	if [[ -n "$result" ]]; then
+		z "$result"
+	fi
+}
 
 # Won't work in MacOS / Mandoc: https://github.com/sharkdp/bat/issues/1145
 if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
