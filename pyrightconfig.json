@@ -1,0 +1,11 @@
+{
+  "extraPaths": [
+    "/Applications/Sublime Text.app/Contents/MacOS/Lib/python3.8.zip",
+    "/Applications/Sublime Text.app/Contents/MacOS/Lib/python38",
+    "/Applications/Sublime Text.app/Contents/MacOS/Lib/python3",
+    "/Applications/Sublime Text.app/Contents/MacOS/Packages",
+    // I don't think these expand, sadly
+    // "$HOME/Library/Application Support/Sublime Text 3/Lib/python38",
+    // "$HOME/Library/Application Support/Sublime Text 3/Packages"
+  ],
+}

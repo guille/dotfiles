@@ -59,6 +59,9 @@
 				"basedpyright-langserver",
 				"--stdio"
 			],
+			"disabled_capabilities": {
+				"semanticTokensProvider": true,
+			},
 			"settings": {
 				// Ruff handles this
 				"basedpyright.disableOrganizeImports": true,
