@@ -14,13 +14,17 @@ class NewProjectFromRootCommand(sublime_plugin.WindowCommand):
     3. The directory doesn't already have a .sublime-project file with the same name
     """
 
-    def _popup_error(self, text):
+    def _popup_error(self, text: str):
         html = f"<div style='padding: 0 25%; border: 2px solid red'><h4>⚠️ {text}</h4></div>"
-        self.window.active_view().show_popup(html, max_width=2048, max_height=2048)
+        view = self.window.active_view()
+        if view is not None:
+            view.show_popup(html, max_width=2048, max_height=2048)
 
-    def _popup_ok(self, text):
+    def _popup_ok(self, text: str):
         html = f"<div style='padding: 0 25%; border: 2px solid green'><h4>✅ {text}</h4></div>"
-        self.window.active_view().show_popup(html, max_width=2048, max_height=2048)
+        view = self.window.active_view()
+        if view is not None:
+            view.show_popup(html, max_width=2048, max_height=2048)
 
     def run(self):
         if self.window.project_file_name() or self.window.workspace_file_name():

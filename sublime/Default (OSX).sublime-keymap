@@ -82,7 +82,7 @@
 	},
 	{
 		"keys": [
-			"ctrl+super+v"
+			"super+shift+v"
 		],
 		"command": "paste"
 	},

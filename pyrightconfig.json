@@ -1,4 +1,5 @@
 {
+  // TODO: ST 4201 changes to Python 3.13
   "extraPaths": [
     "/Applications/Sublime Text.app/Contents/MacOS/Lib/python3.8.zip",
     "/Applications/Sublime Text.app/Contents/MacOS/Lib/python38",
@@ -8,4 +9,11 @@
     // "$HOME/Library/Application Support/Sublime Text 3/Lib/python38",
     // "$HOME/Library/Application Support/Sublime Text 3/Packages"
   ],
+  "typeCheckingMode": "standard",
+  "executionEnvironments": [
+    {
+      "root": "sublime/",
+      "pythonVersion": "3.8",
+    },
+  ]
 }

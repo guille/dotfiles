@@ -1,3 +1,5 @@
+from typing import Any, cast
+
 import sublime_plugin
 
 import sublime
@@ -23,21 +25,24 @@ Example sublime-project:
 """
 
 
-def assign_rails(view):
+def assign_rails(view: sublime.View):
     window = view.window()
     syntax = view.syntax()
     if syntax and syntax.scope == "source.ruby":
-        if window and window.project_data().get("config", {}).get("rails", False):
-            file = view.file_name()
-            if file and file.endswith("_spec.rb"):  # Let RSpec take precedence
-                return
-            view.assign_syntax("scope:source.ruby.rails")
+        if window:
+            project_data = cast("dict[str, Any]", window.project_data())
+            if project_data.get("config", {}).get("rails", False):
+                file = view.file_name()
+                if file and file.endswith("_spec.rb"):  # Let RSpec take precedence
+                    return
+                view.assign_syntax("scope:source.ruby.rails")
 
 
 # On loading the plugin, run it for all open views when their windows' project has the config
 def plugin_loaded():
     for window in sublime.windows():
-        if not window.project_data().get("config", {}).get("rails", False):
+        project_data = cast("dict[str, Any]", window.project_data())
+        if not project_data.get("config", {}).get("rails", False):
             continue
 
         for view in window.views():
@@ -46,5 +51,5 @@ def plugin_loaded():
 
 # Assign Rails syntax when a view is loaded
 class AssignRailsSyntax(sublime_plugin.EventListener):
-    def on_load(self, view):
+    def on_load(self, view: sublime.View):
         assign_rails(view)
