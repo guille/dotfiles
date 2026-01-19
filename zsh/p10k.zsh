@@ -34,6 +34,7 @@
     # =========================[ Line #1 ]=========================
     # os_icon               # os identifier
     context                 # user@hostname
+    dmn                     # custom pty bridge
     aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
     mise                    # custom (https://github.com/romkatv/powerlevel10k/issues/2212)
     # =========================[ Line #2 ]=========================
@@ -1813,6 +1814,11 @@
   typeset -g POWERLEVEL9K_EXAMPLE_FOREGROUND=3
   typeset -g POWERLEVEL9K_EXAMPLE_BACKGROUND=1
   # typeset -g POWERLEVEL9K_EXAMPLE_VISUAL_IDENTIFIER_EXPANSION='⭐'
+
+  function prompt_dmn() {
+    [[ -n $PTY_BRIDGE ]] || return
+    p10k segment -f 244 -i '󰡚' -t ""
+  }
 
   # Transient prompt works similarly to the builtin transient_rprompt option. It trims down prompt
   # when accepting a command line. Supported values:
