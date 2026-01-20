@@ -3,6 +3,10 @@
         "caption": "New project from root",
         "command": "new_project_from_root",
     },
+    {
+        "caption": "Run dmn's task picker",
+        "command": "dmn",
+    },
     // LSP
     {
         "caption": "LSP: Fold All Comment Blocks",

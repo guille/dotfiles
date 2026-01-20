@@ -72,6 +72,7 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Ruby.sublime-settings" "$SUBL_CONFIG/Ru
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ruby.sublime-completions" "$SUBL_CONFIG/ruby.sublime-completions" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ipdb.sublime-snippet" "$SUBL_CONFIG/ipdb.sublime-snippet" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/lorem.sublime-snippet" "$SUBL_CONFIG/lorem.sublime-snippet" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/shebang.sublime-snippet" "$SUBL_CONFIG/shebang.sublime-snippet" 1> /dev/null
 
 # Syntaxes
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/RSpec.sublime-syntax" "$SUBL_CONFIG/RSpec.sublime-syntax" 1> /dev/null
