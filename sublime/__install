@@ -77,11 +77,11 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/shebang.sublime-snippet" "$SUBL_CONFIG/
 # Syntaxes
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/RSpec.sublime-syntax" "$SUBL_CONFIG/RSpec.sublime-syntax" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Gherkin.sublime-syntax" "$SUBL_CONFIG/Gherkin.sublime-syntax" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Gemfile Lock (Bundler).sublime-syntax" "$SUBL_CONFIG/Gemfile Lock (Bundler).sublime-syntax" 1> /dev/null
 
-# Commands
+# Commands/plugins
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Default.sublime-commands" "$SUBL_CONFIG/Default.sublime-commands" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/AssignRailsSyntax.py" "$SUBL_CONFIG/AssignRailsSyntax.py" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/AssignRSpecSyntax.py" "$SUBL_CONFIG/AssignRSpecSyntax.py" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/AssignSyntax.py" "$SUBL_CONFIG/AssignSyntax.py" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/NewProjectFromRootCommand.py" "$SUBL_CONFIG/NewProjectFromRootCommand.py" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/OpenFileFromFindResultsCommand.py" "$SUBL_CONFIG/OpenFileFromFindResultsCommand.py" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ProjectInStatusbar.py" "$SUBL_CONFIG/ProjectInStatusbar.py" 1> /dev/null
