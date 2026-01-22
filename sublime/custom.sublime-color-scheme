@@ -347,6 +347,12 @@
 			"scope": "meta.namespace.containerfile",
 			"font_style": "bold",
 		},
+		// Gemfile.lock
+		{
+			"name": "Gemfile.lock dependency name",
+			"scope": "entity.name.package.bundler.lockfile",
+			"foreground": "var(light_blue)",
+		},
 		// Other
 		{
 			"name": "diff.deleted",

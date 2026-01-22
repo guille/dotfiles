@@ -8,6 +8,12 @@
     // I don't think these expand, sadly
     // "$HOME/Library/Application Support/Sublime Text 3/Lib/python38",
     // "$HOME/Library/Application Support/Sublime Text 3/Packages"
+    "/opt/sublime_text/Lib/python3.8.zip",
+    "/opt/sublime_text/Lib/python38",
+    "/opt/sublime_text/Lib/python3",
+    "/opt/sublime_text/Packages",
+    // "$HOME/.config/sublime-text-3/Lib/python38",
+    // "$HOME/.config/sublime-text-3/Packages"
   ],
   "typeCheckingMode": "standard",
   "executionEnvironments": [

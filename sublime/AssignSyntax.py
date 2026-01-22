@@ -31,7 +31,7 @@ def assign_syntax(view: sublime.View) -> bool:
     file = view.file_name()
 
     if file and file.endswith(("Gemfile.lock", "gemfile.lock")):
-        view.assign_syntax("scope:text.bundler.lockfile")
+        view.assign_syntax("scope:source.gemfile.lock")
         return True
 
     syntax = view.syntax()

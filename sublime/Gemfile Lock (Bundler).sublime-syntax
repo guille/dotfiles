@@ -1,115 +1,169 @@
 %YAML 1.2
 ---
-name: Gemfile Lock (Bundler)
-file_extensions:
-  - Gemfile.lock
-  - gemfile.lock
-scope: text.bundler.lockfile
+name: Bundler Gemfile.lock
+file_extensions: []
+# first_line_match: '^(GEM|PATH|GIT|PLATFORMS|DEPENDENCIES|CHECKSUMS|BUNDLED WITH|RUBY VERSION|PLUGIN SOURCE)\r?$'
+scope: source.gemfile.lock
+version: 2
 
 variables:
-  gem_name: "[A-Za-z0-9_.-]+"
-  version: '\d+(?:\.\d+)+(?:[a-z0-9.-]+)?'
-  indent2: "  "
-  indent4: "    "
-  indent6: "      "
+  gem_name: '[a-zA-Z][\w-]*\w!?'
+  # published gem versinn
+  gem_version_installed: '\d+(?:\.\d+)+(?:[a-z0-9.-]+)?'
+  # supports single number eg "> 2"
+  gem_version_constraint: '\d+(?:\.\d+)?(?:[a-z0-9.-]+)?'
+  # eg  "(~> 0.5, >= 0.5.20190701)"
+  constraint: '(?:\(([<>=~]+)\s+({{gem_version_constraint}})(?:,\s+([<>=~]+)\s+({{gem_version_constraint}}))?\))'
 
 contexts:
   main:
-    # Section headers (top-level blocks)
-    - include: section_headers
-
-    # Common "key: value" lines under sections (remote:, specs:, path:, metadata:, etc.)
-    - include: key_value
-
-    # Lines with "gem (version)" (specs, graph, checksums start)
-    - include: gem_with_version
-
-    # Indented dependency constraints: "gem (~> 1.0, >= 1.0)"
-    - include: dependency_constraint
-
-    # CHECKSUMS lines: "gem (ver) sha256=...."
-    - include: checksum_line
-
-    # Plain versions (e.g., under BUNDLED WITH)
-    - include: bare_version
-
-    # Platform entries (e.g., "ruby", "x86_64-linux-musl")
-    - include: platform_line
-
-    # Fallback: keep everything else readable
-    - match: '.*\n'
-      scope: text.plain
-
-  section_headers:
-    - match: '^(GEM|PLATFORMS|DEPENDENCIES|CHECKSUMS|BUNDLED WITH|GRAPH)\s*$'
-      scope: keyword.control.section.bundler.lockfile
+    # - match: \s*(#.*)
+    #   captures:
+    #     0: comment.line.number-sign
+    - match: "^(GEM)$"
       captures:
-        1: entity.name.section.bundler.lockfile
+        1: entity.name.section.gem.bundler.lockfile
+      set: gem-section
+    - match: "^(PATH)$"
+      captures:
+        1: entity.name.section.path.bundler.lockfile
+      set: path-section
+    - match: "^(GIT)$"
+      captures:
+        1: entity.name.section.git.bundler.lockfile
+      set: git-section
+    - match: "^(PLATFORMS)$"
+      captures:
+        1: entity.name.section.platforms.bundler.lockfile
+      set: platforms-section
+    - match: "^(DEPENDENCIES)$"
+      captures:
+        1: entity.name.section.dependencies.bundler.lockfile
+      set: dependencies-section
+    - match: "^(CHECKSUMS)$"
+      captures:
+        1: entity.name.section.checksums.bundler.lockfile
+      set: checksums-section
+    - match: "^(BUNDLED WITH)$"
+      captures:
+        1: entity.name.section.bundled-with.bundler.lockfile
+      set: bundled-with-section
+    - match: "^(RUBY VERSION)$"
+      captures:
+        1: entity.name.section.bundler.lockfile-version.bundler.lockfile
+      set: ruby-version-section
+    - match: "^(PLUGIN SOURCE)$"
+      captures:
+        1: entity.name.section.plugin-source.bundler.lockfile
+      set: plugin-source-section
+    - match: '^\s*$'
+      scope: meta.whitespace.bundler.lockfile
 
-  key_value:
-    # Examples:
-    #   remote: https://...
-    #   specs:
-    #   path: .
-    #   metadata: true
-    - match: '^(?:{{indent2}}|{{indent4}}|{{indent6}})([a-z][a-z0-9_-]*)(:)\s*(.*?)\s*$'
+  # Generic key: value lines used inside many sections
+  kv-line:
+    - match: '^([ \t]*)([A-Za-z0-9 _-]+):(\s*)(.*)$'
+      captures:
+        2: meta.mapping.key.bundler string.unquoted.bundler.lockfile
+        4: string.unquoted.bundler.lockfile
       scope: meta.key-value.bundler.lockfile
-      captures:
-        1: support.type.key.bundler.lockfile
-        2: punctuation.separator.key-value.bundler.lockfile
-        3: string.unquoted.value.bundler.lockfile
 
-  gem_with_version:
-    # Examples:
-    #   ast (2.4.3)
-    #   mdadm-conf (0.0.4)
-    - match: '^(?:{{indent2}}|{{indent4}}|{{indent6}})?({{gem_name}})\s*(\()([^)]+)(\))\s*$'
-      scope: meta.gem.version.bundler.lockfile
+  # Generic dependencies re-usable section
+  dependencies:
+    - match: '^\s{4}({{gem_name}})\s*\(({{gem_version_installed}})\)\s*$'
+      captures:
+        1: entity.name.package.bundler.lockfile
+        2: constant.other.version.bundler.lockfile
+    - match: '^\s*({{gem_name}})\s*{{constraint}}?$'
+      captures:
+        1: entity.name.package.bundler.lockfile
+        2: meta.constraint.punctuation.lower
+        3: constant.other.version-constraint.lower
+        4: meta.constraint.punctuation.upper
+        5: constant.other.version-constraint.upper
+
+  # --- GEM section ---
+  gem-section:
+    - meta_scope: meta.section.gem.bundler.lockfile
+    - include: kv-line
+    - include: dependencies
+    - match: '^\s*$'
+      pop: true
+
+  # --- PATH section (local gems) ---
+  path-section:
+    - meta_scope: meta.section.path.bundler.lockfile
+    - include: kv-line
+    - include: dependencies
+    - match: '^\s*$'
+      pop: true
+
+  # --- GIT section ---
+  git-section:
+    - meta_scope: meta.section.git.bundler.lockfile
+    - include: kv-line
+    - include: dependencies
+    - match: '^\s*$'
+      pop: true
+
+  # --- PLATFORMS section ---
+  platforms-section:
+    - meta_scope: meta.section.platforms.bundler.lockfile
+    - match: '^\s+([A-Za-z0-9_+-]+)\s*$'
+      captures:
+        1: support.constant.platform.bundler.lockfile
+    - match: '^\s*$'
+      pop: true
+
+  # --- DEPENDENCIES section ---
+  dependencies-section:
+    - meta_scope: meta.section.dependencies.bundler.lockfile
+    - match: '^\s*({{gem_name}})\s*{{constraint}}?$'
+      captures:
+        1: entity.name.package.bundler.lockfile
+        2: meta.constraint.punctuation.lower
+        3: constant.other.version-constraint.lower
+        4: meta.constraint.punctuation.upper
+        5: constant.other.version-constraint.upper
+    - match: '^\s*$'
+      pop: true
+
+  # --- CHECKSUMS section ---
+  checksums-section:
+    - meta_scope: meta.section.checksums.bundler.lockfile
+    - match: '^\s{2}({{gem_name}})\s*(\()({{gem_version_installed}})(\))(?:\s+(sha256=)([0-9a-fA-F]{32,128}))?\s*$'
       captures:
         1: entity.name.package.bundler.lockfile
         2: punctuation.section.parens.begin.bundler.lockfile
-        3: constant.numeric.version.bundler.lockfile
-        4: punctuation.section.parens.end.bundler.lockfile
-
-  dependency_constraint:
-    # Example:
-    #       aws-eventstream (~> 1, >= 1.3.0)
-    - match: '^{{indent6}}({{gem_name}})\s*(\()([^)]+)(\))\s*$'
-      scope: meta.dependency.constraint.bundler.lockfile
-      captures:
-        1: entity.name.package.dependency.bundler.lockfile
-        2: punctuation.section.parens.begin.bundler.lockfile
-        3: string.other.constraint.bundler.lockfile
-        4: punctuation.section.parens.end.bundler.lockfile
-
-  checksum_line:
-    # Example:
-    #   ast (2.4.3) sha256=9546...
-    - match: '^(?:{{indent2}}|{{indent4}})({{gem_name}})\s*(\()([^)]+)(\))\s+(sha256=)([0-9a-fA-F]{32,128})\s*$'
-      scope: meta.checksum.bundler.lockfile
-      captures:
-        1: entity.name.package.bundler.lockfile
-        2: punctuation.section.parens.begin.bundler.lockfile
-        3: constant.numeric.version.bundler.lockfile
+        3: constant.other.version.bundler.lockfile
         4: punctuation.section.parens.end.bundler.lockfile
         5: keyword.other.checksum-algo.bundler.lockfile
         6: constant.other.hash.bundler.lockfile
+    - match: '^\s*$'
+      pop: true
 
-  bare_version:
-    # Example under BUNDLED WITH:
-    #   4.0.3
-    - match: '^(?:{{indent2}}|{{indent4}})({{version}})\s*$'
-      scope: meta.bundler.version.bundler.lockfile
+  # --- RUBY VERSION ---
+  ruby-version-section:
+    - meta_scope: meta.section.bundler.lockfile-version.bundler.lockfile
+    - match: '^\s*(ruby)\s+(.+)\s*$'
       captures:
-        1: constant.numeric.version.bundler.lockfile
+        1: storage.type.bundler.lockfile
+        2: constant.other.version.bundler.lockfile
+    - match: '^\s*$'
+      pop: true
 
-  platform_line:
-    # Examples:
-    #   ruby
-    #   x86_64-linux-musl
-    # This is intentionally broad; it may also color some dependency names,
-    # but it keeps PLATFORMS readable without complex section-state logic.
-    - match: '^(?:{{indent2}})([A-Za-z0-9_.-]+)\s*$'
-      scope: meta.platform.bundler.lockfile
+  # --- BUNDLED WITH ---
+  bundled-with-section:
+    - meta_scope: meta.section.bundled-with.bundler.lockfile
+    - match: '^\s*({{gem_version_installed}})\s*$'
       captures:
-        1: support.constant.platform.bundler.lockfile
+        1: constant.other.version.bundler.lockfile
+    - match: '^\s*$'
+      pop: true
+
+  # --- PLUGIN SOURCE (generic) ---
+  plugin-source-section:
+    - meta_scope: meta.section.plugin-source.bundler.lockfile
+    - include: kv-line
+    - include: dependencies
+    - match: '^\s*$'
+      pop: true
