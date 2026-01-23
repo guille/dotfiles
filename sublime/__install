@@ -81,11 +81,12 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Gemfile Lock (Bundler).sublime-syntax" 
 
 # Commands/plugins
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Default.sublime-commands" "$SUBL_CONFIG/Default.sublime-commands" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/AssignSyntax.py" "$SUBL_CONFIG/AssignSyntax.py" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/NewProjectFromRootCommand.py" "$SUBL_CONFIG/NewProjectFromRootCommand.py" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/OpenFileFromFindResultsCommand.py" "$SUBL_CONFIG/OpenFileFromFindResultsCommand.py" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ProjectInStatusbar.py" "$SUBL_CONFIG/ProjectInStatusbar.py" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/SingleLastSelectionCommand.py" "$SUBL_CONFIG/SingleLastSelectionCommand.py" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/assign_syntax.py" "$SUBL_CONFIG/assign_syntax.py" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/new_project_from_root_command.py" "$SUBL_CONFIG/new_project_from_root_command.py" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/open_file_from_find_results_command.py" "$SUBL_CONFIG/open_file_from_find_results_command.py" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/project_in_statusbar.py" "$SUBL_CONFIG/project_in_statusbar.py" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/relink_resource_file.py" "$SUBL_CONFIG/relink_resource_file.py" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/single_last_selection_command.py" "$SUBL_CONFIG/single_last_selection_command.py" 1> /dev/null
 
 # Copilot LSP only installed on work machines
 if is_work_or_hybrid; then
