@@ -365,13 +365,7 @@
 			}
 		]
 	},
-	// Swap show symbols in file <-> in project
-	{
-		"keys": [
-			"super+r"
-		],
-		"command": "goto_symbol_in_project"
-	},
+	// Show symbols in file & in project
 	{
 		"keys": [
 			"super+r"
@@ -391,7 +385,7 @@
 	},
 	{
 		"keys": [
-			"super+shift+r"
+			"super+r"
 		],
 		"command": "show_overlay",
 		"args": {
@@ -402,7 +396,7 @@
 	// LSP when available (for file search only, LSP is slower for the project-wide one?)
 	{
 		"keys": [
-			"super+shift+r"
+			"super+r"
 		],
 		"command": "lsp_document_symbols",
 		"context": [
@@ -411,6 +405,12 @@
 				"operand": "documentSymbolProvider"
 			}
 		]
+	},
+	{
+		"keys": [
+			"super+r"
+		],
+		"command": "goto_symbol_in_project"
 	},
 	// Nicer diff keybinds
 	{

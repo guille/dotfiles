@@ -1,6 +1,12 @@
 [
 	{
 		"keys": [
+			"ctrl+=" // Ctrl+¡ with Spanish keyboard layout
+		],
+		"command": ""
+	},
+	{
+		"keys": [
 			"ctrl+left"
 		],
 		"command": "move",
@@ -322,13 +328,7 @@
 			}
 		]
 	},
-	// Swap show symbols in file <-> in project
-	{
-		"keys": [
-			"ctrl+r"
-		],
-		"command": "goto_symbol_in_project",
-	},
+	// Show symbols in file & in project
 	{
 		"keys": [
 			"ctrl+r"
@@ -348,7 +348,7 @@
 	},
 	{
 		"keys": [
-			"ctrl+shift+r"
+			"ctrl+r"
 		],
 		"command": "show_overlay",
 		"args": {
@@ -359,7 +359,7 @@
 	// LSP when available (for file search only, LSP is slower for the project-wide one?)
 	{
 		"keys": [
-			"ctrl+shift+r"
+			"ctrl+r"
 		],
 		"command": "lsp_document_symbols",
 		"context": [
@@ -368,6 +368,12 @@
 				"operand": "documentSymbolProvider"
 			}
 		]
+	},
+	{
+		"keys": [
+			"ctrl+shift+r"
+		],
+		"command": "goto_symbol_in_project",
 	},
 	// Nicer diff keybinds
 	{
