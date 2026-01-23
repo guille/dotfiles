@@ -9,9 +9,9 @@ version: 2
 variables:
   gem_name: '[a-zA-Z][\w-]*\w!?'
   # published gem versinn
-  gem_version_installed: '\d+(?:\.\d+)+(?:[a-z0-9.-]+)?'
+  gem_version_installed: '\d+(?:\.\d+)+(?:[a-z0-9.\-_]+)?'
   # supports single number eg "> 2"
-  gem_version_constraint: '\d+(?:\.\d+)?(?:[a-z0-9.-]+)?'
+  gem_version_constraint: '\d+(?:\.\d+)?(?:[a-z0-9.\-_]+)?'
   # eg  "(~> 0.5, >= 0.5.20190701)"
   constraint: '(?:\(([<>=~]+)\s+({{gem_version_constraint}})(?:,\s+([<>=~]+)\s+({{gem_version_constraint}}))?\))'
 
