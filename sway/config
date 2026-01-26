@@ -44,7 +44,7 @@ bindsym $mod+d exec --no-startup-id exec $menu
 # browser
 bindsym $mod+c exec firefox
 # obsidian
-bindsym $mod+o exec obsidian
+bindsym $mod+o exec vaulter
 # emoji picker
 bindsym $mod+j exec emoji --rofi
 
