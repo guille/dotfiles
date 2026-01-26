@@ -13,4 +13,5 @@
 		"SublimeLinter",
 		"SublimeLinter-annotations",
 		"SublimeLinter-shellcheck",
+		"Typst",
 		"YamlPath",

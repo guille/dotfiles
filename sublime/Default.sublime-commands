@@ -32,6 +32,17 @@
             "kind": "comment"
         }
     },
+    {
+        "caption": "LSP-Tinymist: Pin Main File",
+        "command": "lsp_execute",
+        "args": {
+            "session_name": "tinymist",
+            "command_name": "tinymist.pinMain",
+            "command_args": [
+                "$file"
+            ]
+        }
+    },
     // Useful things that don't show in command palette by default
     {
         "caption": "Show Console",

@@ -77,6 +77,8 @@ jdk8-openjdk
 postgresql-libs
 ruff
 shards
+tinymist
+typst
 uv
 ##
 # media

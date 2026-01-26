@@ -124,6 +124,17 @@
 			},
 			// Leave Go/Helm to its own LSP
 			"selector": "(source.yml | source.yaml) - source.yaml.go - source.yaml.helm",
-		}
+		},
+		// https://github.com/Myriad-Dreamin/tinymist
+		// https: //github.com/sublimelsp/LSP-Tinymist/blob/main/LSP-Tinymist.sublime-settings
+		"tinymist": {
+			"enabled": true,
+			"auto_complete_selector": "text.typst meta.expression, text.typst markup.math, text.typst punctuation.definition.reference",
+			"command": [
+				"tinymist"
+			],
+			"settings": {},
+			"selector": "text.typst",
+		},
 	}
 }
