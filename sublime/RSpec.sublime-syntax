@@ -6,6 +6,7 @@ name: RSpec
 file_extensions:
   - spec.rb
 scope: source.ruby.rspec
+version: 2
 
 extends: Packages/Ruby/Ruby.sublime-syntax
 
