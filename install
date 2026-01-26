@@ -5,9 +5,11 @@ set -e
 
 # flags
 SELECT=0
+FORCE_PROFILE=0
 while (($#)); do
   case "$1" in
     -s|--select) SELECT=1 ;;
+    -f|--force-profile) FORCE_PROFILE=1 ;;
     --) shift; break ;;
     *) echo "unknown option: $1" >&2; exit 2 ;;
   esac
@@ -62,7 +64,11 @@ populate_profile_zvars() {
 }
 
 populate_os_zvars
-populate_profile_zvars
+if [[ -z "${DOTFILES_PROFILE:-}" || "$FORCE_PROFILE" -eq 1 ]]; then
+	populate_profile_zvars
+else # the file gets re-created
+	echo "export DOTFILES_PROFILE=$DOTFILES_PROFILE" >> "$SCRIPT_BASE_DIR/zsh/zvars"
+fi
 
 source "$SCRIPT_BASE_DIR/zsh/zvars"
 infoprint "[main] configured & loaded zvars"
