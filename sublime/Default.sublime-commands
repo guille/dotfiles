@@ -1,4 +1,5 @@
 [
+    // Custom plugins/commands
     {
         "caption": "New project from root",
         "command": "new_project_from_root",
@@ -30,5 +31,10 @@
         "args": {
             "panel": "find_in_files"
         }
+    },
+    {
+        "caption": "Toggle Spell Check",
+        "command": "toggle_setting",
+        "args": {"setting": "spell_check"}
     },
 ]
