@@ -8,6 +8,22 @@
         "caption": "Run dmn's task picker",
         "command": "dmn",
     },
+    // Scratch buffer
+    {
+        "caption": "Open Scratch Buffer",
+        "command": "scratch_buffer"
+    },
+    {
+        "caption": "Open Scratch Buffer (same syntax)",
+        "command": "scratch_buffer",
+        "args": {
+            "copy": true
+        }
+    },
+    {
+        "caption": "Toggle Scratch Buffer",
+        "command": "toggle_scratch"
+    },
     // LSP
     {
         "caption": "LSP: Fold All Comment Blocks",
@@ -35,6 +51,8 @@
     {
         "caption": "Toggle Spell Check",
         "command": "toggle_setting",
-        "args": {"setting": "spell_check"}
+        "args": {
+            "setting": "spell_check"
+        }
     },
 ]
