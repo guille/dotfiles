@@ -224,7 +224,7 @@ bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ t
 
 ## Startup config
 # sublime & a terminal, sway doesn't support layouts
-exec swaymsg workspace 2 && swaymsg exec subl && sleep 1 && swaymsg exec ghostty && sleep 2 && swaymsg 'resize set width 40ppt'
+exec swaymsg workspace 2 && swaymsg "layout tabbed" && swaymsg exec subl && sleep 1 && swaymsg exec ghostty
 
 # bar
 bar swaybar_command waybar
