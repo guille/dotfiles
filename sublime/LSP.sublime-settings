@@ -136,5 +136,40 @@
 			"settings": {},
 			"selector": "text.typst",
 		},
+		// https://github.com/rcjsuen/dockerfile-language-server
+		// https://github.com/sublimelsp/LSP-dockerfile/blob/master/LSP-dockerfile.sublime-settings
+		"dockerfile-language-server": {
+			"enabled": true,
+			"command": [
+				"docker-langserver",
+				"--stdio"
+			],
+			"schemes": [
+				"file",
+				"buffer",
+				"res"
+			],
+			"settings": {
+				"docker": {
+					"languageserver": {
+						"diagnostics": {
+							// string values must be equal to "ignore", "warning", or "error"
+							"deprecatedMaintainer": "warning",
+							"directiveCasing": "warning",
+							"emptyContinuationLine": "warning",
+							"instructionCasing": "warning",
+							"instructionCmdMultiple": "warning",
+							"instructionEntrypointMultiple": "warning",
+							"instructionHealthcheckMultiple": "warning",
+							"instructionJSONInSingleQuotes": "warning"
+						},
+						"formatter": {
+							"ignoreMultilineInstructions": false,
+						}
+					}
+				}
+			},
+			"selector": "source.dockerfile | source.containerfile"
+		}
 	}
 }
