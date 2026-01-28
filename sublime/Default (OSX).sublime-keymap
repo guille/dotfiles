@@ -408,7 +408,7 @@
 	},
 	{
 		"keys": [
-			"super+r"
+			"super+shift+r"
 		],
 		"command": "goto_symbol_in_project"
 	},
