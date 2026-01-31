@@ -8,6 +8,7 @@
 	"find_selected_text": false,
 	"font_face": "Inconsolata Nerd Font",
 	"font_size": ###FONT_SIZE###,
+	"default_font_size": ###FONT_SIZE###,
 	"hide_tab_scrolling_buttons": true,
 	"highlight_line": true,
 	"indent_guide_options": [
