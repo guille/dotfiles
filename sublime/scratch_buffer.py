@@ -17,7 +17,7 @@ import sublime
 # sublime-package files in the Packages folder that is inside of the root of
 # the application install as a sibling to the running binary.
 #
-# Capture all such files as the na`mes of packages that are built in.
+# Capture all such files as the names of packages that are built in.
 pkg_path = pathlib.Path(sublime.executable_path()).parent / "Packages"
 shipped_pkgs = {
     entry.stem
@@ -36,7 +36,7 @@ kind_map = {
 }
 
 
-class SyntaxInputHandler(sublime_plugin.ListInputHandler):
+class SyntaxPathInputHandler(sublime_plugin.ListInputHandler):
     """
     Input handler for the syntax argument of the scratch_buffer command; allows
     for the selection of one of the available syntaxes.
@@ -77,8 +77,7 @@ class ScratchBufferCommand(sublime_plugin.WindowCommand):
             view = self.window.active_view()
             syntax = view.syntax() if view else None
         else:
-            record = sublime.syntax_from_path(syntax_path)
-            syntax = record.name if record else None
+            syntax = sublime.syntax_from_path(syntax_path)
 
         if syntax is None:
             return self.window.status_message(
@@ -86,15 +85,15 @@ class ScratchBufferCommand(sublime_plugin.WindowCommand):
             )
 
         view = self.window.new_file()
-        view.set_name("Scratch: {}".format(syntax))
+        view.set_name("Scratch: {}".format(syntax.name))
 
         view.set_scratch(True)
         view.assign_syntax(syntax)
         view.settings().set("is_temp_scratch", True)
 
     def input(self, args):
-        if "syntax" not in args and "copy" not in args:
-            return SyntaxInputHandler()
+        if "syntax_path" not in args and "copy" not in args:
+            return SyntaxPathInputHandler()
 
     def input_description(self):
         return "Create Scratch Buffer"
