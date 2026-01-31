@@ -2,6 +2,7 @@
 {
 	"show_diagnostics_panel_on_save": 1,
 	"diagnostics_panel_include_severity_level": 1,
+	"diagnostics_delay_ms": 100,
 	"lsp_format_on_save": true,
 	"log_max_size": 0,
 	"lsp_code_actions_on_save": {
@@ -89,6 +90,12 @@
 		// https://github.com/redhat-developer/yaml-language-server
 		"yaml-language-server": {
 			"enabled": true,
+			"schemes": [
+				"file",
+				"buffer",
+				"res",
+				"json-schema"
+			],
 			"command": [
 				"yaml-language-server",
 				"--stdio"
@@ -97,7 +104,9 @@
 				"redhat.telemetry.enabled": false,
 				"yaml.format.enable": true,
 				// https://www.schemastore.org/api/json/catalog.json
-				"yaml.schemaStore.enable": true,
+				"yaml.schemaStore.enable": false,
+				// doesn't work if unset
+				// "yaml.schemaStore.url": "",
 				// CloudFormation stuff
 				"yaml.customTags": [
 					"!Ref",
@@ -120,7 +129,26 @@
 					"!Select sequence",
 					"!Split",
 					"!Join sequence"
-				]
+				],
+				// hardcode most used and custom paths
+				"yaml.schemas": {
+					"https://www.schemastore.org/github-workflow.json": [
+						".github/workflows/*.{yml,yaml}"
+					],
+					"https://www.schemastore.org/dependabot-2.0.json": [
+						".github/dependabot.{yml,yaml}"
+					],
+					"https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json": [
+						"*docker-compose*.{yml,yaml}"
+					],
+					"https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
+						"role-stack.{yml,yaml}"
+					],
+					// schemaStore detection doesn't work if the fileMatch in schemaStore isn't .yml|.yaml
+					"https://www.schemastore.org/sublime-syntax.json": [
+						"*.sublime-syntax"
+					],
+				}
 			},
 			// Leave Go/Helm to its own LSP
 			"selector": "(source.yml | source.yaml) - source.yaml.go - source.yaml.helm",
