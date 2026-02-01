@@ -66,4 +66,8 @@
             "setting": "spell_check"
         }
     },
+    {
+        "caption": "View: Reset Font Size",
+        "command": "reset_font_size"
+    },
 ]
