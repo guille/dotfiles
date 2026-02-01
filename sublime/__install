@@ -62,6 +62,7 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/custom.sublime-color-scheme" "$SUBL_CON
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/LSP.sublime-settings" "$SUBL_CONFIG/LSP.sublime-settings" 1> /dev/null
 
 # Settings (language-specific)
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/CSS.sublime-settings" "$SUBL_CONFIG/CSS.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Elixir.sublime-settings" "$SUBL_CONFIG/Elixir.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Git Commit.sublime-settings" "$SUBL_CONFIG/Git Commit.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Python.sublime-settings" "$SUBL_CONFIG/Python.sublime-settings" 1> /dev/null

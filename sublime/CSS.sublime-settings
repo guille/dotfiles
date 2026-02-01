@@ -1,0 +1,7 @@
+{
+	"extensions": [
+		// rofi config
+		"rasi"
+	],
+	"disable_default_completions": true
+}
