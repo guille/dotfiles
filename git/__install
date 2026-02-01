@@ -15,6 +15,7 @@ module_name=git
 if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	gitignore ".DS_Store"
 fi
+gitignore "*.local"
 
 infoprint "[$module_name] creating dotfiles symlinks..."
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/gitconfig" ~/.gitconfig 1> /dev/null
