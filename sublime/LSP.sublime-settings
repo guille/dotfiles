@@ -2,7 +2,7 @@
 {
 	"show_diagnostics_panel_on_save": 1,
 	"diagnostics_panel_include_severity_level": 1,
-	"diagnostics_delay_ms": 100,
+	"diagnostics_delay_ms": 200,
 	"lsp_format_on_save": true,
 	"log_max_size": 0,
 	"lsp_code_actions_on_save": {

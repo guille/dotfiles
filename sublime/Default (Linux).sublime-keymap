@@ -403,4 +403,39 @@
 			}
 		]
 	},
+	// Browse completions with alt+arrows
+	{
+		"keys": [
+			"alt+down"
+		],
+		"command": "move",
+		"args": {
+			"by": "lines",
+			"forward": true
+		},
+		"context": [
+			{
+				"key": "auto_complete_primed",
+				"operator": "equal",
+				"operand": true
+			},
+		]
+	},
+	{
+		"keys": [
+			"alt+up"
+		],
+		"command": "move",
+		"args": {
+			"by": "lines",
+			"forward": false
+		},
+		"context": [
+			{
+				"key": "auto_complete_primed",
+				"operator": "equal",
+				"operand": true
+			},
+		]
+	},
 ]
