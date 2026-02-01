@@ -198,6 +198,25 @@
 				}
 			},
 			"selector": "source.dockerfile | source.containerfile"
-		}
+		},
+		// https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md
+		"tsserver": {
+			"enabled": true,
+			"command": [
+				"typescript-language-server",
+				"--stdio"
+			],
+			"selector": "source.js, source.jsx, source.ts, source.tsx",
+			"initializationOptions": {
+				"completionDisableFilterText": true,
+				"disableAutomaticTypingAcquisition": false,
+				// "locale": "en",
+				"maxTsServerMemory": 0,
+				"preferences": {
+					"includeCompletionsForModuleExports": false,
+				},
+			},
+			"settings": {},
+		},
 	}
 }

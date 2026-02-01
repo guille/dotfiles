@@ -336,6 +336,12 @@
 			"scope": "entity.name.tag.script.html",
 			"font_style": "italic",
 		},
+		// JS
+		{
+			"name": "Strings when used as keys",
+			"scope": "meta.mapping.key.js",
+			"foreground": "var(orange)",
+		},
 		// Containerfile
 		{
 			"name": "Containerfile image name/label",
