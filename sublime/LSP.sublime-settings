@@ -142,7 +142,7 @@
 						"*docker-compose*.{yml,yaml}"
 					],
 					"https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
-						"role-stack.{yml,yaml}"
+						"role_stack.{yml,yaml}"
 					],
 					// schemaStore detection doesn't work if the fileMatch in schemaStore isn't .yml|.yaml
 					"https://www.schemastore.org/sublime-syntax.json": [
