@@ -23,10 +23,9 @@ sed "/###PACKAGES###/{
 }" "$SCRIPT_BASE_DIR/$module_name/subl_packages.base" > "$SCRIPT_BASE_DIR/$module_name/Package Control.sublime-settings"
 
 
-# TODO: on a fresh install it might be `~/.config/sublime-text`??
 if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
-	SUBL_ROOT="$HOME/Library/Application Support/Sublime Text 3"
-	SUBL_CONFIG="$HOME/Library/Application Support/Sublime Text 3/Packages/User"
+	SUBL_ROOT="$HOME/Library/Application Support/Sublime Text"
+	SUBL_CONFIG="$HOME/Library/Application Support/Sublime Text/Packages/User"
 	FONT_SIZE=18
 elif [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	SUBL_ROOT="$HOME/.config/sublime-text"
