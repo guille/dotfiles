@@ -1,6 +1,10 @@
-# For Sublime Text, interactive shells activate normally and get rid of the shims
-eval "$(mise activate zsh)"
-export DOTNET_ROOT=$(mise where dotnet 2>/dev/null)
+# Load shims and general env for Sublime Text
+if [[ -o login ]]; then
+    eval "$(mise activate zsh --shims)"
+    set -a
+    eval $(mise env --dotenv)
+    set +a
+fi
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
