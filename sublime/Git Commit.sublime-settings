@@ -1,4 +1,8 @@
 {
-    "rulers": [50, 72],
+    // "Wrap at Ruler" uses the first one
+    "rulers": [
+        72,
+        50
+    ],
     "spell_check": true,
 }
