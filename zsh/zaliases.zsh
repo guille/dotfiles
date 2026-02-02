@@ -181,12 +181,14 @@ awsl() {
 	local profile="${AWS_PROFILE:-dev-read}"
 	export AWS_PROFILE="$profile"
 
-	aws sso login
+	{
+		aws sso login
 
-	local account_id=$(aws sts get-caller-identity --query Account --output text)
-	local region=${AWS_REGION:-$(aws configure get region)}
+		local account_id=$(aws sts get-caller-identity --query Account --output text)
+		local region=${AWS_REGION:-$(aws configure get region)}
 
-	aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin "${account_id}.dkr.ecr.${region}.amazonaws.com"
+		aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin "${account_id}.dkr.ecr.${region}.amazonaws.com"
+	} >/dev/null &
 }
 
 pskill() {
