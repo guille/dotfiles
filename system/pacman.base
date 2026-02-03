@@ -31,6 +31,8 @@ xorg-xwayland
 # terminal utils
 bat
 dog
+docker
+docker-buildx
 eza
 fd
 fzf
