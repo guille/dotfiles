@@ -18,5 +18,6 @@ module_name=node
 infoprint "[$module_name] creating dotfiles symlinks..."
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/default-npm-packages" ~/.default-npm-packages 1> /dev/null
 
+add_if_not_there "ignore-scripts=true" "$HOME/.npmrc"
 
 mise use -g node@latest
