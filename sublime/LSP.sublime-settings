@@ -148,10 +148,23 @@
 					"https://www.schemastore.org/sublime-syntax.json": [
 						"*.sublime-syntax"
 					],
-				}
+				},
 			},
 			// Leave Go/Helm to its own LSP
 			"selector": "(source.yml | source.yaml) - source.yaml.go - source.yaml.helm",
+		},
+		// https://github.com/mrjosh/helm-ls?tab=readme-ov-file#default-configuration
+		"helm-ls": {
+			"enabled": true,
+			"command": [
+				"helm_ls",
+				"serve"
+			],
+			"settings": {
+				// No clue if this works
+				"yamlls.config.kubernetesCRDStore.enable": true
+			},
+			"selector": "source.helm"
 		},
 		// https://github.com/Myriad-Dreamin/tinymist
 		// https: //github.com/sublimelsp/LSP-Tinymist/blob/main/LSP-Tinymist.sublime-settings

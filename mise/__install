@@ -37,5 +37,8 @@ mise settings set experimental true
 
 gitignore "mise.local.toml"
 
+infoprint "[$module_name] installing global mise tools"
+mise use -g helm-ls@latest
+
 infoprint "[$module_name] pruning outdated mise tools"
 mise prune

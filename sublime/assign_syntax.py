@@ -1,7 +1,9 @@
+import re
 from typing import Any, cast
 
-import sublime
 import sublime_plugin
+
+import sublime
 
 
 def assign_syntax(view: sublime.View) -> bool:
@@ -29,14 +31,17 @@ def assign_syntax(view: sublime.View) -> bool:
     Returns True when a rule matched, False otherwise
     """
     file = view.file_name()
+    if file is None:
+        return False
 
-    if file and file.endswith(("Gemfile.lock", "gemfile.lock")):
+    # Ruby stuff
+    if file.endswith(("Gemfile.lock", "gemfile.lock")):
         view.assign_syntax("scope:source.gemfile.lock")
         return True
 
     syntax = view.syntax()
     if syntax and syntax.scope == "source.ruby":
-        if file and file.endswith("_spec.rb"):
+        if file.endswith("_spec.rb"):
             view.assign_syntax("scope:source.ruby.rspec")
             return True
 
@@ -46,6 +51,18 @@ def assign_syntax(view: sublime.View) -> bool:
             if project_data.get("config", {}).get("rails", False):
                 view.assign_syntax("scope:source.ruby.rails")
                 return True
+
+    # Helm stuff
+    if (syntax and syntax.scope == "source.yaml") or file.endswith(".tpl"):
+        # if file.endswith("Chart.yaml"):
+        #     view.assign_syntax("scope:source.yaml.go")
+        #     return True
+
+        rx = re.compile(r".*\/templates\/.*\/?[^\/]+\.(?:yml|yaml|tpl)$")
+        if rx.match(file):
+            view.assign_syntax("scope:source.helm")
+            return True
+
     return False
 
 
