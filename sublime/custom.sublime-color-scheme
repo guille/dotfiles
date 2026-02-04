@@ -104,7 +104,7 @@
 		},
 		{
 			"name": "Constants (user-defined and vars)",
-			"scope": "variable.other.constant | support.constant",
+			"scope": "variable.other.constant | support.constant | entity.name.constant",
 			"foreground": "var(light_blue)",
 		},
 		{
