@@ -136,18 +136,18 @@ export FZF_CTRL_T_COMMAND='fd --hidden --strip-cwd-prefix'
 export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || eza -1 --icons=always --color=always {}"'
 
 eval "$(zoxide init zsh)"
-# fuzzy search zoxide from its own db, with full paths (unlike zi)
+# fuzzy search zoxide from its own db, with full paths (unlike zi) and go to best option
 function zz() {
 	local result
-	result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --query "${@:-}" --preview 'eza -1 --icons=always --color=always {}')
+	result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --filter "${@:-}" | head -n1)
 	if [[ -n "$result" ]]; then
 		z "$result"
 	fi
 }
-# fuzzy search zoxide from its own db, with full paths (unlike zi) AND skip the picker, go to best option
+# fuzzy search zoxide from its own db, with full paths (unlike zi) and bring up a fzf picker
 function zzz() {
 	local result
-	result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --filter "${@:-}" | head -n1)
+	result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --query "${@:-}" --preview 'eza -1 --icons=always --color=always {}')
 	if [[ -n "$result" ]]; then
 		z "$result"
 	fi
