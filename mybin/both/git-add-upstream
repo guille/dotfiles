@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Adds a remote called "upstream" if the current repo is a GitHub fork
+# Limitations:
+# - only works if the configured git user owns the forked repo
+
+if ! git rev-parse --is-inside-work-tree &> /dev/null; then
+    echo "Error: Not inside a git repository"
+    exit 1
+fi
+
+git_user=$(git config --get user.name)
+repo=$(basename "$PWD")
+
+upstream=$(curl -s "https://api.github.com/repos/$git_user/$repo" | jq -r '.parent.ssh_url')
+
+if [ "$upstream" = "null" ] || [ -z "$upstream" ]; then
+	echo "Error: Not a fork or couldn't fetch parent repo"
+	exit 1
+fi
+
+git remote add upstream "$upstream" && echo "Added upstream: $upstream"
