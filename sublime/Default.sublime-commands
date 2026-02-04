@@ -60,6 +60,10 @@
         }
     },
     {
+        "caption": "Copy Path",
+        "command": "copy_path",
+    },
+    {
         "caption": "Toggle Spell Check",
         "command": "toggle_setting",
         "args": {
