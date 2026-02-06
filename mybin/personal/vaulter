@@ -3,6 +3,6 @@
 result=$(printf "📚️ kb\n💻️ tech_vault" | rofi -dmenu -i -sorting-method 'fzf' -sort -matching 'fuzzy' -p 'Vault:')
 
 if [ -n "$result" ]; then
-    vault_name=$(echo "$result" | sed 's/^[^ ]* //')
+    vault_name=${result#* }
     xdg-open "obsidian://open/?vault=$vault_name"
 fi

@@ -12,6 +12,11 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=mpv
 
 
+# Linux only
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	exit
+fi
+
 mkdir -p ~/.config/mpv
 
 infoprint "[$module_name] creating dotfiles symlinks..."

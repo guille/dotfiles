@@ -81,9 +81,10 @@ modules_to_install=(
 	ruby
 	go
 	python
-	mpd
+	node
 	git
 	sublime
+	mpd
 	ghostty
 	sway
 	waybar
@@ -95,7 +96,6 @@ modules_to_install=(
 	dunst
 	tailscale
 	mybin
-	node
 	bat
 	restic
 	fd
