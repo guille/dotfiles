@@ -1,8 +1,8 @@
 ##
 # basic system stuff and wm
 blueman
-bluez
 bluetui
+bluez
 dns-over-https
 dunst
 grim
@@ -23,6 +23,7 @@ swaybg
 swayidle
 ufw
 waybar
+wireplumber
 wl-clip-persist
 wl-clipboard
 xdg-desktop-portal-wlr
@@ -73,12 +74,10 @@ mpv
 sublime-text
 ##
 # proglands and sdks
-crystal
 elixir
 jdk8-openjdk
 postgresql-libs
 ruff
-shards
 tinymist
 typst
 uv

@@ -50,6 +50,18 @@ prepare_profiled_config() {
 	    cat "${target}.work" >> "$target"
 	fi
 }
+remove_profiled_config() {
+	if [ -z "$module_name" ]; then
+		errorprint "error: \$module_name not set!"
+		return 1
+    fi
+
+	local target="${SCRIPT_BASE_DIR}/${module_name}/$1"
+
+	if [ -f "${target}" ]; then
+		rm "$target"
+	fi
+}
 # Appends a line ($1) to the fiven file ($2) if it doesn't exist already
 add_if_not_there() {
 	touch "$2"

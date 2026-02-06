@@ -12,6 +12,10 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=tailscale
 
 
+# Linux only, personal only
+if [[ "${DOTFILES_OS:-}" == "OSX" ]] || is_work; then
+	exit
+fi
 
 if [ -f "/etc/default/tailscaled" ]; then
 	infoprint "[$module_name] disabling telemetry..."

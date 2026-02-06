@@ -26,6 +26,22 @@ aur_dl () {
 	\curl -L -O "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz"
 }
 
+setup_firewall () {
+	infoprint "[$module_name] setting up firewall"
+	sudo systemctl enable --now ufw
+	sudo ufw default deny
+	# Jellyfin
+	sudo ufw allow from 192.168.1.0/24 to any port 8096
+	# Expo Go
+	sudo ufw allow from 192.168.1.0/24 to any port 8081
+	# DNI-E
+	sudo ufw allow from 192.168.1.0/24 to any port 34803
+	# Disable ping
+	sudo sed -i 's/-A ufw-before-input -p icmp --icmp-type echo-request -j ACCEPT/-A ufw-before-input -p icmp --icmp-type echo-request -j DROP/' /etc/ufw/before.rules
+	sudo ufw enable
+	sudo ufw logging off
+}
+
 
 ##
 # Pre-requisites
@@ -69,26 +85,14 @@ if [[ "$DOTFILES_OS" == "Linux" ]]; then
 	prepare_profiled_config "pacman"
 	# shellcheck disable=SC2086
 	\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/pacman" | xargs $INSTALL
+	remove_profiled_config "pacman"
 
 	# Install fonts if available and reload fonts
 	infoprint "[$module_name] installing custom fonts and reloading"
 	[ -d "$SCRIPT_BASE_DIR/fonts" ] && cp -r "$SCRIPT_BASE_DIR/fonts/"* ~/.local/share/fonts
 	fc-cache
 
-	# Firewall
-	infoprint "[$module_name] setting up firewall"
-	sudo systemctl enable --now ufw
-	sudo ufw default deny
-	# Jellyfin
-	sudo ufw allow from 192.168.1.0/24 to any port 8096
-	# Expo Go
-	sudo ufw allow from 192.168.1.0/24 to any port 8081
-	# DNI-E
-	sudo ufw allow from 192.168.1.0/24 to any port 34803
-	# Disable ping
-	sudo sed -i 's/-A ufw-before-input -p icmp --icmp-type echo-request -j ACCEPT/-A ufw-before-input -p icmp --icmp-type echo-request -j DROP/' /etc/ufw/before.rules
-	sudo ufw enable
-	sudo ufw logging off
+	setup_firewall
 
 	if command_exists aurman; then
 		infoprint "[$module_name] aurman already installed"
@@ -106,6 +110,7 @@ if [[ "$DOTFILES_OS" == "Linux" ]]; then
 	infoprint "[$module_name] installing AUR packages"
 	prepare_profiled_config "aur"
 	\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/aur" | xargs aurman -S --needed --noconfirm --noedit
+	remove_profiled_config "aur"
 
 	infoprint "[$module_name] setting spanish keyboard layout (X11)"
 	localectl set-x11-keymap es
