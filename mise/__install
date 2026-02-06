@@ -42,3 +42,6 @@ mise use -g helm-ls@latest
 
 infoprint "[$module_name] pruning outdated mise tools"
 mise prune
+
+infoprint "[$module_name] activating for this session"
+eval "$(mise activate zsh)"
