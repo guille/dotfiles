@@ -58,7 +58,6 @@
 	ga = "! fzf_git_add"
 	gap = "! fzf_git_add add -p"
 	i = "!git add -N . && git gap"
-	rewind = "! fzf_git_restore_file"
 
 [status]
 	submoduleSummary = true
