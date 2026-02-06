@@ -94,7 +94,6 @@ modules_to_install=(
 	rofi
 	dunst
 	tailscale
-	dotnet
 	mybin
 	node
 	bat
