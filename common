@@ -42,11 +42,11 @@ prepare_profiled_config() {
 	# reset from base
 	cp "${target}.base" "$target"
 
-	if is_personal_or_hybrid; then
+	if is_personal_or_hybrid && [ -f "${target}.personal" ]; then
 	    cat "${target}.personal" >> "$target"
 	fi
 
-	if is_work_or_hybrid; then
+	if is_work_or_hybrid && [ -f "${target}.work" ]; then
 	    cat "${target}.work" >> "$target"
 	fi
 }
