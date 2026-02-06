@@ -148,7 +148,7 @@
         // Scrolling changes volume
         "format": "<span color=\"#ffd204\">{icon}</span>  {volume}%",
         "tooltip": false,
-        "format-muted": "<span color=\"#959ca1\">󰖁</span>",
+        "format-muted": "<span color=\"#959ca1\">󰖁</span>  {volume}%",
         "format-icons": {
             "default": [
                 "󰕿",
@@ -156,7 +156,8 @@
                 "󰕾"
             ]
         },
-        "on-click": "pavucontrol"
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-right": "pavucontrol",
     },
     "custom/pacman": {
         "format": " <span color=\"#ffd204\">󰣇 </span>{} ",
