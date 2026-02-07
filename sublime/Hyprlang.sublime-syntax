@@ -1,0 +1,160 @@
+%YAML 1.2
+---
+# Original credits to github.com/0x000C0A71/hyprlang-sublime-syntax
+# minor tweaks
+version: 2
+file_extensions:
+  - hypr
+  - hyprland.conf
+  - hyprpaper.conf
+  - hypridle.conf
+  - hyprlock.conf
+  - hyprlandd.conf
+  - hyprlauncher.conf
+  - hyprsunset.conf
+  - hyprtoolkit.conf
+  - xdph.conf
+scope: source.hyprlang
+variables:
+  ident: "[a-zA-Z_][a-zA-Z0-9_-]*"
+  lower_ident: "[a-z_-][a-z0-9_-]*"
+contexts:
+  main:
+    - include: keys
+
+  keys:
+    - match: '#\s*hyprlang\b'
+      scope: keyword.control.import.hyprlang
+      push: directive
+
+    - include: kv_common
+
+    - match: '^\s*{{lower_ident}}(?=\s*\{)'
+      scope: entity.name.namespace.hyprlang
+
+    - match: '\b{{lower_ident}}\b'
+      scope: entity.name.tag.hyprlang
+
+    - match: ":"
+      scope: punctuation.accessor.colon.hyprlang
+
+    - match: '\['
+      scope: punctuation.section.brackets.begin.hyprlang
+
+    - match: '\]'
+      scope: punctuation.section.brackets.end.hyprlang
+
+    - match: "="
+      scope: punctuation.definition.key-value.hyprlang
+      push: values
+
+  values:
+    - meta_scope: meta.string.hyprlang
+    - meta_content_scope: string.unquoted.hyprlang
+
+    - include: kv_common
+
+    - match: '\brgba(?=\()'
+      scope: support.function.color.hyprlang
+      push: rgba_color
+
+    - match: '\b(true|yes)\b'
+      scope: constant.language.boolean.true.hyprlang
+
+    - match: '\b(false|no)\b'
+      scope: constant.language.boolean.false.hyprlang
+
+    - match: '\b0x[0-9a-fA-F]+\b'
+      scope: constant.numeric.hex-value.hyprlang
+
+    - match: '(?<!\w|-)\b(-)?[0-9]+(\.[0-9]+)?\b'
+      scope: constant.numeric.hyprlang
+
+    - match: ","
+      scope: punctuation.separator.sequence.hyprlang
+
+    - match: '(?<!\\)\{\{'
+      scope: punctuation.section.interpolation.begin.hyprlang
+      push: interpolation
+
+    - match: $
+      pop: true
+
+  interpolation:
+    - clear_scopes: true
+    - meta_scope: meta.interpolation.hyprlang
+
+    - match: '\}\}'
+      scope: punctuation.section.interpolation.end.hyprlang
+      pop: true
+
+    - match: "[0-9]+"
+      scope: constant.numeric.value.hyprlang
+
+    - match: '\b{{ident}}\b'
+      scope: variable.other.constant.hyprlang
+
+    - match: '\s(\+|\-|\*|\/)\s'
+      scope: keyword.operator.arithmetic.hyprlang
+
+  kv_common:
+    - match: "##(?!#)"
+      scope: constant.character.escape.hyprlang
+
+    - match: '\\.'
+      scope: constant.character.escape.hyprlang
+
+    - match: '\${{ident}}\b'
+      scope: variable.other.constant.hyprlang
+
+    - include: common
+
+  common:
+    - match: "#"
+      scope: punctuation.definition.comment.hyprlang
+      push: line_comment
+
+  directive:
+    - meta_scope: meta.preprocessor.hyprlang
+
+    - match: '\b(if)\b'
+      scope: keyword.control.import.if.hyprlang
+      push: directive_cond
+
+    - match: '\b(endif)\b'
+      scope: keyword.control.import.endif.hyprlang
+
+    - match: $
+      pop: true
+
+    - include: common
+
+  directive_cond:
+    - meta_scope: meta.preprocessor.condition.hyprlang
+
+    - match: '{{ident}}\b'
+      scope: variable.other.constant.hyprlang
+
+    - match: "!"
+      scope: keyword.operator.arithmetic.hyprlang
+
+    - match: $
+      pop: true
+
+  rgba_color:
+    - clear_scopes: true
+
+    - match: '\b[a-fA-F0-9]{8}\b'
+      scope: constant.other.color.hex-value.hyprlang
+
+    - match: '\b(-)?[0-9.]+\b'
+      scope: constant.numeric.hyprlang
+
+    - match: '\)'
+      pop: true
+
+  line_comment:
+    - meta_scope: comment.line.hyprlang
+
+    - match: $
+      pop: true

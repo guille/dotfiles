@@ -86,7 +86,7 @@ modules_to_install=(
 	sublime
 	mpd
 	ghostty
-	sway
+	hyprland
 	waybar
 	mpv
 	thunar

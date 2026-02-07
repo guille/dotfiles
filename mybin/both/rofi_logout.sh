@@ -53,7 +53,7 @@ run_cmd() {
 		elif [[ $1 == '--reboot' ]]; then
 			systemctl reboot
 		elif [[ $1 == '--logout' ]]; then
-			swaymsg exit
+			hyprctl dispatch exit
 		fi
 	else
 		exit 0

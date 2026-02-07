@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# hyprland
+##
+
+module_name=hyprland
+
+
+# Linux only
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	exit
+fi
+
+
+mkdir -p ~/.config/hypr/hyprland
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/hyprland.conf" ~/.config/hypr/hyprland.conf 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/hyprlock.conf" ~/.config/hypr/hyprlock.conf 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/hypridle.conf" ~/.config/hypr/hypridle.conf 1> /dev/null
+
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/look-and-feel.hypr" ~/.config/hypr/hyprland/look-and-feel.hypr 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/keybinds.hypr" ~/.config/hypr/hyprland/keybinds.hypr 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/rules.hypr" ~/.config/hypr/hyprland/rules.hypr 1> /dev/null
+

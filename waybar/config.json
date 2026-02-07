@@ -3,9 +3,8 @@
     "position": "bottom",
     "height": 30,
     "modules-left": [
-        "sway/workspaces",
-        "sway/mode",
-        "sway/scratchpad"
+        "hyprland/workspaces",
+        "hyprland/submap"
     ],
     "modules-center": [
         "mpd"
@@ -33,28 +32,16 @@
         "custom/separator",
         "tray"
     ],
-    "sway/workspaces": {
-        "disable-scroll": true,
+    "hyprland/workspaces": {
         "all-outputs": true,
-        "warp-on-scroll": false,
         "format": "{name}{icon}",
         "format-icons": {
-            "urgent": " ",
+            "1": "",
             "default": ""
         }
     },
-    "sway/mode": {
+    "hyprland/submap": {
         "format": "<span style=\"italic\">{}</span>"
-    },
-    "sway/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": [
-            "",
-            ""
-        ],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
     },
     "mpd": {
         "format": "<span color=\"#ffd204\">󰎈</span> {stateIcon}",

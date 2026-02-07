@@ -6,6 +6,9 @@ bluez
 dns-over-https
 dunst
 grim
+hypridle
+hyprland
+hyprlock
 lxsession
 network-manager-applet
 networkmanager
@@ -17,16 +20,13 @@ qt5-wayland
 qt6-wayland
 rofi
 slurp
-sway
-sway-contrib
 swaybg
-swayidle
 ufw
 waybar
 wireplumber
 wl-clip-persist
 wl-clipboard
-xdg-desktop-portal-wlr
+xdg-desktop-portal-hyprland
 xorg-xwayland
 ##
 # terminal utils

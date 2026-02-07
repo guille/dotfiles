@@ -77,6 +77,7 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/shebang.sublime-snippet" "$SUBL_CONFIG/
 # Syntaxes
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Gemfile Lock (Bundler).sublime-syntax" "$SUBL_CONFIG/Gemfile Lock (Bundler).sublime-syntax" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Gherkin.sublime-syntax" "$SUBL_CONFIG/Gherkin.sublime-syntax" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Hyprlang.sublime-syntax" "$SUBL_CONFIG/Hyprlang.sublime-syntax" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Helm.sublime-syntax" "$SUBL_CONFIG/Helm.sublime-syntax" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/RSpec.sublime-syntax" "$SUBL_CONFIG/RSpec.sublime-syntax" 1> /dev/null
 

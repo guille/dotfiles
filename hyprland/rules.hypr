@@ -1,0 +1,106 @@
+
+# ↓ smart gaps: no gaps if only one window open ↓
+workspace = w[tv1], gapsout:0, gapsin:0
+workspace = f[1], gapsout:0, gapsin:0
+windowrule {
+    name = no-gaps-wtv1
+    match:float = false
+    match:workspace = w[tv1]
+
+    border_size = 0
+    rounding = 0
+}
+
+windowrule {
+    name = no-gaps-f1
+    match:float = false
+    match:workspace = f[1]
+
+    border_size = 0
+    rounding = 0
+}
+# ↑ smart gaps: no gaps if only one window open ↑
+
+# Ignore maximize requests from all apps
+windowrule {
+    name = suppress-maximize-events
+    match:class = .*
+
+    suppress_event = maximize
+}
+windowrule {
+    name = firefox
+    match:class = ^firefox$
+
+    idle_inhibit = fullscreen
+    workspace = 1
+}
+windowrule {
+    name = sublime_text
+    match:class = ^sublime_text$
+
+    workspace = 2
+}
+windowrule {
+    name = thunar
+    match:class = ^thunar$
+
+    workspace = 3
+}
+windowrule {
+    name = evince
+    match:class = ^org.gnome.Evince$
+
+    workspace = 4
+}
+windowrule {
+    name = obsidian
+    match:class = ^obsidian$
+
+    workspace = 4
+}
+windowrule {
+    name = libreoffice
+    match:class = ^libreoffice-.*
+
+    workspace = 4
+}
+windowrule {
+    name = foliate
+    match:class = ^com.github.johnfactotum.Foliate$
+
+    workspace = 4
+}
+windowrule {
+    name = libreoffice
+    match:class = ^libreoffice-.*
+
+    workspace = 4
+}
+windowrule {
+    name = libreoffice-splash
+    match:title = ^LibreOffice*
+
+    workspace = 4 silent
+}
+windowrule {
+    name = mpv
+    match:class = ^mpv$
+
+    fullscreen = on
+    idle_inhibit = fullscreen
+    workspace = 5
+}
+windowrule {
+    name = transmission
+    match:title = ^Transmission$
+
+    workspace = 6
+}
+windowrule {
+    name = pavucontrol
+    match:class = ^org.pulseaudio.pavucontrol$
+
+    float = on
+    pin = on
+}

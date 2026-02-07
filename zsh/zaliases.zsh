@@ -8,16 +8,6 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	alias pacuw='sudo pacman -Syuw'
 	alias pacc='paccache -rk 1 && paccache -ruk0 && sudo pacman -Rns $(pacman -Qtdq)'
 
-	# Wayland focus activation :(
-	# https://github.com/sublimehq/sublime_text/issues/6236#issuecomment-2219709650
-	# https://bugs.kde.org/show_bug.cgi?id=442265
-	# https://github.com/swaywm/sway/pull/8017#issuecomment-1972210180
-	subl() {
-		command subl "$@"
-		swaymsg '[app_id="sublime_text"] focus'
-	}
-	xdg-open() { swaymsg exec xdg-open "$(printf ' %q' "$@")" }
-
 	# Notifications
 	dnd() {
 		dunstctl set-paused toggle
