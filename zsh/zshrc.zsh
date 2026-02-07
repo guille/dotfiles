@@ -66,6 +66,15 @@ zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|
 zstyle ':fzf-tab:complete:git-(add|diff|restore):argument-rest' fzf-preview 'git diff $word | delta'
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
 zstyle ':fzf-tab:complete:pacman:*' fzf-preview 'pacman -Si $word'
+zstyle ':fzf-tab:complete:mise:*' fzf-preview \
+'[[ -n ${words[2]} ]] && case ${words[2]} in
+  use)  mise ls-remote $word 2>/dev/null | tail -20 ;;
+  run)  mise task info $word 2>/dev/null ;;
+  *)    : ;;
+esac'
+zstyle ':fzf-tab:complete:aws:*' fzf-preview 'aws $word help 2>/dev/null | head -50'
+# zstyle ':fzf-tab:complete:kubectl-*:*' fzf-preview 'kubectl describe $word 2>/dev/null | head -50'
+# zstyle ':fzf-tab:complete:kubectl:*' fzf-preview 'kubectl explain $word 2>/dev/null | head -30'
 
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':completion:*' menu no
