@@ -65,6 +65,7 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/LSP.sublime-settings" "$SUBL_CONFIG/LSP
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/CSS.sublime-settings" "$SUBL_CONFIG/CSS.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Elixir.sublime-settings" "$SUBL_CONFIG/Elixir.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Git Commit.sublime-settings" "$SUBL_CONFIG/Git Commit.sublime-settings" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Helm.sublime-settings" "$SUBL_CONFIG/Helm.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Python.sublime-settings" "$SUBL_CONFIG/Python.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Ruby.sublime-settings" "$SUBL_CONFIG/Ruby.sublime-settings" 1> /dev/null
 
