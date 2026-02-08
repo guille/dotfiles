@@ -30,8 +30,6 @@ setup_firewall () {
 	infoprint "[$module_name] setting up firewall"
 	sudo systemctl enable --now ufw
 	sudo ufw default deny
-	# Jellyfin
-	sudo ufw allow from 192.168.1.0/24 to any port 8096
 	# Expo Go
 	sudo ufw allow from 192.168.1.0/24 to any port 8081
 	# DNI-E

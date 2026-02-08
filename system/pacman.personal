@@ -13,8 +13,6 @@ sigil
 transmission-gtk
 ##
 # media
-jellyfin-server
-jellyfin-web
 mpc
 mpd
 ncmpcpp
