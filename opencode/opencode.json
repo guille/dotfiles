@@ -1,0 +1,29 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "system",
+  "default_agent": "plan",
+  "share": "disabled",
+  "autoupdate": "notify",
+  "permission": {
+    "*": "ask",
+    "edit": "allow",
+    "glob": "allow",
+    "list": "allow",
+    "read": {
+      "*": "allow",
+      "*.env*": "deny"
+    },
+    "webfetch": "ask",
+    "bash": {
+      "*": "ask",
+      "ls *": "allow",
+      "grep *": "allow",
+      "rm *": "deny",
+    },
+    "external_directory": "deny",
+  },
+  "enabled_providers": [
+    "github-copilot",
+    "opencode",
+  ],
+}

@@ -95,6 +95,7 @@ modules_to_install=(
 	nvim
 	rofi
 	dunst
+	opencode
 	tailscale
 	mybin
 	bat

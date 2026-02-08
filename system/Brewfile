@@ -1,4 +1,5 @@
 brew 'age'
+brew 'anomalyco/tap/opencode'
 brew 'awscli'
 brew 'awslogs'
 brew 'bat'

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# OpenCode
+##
+
+module_name=opencode
+
+
+mkdir -p ~/.config/opencode
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/opencode.json" ~/.config/opencode/opencode.json 1> /dev/null
