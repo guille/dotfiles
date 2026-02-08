@@ -10,6 +10,7 @@ host=$(hostname)
 shutdown='󰐥 Shutdown'
 reboot='󰓦 Reboot'
 logout='󰍃 Logout'
+lock=' lock'
 yes=' Yes'
 no=' No'
 
@@ -41,7 +42,7 @@ confirm_exit() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-	echo -e "$logout\n$reboot\n$shutdown" | rofi_cmd
+	echo -e "$logout\n$reboot\n$shutdown\n$lock" | rofi_cmd
 }
 
 # Execute Command
@@ -54,6 +55,8 @@ run_cmd() {
 			systemctl reboot
 		elif [[ $1 == '--logout' ]]; then
 			hyprctl dispatch exit
+		elif [[ $1 == '--lock' ]]; then
+			hyprlock
 		fi
 	else
 		exit 0
@@ -71,5 +74,8 @@ case ${chosen} in
         ;;
     "$logout")
 		run_cmd --logout
+        ;;
+    "$lock")
+		run_cmd --lock
         ;;
 esac

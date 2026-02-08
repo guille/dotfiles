@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+hyprctl dispatch dpms off
+sleep 1
+
 # only lock on work machines
 if [[ "$DOTFILES_PROFILE" == "work" || "$DOTFILES_PROFILE" == "hybrid" ]]; then
 	mpc pause >/dev/null || true
