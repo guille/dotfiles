@@ -16,4 +16,5 @@ mkdir -p ~/.config/nnn/plugins
 infoprint "[$module_name] creating dotfiles symlinks..."
 
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/autojump" ~/.config/nnn/plugins/autojump 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/nmount" ~/.config/nnn/plugins/nmount 1> /dev/null
 # for bookmarks, see `man nnn`
