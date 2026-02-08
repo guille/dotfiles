@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+
+# https://github.com/jarun/nnn/blob/master/plugins/autojump
+
+# Description: Navigate to directory using jump/autojump/zoxide/z
+#
+# Dependencies:
+#   - z - https://github.com/rupa/z (z requires fzf)
+#
+# Note: The dependencies STORE NAVIGATION PATTERNS
+#
+# Shell: POSIX compliant
+# Authors: Marty Buchaus, Dave Snider, Tim Adler, Nick Waywood, Markus Meier
+
+if [ ! -p "$NNN_PIPE" ]; then
+    printf 'ERROR: NNN_PIPE is not set!'
+    read -r _
+    exit 2
+fi
+
+if type zoxide >/dev/null 2>&1; then
+    if type fzf >/dev/null 2>&1; then
+        odir="$(zoxide query -i --)"
+        printf "%s" "0c$odir" > "$NNN_PIPE"
+    else
+        printf "jump to: "
+        read -r dir
+        odir="$(zoxide query -- "$dir")"
+        printf "%s" "0c$odir" > "$NNN_PIPE"
+    fi
+fi

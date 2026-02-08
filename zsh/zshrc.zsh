@@ -168,6 +168,17 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	export MANROFFOPT="-c"
 fi
 
+# nnn
+# alias nnn='nnn -n'
+export NNN_PLUG='z:autojump'
+if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
+	export NNN_PLUG=${NNN_PLUG}';s:! echo $nnn|wl-copy*'
+	export NNN_TRASH='gio trash'
+else
+	export NNN_PLUG=${NNN_PLUG}';s:! echo $nnn|pbcopy*'
+	export NNN_TRASH='trash'
+fi
+
 # ══════════════════════ extra files ══════════════════════
 
 [[ -f "$HOME/.zkeys" ]] && . "$HOME/.zkeys"

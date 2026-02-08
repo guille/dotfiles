@@ -89,6 +89,7 @@ modules_to_install=(
 	hyprland
 	waybar
 	mpv
+	nnn
 	thunar
 	ripgrep
 	nvim

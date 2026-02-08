@@ -8,6 +8,7 @@ bind = $mainMod, D, exec, $menu
 bind = $mainMod, C, exec, firefox
 bind = $mainMod, O, exec, vaulter
 bind = $mainMod, J, exec, emoji --rofi
+bind = $mainMod, T, exec, [workspace 3] ghostty -e zsh -ic nnn
 
 # Window management
 bind = $mainMod, F, fullscreen, toggle
