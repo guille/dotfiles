@@ -2,6 +2,10 @@
 $mainMod = SUPER
 $secondMod = SUPER_SHIFT
 
+# Global keybinds
+# ghostty quick terminal
+bind = $mainMod, dead_grave, global, :LOGO+grave
+
 # Execs
 bind = $mainMod, Return, exec, $terminal
 bind = $mainMod, D, exec, $menu

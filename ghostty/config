@@ -77,5 +77,6 @@ keybind = performable:ctrl+v=paste_from_clipboard
 # applies to Alt+w in Linux
 keybind = option+w=text:\x1b\x7f
 
-# trying this again
 window-inherit-working-directory = true
+
+keybind = global:super+grave_accent=toggle_quick_terminal
