@@ -92,8 +92,8 @@ windowrule {
     workspace = 5
 }
 windowrule {
-    name = transmission
-    match:title = ^Transmission$
+    name = qbittorrent
+    match:class = ^org.qbittorrent.qBittorrent$
 
     workspace = 6
 }
