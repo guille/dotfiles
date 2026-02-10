@@ -3,12 +3,32 @@
 
 () {
   function prompt_mise() {
-    local plugins=("${(@f)$(mise ls --current --local 2>/dev/null | awk '{print $1, $2}')}")
+    # Fast path: skip if no mise config files in parent dirs
+    _p9k_upglob 'mise.toml|mise.local.toml' -.
+    local -i upglob_result=$?
+    (( upglob_result == 0 )) && return
+
+    # Check cache for this directory
+    if ! _p9k_cache_get "$0" "$_p9k__cwd_a"; then
+      local -a plugins
+      local line
+      for line in ${(f)"$(mise ls --current --local 2>/dev/null)"}; do
+        local parts=(${=line})
+        [[ ${#parts} -ge 2 ]] && plugins+=("$parts[1] $parts[2]")
+      done
+      _p9k_cache_set "${plugins[@]}"
+    fi
+
+    # Use cached results directly
+    [[ ${#_p9k__cache_val} -eq 0 ]] && return
+
     local plugin
-    for plugin in ${(k)plugins}; do
-      local parts=("${(@s/ /)plugin}")
+    for plugin in $_p9k__cache_val; do
+      local parts=(${(@s/ /)plugin})
+      [[ ${#parts} -lt 2 ]] && continue
       local tool=${(U)parts[1]}
       local version=${parts[2]}
+      [[ -n $version ]] || continue
       p10k segment -r -i "${tool}_ICON" -s $tool -t "$version"
     done
   }
