@@ -9,6 +9,9 @@
     "edit": "allow",
     "glob": "allow",
     "list": "allow",
+    "grep": "allow",
+    "todowrite": "allow",
+    "todoread": "allow",
     "read": {
       "*": "allow",
       "*.env*": "deny"
@@ -18,6 +21,8 @@
       "*": "ask",
       "ls *": "allow",
       "grep *": "allow",
+      "head *": "allow",
+      "tail *": "allow",
       "rm *": "deny",
     },
     "external_directory": "deny",
