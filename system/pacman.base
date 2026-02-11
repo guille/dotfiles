@@ -77,7 +77,6 @@ mpv
 sublime-text
 ##
 # proglands and sdks
-elixir
 jdk8-openjdk
 postgresql-libs
 ruff

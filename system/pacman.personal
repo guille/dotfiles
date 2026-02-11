@@ -5,6 +5,9 @@ par2cmdline
 rclone
 restic
 ##
+# proglands and sdks
+elixir
+##
 # gui
 electrum
 foliate
