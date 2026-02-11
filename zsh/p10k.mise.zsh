@@ -26,10 +26,17 @@
     for plugin in $_p9k__cache_val; do
       local parts=(${(@s/ /)plugin})
       [[ ${#parts} -lt 2 ]] && continue
-      local tool=${(U)parts[1]}
+      local tool=${parts[1]}
       local version=${parts[2]}
       [[ -n $version ]] || continue
-      p10k segment -r -i "${tool}_ICON" -s $tool -t "$version"
+      # Extract just the tool name for the state:
+      # 1. Get basename after last "/" (handles "github:user/tool" -> "tool")
+      # 2. Replace ":" with "_" to create valid zsh identifiers
+      # Do it in steps to avoid chained expansion that triggers "unrecognized modifier" error
+      local tool_base="${tool:t}"
+      local tool_clean="${tool_base//:/_}"
+      local state="${(U)tool_clean}"
+      p10k segment -r -i "${state}_ICON" -s $state -t "$version"
     done
   }
 
