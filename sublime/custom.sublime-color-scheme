@@ -267,8 +267,7 @@
 		{
 			"name": "Markdown: separator",
 			"scope": "punctuation.definition.thematic-break",
-			"background": "#ffffff0f",
-			"foreground": "#ffffff33"
+			"foreground": "var(orange)"
 		},
 		{
 			"name": "Markdown: table",
