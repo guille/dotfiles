@@ -228,7 +228,8 @@
 		{
 			"name": "List item punctuation",
 			"scope": "punctuation.definition.list_item",
-			"foreground": "#777777",
+			"foreground": "var(orange)",
+			"font_style": "bold",
 		},
 		{
 			"name": "Invalid",
