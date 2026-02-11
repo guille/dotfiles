@@ -19,4 +19,9 @@ mise settings add python.uv_venv_auto true
 mise use --global python@latest
 
 # uv and ruff are installed from system packages
+infoprint "[$module_name] installing Python tools with uv"
 \grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/uv_tools.txt" | xargs -n1 uv tool install
+
+if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
+	uv tool install magic-wormhole
+fi

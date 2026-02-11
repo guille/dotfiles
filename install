@@ -28,6 +28,11 @@ populate_os_zvars() {
 	case "$os" in
 	Linux*)
 		echo "export DOTFILES_OS=Linux" > "$SCRIPT_BASE_DIR/zsh/zvars"
+		if command_exists pacman; then
+			echo "export DOTFILES_DISTRO=Arch" >> "$SCRIPT_BASE_DIR/zsh/zvars"
+		elif command_exists dnf; then
+			echo "export DOTFILES_DISTRO=Fedora" >> "$SCRIPT_BASE_DIR/zsh/zvars"
+		fi
 		;;
 	Darwin*)
 		echo "export DOTFILES_OS=OSX" > "$SCRIPT_BASE_DIR/zsh/zvars"

@@ -22,6 +22,7 @@ lxsession
 wireplumber
 waybar
 slurp
+rofi
 openssh
 qt5-qtwayland
 qt6-qtwayland
@@ -52,6 +53,7 @@ wlsunset
 yt-dlp
 zoxide
 zsh-autosuggestions
+zsh-completions
 zsh-syntax-highlighting
 evince
 firefox
@@ -71,11 +73,11 @@ Thunar
 thunar-archive-plugin
 thunar-volman
 arc-theme
+papirus-icon-theme
 unzip
 xarchiver
 zip
 units
+ShellCheck
 google-noto-fonts-all
 google-noto-color-emoji-fonts
-ShellCheck
-papirus-icon-theme

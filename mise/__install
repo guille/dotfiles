@@ -36,3 +36,11 @@ mise prune
 
 infoprint "[$module_name] activating for this session"
 eval "$(mise activate zsh)"
+
+if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
+	infoprint "[$module_name] installing tools with mise"
+	mise use --global eza@latest
+	mise use --global opencode@latest
+	mise use --global typst@latest
+	mise use --global github:atanunq/viu
+fi
