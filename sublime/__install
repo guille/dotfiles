@@ -39,10 +39,15 @@ fi
 
 if [ ! -f "$SUBL_ROOT/Installed Packages/Package Control.sublime-package" ]; then
 	infoprint "[$module_name] installing Package Control"
-	# using `command` to avoid the hack for Wayland...
-	command subl --command "install_package_control"
-
-	# NOTE: Mac might need this after installing: https://github.com/wbond/package_control/issues/1612
+	if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+		# https://github.com/wbond/package_control/issues/1612
+		# NOTE: Fixed in ST > 4200?
+		curl -s https://api.github.com/repos/sublimehq/package_control/releases/latest \
+			| jq -r '.assets[0].browser_download_url'\
+			| xargs curl -sL -o "$SUBL_ROOT/Installed Packages/Package Control.sublime-package"
+	elif [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
+		subl --command "install_package_control"
+	fi
 fi
 
 
@@ -59,40 +64,11 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Default (OSX).sublime-keymap" "$SUBL_CO
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Preferences.sublime-settings" "$SUBL_CONFIG/Preferences.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Package Control.sublime-settings" "$SUBL_CONFIG/Package Control.sublime-settings" 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/custom.sublime-color-scheme" "$SUBL_CONFIG/custom.sublime-color-scheme" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/LSP.sublime-settings" "$SUBL_CONFIG/LSP.sublime-settings" 1> /dev/null
-
-# Settings (language-specific)
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/CSS.sublime-settings" "$SUBL_CONFIG/CSS.sublime-settings" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Elixir.sublime-settings" "$SUBL_CONFIG/Elixir.sublime-settings" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Git Commit.sublime-settings" "$SUBL_CONFIG/Git Commit.sublime-settings" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Helm.sublime-settings" "$SUBL_CONFIG/Helm.sublime-settings" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Python.sublime-settings" "$SUBL_CONFIG/Python.sublime-settings" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Ruby.sublime-settings" "$SUBL_CONFIG/Ruby.sublime-settings" 1> /dev/null
-
-# Completions / snippets
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ruby.sublime-completions" "$SUBL_CONFIG/ruby.sublime-completions" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/ipdb.sublime-snippet" "$SUBL_CONFIG/ipdb.sublime-snippet" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/lorem.sublime-snippet" "$SUBL_CONFIG/lorem.sublime-snippet" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/shebang.sublime-snippet" "$SUBL_CONFIG/shebang.sublime-snippet" 1> /dev/null
-
-# Syntaxes
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Gemfile Lock (Bundler).sublime-syntax" "$SUBL_CONFIG/Gemfile Lock (Bundler).sublime-syntax" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Gherkin.sublime-syntax" "$SUBL_CONFIG/Gherkin.sublime-syntax" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Hyprlang.sublime-syntax" "$SUBL_CONFIG/Hyprlang.sublime-syntax" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Helm.sublime-syntax" "$SUBL_CONFIG/Helm.sublime-syntax" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/RSpec.sublime-syntax" "$SUBL_CONFIG/RSpec.sublime-syntax" 1> /dev/null
-
-# Commands/plugins
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/Default.sublime-commands" "$SUBL_CONFIG/Default.sublime-commands" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/assign_syntax.py" "$SUBL_CONFIG/assign_syntax.py" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/new_project_from_root_command.py" "$SUBL_CONFIG/new_project_from_root_command.py" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/open_file_from_find_results_command.py" "$SUBL_CONFIG/open_file_from_find_results_command.py" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/project_in_statusbar.py" "$SUBL_CONFIG/project_in_statusbar.py" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/relink_resource_file.py" "$SUBL_CONFIG/relink_resource_file.py" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/scratch_buffer.py" "$SUBL_CONFIG/scratch_buffer.py" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/single_last_selection_command.py" "$SUBL_CONFIG/single_last_selection_command.py" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/LSP.sublime-settings" "$SUBL_CONFIG/LSP.sublime-settings" 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/LSP-copilot.sublime-settings" "$SUBL_CONFIG/LSP-copilot.sublime-settings" 1> /dev/null
 
-# Copilot LSP only installed on work machines
-if is_work_or_hybrid; then
-	ln -sfv "${SCRIPT_BASE_DIR}/$module_name/LSP-copilot.sublime-settings" "$SUBL_CONFIG/LSP-copilot.sublime-settings" 1> /dev/null
-fi
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/LangSettings/"* "$SUBL_CONFIG"
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/Completions/"* "$SUBL_CONFIG"
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/Syntaxes/"* "$SUBL_CONFIG"
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/Plugins/"* "$SUBL_CONFIG"
