@@ -78,6 +78,9 @@ bindm = $mainMod, mouse:273, resizewindow
 # Move workspace to the next monitor
 bind = $mainMod, X, movecurrentworkspacetomonitor, +1
 
+# Clipboard
+bind = $mainMod, P, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
+
 # Screenshot
 bind = , Print, exec, grim -g "$(slurp)" - | tee $screenshots_dir/$(date +%F-%T).png | wl-copy
 
