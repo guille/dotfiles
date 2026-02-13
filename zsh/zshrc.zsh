@@ -66,6 +66,18 @@ zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|
 zstyle ':fzf-tab:complete:git-(add|diff|restore):argument-rest' fzf-preview 'git diff $word | delta'
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
 zstyle ':fzf-tab:complete:pacman:*' fzf-preview 'pacman -Si $word'
+zstyle ':fzf-tab:complete:make:*' fzf-preview \
+	'case "$group" in
+    *"[make target]")
+        make -n $word 2>/dev/null | bat --color=always -l bash
+        ;;
+    *"[make variable]")
+        make -pq 2>/dev/null | grep -E "^$word\s*[?]?=" | head -20 || echo "Variable: $word"
+        ;;
+    *"[file]")
+        bat --color=always --style=numbers --line-range=:500 "$realpath" 2>/dev/null || eza -1 --icons=always --color=always "$realpath"
+        ;;
+    esac'
 zstyle ':fzf-tab:complete:mise:*' fzf-preview \
 '[[ -n ${words[2]} ]] && case ${words[2]} in
   use)  mise ls-remote $word 2>/dev/null | tail -20 ;;
