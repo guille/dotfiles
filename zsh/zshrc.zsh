@@ -181,7 +181,7 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 fi
 
 # nnn
-# alias nnn='nnn -n'
+export NNN_OPTS='An'
 export NNN_PLUG='z:autojump;m:nmount'
 if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	export NNN_PLUG=${NNN_PLUG}';s:! echo $nnn|wl-copy*'
