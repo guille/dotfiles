@@ -89,6 +89,7 @@ windowrule {
 
     fullscreen = on
     idle_inhibit = fullscreen
+    opaque = on
     workspace = 5
 }
 windowrule {
@@ -103,4 +104,10 @@ windowrule {
 
     float = on
     pin = on
+}
+windowrule {
+    name = imv
+    match:class = ^imv$
+
+    opaque = on
 }
