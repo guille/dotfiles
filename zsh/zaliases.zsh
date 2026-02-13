@@ -92,9 +92,10 @@ alias man='noglob man'
 
 alias docclean='docker ps -aq | xargs -I "{}" bash -c "docker rm --force {}"'
 
+# Using git prune-branches for now...
 # Cleans branches that were tracking a remote that has been deleted
-alias _gitpruneo='git remote prune origin || true'
-alias gitbclean="_gitpruneo && git branch -r | awk '{print \$1}' | \egrep -v -f /dev/fd/0 <(git branch -vv | \grep origin) | awk '{print \$1}' | xargs git branch -D"
+# alias _gitpruneo='git remote prune origin || true'
+# alias gitbclean="_gitpruneo && git branch -r | awk '{print \$1}' | \egrep -v -f /dev/fd/0 <(git branch -vv | \grep origin) | awk '{print \$1}' | xargs git branch -D"
 
 # Go to the root of git directory
 groot() {
