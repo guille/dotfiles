@@ -3,20 +3,29 @@
 
 () {
   function prompt_mise() {
-    # Fast path: skip if no mise config files in parent dirs
+    # Find mise config file for cache invalidation
+    local cfg_file=
     _p9k_upglob 'mise.toml|mise.local.toml' -.
     local -i upglob_result=$?
-    (( upglob_result == 0 )) && return
+    if (( upglob_result )); then
+      local dir=$_p9k__parent_dirs[$upglob_result]
+      # Find which file exists
+      for cfg_file in $dir/mise.toml $dir/mise.local.toml; do
+        [[ -f $cfg_file ]] && break
+        cfg_file=
+      done
+    fi
+    [[ -z $cfg_file ]] && return
 
-    # Check cache for this directory
-    if ! _p9k_cache_get "$0" "$_p9k__cwd_a"; then
+    # Check cache with file-based invalidation
+    if ! _p9k_cache_stat_get "$0" "$cfg_file"; then
       local -a plugins
       local line
       for line in ${(f)"$(mise ls --current --local 2>/dev/null)"}; do
         local parts=(${=line})
         [[ ${#parts} -ge 2 ]] && plugins+=("$parts[1] $parts[2]")
       done
-      _p9k_cache_set "${plugins[@]}"
+      _p9k_cache_stat_set "${plugins[@]}"
     fi
 
     # Use cached results directly
