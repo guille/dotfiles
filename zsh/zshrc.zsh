@@ -152,7 +152,7 @@ fi
 
 export FZF_DEFAULT_COMMAND='fd --hidden --type f'
 # CTRL-R - Paste the selected command from history onto the command-line
-export FZF_CTRL_R_OPTS=$'--preview \'echo {}\'
+export FZF_CTRL_R_OPTS=$'--preview "bat --style=plain --color=always -lzsh <<<{2..}"
 --preview-window down:5:hidden:wrap
 --bind \'?:toggle-preview\'
 --bind \'ctrl-y:execute-silent(echo -n {2..} | '"$COPY_CMD"$')\'
