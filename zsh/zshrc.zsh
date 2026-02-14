@@ -120,9 +120,17 @@ zstyle ':fzf-tab:*' group-colors $FZF_TAB_GROUP_COLORS
 #   done
 # }
 
-# ═════════════════════════ tools ═════════════════════════
+# ══════════════════════ tools: misc ══════════════════════
 
 eval "$(mise activate zsh)"
+
+# Won't work in MacOS / Mandoc: https://github.com/sharkdp/bat/issues/1145
+if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
+	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+	export MANROFFOPT="-c"
+fi
+
+# ══════════════════════ tools: fzf ══════════════════════
 
 source <(fzf --zsh)
 # Similar to base16-tube
@@ -156,7 +164,20 @@ export FZF_ALT_C_OPTS="--preview 'eza -1 --icons=always --color=always {}'"
 export FZF_CTRL_T_COMMAND='fd --hidden --strip-cwd-prefix'
 export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || eza -1 --icons=always --color=always {}"'
 
+# ═════════════════════ tools: zoxide ═════════════════════
+
 eval "$(zoxide init zsh)"
+export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS \
+ --cycle --keep-right --info=inline \
+ --preview-window=down,30% --preview 'eza -1 --icons=always --color=always {2..}'\
+"
+function execute_zoxide() {
+  __zoxide_zi
+  # _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" __zoxide_zi
+  zle accept-line
+}
+zle -N execute_zoxide
+bindkey '^j' execute_zoxide
 # fuzzy search zoxide from its own db, with full paths (unlike zi) and go to best option
 function zz() {
 	local result
@@ -174,13 +195,8 @@ function zzz() {
 	fi
 }
 
-# Won't work in MacOS / Mandoc: https://github.com/sharkdp/bat/issues/1145
-if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
-	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-	export MANROFFOPT="-c"
-fi
+# ══════════════════════ tools: nnn ═══════════════════════
 
-# nnn
 export NNN_OPTS='An'
 export NNN_PLUG='z:autojump;m:nmount'
 if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
