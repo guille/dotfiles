@@ -21,7 +21,7 @@ infoprint "[$module_name] setting up mise's autocompletion"
 mise use --global usage
 
 # Always regenerate completions
-mise completion zsh  > /usr/local/share/zsh/site-functions/_mise
+mise completion zsh > /usr/local/share/zsh/site-functions/_mise
 
 infoprint "[$module_name] mise config flags"
 mise settings set experimental true
@@ -31,14 +31,8 @@ gitignore "mise.local.toml"
 infoprint "[$module_name] installing global mise tools"
 mise use -g helm-ls@latest
 
-infoprint "[$module_name] pruning outdated mise tools"
-mise prune
-
-infoprint "[$module_name] activating for this session"
-eval "$(mise activate zsh)"
-
 if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
-	infoprint "[$module_name] installing tools with mise"
+	# we get these thru pacman in Arch
 	mise use --global eza@latest
 	mise use --global opencode@latest
 	mise use --global typst@latest
@@ -46,3 +40,9 @@ if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
 	mise use --global kubectx@latest
 	mise use --global github:atanunq/viu
 fi
+
+infoprint "[$module_name] pruning outdated mise tools"
+mise prune
+
+infoprint "[$module_name] activating for this session"
+eval "$(mise activate zsh)"
