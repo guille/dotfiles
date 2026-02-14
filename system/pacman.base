@@ -11,6 +11,7 @@ hypridle
 hyprland
 hyprlock
 lxsession
+net-tools
 network-manager-applet
 networkmanager
 nm-connection-editor
@@ -39,8 +40,11 @@ fd
 fzf
 git
 git-delta
+helm
 htop
 jq
+kubectl
+kubectx
 lsof
 magic-wormhole
 mise

@@ -8,6 +8,8 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	alias pacuw='sudo pacman -Syuw'
 	alias pacc='paccache -rk 1 && paccache -ruk0 && sudo pacman -Rns $(pacman -Qtdq)'
 
+	alias open='xdg-open'
+
 	# Notifications
 	dnd() {
 		dunstctl set-paused toggle
@@ -61,6 +63,10 @@ alias la='eza --icons=auto --color=auto --group-directories-first -a'
 alias lsd='eza --icons=auto --color=auto -D'
 alias lla='eza --icons=auto --color=auto --group-directories-first -la'
 alias laa='eza --icons=auto --color=auto --group-directories-first -la'
+
+alias k='kubectl'
+alias kx='kubectx'
+alias kn='kubens'
 
 # Nicer help texts with bat
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'

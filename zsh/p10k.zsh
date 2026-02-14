@@ -40,6 +40,7 @@
     dmn                     # custom pty bridge
     aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
     mise                    # custom (https://github.com/romkatv/powerlevel10k/issues/2212)
+    kubecontext             # current kubernetes context (https://kubernetes.io/)
     # =========================[ Line #2 ]=========================
     newline                 # \n
     prompt_char             # prompt symbol
@@ -83,7 +84,6 @@
     # phpenv                # php version from phpenv (https://github.com/phpenv/phpenv)
     # scalaenv              # scala version from scalaenv (https://github.com/scalaenv/scalaenv)
     # haskell_stack         # haskell version from stack (https://haskellstack.org/)
-    # kubecontext           # current kubernetes context (https://kubernetes.io/)
     # terraform             # terraform workspace (https://www.terraform.io)
     # terraform_version     # terraform version (https://www.terraform.io)
     # aws_eb_env            # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)

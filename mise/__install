@@ -42,5 +42,7 @@ if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
 	mise use --global eza@latest
 	mise use --global opencode@latest
 	mise use --global typst@latest
+	mise use --global kubectl@latest
+	mise use --global kubectx@latest
 	mise use --global github:atanunq/viu
 fi
