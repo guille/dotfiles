@@ -164,6 +164,26 @@ export FZF_ALT_C_OPTS="--preview 'eza -1 --icons=always --color=always {}'"
 export FZF_CTRL_T_COMMAND='fd --hidden --strip-cwd-prefix'
 export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || eza -1 --icons=always --color=always {}"'
 
+# Affects **<Tab>
+export FZF_COMPLETION_OPTS='--info=inline'
+_fzf_compgen_path() {
+  fd --follow . "$1"
+}
+
+_fzf_compgen_dir() {
+  fd --type d --follow . "$1"
+}
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd|ls)           fzf "$@" --preview 'exa -1 --icons=always --color=always {}' ;;
+    export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
+    *)            fzf "$@" --preview 'bat -n --color=always {}';;
+  esac
+}
+
 # ═════════════════════ tools: zoxide ═════════════════════
 
 eval "$(zoxide init zsh)"
