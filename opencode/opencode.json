@@ -25,7 +25,10 @@
       "tail *": "allow",
       "rm *": "deny",
     },
-    "external_directory": "deny",
+    "external_directory": {
+      "*": "deny",
+      "/tmp/**": "ask"
+    },
   },
   "enabled_providers": [
     "github-copilot",
