@@ -38,8 +38,9 @@
     # os_icon               # os identifier
     context                 # user@hostname
     dmn                     # custom pty bridge
-    aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+    nnn                     # nnn shell (https://github.com/jarun/nnn)
     mise                    # custom (https://github.com/romkatv/powerlevel10k/issues/2212)
+    aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
     kubecontext             # current kubernetes context (https://kubernetes.io/)
     # =========================[ Line #2 ]=========================
     newline                 # \n
@@ -93,8 +94,7 @@
     # toolbox               # toolbox name (https://github.com/containers/toolbox)
     # nordvpn               # nordvpn connection status, linux only (https://nordvpn.com/)
     # ranger                # ranger shell (https://github.com/ranger/ranger)
-    # yazi                    # yazi shell (https://github.com/sxyazi/yazi)
-    # nnn                   # nnn shell (https://github.com/jarun/nnn)
+    # yazi                  # yazi shell (https://github.com/sxyazi/yazi)
     # lf                    # lf shell (https://github.com/gokcehan/lf)
     # xplr                  # xplr shell (https://github.com/sayanarijit/xplr)
     # vim_shell             # vim shell indicator (:sh)
