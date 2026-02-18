@@ -8,8 +8,11 @@
 	"find_selected_text": false,
 	"folder_exclude_patterns": [
 		".git",
-		".ruby_lsp",
+		".ruby-lsp",
 		"node_modules",
+		".venv",
+		"__pycache__",
+		".ruff_cache",
 	],
 	"font_face": "Inconsolata Nerd Font",
 	"font_size": ###FONT_SIZE###,
