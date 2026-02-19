@@ -27,10 +27,11 @@
         "clock",
         "custom/separator",
         "custom/pacman",
+        "idle_inhibitor",
         "custom/dunst",
-        "custom/power",
         "custom/separator",
-        "tray"
+        "tray",
+        "custom/power"
     ],
     "hyprland/workspaces": {
         "all-outputs": true,
@@ -153,12 +154,19 @@
         "exec": "~/.config/waybar/scripts/pacman.sh",
         "interval": "3600"
     },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "<span color=\"#ffd204\">󰅶 </span>",
+            "deactivated": "󰾪 "
+        }
+    },
     "custom/dunst": {
         "format": " <span color=\"#ffd204\">{}</span>",
         "tooltip": false,
         "exec": "~/.config/waybar/scripts/dunst.sh",
         "on-click": "dunstctl set-paused toggle",
-        "restart-interval": 1
+        "restart-interval": 60
     },
     "custom/power": {
         "format": "<span color=\"#ee2e24\"> </span>",
