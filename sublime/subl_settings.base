@@ -31,7 +31,7 @@
 	],
 	"show_git_status_in_status_bar": false,
 	"spell_check": true,
-	"spelling_selector": "markup.raw, source comment - source comment.block.preprocessor, text",
+	"spelling_selector": "markup.raw, source comment - source comment.block.preprocessor, text - (text.html & meta)",
 	"sublime_merge_path": null,
 	"tab_size": 4,
 	"theme": "Agila Monokai.sublime-theme",
