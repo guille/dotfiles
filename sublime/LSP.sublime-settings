@@ -231,5 +231,133 @@
 			},
 			"settings": {},
 		},
+		// https://github.com/sveltejs/language-tools/tree/master/docs
+		"svelte": {
+			"enabled": true,
+			"command": [
+				"svelteserver",
+				"--stdio"
+			],
+			"selector": "text.html.svelte",
+			"initializationOptions": {
+				"configuration": {
+					"svelte": {
+						"plugin": {
+							"css": {
+								"enable": true,
+								"globals": "",
+								"colorPresentations": {
+									"enable": true
+								},
+								"completions": {
+									"enable": true,
+									"emmet": true
+								},
+								"diagnostics": {
+									"enable": true
+								},
+								"documentColors": {
+									"enable": true
+								},
+								"documentSymbols": {
+									"enable": true
+								},
+								"hover": {
+									"enable": true
+								},
+								"selectionRange": {
+									"enable": true
+								}
+							},
+							"html": {
+								"enable": true,
+								"completions": {
+									"enable": true,
+									"emmet": true
+								},
+								"documentSymbols": {
+									"enable": true
+								},
+								"hover": {
+									"enable": true
+								},
+								"linkedEditing": {
+									"enable": true
+								},
+								"renameTags": {
+									"enable": true
+								},
+								"tagComplete": {
+									"enable": true
+								}
+							},
+							"svelte": {
+								"enable": true,
+								"codeActions": {
+									"enable": true
+								},
+								"compilerWarnings": {},
+								"completions": {
+									"enable": true
+								},
+								"useNewTransformation": false,
+								"diagnostics": {
+									"enable": true
+								},
+								"format": {
+									"enable": true
+								},
+								"hover": {
+									"enable": true
+								},
+								"rename": {
+									"enable": true
+								},
+								"selectionRange": {
+									"enable": true
+								}
+							},
+							"typescript": {
+								"enable": true,
+								"codeActions": {
+									"enable": true
+								},
+								"completions": {
+									"enable": true
+								},
+								"definitions": {
+									"enable": true
+								},
+								"diagnostics": {
+									"enable": true
+								},
+								"documentSymbols": {
+									"enable": true
+								},
+								"findReferences": {
+									"enable": true
+								},
+								"hover": {
+									"enable": true
+								},
+								"rename": {
+									"enable": true
+								},
+								"selectionRange": {
+									"enable": true
+								},
+								"semanticTokens": {
+									"enable": true
+								},
+								"signatureHelp": {
+									"enable": true
+								}
+							}
+						}
+					}
+				}
+			},
+			"settings": {},
+		},
 	}
 }

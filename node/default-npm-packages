@@ -1,4 +1,5 @@
-yaml-language-server
 dockerfile-language-server-nodejs
-typescript-language-server
+svelte-language-server
 typescript
+typescript-language-server
+yaml-language-server
