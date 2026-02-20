@@ -229,8 +229,11 @@ fi
 
 # ══════════════════════ extra files ══════════════════════
 
-[[ -f "$HOME/.zkeys" ]] && . "$HOME/.zkeys"
-[[ -f "$HOME/.zaliases" ]] && . "$HOME/.zaliases"
+[[ -f ~/.zkeys ]] && source ~/.zkeys
+[[ -f ~/.zaliases ]] && source ~/.zaliases
+
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+[[ -f ~/.zshrc.$(hostname) ]] && source ~/.zshrc.$(hostname)
 
 # ════════════════════════ plugins ════════════════════════
 
