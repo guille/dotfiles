@@ -48,5 +48,4 @@ class OpenFileFromFindResultsCommand(sublime_plugin.TextCommand):
 
     def is_enabled(self):
         """Only enable this command in Find in Files result views"""
-        scope = self.view.scope_name(self.view.sel()[0].begin())
-        return "text.find-in-files" in scope
+        return self.view.match_selector(0, "text.find-in-files")

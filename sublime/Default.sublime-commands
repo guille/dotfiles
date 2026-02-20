@@ -8,6 +8,10 @@
         "caption": "Run dmn's task picker",
         "command": "dmn",
     },
+    {
+        "caption": "Find in Files: Open Matching Files",
+        "command": "open_all_found_files",
+    },
     // Scratch buffer
     {
         "caption": "Open Scratch Buffer",
