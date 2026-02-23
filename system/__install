@@ -165,3 +165,18 @@ if [[ "$DOTFILES_OS" == "Linux" ]]; then
 elif [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	setup_osx
 fi
+
+infoprint "[$module_name] generating ssh keys"
+if is_personal_or_hybrid; then
+	if [[ ! -f ~/.ssh/git_personal ]]; then
+		ssh-keygen -t ed25519 -C "personal@$(hostname)" -f ~/.ssh/git_personal -N ''
+		ssh-keygen -t ed25519 -C "personal@$(hostname) sign" -f ~/.ssh/git_personal_sign -N ''
+		ssh-add ~/.ssh/git_personal ~/.ssh/git_personal_sign || true
+	fi
+elif is_work_or_hybrid; then
+	if [[ ! -f ~/.ssh/git_work ]]; then
+		ssh-keygen -t ed25519 -C "work@$(hostname)" -f ~/.ssh/git_work -N ''
+		ssh-keygen -t ed25519 -C "work@$(hostname) sign" -f ~/.ssh/git_work_sign -N ''
+		ssh-add ~/.ssh/git_work ~/.ssh/git_work_sign || true
+	fi
+fi
