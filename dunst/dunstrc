@@ -90,13 +90,16 @@
     background = "#5c8f6a"
     foreground = "#ffffff"
     timeout = 10
+    default_icon = "gtk-dialog-info"
 
 [urgency_normal]
     background = "#3b4252"
     foreground = "#eceff4"
     timeout = 10
+    default_icon = "gtk-dialog-info"
 
 [urgency_critical]
     background = "#900000"
     foreground = "#ffffff"
     timeout = 0
+    default_icon = "gtk-dialog-error"
