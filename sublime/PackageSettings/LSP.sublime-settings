@@ -35,6 +35,12 @@
 			"command": [
 				"gopls"
 			],
+			"settings": {
+				"gopls.directoryFilters": [
+					"-**/node_modules"
+				],
+				"gopls.staticcheck": true,
+			},
 			"selector": "source.go | source.gomod",
 		},
 		// https://docs.astral.sh/ruff/editors/settings/

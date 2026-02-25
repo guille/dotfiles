@@ -1,0 +1,5 @@
+// SublimeLinter Settings - User
+{
+	"statusbar.show_active_linters": false,
+	"linters": {}
+}
