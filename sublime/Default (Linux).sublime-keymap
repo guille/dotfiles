@@ -100,6 +100,13 @@
 		],
 		"command": "find_all_under"
 	},
+	// Previous match
+	{
+		"keys": [
+			"alt+d"
+		],
+		"command": "find_prev"
+	},
 	// Skill issues (ES layout)
 	{
 		"keys": [
@@ -108,6 +115,16 @@
 		"command": "toggle_comment",
 		"args": {
 			"block": false
+		}
+	},
+	{
+		"keys": [
+			"ctrl+\\" // spanish layout: ctrl+ç
+		],
+		"command": "show_overlay",
+		"args": {
+			"overlay": "goto",
+			"text": "#"
 		}
 	},
 	// Instead of build -> Go To Definition
