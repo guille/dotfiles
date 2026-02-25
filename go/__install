@@ -12,6 +12,8 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=go
 
 
+gitignore "go.work"
+
 ##
 # Symlinks
 ##
