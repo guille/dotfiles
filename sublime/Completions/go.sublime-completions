@@ -1,0 +1,15 @@
+{
+	"scope": "source.go",
+	"completions": [
+		{
+			"trigger": "TestMain",
+			"contents": "func TestMain(m *testing.M) {\n\t${1:// Set up}\n\texitval := m.Run()\n\t${2:// Tear down}\n\tos.Exit(exitVal)\n}",
+			"kind": "snippet",
+		},
+		{
+			"trigger": "go build ignore",
+			"contents": "//go:build ignore",
+			"kind": "snippet",
+		}
+	]
+}
