@@ -10,7 +10,7 @@ configuration {
 /*****----- Global Properties -----*****/
 @import                          "~/.config/rofi/colors/arc.rasi"
 * {
-    font: "Inconsolata Nerd Font 10";
+    font: "0xProto Nerd Font 9";
 }
 
 /*****----- Main Window -----*****/

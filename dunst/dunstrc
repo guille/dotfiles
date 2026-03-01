@@ -6,7 +6,7 @@
     browser = "firefox"
 
     # Text
-    font = Inconsolata 14
+    font = 0xProto Nerd Font 12
     markup = full
     # Alignment of message text.
     alignment = left

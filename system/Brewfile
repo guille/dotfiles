@@ -39,6 +39,7 @@ brew 'zsh-syntax-highlighting'
 
 cask 'flashspace'
 cask 'font-inconsolata-nerd-font'
+cask 'font-0xproto-nerd-font'
 cask 'ghostty'
 cask 'keepingyouawake'
 cask 'alt-tab'

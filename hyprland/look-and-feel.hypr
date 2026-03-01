@@ -44,7 +44,7 @@ binds {
 
 misc {
     force_default_wallpaper = 0
-    font_family = Inconsolata Nerd Font
+    font_family = 0xProto Nerd Font
     disable_hyprland_logo = true
     vfr = true
     focus_on_activate = true # god bless

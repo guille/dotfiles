@@ -1,6 +1,6 @@
 configuration {
 	modi: "window,drun,ssh,combi";
-	font: "Inconsolata 12";
+	font: "0xProto Nerd Font 10";
 	combi-modi: "drun";
 	case-sensitive: false;
 	normalize-match: true;
