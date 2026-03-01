@@ -1,4 +1,5 @@
 {
+	// Sublime Text
 	"auto_complete_commit_on_tab": true,
 	"close_windows_when_empty": true,
 	"color_scheme": "custom.sublime-color-scheme",
@@ -35,9 +36,16 @@
 	"spelling_selector": "markup.raw, source comment - source comment.block.preprocessor, text.html.markdown, text - (text.html & meta)",
 	"sublime_merge_path": null,
 	"tab_size": 4,
-	"theme": "Agila Monokai.sublime-theme",
-	"theme_agila_compact_sidebar": true,
-	"theme_agila_sidebar_small": true,
+	"theme": "Treble Adaptive.sublime-theme",
 	"trim_only_modified_white_space": false,
 	"trim_trailing_white_space_on_save": "all",
+	// Treble Theme
+	"accent_color": "grayscale",
+	"adaptive_theme_style": "mix",
+	"row_padding_space": "large",
+	"show_sidebar_tracked_label_colors": true,
+	"show_sidebar_untracked_label_colors": true,
+	// Agila Theme
+	"theme_agila_compact_sidebar": true,
+	"theme_agila_sidebar_small": true,
 }
