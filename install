@@ -104,7 +104,6 @@ modules_to_install=(
 	tailscale
 	mybin
 	bat
-	restic
 	fd
 	dnie
 	flashspace
@@ -125,5 +124,8 @@ for module in "${modules_to_install[@]}"; do
 	bash "$SCRIPT_BASE_DIR/$module/__install"
 	infoprint "[main] $module done"
 done
+
+infoprint "[main] generating completions"
+"$SCRIPT_BASE_DIR/mybin/both/compupdate"
 
 infoprint "[main] done"

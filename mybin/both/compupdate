@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+if [[ "$DOTFILES_OS" == "OSX" ]]; then
+	exit 0
+fi
+
+command_exists() {
+	type "$1" &> /dev/null ;
+}
+
+download_and_install() {
+	curl -sfL "$2" -o /usr/local/share/zsh/site-functions/$1
+
+}
+
+mkdir -p /usr/local/share/zsh/site-functions/
+
+command_exists mise && mise completion zsh > /usr/local/share/zsh/site-functions/_mise
+command_exists restic && restic generate --zsh-completion /usr/local/share/zsh/site-functions/_restic
+
+download_and_install "_aria2c" "https://raw.githubusercontent.com/zchee/zsh-completions/refs/heads/main/src/zsh/_aria2c"
+
+if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
+	# Tools installed with mise
+	download_and_install "_eza" "https://raw.githubusercontent.com/eza-community/eza/refs/heads/main/completions/zsh/_eza"
+	command_exists opencode && opencode completion zsh > /usr/local/share/zsh/site-functions/_opencode
+	command_exists typst && typst completions zsh > /usr/local/share/zsh/site-functions/_typst
+	command_exists kubectl && kubectl completion zsh > /usr/local/share/zsh/site-functions/_kubectl
+	download_and_install "_kubens" "https://raw.githubusercontent.com/ahmetb/kubectx/refs/heads/master/completion/_kubens.zsh"
+	download_and_install "_kubectx" "https://raw.githubusercontent.com/ahmetb/kubectx/refs/heads/master/completion/_kubectx.zsh"
+fi
