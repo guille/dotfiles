@@ -1,11 +1,14 @@
 [core]
-	autocrlf = input
-	# https://github.com/dandavison/delta/issues/359
-	# Decorations needs to be first: https://github.com/dandavison/delta/issues/549
-	pager = DELTA_FEATURES=$([[ ${COLUMNS:-$(tput cols)} -gt 120 ]] && echo "+decorations side-by-side" || echo "+") delta
-	excludesFile = ~/.gitignore
-	abbrev = 4
+	# default editor
 	editor = nvim
+	# shortest commit hashes possible
+	abbrev = 4
+	# linux/macos only
+	autocrlf = input
+	# global gitignore
+	excludesFile = ~/.gitignore
+	# faster git status (https://git-scm.com/docs/git-update-index#_untracked_cache)
+	untrackedCache = true
 
 [init]
 	defaultBranch = master
@@ -24,34 +27,47 @@
 	format = ssh
 
 [log]
+	# shortest commit hashes possible
 	abbrevCommit = true
 
-# Separate editor for eg interactive rebases
 [sequence]
+	# separate editor for eg interactive rebases
 	editor = subl -w
 
 [alias]
+	# shorter commands
 	st = status
 	co = checkout
+	# show unstaged
 	di = diff
+	# show staged (to be committed)
 	dc = diff --cached
+	# show diff summary stats
+	ds = diff --stat=160,120 --compact-summary
+	# blame following code across file moves
 	blamedeep = blame -w -C -C -C
+	# last commit info without the diff
 	last = show --quiet
+	# amend, with and without editing the message
 	amend = commit --amend
 	qamend = commit --amend --no-edit
+	# only pushes if remote hasn't changed
 	pushf = push --force-with-lease
+	# list 10 most recently modified branches
+	recent = !git for-each-ref --format='%(align:15,right)%(committerdate:relative)%(end)%09 %(refname:short)' refs/heads/ | tail -10
+	# fetch and rebase current branch on origin's default branch
 	up = !git fetch && git rebase refs/remotes/origin/HEAD
+	# delete local branches whose remote has been deleted
 	prune-branches = "!git fetch -p && for branch in $(git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {sub(\"refs/heads/\", \"\", $1); print $1}'); do git branch -D \"$branch\"; done"
-	# amending local changes before pushing
-	fixup = "!git log --oneline $(git merge-base HEAD ${@:-'@{u}'})..HEAD | fzf --preview 'git show --color=always {1}' | cut -d' ' -f1 | xargs -r git commit --fixup"
+	# create fixup commit for an unpushed commit or up to the provided branch
+	fixup = "!f() { git log --oneline $(git merge-base HEAD ${1:-'@{u}'})..HEAD | fzf --preview 'git show --color=always {1}' | cut -d' ' -f1 | xargs -r git commit --fixup; }; f"
+	# same but including pushed commits up to the remote's default branch
+	fixupall = "!git log --oneline origin/HEAD..HEAD | fzf --preview 'git show --color=always {1}' | cut -d' ' -f1 | xargs -r git commit --fixup"
+	# rebase and automatically squash fixup commits into their targets (up to where we diverged from the upstream branch)
 	autosquash = "!git rebase --autosquash $(git merge-base HEAD ${@:-'@{u}'})"
-	# same but including pushed commits
-	fixupall = "!git log --since='1 month ago' --oneline | fzf --preview 'git show --color=always {1}' | cut -d' ' -f1 | xargs -r git commit --fixup"
-	# weirdly useful
-	git = !git
-	# Stats
-	ds = diff --stat=160,120 --compact-summary
-	# Rebase with the given number of latest commits.
+	# same but up to the remote's default branch
+	autosquashall = "!git rebase --autosquash $(git merge-base HEAD ${@:-origin/HEAD})"
+	# rebase with the given number of latest commits, "i" for interactively
 	reb = "!r() { git rebase --autosquash HEAD~$1; }; r"
 	rebi = "!r() { git rebase -i HEAD~$1; }; r"
 	# fancy fzf helpers
@@ -59,40 +75,46 @@
 	ga = "! fzf_git_add"
 	gap = "! fzf_git_add add -p"
 	i = "!git add -N . && git gap"
+	# weirdly useful
+	git = !git
 
 [status]
 	submoduleSummary = true
 
 [pull]
+	# rebase instead of merge when pulling
 	rebase = true
 
 [push]
+	# automatically set the upstream on first push
 	autoSetupRemote = true
+	# automatically push tags pointing to what we're pushing
 	followTags = true
 
 [rebase]
-	autoStash = true
+	# enable --autosquash option (for interactive mode only)
 	autoSquash = true
+	# try to stash before rebasing to allow rebasing on empty worktrees
+	autoStash = true
+
+[blame]
+	# if it exists, use this file to skip over the specified hashes when blaming
+	ignoreRevsFile = :(optional).git-blame-ignore-revs
 
 [fetch]
+	# automatic pruning of remote branches when fetching
 	prune = true
 
-[interactive]
-	diffFilter = delta --color-only
-
-[delta]
-	navigate = true  # use n and N to move between diff sections
-	line-numbers = true
-	tabs = 4
-	syntax-theme = Monokai Extended
-	features = decorations
-
 [merge]
+	# smaller diffs but with original text from merge base
 	conflictStyle = zdiff3
 
 [diff]
-	colorMoved = default
+	# slower but more smaller diffs
 	algorithm = histogram
+	# moved lines of code are colored differently
+	colorMoved = default
+	# show submodule logs in diff
 	submodule = log
 
 [rerere]
@@ -102,13 +124,14 @@
 	ui = auto
 
 [help]
+	# autocorrect wrong commands after 1 second
 	autocorrect = 10
 
 [url "git@github.com:"]
 	pushInsteadOf = "https://github.com/"
 
-# Usually: work email, maintenance repos
 [include]
+	# usually: work email, maintenance repos
 	path = ~/.gitconfig.local
 
 [includeIf "gitdir:~/projects/"]

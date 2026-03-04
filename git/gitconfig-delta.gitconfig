@@ -1,3 +1,20 @@
+[core]
+	# use git-delta for paging
+	# automatically switch to side-by-side diff if wide enough (https://github.com/dandavison/delta/issues/359)
+	# Decorations needs to be first: https://github.com/dandavison/delta/issues/549
+	pager = DELTA_FEATURES=$([[ ${COLUMNS:-$(tput cols)} -gt 120 ]] && echo "+decorations side-by-side" || echo "+") delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	features = decorations
+	line-numbers = true
+	# use n and N to move between diff sections
+	navigate = true
+	syntax-theme = Monokai Extended
+	tabs = 4
+
 [delta "decorations"]
 	file-style = "#fd971f bold"
 	file-decoration-style = "#84786A box ul"
