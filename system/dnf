@@ -29,6 +29,7 @@ qt5-qtwayland
 qt6-qtwayland
 wl-clipboard
 xorg-x11-server-Xwayland
+aria2
 bat
 containerd
 docker-cli

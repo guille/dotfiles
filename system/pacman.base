@@ -32,6 +32,7 @@ xdg-desktop-portal-hyprland
 xorg-xwayland
 ##
 # terminal utils
+aria2
 bat
 docker
 docker-buildx
