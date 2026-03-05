@@ -1,4 +1,4 @@
--- Pacman already puts fzf in /usr/share/vim, so it gets loaded
+-- Pacman and Alpine already put fzf in rtp, so it gets loaded
 -- This is needed for homebrew-installed fzf
 vim.opt.runtimepath:append('/usr/local/opt/fzf')
 
