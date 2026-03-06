@@ -1,0 +1,9 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/syntax.html
+scope: source.yaml.helmvalues
+version: 2
+
+extends: Packages/YAML/YAML.sublime-syntax
+
+# values*.yml files are valid YAML but helm-ls supports them, so I use this scope to trigger both LSPs

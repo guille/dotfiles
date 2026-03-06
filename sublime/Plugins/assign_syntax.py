@@ -5,6 +5,9 @@ import sublime_plugin
 
 import sublime
 
+HELM_VALUES_REGEX = re.compile(r".*values.*\.(?:yml|yaml)$")
+HELM_TEMPLATES_REGEX = re.compile(r".*\/templates\/.*\/?[^\/]+\.(?:yml|yaml|tpl)$")
+
 
 def assign_syntax(view: sublime.View) -> bool:
     """
@@ -40,28 +43,34 @@ def assign_syntax(view: sublime.View) -> bool:
         return True
 
     syntax = view.syntax()
-    if syntax and syntax.scope == "source.ruby":
-        if file.endswith("_spec.rb"):
-            view.assign_syntax("scope:source.ruby.rspec")
-            return True
-
-        window = view.window()
-        if window:
-            project_data = cast("dict[str, Any]", window.project_data())
-            if project_data.get("config", {}).get("rails", False):
-                view.assign_syntax("scope:source.ruby.rails")
+    if syntax:
+        # RSpec/Rails
+        if syntax.scope == "source.ruby":
+            if file.endswith("_spec.rb"):
+                view.assign_syntax("scope:source.ruby.rspec")
                 return True
 
-    # Helm stuff
-    if (syntax and syntax.scope == "source.yaml") or file.endswith(".tpl"):
-        # if file.endswith("Chart.yaml"):
-        #     view.assign_syntax("scope:source.yaml.go")
-        #     return True
+            window = view.window()
+            if window:
+                project_data = cast("dict[str, Any]", window.project_data())
+                if project_data.get("config", {}).get("rails", False):
+                    view.assign_syntax("scope:source.ruby.rails")
+                    return True
 
-        rx = re.compile(r".*\/templates\/.*\/?[^\/]+\.(?:yml|yaml|tpl)$")
-        if rx.match(file):
-            view.assign_syntax("scope:source.helm")
-            return True
+        # Helm
+        elif syntax.scope == "source.yaml":
+            # Uncomment if/when helm-ls supports these
+            # if file.endswith("Chart.yaml"):
+            #     view.assign_syntax("scope:source.yaml.helmvalues")
+            #     return True
+
+            if HELM_VALUES_REGEX.match(file):
+                view.assign_syntax("scope:source.yaml.helmvalues")
+                return True
+
+            if HELM_TEMPLATES_REGEX.match(file):
+                view.assign_syntax("scope:source.helm")
+                return True
 
     return False
 

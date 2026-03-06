@@ -170,7 +170,7 @@
 				// No clue if this works
 				"yamlls.config.kubernetesCRDStore.enable": true
 			},
-			"selector": "source.helm"
+			"selector": "source.helm | source.yaml.helmvalues"
 		},
 		// https://github.com/Myriad-Dreamin/tinymist
 		// https: //github.com/sublimelsp/LSP-Tinymist/blob/main/LSP-Tinymist.sublime-settings
