@@ -62,11 +62,14 @@ zstyle ':fzf-tab:*' fzf-flags '--info=hidden'
 zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1 --icons=always --color=always $realpath'
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons=always --color=always $realpath'
 zstyle ':fzf-tab:complete:eza:*' fzf-preview 'eza -1 --icons=always --color=always $realpath'
+zstyle ':fzf-tab:complete:bat:*' fzf-preview 'bat --color=always --style=numbers --line-range=:500 "$realpath" 2>/dev/null || eza -1 --icons=always --color=always "$realpath"'
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
 zstyle ':fzf-tab:complete:git-(add|diff|restore):argument-rest' fzf-preview 'git diff $word | delta'
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
 zstyle ':fzf-tab:complete:pacman:*' fzf-preview 'pacman -Si $word'
+zstyle ':fzf-tab:complete:dnf:*' fzf-preview 'dnf info $word'
+zstyle ':fzf-tab:complete:npm:*' fzf-preview 'npm info $word'
 zstyle ':fzf-tab:complete:make:*' fzf-preview \
 	'case "$group" in
     *"[make target]")
@@ -106,6 +109,8 @@ zstyle ':completion:*' special-dirs true
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,comm,args -ww"
 # Nicer than "--"
 zstyle ':completion:*' list-separator ' =>'
+# Don't show zsh completion functions
+zstyle ':completion:*:functions' ignored-patterns '_*'
 # nicer colors
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 FZF_TAB_GROUP_COLORS=(
