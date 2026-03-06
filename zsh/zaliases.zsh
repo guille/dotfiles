@@ -125,18 +125,18 @@ h() {
 	cd ~/$1
 }
 _h() {
-  _files -W $HOME -/
+	_files -W $HOME -/
 }
 compdef _h h
 
 tempe () {
-  cd "$(mktemp -d)"
-  chmod -R 0700 .
-  if [[ $# -eq 1 ]]; then
-    \mkdir -p "$1"
-    cd "$1"
-    chmod -R 0700 .
-  fi
+	cd "$(mktemp -d)"
+	chmod -R 0700 .
+	if [[ $# -eq 1 ]]; then
+		\mkdir -p "$1"
+		cd "$1"
+		chmod -R 0700 .
+	fi
 }
 
 # ════════════════════════════════════════════════════════════════════════
