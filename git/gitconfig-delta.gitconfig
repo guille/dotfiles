@@ -12,8 +12,11 @@
 	line-numbers = true
 	# use n and N to move between diff sections
 	navigate = true
-	syntax-theme = Monokai Extended
+	syntax-theme = custom
 	tabs = 4
+	map-styles = \
+		bold purple => syntax "#330f29", \
+		bold cyan => syntax "#1d4936"
 
 [delta "decorations"]
 	file-style = "#fd971f bold"

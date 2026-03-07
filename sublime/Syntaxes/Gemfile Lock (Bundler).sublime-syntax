@@ -1,8 +1,8 @@
 %YAML 1.2
 ---
 name: Bundler Gemfile.lock
-file_extensions: []
-# first_line_match: '^(GEM|PATH|GIT|PLATFORMS|DEPENDENCIES|CHECKSUMS|BUNDLED WITH|RUBY VERSION|PLUGIN SOURCE)\r?$'
+file_extensions:
+  - Gemfile.lock
 scope: source.gemfile.lock
 version: 2
 

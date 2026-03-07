@@ -38,6 +38,7 @@ def assign_syntax(view: sublime.View) -> bool:
         return False
 
     # Ruby stuff
+    # AFileIcon assigns text.plain.lock without this
     if file.endswith(("Gemfile.lock", "gemfile.lock")):
         view.assign_syntax("scope:source.gemfile.lock")
         return True
