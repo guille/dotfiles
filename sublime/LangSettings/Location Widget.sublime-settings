@@ -1,0 +1,15 @@
+{
+	"auto_complete": true,
+	"auto_complete_disabled": false,
+	"auto_complete_selector": "source",
+	"auto_complete_triggers": [
+		{
+			"rhs_empty": true,
+			"selector": "constant.other.path.project-root, constant.other.wildcard, punctuation.separator"
+		},
+		{
+			"characters": "<"
+		}
+	],
+	"auto_complete_use_index": false,
+}

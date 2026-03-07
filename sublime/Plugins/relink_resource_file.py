@@ -34,6 +34,6 @@ class RelinkResourceFileListener(sublime_plugin.EventListener):
 
     def _relink(self, path):
         link_path = os.readlink(path)
-        print("relinking", path, link_path)
         os.unlink(path)
         os.symlink(link_path, path)
+        # print("relinked!")
