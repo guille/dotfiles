@@ -12,6 +12,10 @@
         "caption": "Find in Files: Open Matching Files",
         "command": "open_all_found_files",
     },
+    {
+        "caption": "UI: Clear Console",
+        "command": "clear_console"
+    },
     // Scratch buffer
     {
         "caption": "Open Scratch Buffer",

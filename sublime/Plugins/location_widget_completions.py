@@ -8,6 +8,7 @@ Changes (@guille):
 - Default to showing only "/" and "$HOME" instead of all root subdirs at first
 - Trigger autocomplete menu when entering the "Where:" element (TriggerFindInFilesLocationAutocompletionListener)
 - Trigger autocomplete on more cases (eg when committing ",")
+- Fix bug when there is an open file without extension
 """
 
 from __future__ import annotations
@@ -189,9 +190,10 @@ class FindInFilesLocationCompletionListener(sublime_plugin.EventListener):
             for view in window.views():
                 fname = view.file_name()
                 if fname:
-                    _, ext = fname.rsplit(".", 1)
-                    if ext:
-                        extensions.add(ext)
+                    if "." in fname:
+                        _, ext = fname.rsplit(".", 1)
+                        if ext:
+                            extensions.add(ext)
 
             for ext in extensions:
                 completions.append(

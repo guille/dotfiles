@@ -455,4 +455,91 @@
 			},
 		]
 	},
+	// quick_panel.py shortcuts
+	{
+		"keys": [
+			"pageup"
+		],
+		"command": "quick_panel_page_up",
+		"context": [
+			{
+				"key": "overlay_visible",
+				"operand": true
+			},
+			{
+				"key": "setting.is_widget",
+				"operand": true
+			},
+			{
+				"key": "panel_has_focus",
+				"operand": false
+			}
+		]
+	},
+	{
+		"keys": [
+			"pagedown"
+		],
+		"command": "quick_panel_page_down",
+		"context": [
+			{
+				"key": "overlay_visible",
+				"operand": true
+			},
+			{
+				"key": "setting.is_widget",
+				"operand": true
+			},
+			{
+				"key": "panel_has_focus",
+				"operand": false
+			}
+		]
+	},
+	{
+		"keys": [
+			"ctrl+home"
+		],
+		"command": "quick_panel_page_up",
+		"args": {
+			"count": 999
+		},
+		"context": [
+			{
+				"key": "overlay_visible",
+				"operand": true
+			},
+			{
+				"key": "setting.is_widget",
+				"operand": true
+			},
+			{
+				"key": "panel_has_focus",
+				"operand": false
+			}
+		]
+	},
+	{
+		"keys": [
+			"ctrl+end"
+		],
+		"command": "quick_panel_page_down",
+		"args": {
+			"count": 999
+		},
+		"context": [
+			{
+				"key": "overlay_visible",
+				"operand": true
+			},
+			{
+				"key": "setting.is_widget",
+				"operand": true
+			},
+			{
+				"key": "panel_has_focus",
+				"operand": false
+			}
+		]
+	},
 ]
