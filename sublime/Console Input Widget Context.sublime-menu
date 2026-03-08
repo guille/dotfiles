@@ -1,0 +1,9 @@
+[
+    {
+        "caption": "-"
+    },
+    {
+        "caption": "Clear",
+        "command": "clear_console"
+    }
+]
