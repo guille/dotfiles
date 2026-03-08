@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Git pickaxe with fzf
+# Usage: git-pax <search_string>
+
+if [ -z "$1" ]; then
+    echo "Usage: git-pax <search_string>"
+    exit 1
+fi
+
+query="$1"
+
+if command -v wl-copy &> /dev/null; then
+    clipboard_cmd="wl-copy"
+elif command -v pbcopy &> /dev/null; then
+    clipboard_cmd="pbcopy"
+else
+    clipboard_cmd="cat"
+fi
+
+# Format: short hash - author, relative date : subject
+git log -S"$1" --all --pretty=format:"%h - %an, %ar : %s" | \
+    fzf --ansi \
+        --preview "git show -S'$query' {1} | delta" \
+        --preview-window=bottom:75%:wrap \
+        --header="Mode: -S (exact string) | C-y: copy hash | C-s: -S mode | C-g: -G mode" \
+        --bind "ctrl-y:execute-silent(printf {1} | $clipboard_cmd)" \
+        --bind "ctrl-s:reload(git log -S'$query' --all --pretty=format:'%h - %an, %ar : %s')+change-preview(git show -S'$query' {1} | delta)+change-header(Mode: -S (exact string) | C-y: copy hash | C-s: -S mode | C-g: -G mode)" \
+        --bind "ctrl-g:reload(git log -G'$query' --all --pretty=format:'%h - %an, %ar : %s')+change-preview(git log -1 -p -G'$query' {1} | delta)+change-header(Mode: -G (regex) | C-y: copy hash | C-s: -S mode | C-g: -G mode)"
