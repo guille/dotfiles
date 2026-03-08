@@ -52,9 +52,7 @@ fi
 
 
 # https://github.com/sublimehq/sublime_text/issues/32
-
 sed "s/###FONT_SIZE###/${FONT_SIZE}/" "$SCRIPT_BASE_DIR/$module_name/subl_settings.base" > "$SCRIPT_BASE_DIR/$module_name/Preferences.sublime-settings"
-
 
 
 infoprint "[$module_name] creating dotfiles symlinks..."

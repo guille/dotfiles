@@ -1,0 +1,85 @@
+%YAML 1.2
+---
+version: 2
+# https://github.com/elixir-editors/elixir-sublime-syntax/
+# Taken from commit 7573343
+name: HTML (EEx)
+scope: text.html.eex
+extends: Packages/HTML/HTML.sublime-syntax
+
+file_extensions: [html.eex, html.leex]
+authors:
+  - Aziz Köksal <aziz.koeksal@gmail.com>
+  - deathaxe <https://github.com/deathaxe>
+
+contexts:
+  # HTML:
+
+  prototype:
+    - meta_prepend: true
+    - include: eex-embedded
+
+  tag-html:
+    - meta_append: true
+    - include: eex-embedded-tag-name
+
+  tag-attributes:
+    - meta_prepend: true
+    - include: eex-embedded-attribute-name
+
+  tag-attribute-value-content:
+    - meta_prepend: true
+    - include: eex-interpolations
+
+  strings-common-content:
+    - meta_prepend: true
+    - include: eex-interpolations
+
+  # EEx:
+
+  eex-interpolations:
+    - include: scope:text.eex#eex-interpolated-comment
+    # Tags <%/ and <%| are parsed but have no functionality in EEx yet.
+    - match: <%(?:%=?|[=/|]?)
+      scope: punctuation.section.embedded.begin.eex
+      push: eex-interpolation-tag-content-pop
+
+  eex-interpolation-tag-content-pop:
+    # Need to clear the string scope.
+    - clear_scopes: 1
+    - meta_include_prototype: false
+    - meta_scope: meta.embedded.eex
+    - meta_content_scope: source.elixir.embedded.html
+    - include: eex-embedded-content-pop
+
+  eex-embedded:
+    - include: scope:text.eex#eex-embedded-comment
+    # Tags <%/ and <%| are parsed but have no functionality in EEx yet.
+    - match: <%(?:%=?|[=/|]?)
+      scope: punctuation.section.embedded.begin.eex
+      push: eex-embedded-content-pop
+
+  eex-embedded-content-pop:
+    - meta_include_prototype: false
+    - meta_scope: meta.embedded.eex
+    - meta_content_scope: source.elixir.embedded.html
+    - include: scope:text.eex#eex-tag-end-pop
+    - include: scope:text.eex#elixir-line-comment
+    - include: scope:source.elixir
+      apply_prototype: true
+
+  eex-embedded-tag-name:
+    - match: (</?)\s*(<%(?:%?=?))
+      captures:
+        1: punctuation.definition.tag.begin.html
+        2: punctuation.section.embedded.begin.eex
+      push: [tag-other-content, eex-embedded-content-pop]
+
+  eex-embedded-attribute-name:
+    - match: \s*(<%(?:%?=?))
+      captures:
+        1: punctuation.section.embedded.begin.eex
+      push:
+        - tag-generic-attribute-meta
+        - tag-generic-attribute-assignment
+        - eex-embedded-content-pop

@@ -1,0 +1,36 @@
+%YAML 1.2
+---
+version: 2
+# https://github.com/elixir-editors/elixir-sublime-syntax/
+# Taken from commit 7573343
+name: Elixir (EEx)
+scope: source.elixir.eex
+extends: Elixir.sublime-syntax
+
+file_extensions: [ex.eex, exs.eex]
+first_line_match: ^#\s*exs?\.eex
+authors: [Aziz Köksal <aziz.koeksal@gmail.com>]
+
+contexts:
+  # Use prototype to work around the "context sanity limit" error.
+  # An issue that remains is that "<% ... %>" embeds are not independent
+  # of the surroundings.
+  prototype:
+    - include: eex_begin_tag
+    - include: eex_end_tag
+
+  eex_begin_tag:
+    - include: scope:text.eex#eex-interpolated-comment
+
+    - match: <%(?:%=?|[=/|]?)
+      scope: punctuation.section.embedded.begin.eex
+      # # NB: causes "context sanity limit" error.
+      # push: core_syntax
+      # with_prototype:
+      #   - match: (?=%>|<%)
+      #     pop: 1
+
+  eex_end_tag:
+    - match: \s*(%>)
+      captures:
+        1: punctuation.section.embedded.end.eex
