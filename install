@@ -6,10 +6,12 @@ set -e
 # flags
 SELECT=0
 FORCE_PROFILE=0
+FORCE_COMPLETIONS=0
 while (($#)); do
   case "$1" in
     -s|--select) SELECT=1 ;;
     -f|--force-profile) FORCE_PROFILE=1 ;;
+    -c|--force-completions) FORCE_COMPLETIONS=1 ;;
     --) shift; break ;;
     *) echo "unknown option: $1" >&2; exit 2 ;;
   esac
@@ -125,7 +127,10 @@ for module in "${modules_to_install[@]}"; do
 	infoprint "[main] $module done"
 done
 
-infoprint "[main] generating completions"
-"$SCRIPT_BASE_DIR/mybin/both/compupdate"
+# Usually don't want to re-gen global completions just for a few modules??
+if (( !SELECT || FORCE_COMPLETIONS )); then
+	infoprint "[main] generating completions"
+	"$SCRIPT_BASE_DIR/mybin/both/compupdate"
+fi
 
 infoprint "[main] done"
