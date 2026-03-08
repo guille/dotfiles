@@ -44,6 +44,8 @@
 	dc = diff --cached
 	# show diff summary stats
 	ds = diff --stat=160,120 --compact-summary
+	# pre-configures the pager to navigate commits with n/N
+	log-patches = "!f() { DELTA_PAGER=\"less -p'^commit'\" git log -p $@; }; f"
 	# blame following code across file moves
 	blamedeep = blame -w -C -C -C
 	# last commit info without the diff
