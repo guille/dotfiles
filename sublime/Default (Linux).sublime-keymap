@@ -3,7 +3,10 @@
 		"keys": [
 			"ctrl+=" // Ctrl+¡ with Spanish keyboard layout
 		],
-		"command": ""
+		"command": "build",
+		"args": {
+			"select": true
+		}
 	},
 	{
 		"keys": [
