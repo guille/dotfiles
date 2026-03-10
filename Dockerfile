@@ -1,13 +1,8 @@
 FROM alpine:latest
 
+LABEL org.opencontainers.image.source=https://github.com/guille/dotfiles
+
 WORKDIR /root
-
-RUN echo "export DOTFILES_OS=Linux" >> ~/.zvars && \
-	echo "export DOTFILES_DISTRO=Alpine" >> ~/.zvars
-
-# xterm-256color ?
-RUN echo "export TERMINAL=ghostty" >> ~/.zshenv.local && \
-	echo "export EDITOR=nvim" >> ~/.zshenv.local
 
 RUN apk add --no-cache \
 	musl-locales \
@@ -47,5 +42,12 @@ COPY zsh/fzf-tab .fzf-tab
 COPY nvim/ .config/nvim/lua
 # Ugh
 RUN mv .config/nvim/lua/init.lua .config/nvim/init.lua
+
+RUN echo "export DOTFILES_OS=Linux" >> ~/.zvars && \
+	echo "export DOTFILES_DISTRO=Alpine" >> ~/.zvars
+
+# not everything recognises ghostty
+RUN echo "export TERM=xterm-256color" >> ~/.zshenv.local && \
+	echo "export EDITOR=nvim" >> ~/.zshenv.local
 
 ENTRYPOINT ["/bin/zsh"]
