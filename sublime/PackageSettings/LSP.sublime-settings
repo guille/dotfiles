@@ -111,31 +111,29 @@
 				"yaml.format.enable": true,
 				// https://www.schemastore.org/api/json/catalog.json
 				"yaml.schemaStore.enable": false,
-				// doesn't work if unset
-				// "yaml.schemaStore.url": "",
 				// CloudFormation stuff
-				"yaml.customTags": [
-					"!Ref",
-					"!GetAtt",
-					"!fn",
-					"!And",
-					"!If sequence",
-					"!Not",
-					"!Not sequence",
-					"!Equals",
-					"!Equals sequence",
-					"!Or",
-					"!FindInMap sequence",
-					"!Base64",
-					"!Cidr",
-					"!Sub",
-					"!GetAZs",
-					"!ImportValue",
-					"!Select",
-					"!Select sequence",
-					"!Split",
-					"!Join sequence"
-				],
+				// "yaml.customTags": [
+				// 	"!Ref",
+				// 	"!GetAtt",
+				// 	"!fn",
+				// 	"!And",
+				// 	"!If sequence",
+				// 	"!Not",
+				// 	"!Not sequence",
+				// 	"!Equals",
+				// 	"!Equals sequence",
+				// 	"!Or",
+				// 	"!FindInMap sequence",
+				// 	"!Base64",
+				// 	"!Cidr",
+				// 	"!Sub",
+				// 	"!GetAZs",
+				// 	"!ImportValue",
+				// 	"!Select",
+				// 	"!Select sequence",
+				// 	"!Split",
+				// 	"!Join sequence"
+				// ],
 				// hardcode most used and custom paths
 				"yaml.schemas": {
 					"https://www.schemastore.org/github-workflow.json": [
@@ -146,9 +144,6 @@
 					],
 					"https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json": [
 						"*docker-compose*.{yml,yaml}"
-					],
-					"https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
-						"role_stack.{yml,yaml}"
 					],
 					// schemaStore detection doesn't work if the fileMatch in schemaStore isn't .yml|.yaml
 					"https://www.schemastore.org/sublime-syntax.json": [
@@ -167,8 +162,12 @@
 				"serve"
 			],
 			"settings": {
-				// No clue if this works
-				"yamlls.config.kubernetesCRDStore.enable": true
+				"helm-ls.yamlls.config.schemas": {
+					"/usr/local/share/schemas/blocks/all.json": [
+						"work/**/*.{yml,yaml}"
+					],
+					"kubernetes": "templates/**"
+				}
 			},
 			"selector": "source.helm | source.yaml.helmvalues"
 		},
