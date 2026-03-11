@@ -4,6 +4,4 @@
 scope: source.yaml.helmvalues
 version: 2
 
-extends: Packages/YAML/YAML.sublime-syntax
-
-# values*.yml files are valid YAML but helm-ls supports them, so I use this scope to trigger both LSPs
+extends: Packages/User/YamlWithEmbeds.sublime-syntax

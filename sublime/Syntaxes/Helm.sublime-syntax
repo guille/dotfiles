@@ -3,60 +3,6 @@
 # See http://www.sublimetext.com/docs/3/syntax.html
 scope: source.helm
 version: 2
-extends: Packages/Go/YAML (Go).sublime-syntax
-
-# Extension (by @deathaxe): Allows mini-scoped embedded blocks. Example:
-# ```yml
-# spec: | # yml
-#   targetPort: http
-#   protocol: TCP
-# ```
-# Similar to https://github.com/harrydowning/vscode-yaml-embedded-languages/
-contexts:
-  block-scalar:
-    - meta_prepend: true
-    - match: (?:(\|)|(>))(?:([1-9])([-+])|([-+])?([1-9])?)\s+(#)
-      captures:
-        1: keyword.control.flow.block-scalar.literal.yaml
-        2: keyword.control.flow.block-scalar.folded.yaml
-        3: constant.numeric.indentation-indicator.yaml
-        4: storage.modifier.chomping-indicator.yaml
-        5: storage.modifier.chomping-indicator.yaml
-        6: constant.numeric.indentation-indicator.yaml
-        7: punctuation.definition.comment.yaml
-      push: block-scalar-embedded-language
-
-  block-scalar-embedded-language:
-    - meta_scope: comment.line.number-sign.yaml
-    - match: $\n?
-      pop: 1
-    - match: yaml|yml\b
-      scope: constant.other.language-name.yaml
-      set: block-scalar-embedded-yaml
-    - match: json\b
-      scope: constant.other.language-name.yaml
-      set: block-scalar-embedded-json
-
-  block-scalar-embedded-yaml:
-    - match: "{{block_scalar_begin}}"
-      embed: scope:source.yaml
-      embed_scope: source.yaml
-      escape: "{{block_scalar_escape}}"
-      pop: 1
-    - include: block-scalar-empty-end
-
-  block-scalar-embedded-json:
-    - match: "{{block_scalar_begin}}"
-      embed: scope:source.json
-      embed_scope: source.json
-      escape: "{{block_scalar_escape}}"
-      pop: 1
-    - include: block-scalar-empty-end
-
-  block-scalar-empty-end:
-    - match: ^(?=\S) # the block is empty
-      pop: 1
-
-variables:
-  block_scalar_begin: "^([ ]+)(?! )"
-  block_scalar_escape: '^(?!\1|\s*$)'
+extends:
+  - Packages/Go/YAML (Go).sublime-syntax
+  - Packages/User/YamlWithEmbeds.sublime-syntax
