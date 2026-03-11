@@ -22,6 +22,9 @@ mise use --global python@latest
 infoprint "[$module_name] installing Python tools with uv"
 \grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/uv_tools.txt" | xargs -n1 uv tool install
 
+# install requests to mise's python
+mise x -- uv pip install --system requests
+
 if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
 	uv tool install magic-wormhole
 fi
