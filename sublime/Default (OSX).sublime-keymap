@@ -1,5 +1,4 @@
 [
-	// trying something here
 	{
 		"keys": [
 			"right"
@@ -10,6 +9,15 @@
 				"key": "copilot.is_on_completion"
 			}
 		]
+	},
+	{
+		"keys": [
+			"super+=" // Super+¡ with Spanish keyboard layout
+		],
+		"command": "build",
+		"args": {
+			"select": true
+		}
 	},
 	{
 		"keys": [
