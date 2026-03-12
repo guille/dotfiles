@@ -493,6 +493,20 @@ https://github.com/trishume/syntect/issues/244
         <string>#f8f8f0</string>
       </dict>
     </dict>
+    <!-- LANGUAGE SPECIFIC TWEAKS -->
+    <dict>
+      <key>name</key>
+      <string>Python Types</string>
+      <key>scope</key>
+      <string>meta.type.python</string>
+      <key>settings</key>
+      <dict>
+        <key>fontStyle</key>
+        <string>italic</string>
+        <key>foreground</key>
+        <string>#66d9ef</string>
+      </dict>
+    </dict>
     <!-- TODO: from here down -->
     <dict>
       <key>name</key>

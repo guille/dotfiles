@@ -356,6 +356,13 @@
 			"scope": "meta.namespace.containerfile",
 			"font_style": "bold",
 		},
+		// Python
+		{
+			"name": "Python Types",
+			"scope": "meta.type.python",
+			"font_style": "italic",
+			"foreground": "var(light_blue)",
+		},
 		// Gemfile.lock
 		{
 			"name": "Gemfile.lock dependency name",

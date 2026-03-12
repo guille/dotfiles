@@ -1,0 +1,8 @@
+// These settings override both User and Default settings for the Zsh syntax
+{
+	"hidden_extensions": [
+		".zaliases",
+		".zkeys",
+		".zvars"
+	]
+}
