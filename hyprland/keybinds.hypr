@@ -6,6 +6,10 @@ $secondMod = SUPER_SHIFT
 # ghostty quick terminal
 bind = $mainMod, dead_grave, global, :LOGO+grave
 
+# Mimic pgup/pgdown behavior with Alt+up/down
+bind = ALT, Down, sendshortcut, , Next,
+bind = ALT, Up, sendshortcut, , Prior,
+
 # Execs
 bind = $mainMod, Return, exec, $terminal
 bind = $mainMod, D, exec, $menu
