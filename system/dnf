@@ -16,6 +16,7 @@ grim
 NetworkManager
 nm-connection-editor
 pipewire
+pavucontrol
 polkit
 network-manager-applet
 swaybg
@@ -42,6 +43,7 @@ git
 git-delta
 htop
 jq
+yq
 lsof
 mupdf
 neovim

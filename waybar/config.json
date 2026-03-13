@@ -20,11 +20,12 @@
         "custom/separator",
         "memory",
         "custom/separator",
+        "custom/vpn",
         "network",
         "custom/separator",
         "clock",
         "custom/separator",
-        "custom/pacman",
+        "custom/packages",
         "idle_inhibitor",
         "custom/dunst",
         "custom/separator",
@@ -115,7 +116,7 @@
     },
     "network": {
         "format-wifi": "<span color=\"#ffd204\">󰖩 </span> {essid}",
-        "format-ethernet": "{ipaddr}/{cidr}",
+        "format-ethernet": "<span color=\"#ffd204\"> </span>{ipaddr}",
         "tooltip-format": "{ifname} via {gwaddr}",
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "<span color=\"#ffd204\">󰖪 </span>  Disconnected"
@@ -145,11 +146,11 @@
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol",
     },
-    "custom/pacman": {
+    "custom/packages": {
         "format": " <span color=\"#ffd204\">󰣇 </span>{} ",
         "tooltip": false,
         "hide-empty-text": true,
-        "exec": "~/.config/waybar/scripts/pacman.sh",
+        "exec": "~/.config/waybar/scripts/packages.sh",
         "interval": "3600"
     },
     "idle_inhibitor": {
@@ -158,6 +159,12 @@
             "activated": "<span color=\"#ffd204\">󰅶 </span>",
             "deactivated": "󰾪 "
         }
+    },
+    "custom/vpn": {
+        "format": " <span color=\"#ffd204\">{}</span>",
+        "tooltip": false,
+        "exec": "~/.config/waybar/scripts/vpn.sh",
+        "restart-interval": 60
     },
     "custom/dunst": {
         "format": " <span color=\"#ffd204\">{}</span>",
