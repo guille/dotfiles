@@ -10,8 +10,6 @@
         "mpd"
     ],
     "modules-right": [
-        "power-profiles-daemon",
-        "backlight",
         "battery",
         "disk",
         "disk#disk2",

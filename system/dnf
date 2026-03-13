@@ -70,8 +70,6 @@ mpv
 ruff
 libpq
 uv
-pavucontrol
-pulseaudio
 Thunar
 thunar-archive-plugin
 thunar-volman

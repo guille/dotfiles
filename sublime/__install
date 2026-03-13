@@ -39,14 +39,12 @@ fi
 
 if [ ! -f "$SUBL_ROOT/Installed Packages/Package Control.sublime-package" ]; then
 	infoprint "[$module_name] installing Package Control"
-	if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
-		# https://github.com/wbond/package_control/issues/1612
-		# NOTE: Fixed in ST > 4200?
-		curl -s https://api.github.com/repos/sublimehq/package_control/releases/latest \
-			| jq -r '.assets[0].browser_download_url'\
-			| xargs curl -sL -o "$SUBL_ROOT/Installed Packages/Package Control.sublime-package"
-	elif [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
-		subl --command "install_package_control"
+	# subl --command "install_package_control"
+	# https://github.com/wbond/package_control/issues/1612
+	# NOTE: Fixed in ST > 4200?
+	curl -s https://api.github.com/repos/sublimehq/package_control/releases/latest \
+		| jq -r '.assets[0].browser_download_url'\
+		| xargs curl -sL -o "$SUBL_ROOT/Installed Packages/Package Control.sublime-package"
 	fi
 fi
 

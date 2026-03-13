@@ -111,3 +111,10 @@ windowrule {
 
     opaque = on
 }
+
+windowrule {
+    name = slack
+    match:class = ^Slack$
+
+    workspace = 10
+}
