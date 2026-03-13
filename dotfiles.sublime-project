@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "/home/grodriguez/projects/dotfiles",
+			"folder_exclude_patterns": [
+				"zsh/powerlevel10k",
+				"zsh/fzf-tab"
+			]
+		}
+	],
+	"settings": {
+		"LSP": {
+			"LSP-json": {
+				"settings": {
+					"jsonc.patterns": [
+						"waybar/config.json"
+					]
+				}
+			}
+		}
+	}
+}
