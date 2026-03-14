@@ -26,6 +26,10 @@
 [gpg]
 	format = ssh
 
+# echo "$(git config --get user.email) namespaces=\"git\" $(cat ~/.ssh/keyName.pub)" >> ~/.ssh/allowed_signers
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
+
 [log]
 	# shortest commit hashes possible
 	abbrevCommit = true
