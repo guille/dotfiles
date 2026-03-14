@@ -36,6 +36,13 @@ windowrule {
     workspace = 1
 }
 windowrule {
+    name = firefox2
+    match:class = ^org.mozilla.firefox$
+
+    idle_inhibit = fullscreen
+    workspace = 1
+}
+windowrule {
     name = sublime_text
     match:class = ^sublime_text$
 

@@ -9,7 +9,7 @@ command_exists() {
 }
 
 download_and_install() {
-	curl -sfL "$2" -o /usr/local/share/zsh/site-functions/$1
+	curl -sfL "$2" -o "/usr/local/share/zsh/site-functions/$1"
 
 }
 

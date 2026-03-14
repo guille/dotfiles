@@ -1,0 +1,118 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'json'
+require 'open3'
+
+WALLPAPERS_DIR = File.join(Dir.home, "Wallpapers")
+VERTICAL_WALLPAPERS_GLOB = File.join(WALLPAPERS_DIR, "Vertical", "*")
+DUAL_WALLPAPERS_GLOB = File.join(WALLPAPERS_DIR, "Dual", "*")
+SINGLE_WALLPAPERS_GLOB = File.join(WALLPAPERS_DIR, "Single", "*")
+
+# mirrorOf?
+# transform = rotations
+  # 0 is normal
+  # 0, 2, 4, 6 are horizontal, rest are vertical
+  # 4-7 are flipped
+MonitorInfo = Data.define(:name, :x, :y, :transform) do
+  def vertical?
+    transform.odd?
+  end
+
+  # Compare by x-axis, smaller = to the left
+  def <=>(other)
+    x <=> other.x
+  end
+end
+Job = Data.define(:image, :monitor)
+
+def fetch_monitors_data
+  stdout, stderr, status = Open3.capture3('hyprctl', 'monitors', '-j')
+
+  unless status.success?
+    warn "Command failed (exit #{status.exitstatus}): #{stderr}"
+    exit 1
+  end
+
+  data = JSON.parse(stdout, symbolize_names: true)
+  data.map do
+    MonitorInfo.new(**it.slice(*MonitorInfo.members))
+  end
+rescue JSON::ParserError => e
+  warn "Failed to parse JSON: #{e.message}"
+  exit 1
+end
+
+def process_data(data)
+  jobs = []
+
+  verticals, horizontals = data.partition(&:vertical?)
+
+  # If there are exactly two monitors and neither of them is vertical, find Dual wallpapers
+  if horizontals.size == 2 && verticals.empty?
+    left, right = verticals.minmax
+
+    image = Dir[DUAL_WALLPAPERS_GLOB].sample
+    basename = File.basename(image, '.*')
+    if basename.end_with?("_left")
+      jobs << Job.new(monitor: left.name, image: image)
+      jobs << Job.new(monitor: right.name, image: image.sub('_left', '_right'))
+    elsif basename.end_with?("_right")
+      jobs << Job.new(monitor: right.name, image: image)
+      jobs << Job.new(monitor: left.name, image: image.sub('_right', '_left'))
+    else
+      warn "Don't know what to do with #{image}"
+      exit 1
+    end
+
+    return jobs
+  end
+
+  if !verticals.empty?
+    # Get them here to avoid dups
+    images = Dir[VERTICAL_WALLPAPERS_GLOB].sample(verticals.size)
+
+    verticals.zip(images).each do |monitor, image|
+      jobs << Job.new(monitor: monitor.name, image:)
+    end
+  end
+
+  if !horizontals.empty?
+    # Get them here to avoid dups
+    images = Dir[SINGLE_WALLPAPERS_GLOB].sample(horizontals.size)
+
+    horizontals.zip(images).each do |monitor, image|
+      jobs << Job.new(monitor: monitor.name, image:)
+    end
+  end
+
+  puts jobs
+
+  return jobs
+end
+
+def spawn_workers(jobs)
+  pids = jobs.map do |job|
+    spawn('swaybg', '-m', 'fill', '-i', job.image, '-o', job.monitor).tap do |pid|
+      puts "Spawned worker PID #{pid} for monitor #{job.monitor}"
+    end
+  end
+
+  # Propagate SIGTERM and SIGINT to all children
+  %w[TERM INT].each do |sig|
+    Signal.trap(sig) do
+      puts "\nReceived SIG#{sig}, forwarding to children..."
+      pids.each { |pid| Process.kill(sig, pid) rescue Errno::ESRCH }
+    end
+  end
+
+  # Wait for all children to finish
+  pids.each do |pid|
+    _, status = Process.wait2(pid)
+    puts "PID #{pid} exited with status #{status.exitstatus}"
+  end
+end
+
+data  = fetch_monitors_data
+jobs  = process_data(data)
+spawn_workers(jobs)
