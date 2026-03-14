@@ -46,6 +46,11 @@ cursor-style-blink = false
 shell-integration-features = no-cursor
 mouse-hide-while-typing = true
 window-inherit-working-directory = false
+tab-inherit-working-directory = true
+split-inherit-working-directory = true
+notify-on-command-finish = unfocused
+notify-on-command-finish-action = no-bell,notify
+notify-on-command-finish-after = 10s
 
 # Linux only
 gtk-titlebar = false
@@ -76,7 +81,5 @@ keybind = performable:ctrl+c=copy_to_clipboard
 keybind = performable:ctrl+v=paste_from_clipboard
 # applies to Alt+w in Linux
 keybind = option+w=text:\x1b\x7f
-
-window-inherit-working-directory = true
 
 keybind = global:super+grave_accent=toggle_quick_terminal
