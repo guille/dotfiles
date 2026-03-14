@@ -64,10 +64,6 @@ alias lsd='eza --icons=auto --color=auto -D'
 alias lla='eza --icons=auto --color=auto --group-directories-first -la'
 alias laa='eza --icons=auto --color=auto --group-directories-first -la'
 
-alias k='kubectl'
-alias kx='kubectx'
-alias kn='kubens'
-
 # Nicer help texts with bat
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
@@ -202,6 +198,21 @@ notes() {
 	local notes_dir=~/notes
 
 	fd -0 . $notes_dir | ff --multi --delimiter '/' --with-nth -1 --read0 --select-1 --exit-0 --print0 --query ${1:-""} | xargs -0 subl
+}
+
+
+# ════════════════════════════════════════════════════════════════════════
+# K8s
+
+alias k='kubectl'
+alias kx='kubectx'
+alias kn='kubens'
+
+merge-kubeconfigs() {
+	files=$(printf "%s:" ~/.kube/configs/*.yaml)
+	files=${files%:}
+
+	KUBECONFIG="$files" kubectl config view --flatten > ~/.kube/config
 }
 
 # ════════════════════════════════════════════════════════════════════════
