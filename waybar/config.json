@@ -1,4 +1,5 @@
 {
+    "$schema": "https://raw.githubusercontent.com/Magniquick/waybar-config-schema/main/schema.json",
     "layer": "top",
     "position": "bottom",
     "height": 30,
