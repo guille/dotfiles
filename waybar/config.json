@@ -92,7 +92,7 @@
             "critical": 15
         },
         "format": "<span color=\"#ffd204\">{icon}</span> {capacity}% <span color=\"#959ca1\">|</span>",
-        "format-full": "<span color=\"#ffd204\">{icon}</span> {capacity}% <span color=\"#959ca1\">|</span>",
+        "format-full": "<span color=\"#ffd204\"></span>  {capacity}% <span color=\"#959ca1\">|</span>",
         "format-plugged": "<span color=\"#ffd204\"></span>  {capacity}% <span color=\"#959ca1\">|</span>",
         "format-alt": "<span color=\"#ffd204\">{icon}</span> {time} <span color=\"#959ca1\">|</span>",
         "format-icons": [
