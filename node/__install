@@ -12,6 +12,9 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=node
 
 
+prepare_profiled_config "default-npm-packages"
+
+
 ##
 # Symlinks
 ##

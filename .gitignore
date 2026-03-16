@@ -1,6 +1,7 @@
 zsh/zvars
 hyprland/local_confs.hypr
 ruby/default-gems
+node/default-npm-packages
 sublime/packages
 sublime/Package Control.sublime-settings
 sublime/Preferences.sublime-settings
