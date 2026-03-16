@@ -86,15 +86,13 @@ def process_data(data)
     end
   end
 
-  puts jobs
-
   return jobs
 end
 
 def spawn_workers(jobs)
   pids = jobs.map do |job|
-    spawn('swaybg', '-m', 'fill', '-i', job.image, '-o', job.monitor).tap do |pid|
-      puts "Spawned worker PID #{pid} for monitor #{job.monitor}"
+    spawn('swaybg', '-o', job.monitor, '-m', 'fill', '-i', job.image).tap do |pid|
+      puts "Spawned worker PID #{pid} for monitor #{job.monitor} (img: #{job.image})"
     end
   end
 
