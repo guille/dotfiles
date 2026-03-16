@@ -246,6 +246,17 @@
 			"selector": "source.toml",
 			"settings": {},
 		},
+		// https://buf.build/docs/cli/editors-lsp/
+		"buf": {
+			"enabled": true,
+			"command": [
+				"buf",
+				"lsp",
+				"serve"
+			],
+			"selector": "source.proto",
+			"settings": {},
+		},
 		// https://github.com/sveltejs/language-tools/tree/master/docs
 		"svelte": {
 			"enabled": true,
