@@ -59,6 +59,7 @@ zstyle ':fzf-tab:*' use-fzf-default-opts yes
 zstyle ':fzf-tab:*' fzf-flags '--info=hidden'
 
 # fzf-tab previews
+zstyle ':fzf-tab:complete:*:options' fzf-preview '' # we rarely want preview when on options
 zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1 --icons=always --color=always $realpath'
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons=always --color=always $realpath'
 zstyle ':fzf-tab:complete:eza:*' fzf-preview 'eza -1 --icons=always --color=always $realpath'
@@ -86,7 +87,7 @@ zstyle ':fzf-tab:complete:make:*' fzf-preview \
     esac'
 zstyle ':fzf-tab:complete:mise:*' fzf-preview \
 '[[ -n ${words[2]} ]] && case ${words[2]} in
-  use)  mise ls-remote $word 2>/dev/null | tail -20 ;;
+  use|install)  mise ls-remote $word 2>/dev/null | tail -20 ;;
   run)  mise task info $word 2>/dev/null ;;
   *)    : ;;
 esac'
