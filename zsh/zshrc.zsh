@@ -43,6 +43,14 @@ export LS_COLORS=\*~=0\;38\;2\;122\;112\;112:bd=0\;38\;2\;102\;217\;239\;48\;2\;
 # Match sublime color scheme
 export JQ_COLORS="38;5;141:38;5;141:38;5;141:38;5;141:38;5;186:1;37:1;37:38;5;208"
 
+# ════════════════════ os-agnostic copy ═══════════════════
+
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	COPY_CMD=pbcopy
+elif [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
+	COPY_CMD=wl-copy
+fi
+
 # ════════════════════ zsh completions ════════════════════
 
 autoload -Uz compinit
@@ -57,6 +65,9 @@ zstyle ':fzf-tab:*' fzf-pad 4
 zstyle ':fzf-tab:*' fzf-min-height 100
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 zstyle ':fzf-tab:*' fzf-flags '--info=hidden'
+zstyle ':fzf-tab:complete:*' fzf-bindings \
+	"ctrl-y:execute-silent({_FTB_INIT_}$COPY_CMD \"\$word\")" \
+	'ctrl-p:toggle-preview'
 
 # fzf-tab previews
 zstyle ':fzf-tab:complete:*:options' fzf-preview '' # we rarely want preview when on options
@@ -92,9 +103,7 @@ zstyle ':fzf-tab:complete:mise:*' fzf-preview \
   *)    : ;;
 esac'
 zstyle ':fzf-tab:complete:aws:*' fzf-preview 'aws $word help 2>/dev/null | head -50'
-# zstyle ':fzf-tab:complete:kubectl:*' fzf-preview 'kubectl config view --minify -o jsonpath="{..context}" | jq -C'
-# zstyle ':fzf-tab:complete:kubectl-*:*' fzf-preview 'kubectl describe $word 2>/dev/null | head -50'
-# zstyle ':fzf-tab:complete:kubectl:*' fzf-preview 'kubectl explain $word 2>/dev/null | head -30'
+
 
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':completion:*' menu no
@@ -153,12 +162,6 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
  --color=fg:#959ca1,header:#959ca1,info:#ffd204,pointer:#85cebc \
  --color=marker:#85cebc,fg+:#e7e7e8,prompt:#ffd204,query:#ffffff,hl+:#ffffff \
 "
-
-if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
-	COPY_CMD=pbcopy
-elif [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
-	COPY_CMD=wl-copy
-fi
 
 export FZF_DEFAULT_COMMAND='fd --hidden --type f'
 # CTRL-R - Paste the selected command from history onto the command-line
@@ -230,12 +233,10 @@ fi
 # ══════════════════════ tools: nnn ═══════════════════════
 
 export NNN_OPTS='An'
-export NNN_PLUG='z:autojump;m:nmount'
+export NNN_PLUG="z:autojump;m:nmount;s:! printf \$nnn|$COPY_CMD*"
 if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
-	export NNN_PLUG=${NNN_PLUG}';s:! echo $nnn|wl-copy*'
 	export NNN_TRASH='gio trash'
 else
-	export NNN_PLUG=${NNN_PLUG}';s:! echo $nnn|pbcopy*'
 	export NNN_TRASH='trash'
 fi
 
