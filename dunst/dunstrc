@@ -103,3 +103,7 @@
     foreground = "#ffffff"
     timeout = 0
     default_icon = "gtk-dialog-error"
+
+[firefox_icon]
+    appname="Firefox"
+    default_icon = firefox
