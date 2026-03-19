@@ -155,6 +155,7 @@ source <(fzf --zsh)
 # Similar to base16-tube
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
  --reverse \
+ --cycle \
  --border=rounded \
  --header-border=rounded \
  --color=border:#959ca1 \
@@ -202,7 +203,7 @@ _fzf_comprun() {
 if type zoxide &> /dev/null; then
 	eval "$(zoxide init zsh)"
 	export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS \
-	 --cycle --keep-right --info=inline \
+	 --keep-right --info=inline \
 	 --preview-window=down,30% --preview 'eza -1 --icons=always --color=always {2..}'\
 	"
 	function execute_zoxide() {
