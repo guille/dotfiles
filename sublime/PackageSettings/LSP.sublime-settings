@@ -161,14 +161,6 @@
 				"helm_ls",
 				"serve"
 			],
-			"settings": {
-				"helm-ls.yamlls.config.schemas": {
-					"/usr/local/share/schemas/blocks/all.json": [
-						"work/**/*.{yml,yaml}"
-					],
-					"kubernetes": "templates/**"
-				}
-			},
 			"selector": "source.helm | source.yaml.helmvalues"
 		},
 		// https://github.com/Myriad-Dreamin/tinymist
