@@ -107,3 +107,7 @@
 [firefox_icon]
     appname="Firefox"
     default_icon = firefox
+
+[slack_icon]
+    appname="Slack"
+    default_icon = slack
