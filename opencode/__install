@@ -12,8 +12,12 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=opencode
 
 
-mkdir -p ~/.config/opencode
+mkdir -p ~/.config/opencode/plugins
 
 infoprint "[$module_name] creating dotfiles symlinks..."
 
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/opencode.json" ~/.config/opencode/opencode.json 1> /dev/null
+
+if [ ! -f ~/.config/opencode/plugins/notify.ts ]; then
+    curl -fLs "https://raw.githubusercontent.com/guille/opencode-notify-plugin/refs/heads/master/src/index.ts" -o ~/.config/opencode/plugins/notify.ts
+fi
