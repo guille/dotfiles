@@ -1,23 +1,18 @@
-# See: /usr/share/doc/mpd/examples
+# See: /usr/share/doc/mpd/mpdconf.example
 
-music_directory		"/home/guille/Music"
-playlist_directory		"/home/guille/.mpd/playlists"
-db_file			"/home/guille/.mpd/tag_cache"
-log_file			"/home/guille/.mpd/mpd.log"
-pid_file			"/home/guille/.mpd/mpd.pid"
-state_file			"/home/guille/.mpd/mpdstate"
-sticker_file                   "/home/guille/.mpd/sticker.sql"
+music_directory		        "~/Music"
+playlist_directory		"~/.mpd/playlists"
+db_file			        "~/.mpd/tag_cache"
+log_file			"~/.mpd/mpd.log"
+pid_file			"~/.mpd/mpd.pid"
+state_file			"~/.mpd/mpdstate"
+sticker_file                    "~/.mpd/sticker.sql"
 
-auto_update    "yes"
-bind_to_address "127.0.0.1"
-user				"guille"
-group				"guille"
+auto_update                     "yes"
+bind_to_address                 "127.0.0.1"
 
 input {
         plugin "curl"
-#       proxy "proxy.isp.com:8080"
-#       proxy_user "user"
-#       proxy_password "password"
 }
 
 volume_normalization            "yes"
@@ -25,19 +20,6 @@ volume_normalization            "yes"
 ###############################################################################
 
 # Audio Output ################################################################
-#
-# An example of an ALSA output:
-#
-#audio_output {
-#	type		"alsa"
-#	name		"My ALSA Device"
-#	device		"hw:0,0"	# optional
-#	mixer_type      "hardware"      # optional
-#	mixer_device	"default"	# optional
-#	mixer_control	"PCM"		# optional
-#	mixer_index	"0"		# optional
-#}
-#
 
 audio_output {
 	type		"pulse"
@@ -57,6 +39,4 @@ audio_output {
 # Character Encoding ##########################################################
 #
 filesystem_charset		"UTF-8"
-# id3v1_encoding			"UTF-8"
-#
 ###############################################################################
