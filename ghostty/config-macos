@@ -1,0 +1,5 @@
+keybind = option+w=text:\x1b\x7f
+
+macos-titlebar-style = tabs
+quit-after-last-window-closed = true
+window-save-state = always

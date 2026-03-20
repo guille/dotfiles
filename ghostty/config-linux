@@ -1,0 +1,7 @@
+# copy if anything selected, send interrupt otherwise
+keybind = performable:ctrl+c=copy_to_clipboard
+keybind = performable:ctrl+v=paste_from_clipboard
+
+gtk-titlebar = false
+gtk-single-instance = true
+quit-after-last-window-closed-delay = 30m

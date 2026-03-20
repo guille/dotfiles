@@ -17,3 +17,8 @@ mkdir -p ~/.config/ghostty
 infoprint "[$module_name] creating dotfiles symlinks..."
 
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/config" ~/.config/ghostty/config 1> /dev/null
+if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
+	ln -sfv "${SCRIPT_BASE_DIR}/$module_name/config-macos" ~/.config/ghostty/config-macos 1> /dev/null
+else
+	ln -sfv "${SCRIPT_BASE_DIR}/$module_name/config-linux" ~/.config/ghostty/config-linux 1> /dev/null
+fi

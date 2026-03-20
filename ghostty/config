@@ -52,14 +52,6 @@ notify-on-command-finish = unfocused
 notify-on-command-finish-action = no-bell,notify
 notify-on-command-finish-after = 10s
 
-# Linux only
-gtk-titlebar = false
-gtk-single-instance = true
-
-# Mac only
-macos-titlebar-style = tabs
-window-save-state = always
-
 ##
 # Keybinds
 # Splits
@@ -76,10 +68,8 @@ keybind = ctrl+shift+down=goto_split:down
 
 # mistypes
 keybind = shift+enter=text:\n
-# copy if anything selected, send interrupt otherwise
-keybind = performable:ctrl+c=copy_to_clipboard
-keybind = performable:ctrl+v=paste_from_clipboard
-# applies to Alt+w in Linux
-keybind = option+w=text:\x1b\x7f
 
 keybind = global:super+grave_accent=toggle_quick_terminal
+
+config-file = ?config-macos
+config-file = ?config-linux
