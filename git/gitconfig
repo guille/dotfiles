@@ -1,6 +1,6 @@
 [core]
 	# default editor
-	editor = nvim
+	editor = subl -w
 	# shortest commit hashes possible
 	abbrev = 4
 	# linux/macos only
