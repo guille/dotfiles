@@ -57,7 +57,7 @@
         },
         "on-click": "mpc toggle",
         "on-click-right": "mpc next",
-        "tooltip": "false"
+        "tooltip": false
     },
     "tray": {},
     "clock": {
@@ -153,7 +153,7 @@
         "tooltip": false,
         "hide-empty-text": true,
         "exec": "~/.config/waybar/scripts/packages.sh",
-        "interval": "3600"
+        "interval": 3600
     },
     "idle_inhibitor": {
         "format": "{icon}",

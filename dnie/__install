@@ -18,5 +18,4 @@ if [[ "${DOTFILES_OS:-}" == "OSX" ]] || is_work; then
 fi
 
 infoprint "[$module_name] hardcoding wifi port..."
-touch ~/dnieRemote.cfg
-grep -qxF "wifiport=34803;" ~/dnieRemote.cfg || echo "wifiport=34803;" >> ~/dnieRemote.cfg
+add_if_not_there "wifiport=34803;" ~/dnieRemote.cfg

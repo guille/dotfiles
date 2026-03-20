@@ -78,6 +78,9 @@ command_exists() {
 function runfree() {
 	"$@" > /dev/null 2>&1 & disown
 }
+function restart() {
+	killall $1 && runfree $1
+}
 
 # ════════════════════════════════════════════════════════════════════════
 
