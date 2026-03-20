@@ -26,7 +26,7 @@ song_list_format = "{%t }|{%f }$R{%b}"
 now_playing_prefix = "$b$u>>"
 now_playing_suffix = "$/b$/u"
 mouse_support = no
-execute_on_song_change="notify-send "Now playing" "$(ncmpcpp --current-song="{%a - }{%t}|{%f}")""
+execute_on_song_change="notify-send -a ncmpcpp "Now playing" "$(ncmpcpp --current-song="{%a - }{%t}|{%f}")""
 
 # Colors
 colors_enabled                 = "yes"

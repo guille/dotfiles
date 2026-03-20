@@ -111,3 +111,7 @@
 [slack_icon]
     appname="Slack"
     default_icon = slack
+
+[ncmpcpp_icon]
+    appname="ncmpcpp"
+    default_icon = deepin-music
