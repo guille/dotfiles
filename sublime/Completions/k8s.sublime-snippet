@@ -1,0 +1,13 @@
+<snippet>
+	<content><![CDATA[
+apiVersion: ${1:v1}
+kind: ${2:Kind}
+metadata:
+  name: ${3:name}
+  namespace: ${4:default}
+  labels:
+    app: ${5:app}
+]]></content>
+	<tabTrigger>k8s</tabTrigger>
+	<scope>source.yaml</scope>
+</snippet>
