@@ -89,7 +89,7 @@
     },
     "battery": {
         "states": {
-            "warning": 30,
+            "warning": 25,
             "critical": 15
         },
         "format": "<span color=\"#ffd204\">{icon}</span> {capacity}% <span color=\"#959ca1\">|</span>",
