@@ -114,5 +114,5 @@ bindl = , XF86AudioPlay, exec, playerctl play-pause
 bindl = , XF86AudioPrev, exec, playerctl previous
 
 # dwindle only
-bind = $mainMod, E, layoutmsg, togglesplit
-bind = $mainMod, P, pseudo,
+# bind = $mainMod, E, layoutmsg, togglesplit
+# bind = $mainMod, P, pseudo,
