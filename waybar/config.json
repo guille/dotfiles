@@ -12,9 +12,9 @@
     ],
     "modules-right": [
         "battery",
-        "disk",
-        "disk#disk2",
-        "custom/separator",
+        // "disk",
+        // "disk#disk2",
+        // "custom/separator",
         "pulseaudio",
         "custom/separator",
         "cpu",
