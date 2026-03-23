@@ -25,7 +25,9 @@ wireplumber
 waybar
 slurp
 rofi
+libyaml-devel
 openssh
+openssl-devel
 qt5-qtwayland
 qt6-qtwayland
 wl-clipboard
@@ -48,6 +50,7 @@ lsof
 mupdf
 neovim
 nnn
+perl
 plocate
 ripgrep
 rsync
