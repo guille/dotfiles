@@ -16,6 +16,9 @@
 						"waybar/config.json"
 					]
 				}
+			},
+			"LSP-copilot": {
+				"enabled": false
 			}
 		}
 	}
