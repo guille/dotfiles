@@ -16,17 +16,27 @@
       "*": "allow",
       "*.env*": "deny"
     },
+    "task": {
+      "*": "ask",
+      "explore": "allow"
+    },
     "webfetch": "ask",
     "bash": {
       "*": "ask",
       "ls *": "allow",
+      "go build *": "allow",
+      "go test *": "allow",
+      "go vet *": "allow",
       "grep *": "allow",
       "head *": "allow",
+      "mkdir *": "allow",
       "tail *": "allow",
       "rm *": "deny",
+      "sort": "allow",
     },
     "external_directory": {
       "*": "deny",
+      "~/go/pkg/mod/**": "ask",
       "/tmp/**": "ask"
     },
   },
