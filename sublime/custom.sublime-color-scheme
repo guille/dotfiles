@@ -253,7 +253,7 @@
 		{
 			"name": "Markdown: raw inline",
 			"scope": "markup.raw.inline",
-			"foreground": "#ec3533",
+			"foreground": "var(yellow2)",
 		},
 		{
 			"name": "Markdown: code block",
