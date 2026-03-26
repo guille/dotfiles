@@ -66,6 +66,9 @@ keybind = ctrl+shift+right=goto_split:right
 keybind = ctrl+shift+up=goto_split:up
 keybind = ctrl+shift+down=goto_split:down
 
+keybind = ctrl+shift+page_down=move_tab:1
+keybind = ctrl+shift+page_up=move_tab:-1
+
 # mistypes
 keybind = shift+enter=text:\n
 
