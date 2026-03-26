@@ -94,6 +94,9 @@ setup_fedora() {
 	infoprint "[$module_name] installing dnf packages"
 	\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/dnf" | xargs sudo dnf install -yq
 
+	# Let me typo in peace
+	sudo dnf remove PackageKit-command-not-found
+
 	infoprint "[$module_name] linking zsh plugins to expected location"
 	sudo mkdir -p /usr/share/zsh/plugins/{zsh-autosuggestions,zsh-syntax-highlighting}/
 	sudo chown -R "$(whoami)":"$(id -gn)" /usr/share/zsh
