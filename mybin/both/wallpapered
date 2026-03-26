@@ -14,9 +14,14 @@ SINGLE_WALLPAPERS_GLOB = File.join(WALLPAPERS_DIR, "Single", "*")
   # 0 is normal
   # 0, 2, 4, 6 are horizontal, rest are vertical
   # 4-7 are flipped
-MonitorInfo = Data.define(:name, :x, :y, :transform) do
+MonitorInfo = Data.define(:name, :x, :y, :transform, :physicalWidth, :physicalHeight) do
   def vertical?
     transform.odd?
+  end
+
+  # Assume a monitor with diagonal smaller than 420mm is a laptop screen
+  def laptop?
+    Math.sqrt(physicalHeight**2 + physicalWidth**2) <= 420
   end
 
   # Compare by x-axis, smaller = to the left
@@ -48,8 +53,8 @@ def process_data(data)
 
   verticals, horizontals = data.partition(&:vertical?)
 
-  # If there are exactly two monitors and neither of them is vertical, find Dual wallpapers
-  if horizontals.size == 2 && verticals.empty?
+  # Exactly two monitors, neither of them is vertical, and it's not a laptop's internal: find Dual wallpapers
+  if horizontals.size == 2 && verticals.empty? && !horizontals.any?(:laptop?)
     left, right = verticals.minmax
 
     image = Dir[DUAL_WALLPAPERS_GLOB].sample
@@ -111,6 +116,6 @@ def spawn_workers(jobs)
   end
 end
 
-data  = fetch_monitors_data
-jobs  = process_data(data)
+data = fetch_monitors_data
+jobs = process_data(data)
 spawn_workers(jobs)
