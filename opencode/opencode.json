@@ -28,6 +28,7 @@
       "go test *": "allow",
       "go vet *": "allow",
       "grep *": "allow",
+      "rg *": "allow",
       "head *": "allow",
       "mkdir *": "allow",
       "tail *": "allow",
