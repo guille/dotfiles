@@ -36,7 +36,7 @@
     },
     "external_directory": {
       "*": "deny",
-      "~/go/pkg/mod/**": "ask",
+      "~/go/pkg/mod/**": "allow",
       "/tmp/**": "ask"
     },
   },
