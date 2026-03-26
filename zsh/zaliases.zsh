@@ -81,6 +81,7 @@ function runfree() {
 function restart() {
 	killall $1 && runfree $1
 }
+alias rewall='pkill --full --signal HUP --require-handler wallpapered'
 
 # ════════════════════════════════════════════════════════════════════════
 

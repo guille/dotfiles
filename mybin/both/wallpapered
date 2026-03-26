@@ -94,28 +94,58 @@ def process_data(data)
   return jobs
 end
 
+def reap_workers!(pids, sig: "TERM")
+  pids.each { |pid| Process.kill(sig, pid) rescue Errno::ESRCH }
+end
+
 def spawn_workers(jobs)
-  pids = jobs.map do |job|
+  jobs.map do |job|
     spawn('swaybg', '-o', job.monitor, '-m', 'fill', '-i', job.image).tap do |pid|
       puts "Spawned worker PID #{pid} for monitor #{job.monitor} (img: #{job.image})"
     end
   end
+end
 
-  # Propagate SIGTERM and SIGINT to all children
-  %w[TERM INT].each do |sig|
-    Signal.trap(sig) do
-      puts "\nReceived SIG#{sig}, forwarding to children..."
-      pids.each { |pid| Process.kill(sig, pid) rescue Errno::ESRCH }
-    end
-  end
+def wall!
+  data = fetch_monitors_data
+  jobs = process_data(data)
+  spawn_workers(jobs)
+end
 
-  # Wait for all children to finish
-  pids.each do |pid|
-    _, status = Process.wait2(pid)
-    puts "PID #{pid} exited with status #{status.exitstatus}"
+$reload = false
+
+# Propagate SIGTERM and SIGINT to all children
+%w[TERM INT].each do |sig|
+  Signal.trap(sig) do
+    puts "\nReceived SIG#{sig}, forwarding to children..."
+    reap_workers!($pids, sig:)
   end
 end
 
-data = fetch_monitors_data
-jobs = process_data(data)
-spawn_workers(jobs)
+Signal.trap("HUP") do
+  $reload = true
+  reap_workers!($pids)
+end
+
+def monitor(pids)
+  # Wait for all children to finish
+  pids.each do |pid|
+    _, status = Process.wait2(pid)
+    if status.signaled?
+      puts "PID #{pid} killed by signal #{status.termsig}"
+    else
+      puts "PID #{pid} exited with status #{status.exitstatus}"
+    end
+  end
+end
+
+$pids = wall!
+
+loop do
+  monitor($pids)
+
+  break unless $reload
+
+  $reload = false
+  $pids = wall!
+end
