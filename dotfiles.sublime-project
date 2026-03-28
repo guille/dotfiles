@@ -1,7 +1,7 @@
 {
 	"folders": [
 		{
-			"path": "/home/grodriguez/projects/dotfiles",
+			"path": ".",
 			"folder_exclude_patterns": [
 				"zsh/powerlevel10k",
 				"zsh/fzf-tab"
