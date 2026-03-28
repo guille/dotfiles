@@ -21,7 +21,7 @@
 				"ruby-lsp"
 			],
 			"selector": "source.ruby | text.html.rails",
-			"initializationOptions": {
+			"initialization_options": {
 				"enabledFeatures": {
 					"diagnostics": true
 				},
@@ -217,7 +217,7 @@
 				"--stdio"
 			],
 			"selector": "source.js, source.jsx, source.ts, source.tsx",
-			"initializationOptions": {
+			"initialization_options": {
 				"completionDisableFilterText": true,
 				"disableAutomaticTypingAcquisition": false,
 				// "locale": "en",
@@ -257,7 +257,7 @@
 				"--stdio"
 			],
 			"selector": "text.html.svelte",
-			"initializationOptions": {
+			"initialization_options": {
 				"configuration": {
 					"svelte.plugin": {
 						"css": {
