@@ -1,4 +1,7 @@
 {
+	"channels": [
+		"https://packages.sublimetext.io/channel.json"
+	],
 	"in_process_packages": [],
 	"installed_packages": [
 		###PACKAGES###
