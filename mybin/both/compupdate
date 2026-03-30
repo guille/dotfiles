@@ -17,6 +17,7 @@ mkdir -p /usr/local/share/zsh/site-functions/
 
 command_exists mise && mise completion zsh > /usr/local/share/zsh/site-functions/_mise
 command_exists restic && restic generate --zsh-completion /usr/local/share/zsh/site-functions/_restic
+command_exists oras && oras completion zsh > /usr/local/share/zsh/site-functions/_oras
 
 download_and_install "_aria2c" "https://raw.githubusercontent.com/zchee/zsh-completions/refs/heads/main/src/zsh/_aria2c"
 

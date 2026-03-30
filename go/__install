@@ -18,6 +18,7 @@ gitignore "go.work"
 # Symlinks
 ##
 infoprint "[$module_name] creating dotfiles symlinks..."
+prepare_profiled_config "default-packages"
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/default-packages" ~/.default-go-packages 1> /dev/null
 
 # Install after default packages are in the right place
