@@ -31,6 +31,7 @@ openssl-devel
 qt5-qtwayland
 qt6-qtwayland
 wl-clipboard
+keyd
 xorg-x11-server-Xwayland
 aria2
 bat
