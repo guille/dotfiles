@@ -109,6 +109,9 @@ groot() {
 		pushd "${git_root}"
 	fi
 }
+gc() {
+	git clone "$1" && cd "$(basename "$1" .git)"
+}
 
 untilok() { until $@; do :; done }
 untilfail() { while $@; do :; done }
