@@ -12,8 +12,9 @@
 		"LSP": {
 			"LSP-json": {
 				"settings": {
+					"json.validate.trailingCommas": "ignore",
 					"jsonc.patterns": [
-						"waybar/config.json"
+						"waybar/config.json",
 					]
 				}
 			},
