@@ -3,6 +3,7 @@
 	"variables": {
 		"foreground": "#f8f8f2",
 		"background": "#2c2c2c",
+		"off-background": "#353535",
 		"orange": "#fd971f",
 		"purple": "#be84ff",
 		"yellow": "#e6db74",
@@ -25,10 +26,11 @@
 		"invisibles": "#555555",
 		"line_highlight": "#474747",
 		"selection": "var(selection)",
-		"selection_border": "#1c1c1c",
+		"selection_border": "var(foreground)",
 		"stack_guide": "var(selection)",
 		"tags_foreground": "var(light_green)",
 		"tags_options": "foreground",
+		"accent": "var(foreground)"
 	},
 	"rules": [
 		{
@@ -202,13 +204,13 @@
 			"name": "Unused / anonymous variables",
 			"scope": "variable.other.unused | variable.parameter.unused | variable.language.anonymous",
 			"font_style": "italic",
-			"foreground": "color(#a7afb6)",
+			"foreground": "#a7afb4",
 		},
 		{
 			"name": "Comments",
 			"scope": "comment",
 			"font_style": "bold",
-			"background": "#353535",
+			"background": "var(off-background)",
 			"foreground": "var(comments_fg)",
 		},
 		{
@@ -258,7 +260,7 @@
 		{
 			"name": "Markdown: code block",
 			"scope": "markup.raw.code-fence",
-			"background": "#353535",
+			"background": "var(off-background)",
 			"foreground_adjust": "l(+ 5%) s(+ 50%)"
 		},
 		{

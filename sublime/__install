@@ -43,9 +43,8 @@ if [ ! -f "$SUBL_ROOT/Installed Packages/Package Control.sublime-package" ]; the
 	# https://github.com/wbond/package_control/issues/1612
 	# NOTE: Fixed in ST > 4200?
 	curl -s https://api.github.com/repos/sublimehq/package_control/releases/latest \
-		| jq -r '.assets[0].browser_download_url'\
+		| jq -r '.assets[0].browser_download_url' \
 		| xargs curl -sL -o "$SUBL_ROOT/Installed Packages/Package Control.sublime-package"
-	fi
 fi
 
 
