@@ -7,7 +7,7 @@ scope: source.gemfile.lock
 version: 2
 
 variables:
-  gem_name: '[a-zA-Z][\w-]*\w!?'
+  gem_name: '[a-zA-Z][\w-._]*\w!?'
   # published gem version
   gem_version_installed: '\d+(?:\.\d+)+(?:[a-z0-9.\-_]+)?'
   # supports single number eg "> 2"
