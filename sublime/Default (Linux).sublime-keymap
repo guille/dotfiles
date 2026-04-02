@@ -434,6 +434,19 @@
 			}
 		]
 	},
+	{
+		"keys": [
+			"keypad_enter"
+		],
+		"command": "open_file_from_find_results",
+		"context": [
+			{
+				"key": "selector",
+				"operator": "equal",
+				"operand": "text.find-in-files | entity.name.filename.lsp"
+			}
+		]
+	},
 	// Browse completions with alt+arrows
 	{
 		"keys": [

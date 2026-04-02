@@ -199,36 +199,34 @@ _fzf_comprun() {
 
 # ═════════════════════ tools: zoxide ═════════════════════
 
-if type zoxide &> /dev/null; then
-	eval "$(zoxide init zsh)"
-	export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS \
-	 --keep-right --info=inline \
-	 --preview-window=down,30% --preview 'eza -1 --icons=always --color=always {2..}'\
-	"
-	function execute_zoxide() {
-	  __zoxide_zi
-	  # _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" __zoxide_zi
-	  zle accept-line
-	}
-	zle -N execute_zoxide
-	bindkey '^j' execute_zoxide
-	# fuzzy search zoxide from its own db, with full paths (unlike zi) and go to best option
-	function zz() {
-		local result
-		result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --filter "${@:-}" | head -n1)
-		if [[ -n "$result" ]]; then
-			z "$result"
-		fi
-	}
-	# fuzzy search zoxide from its own db, with full paths (unlike zi) and bring up a fzf picker
-	function zzz() {
-		local result
-		result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --query "${@:-}" --preview 'eza -1 --icons=always --color=always {}')
-		if [[ -n "$result" ]]; then
-			z "$result"
-		fi
-	}
-fi
+eval "$(zoxide init zsh)"
+export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS \
+ --keep-right --info=inline \
+ --preview-window=down,30% --preview 'eza -1 --icons=always --color=always {2..}'\
+"
+function execute_zoxide() {
+  __zoxide_zi
+  # _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" __zoxide_zi
+  zle accept-line
+}
+zle -N execute_zoxide
+bindkey '^j' execute_zoxide
+# fuzzy search zoxide from its own db, with full paths (unlike zi) and go to best option
+function zz() {
+	local result
+	result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --filter "${@:-}" | head -n1)
+	if [[ -n "$result" ]]; then
+		z "$result"
+	fi
+}
+# fuzzy search zoxide from its own db, with full paths (unlike zi) and bring up a fzf picker
+function zzz() {
+	local result
+	result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --query "${@:-}" --preview 'eza -1 --icons=always --color=always {}')
+	if [[ -n "$result" ]]; then
+		z "$result"
+	fi
+}
 
 # ══════════════════════ tools: nnn ═══════════════════════
 

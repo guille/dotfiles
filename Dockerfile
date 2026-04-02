@@ -7,7 +7,7 @@ WORKDIR /root
 RUN apk add --no-cache \
 	musl-locales \
 	zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions \
-	git delta neovim bat eza fd fzf htop nnn ripgrep \
+	git delta neovim bat eza fd fzf htop nnn ripgrep zoxide \
 	jq yq curl \
 	mise \
 	helm kubectl kubectx
