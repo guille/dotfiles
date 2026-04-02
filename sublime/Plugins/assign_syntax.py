@@ -47,6 +47,11 @@ def assign_syntax(view: sublime.View) -> bool:
 
     syntax = view.syntax()
     if syntax:
+        # AFileIcon assigns this
+        if syntax.scope == "source.ini":
+            view.assign_syntax("scope:text.plain.config")
+            return True
+
         # RSpec/Rails
         if syntax.scope == "source.ruby":
             if file.endswith("_spec.rb"):

@@ -1,0 +1,114 @@
+%YAML 1.2
+---
+# https://www.sublimetext.com/docs/syntax.html
+name: Generic Config File
+file_extensions:
+  # Generic
+  - conf
+  - cfg
+  - config
+  - ini
+  # Dotfiles stuff
+  - config-linux
+  - config-macos
+  - dunstrc
+  - mpdconf
+  - ncmpcpp
+scope: text.plain.config
+version: 2
+variables:
+  hex_colour: '#\h{6,8}'
+
+contexts:
+  main:
+    - include: contexts
+
+  contexts:
+    # - include: colours
+    - include: comments
+    - include: assignments
+    - include: bracket-sections
+    - include: brace-sections
+    - include: flags
+
+  # Either a single flag or assume the word until the first space is lhs of an assignment
+  flags:
+    - include: comments
+    - include: colours
+    - match: \S+
+      scope: meta.mapping.key.config string.config
+      push: flag-value
+
+  flag-value:
+    - match: \s+
+      set: values
+    - match: (?:\n|$)
+      pop: 1
+
+  assignments:
+    - match: "[A-Za-z0-9._-]+(?=\\s*=)"
+      scope: meta.mapping.key.config string.config
+    - match: "="
+      scope: keyword.operator.assignment.config
+      set: values
+
+  values:
+    - include: colours
+    - include: comments
+    - match: '"'
+      scope: punctuation.definition.string.beginning.config
+      push: quoted_strings
+    # TODO: surely this is wrong
+    - match: \S
+      scope: meta.mapping.value.config string.unquoted.config
+    - match: (?:\n|$)
+      pop: 1
+
+  quoted_strings:
+    - meta_scope: string.quoted.double.config
+    - match: \\.
+      scope: constant.character.escape.config
+    - match: '"'
+      scope: punctuation.definition.string.end.config
+      pop: 1
+
+  colours:
+    - match: "{{hex_colour}}"
+      scope: constant.other.color.rgb-value.config
+
+  comments:
+    - meta_scope: string.quoted.double.c
+    - match: "#"
+      scope: punctuation.definition.comment.config
+      push: comment-body
+
+  comment-body:
+    - meta_scope: comment.line.config
+    - match: (?:\n|$)
+      pop: 1
+
+  bracket-sections:
+    - match: '\s*(\[)'
+      scope: meta.section.config
+      captures:
+        1: meta.brackets.config punctuation.section.brackets.begin.config
+      set: table-header-body
+
+  table-header-body:
+    - meta_content_scope: meta.section.config meta.brackets.config entity.name.section.config
+    - match: \]
+      scope: meta.brackets.config punctuation.section.brackets.end.config
+      pop: 1
+
+  brace-sections:
+    - match: '\s*(\w+)\s*(\{)'
+      captures:
+        1: meta.section.config meta.braces.config entity.name.section.config
+        2: meta.braces.config punctuation.section.braces.begin.config
+      set: brace-section-body
+
+  brace-section-body:
+    - match: \}
+      scope: meta.braces.config punctuation.section.braces.end.config
+      pop: 1
+    - include: contexts
