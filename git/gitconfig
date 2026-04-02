@@ -138,7 +138,7 @@
 	autocorrect = 10
 
 [url "git@github.com:"]
-	pushInsteadOf = "https://github.com/"
+	insteadOf = "https://github.com/"
 
 [include]
 	# usually: work email, maintenance repos
