@@ -39,6 +39,8 @@ def assign_syntax(view: sublime.View) -> bool:
 
     # Ruby stuff
     # AFileIcon assigns text.plain.lock without this
+    # Setting "aliases": false stops it but then we lose the icon, would need configuring separately...
+    # https://github.com/SublimeText/AFileIcon/blob/master/preferences/file_type_lock.tmPreferences
     if file.endswith(("Gemfile.lock", "gemfile.lock")):
         view.assign_syntax("scope:source.gemfile.lock")
         return True

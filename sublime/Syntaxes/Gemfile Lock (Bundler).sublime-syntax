@@ -18,9 +18,6 @@ variables:
 
 contexts:
   main:
-    # - match: \s*(#.*)
-    #   captures:
-    #     0: comment.line.number-sign
     - match: "^(GEM)$"
       captures:
         1: entity.name.section.gem.bundler.lockfile
@@ -51,7 +48,7 @@ contexts:
       set: bundled-with-section
     - match: "^(RUBY VERSION)$"
       captures:
-        1: entity.name.section.bundler.lockfile-version.bundler.lockfile
+        1: entity.name.section.ruby-version.bundler.lockfile
       set: ruby-version-section
     - match: "^(PLUGIN SOURCE)$"
       captures:
@@ -77,12 +74,11 @@ contexts:
     - match: '^\s*({{gem_name}})\s*{{constraint}}?$'
       captures:
         1: entity.name.package.bundler.lockfile
-        2: meta.constraint.punctuation.lower
-        3: constant.other.version-constraint.lower
-        4: meta.constraint.punctuation.upper
-        5: constant.other.version-constraint.upper
+        2: keyword.operator.comparison.bundler.lockfile
+        3: constant.other.version-constraint.lower.bundler.lockfile
+        4: keyword.operator.comparison.bundler.lockfile
+        5: constant.other.version-constraint.upper.bundler.lockfile
 
-  # --- GEM section ---
   gem-section:
     - meta_scope: meta.section.gem.bundler.lockfile
     - include: kv-line
@@ -90,7 +86,6 @@ contexts:
     - match: '^\s*$'
       pop: true
 
-  # --- PATH section (local gems) ---
   path-section:
     - meta_scope: meta.section.path.bundler.lockfile
     - include: kv-line
@@ -98,7 +93,6 @@ contexts:
     - match: '^\s*$'
       pop: true
 
-  # --- GIT section ---
   git-section:
     - meta_scope: meta.section.git.bundler.lockfile
     - include: kv-line
@@ -106,7 +100,6 @@ contexts:
     - match: '^\s*$'
       pop: true
 
-  # --- PLATFORMS section ---
   platforms-section:
     - meta_scope: meta.section.platforms.bundler.lockfile
     - match: '^\s+([A-Za-z0-9_+-]+)\s*$'
@@ -115,20 +108,18 @@ contexts:
     - match: '^\s*$'
       pop: true
 
-  # --- DEPENDENCIES section ---
   dependencies-section:
     - meta_scope: meta.section.dependencies.bundler.lockfile
     - match: '^\s*({{gem_name}})\s*{{constraint}}?$'
       captures:
         1: entity.name.package.bundler.lockfile
-        2: meta.constraint.punctuation.lower
-        3: constant.other.version-constraint.lower
-        4: meta.constraint.punctuation.upper
-        5: constant.other.version-constraint.upper
+        2: keyword.operator.comparison.bundler.lockfile
+        3: constant.other.version-constraint.lower.bundler.lockfile
+        4: keyword.operator.comparison.bundler.lockfile
+        5: constant.other.version-constraint.upper.bundler.lockfile
     - match: '^\s*$'
       pop: true
 
-  # --- CHECKSUMS section ---
   checksums-section:
     - meta_scope: meta.section.checksums.bundler.lockfile
     - match: '^\s{2}({{gem_name}})\s*(\()({{gem_version_installed}})(\))(?:\s+(sha256=)([0-9a-fA-F]{32,128}))?\s*$'
@@ -142,7 +133,6 @@ contexts:
     - match: '^\s*$'
       pop: true
 
-  # --- RUBY VERSION ---
   ruby-version-section:
     - meta_scope: meta.section.bundler.lockfile-version.bundler.lockfile
     - match: '^\s*(ruby)\s+(.+)\s*$'
@@ -152,7 +142,6 @@ contexts:
     - match: '^\s*$'
       pop: true
 
-  # --- BUNDLED WITH ---
   bundled-with-section:
     - meta_scope: meta.section.bundled-with.bundler.lockfile
     - match: '^\s*({{gem_version_installed}})\s*$'
@@ -161,7 +150,6 @@ contexts:
     - match: '^\s*$'
       pop: true
 
-  # --- PLUGIN SOURCE (generic) ---
   plugin-source-section:
     - meta_scope: meta.section.plugin-source.bundler.lockfile
     - include: kv-line
