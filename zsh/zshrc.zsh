@@ -58,6 +58,7 @@ compinit
 
 # fzf-tab: https://github.com/Aloxaf/fzf-tab/wiki/
 source ~/.fzf-tab/fzf-tab.plugin.zsh
+zstyle ':fzf-tab:*' active-group-style bold underline
 zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle' 'ctrl-a:toggle-all'
 zstyle ':fzf-tab:*' prefix '> '
