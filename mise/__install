@@ -22,6 +22,7 @@ mise use --global usage
 
 infoprint "[$module_name] mise config flags"
 mise settings set experimental true
+mise settings set status.show_prepare_stale false
 
 gitignore "mise.local.toml"
 
