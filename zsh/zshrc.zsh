@@ -65,10 +65,6 @@ zstyle ':fzf-tab:*' prefix '> '
 zstyle ':fzf-tab:*' fzf-pad 4
 zstyle ':fzf-tab:*' fzf-min-height 100
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
-zstyle ':fzf-tab:*' fzf-flags '--info=hidden'
-zstyle ':fzf-tab:complete:*' fzf-bindings \
-	"ctrl-y:execute-silent({_FTB_INIT_}$COPY_CMD \"\$word\")" \
-	'ctrl-p:toggle-preview'
 
 # fzf-tab previews
 zstyle ':fzf-tab:complete:*:options' fzf-preview '' # we rarely want preview when on options
@@ -163,6 +159,8 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
  --color=bg+:#444444,gutter:#444444,hl:#ffffff \
  --color=fg:#959ca1,header:#959ca1,info:#ffd204,pointer:#85cebc \
  --color=marker:#85cebc,fg+:#e7e7e8,prompt:#ffd204,query:#ffffff,hl+:#ffffff \
+ --bind '?:toggle-preview'
+ --bind 'ctrl-y:execute-silent(echo -n {2..} | "$COPY_CMD")'
 "
 
 export FZF_DEFAULT_COMMAND='fd --hidden --type f'
