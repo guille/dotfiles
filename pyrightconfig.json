@@ -1,19 +1,19 @@
 {
-  // TODO: ST 4201 changes to Python 3.13
+  // TODO: ST>4200 changes to Python 3.14
   "extraPaths": [
     "/Applications/Sublime Text.app/Contents/MacOS/Lib/python3.8.zip",
     "/Applications/Sublime Text.app/Contents/MacOS/Lib/python38",
     "/Applications/Sublime Text.app/Contents/MacOS/Lib/python3",
     "/Applications/Sublime Text.app/Contents/MacOS/Packages",
     // I don't think these expand, sadly
-    // "$HOME/Library/Application Support/Sublime Text 3/Lib/python38",
-    // "$HOME/Library/Application Support/Sublime Text 3/Packages"
+    // "$HOME/Library/Application Support/Sublime Text/Lib/python38",
+    // "$HOME/Library/Application Support/Sublime Text/Packages"
     "/opt/sublime_text/Lib/python3.8.zip",
     "/opt/sublime_text/Lib/python38",
     "/opt/sublime_text/Lib/python3",
     "/opt/sublime_text/Packages",
-    // "$HOME/.config/sublime-text-3/Lib/python38",
-    // "$HOME/.config/sublime-text-3/Packages"
+    // "$HOME/.config/sublime-text/Lib/python38",
+    // "$HOME/.config/sublime-text/Packages"
   ],
   "typeCheckingMode": "standard",
   "executionEnvironments": [
