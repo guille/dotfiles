@@ -143,6 +143,12 @@ tempe () {
 	fi
 }
 
+sbr() {
+  local dir="${1:+$(realpath "$1")}"
+  dir="${dir:-$(pwd)}"
+  subl --command 'sbr_bulk_rename_in_dir {"dirs": ["'"$dir"'"]}'
+}
+
 # ════════════════════════════════════════════════════════════════════════
 # fzf niceties and tools
 
