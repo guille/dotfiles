@@ -24,7 +24,6 @@ contexts:
     - include: contexts
 
   contexts:
-    # - include: colours
     - include: comments
     - include: assignments
     - include: bracket-sections
@@ -46,7 +45,7 @@ contexts:
       pop: 1
 
   assignments:
-    - match: "[A-Za-z0-9._-]+(?=\\s*=)"
+    - match: "\\S+(?=\\s*=)"
       scope: meta.mapping.key.config string.config
     - match: "="
       scope: keyword.operator.assignment.config
@@ -77,8 +76,11 @@ contexts:
       scope: constant.other.color.rgb-value.config
 
   comments:
-    - meta_scope: string.quoted.double.c
     - match: "#"
+      scope: punctuation.definition.comment.config
+      push: comment-body
+    # INI comments, only at start of line
+    - match: "^;"
       scope: punctuation.definition.comment.config
       push: comment-body
 
