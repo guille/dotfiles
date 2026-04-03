@@ -4,7 +4,7 @@ ncmpcpp_directory = ~/.ncmpcpp
 lyrics_directory = ~/.mpd/lyrics/
 mpd_music_dir = ~/Music
 mpd_host = localhost
-mpd_crossfade_time = 5
+mpd_crossfade_time = 2
 
 lyrics_fetchers = azlyrics, metrolyrics, musixmatch, genius, sing365, justsomelyrics, jahlyrics, plyrics, tekstowo, zeneszoveg, internet
 

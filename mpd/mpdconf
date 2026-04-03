@@ -15,7 +15,7 @@ input {
         plugin "curl"
 }
 
-volume_normalization            "yes"
+volume_normalization            "no"
 
 ###############################################################################
 
