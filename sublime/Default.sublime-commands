@@ -16,6 +16,10 @@
         "caption": "UI: Clear Console",
         "command": "clear_console"
     },
+    {
+        "caption": "Rename tab",
+        "command": "rename_tab"
+    },
     // Scratch buffer
     {
         "caption": "Open Scratch Buffer",
