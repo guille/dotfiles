@@ -1,0 +1,48 @@
+{
+  "manifest_version": 2,
+  "name": "Tab Finder",
+  "version": "1.0",
+  "description": "Quickly search and switch to any open tab with a keybind.",
+  "permissions": [
+    "tabs",
+    "activeTab"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tab-finder@dotfiles",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
+  "commands": {
+    "open-tab-search": {
+      "suggested_key": {
+        "default": "Ctrl+P"
+      },
+      "description": "Open tab search overlay"
+    }
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_end"
+    }
+  ]
+}

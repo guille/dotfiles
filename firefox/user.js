@@ -1,0 +1,101 @@
+/*
+Resources:
+- https://github.com/yokoffing/Betterfox
+- https://github.com/arkenfox/user.js/wiki/
+- https://github.com/mozilla-firefox/firefox/blob/main/browser/app/profile/firefox.js
+*/
+
+/*************************
+ *     LOOK AND FEEL     *
+ ************************/
+
+// Resume previous browser session on startup
+user_pref("browser.startup.page", 3);
+user_pref("extensions.activeThemeID", "firefox-compact-dark@mozilla.org");
+user_pref("devtools.everOpened", true);
+user_pref("findbar.highlightAll", true);
+user_pref("font.name.monospace.x-western", "0xProto Nerd Font");
+user_pref("reader.color_scheme", "dark");
+user_pref("font.name.serif.x-western", "Atkinson Hyperlegible");
+user_pref("general.autoScroll", true);
+user_pref("intl.accept_languages", "en-us,en,es");
+user_pref("intl.locale.requested", "en-US");
+user_pref("sidebar.verticalTabs", true);
+
+
+/************************
+ * PRIVACY AND SECURITY *
+ ************************/
+
+// DoH
+user_pref("network.trr.custom_uri", "https://dns9.quad9.net/dns-query");
+user_pref("network.trr.mode", 3); // Max protection
+user_pref("network.trr.uri", "https://dns9.quad9.net/dns-query");
+
+// https://developer.mozilla.org/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control
+user_pref("network.dns.disablePrefetch", true);
+user_pref("network.dns.disablePrefetchFromHTTPS", true);
+user_pref("network.prefetch-next", false);
+
+// https://blog.mozilla.org/security/2021/03/23/introducing-smartblock
+user_pref("extensions.webcompat.enable_shims", true);
+
+user_pref("browser.contentblocking.category", "strict");
+user_pref("browser.contentblocking.report.hide_vpn_banner", true);
+
+
+/*************************
+ *   DISABLED FEATURES   *
+ ************************/
+
+// Testing with memory only...
+user_pref("browser.cache.disk.enable", false);
+// https://www.servethehome.com/firefox-is-eating-your-ssd-here-is-how-to-fix-it/
+// user_pref("browser.sessionstore.interval", 120000);
+
+// Disable manager for login, addresses and cards
+user_pref("extensions.formautofill.addresses.enabled", false);
+user_pref("extensions.formautofill.creditCards.enabled", false);
+user_pref("signon.rememberSignons", false);
+user_pref("signon.autofillForms", false);
+
+// Disable "DevTools Accessibility Inspector" and context menu entry for it
+user_pref("devtools.accessibility.enabled", false);
+
+// Disable link preview functionality
+user_pref("browser.ml.linkPreview.collapsed", true);
+user_pref("browser.ml.linkPreview.enabled", false);
+user_pref("browser.tabs.hoverPreview.showThumbnails", false);
+user_pref("browser.tabs.hoverPreview.showThumbnails", false);
+
+// Disable AI stuff
+user_pref("browser.ai.control.pdfjsAltText", "blocked");
+user_pref("browser.ai.control.sidebarChatbot", "blocked");
+user_pref("browser.ai.control.smartTabGroups", "blocked");
+user_pref("browser.ml.chat.enabled", false);
+user_pref("browser.ml.chat.page", false);
+
+// Doesn't quite work anyway
+user_pref("privacy.query_stripping.strip_on_share.enabled", false);
+
+// https://mozilla.github.io/normandy/
+user_pref("app.normandy.enabled", false);
+user_pref("app.normandy.api_url", "");
+
+// Search suggestions
+user_pref("browser.urlbar.showSearchSuggestionsFirst", false);
+user_pref("browser.urlbar.sponsoredTopSites", false);
+user_pref("browser.urlbar.suggest.engines", false);
+
+// Hide spam and shady features
+user_pref("app.shield.optoutstudies.enabled", false);
+user_pref("browser.discovery.enabled", false);
+user_pref("browser.newtabpage.activity-stream.feeds.telemetry", false);
+user_pref("browser.newtabpage.activity-stream.showSponsored", false);
+user_pref("browser.newtabpage.activity-stream.showSponsoredCheckboxes", false);
+user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
+user_pref("browser.newtabpage.activity-stream.system.showSponsored", false);
+user_pref("browser.newtabpage.activity-stream.system.showWeatherOptIn", false);
+user_pref("browser.newtabpage.activity-stream.telemetry", false);
+user_pref("extensions.getAddons.showPane", false);
+user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
