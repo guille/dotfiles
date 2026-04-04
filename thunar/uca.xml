@@ -5,7 +5,23 @@
 	<name>Open Terminal here</name>
 	<submenu></submenu>
 	<unique-id>1755529238589111-1</unique-id>
-	<command>ghostty --gtk-single-instance=false --working-directory=&quot;$f&quot;</command>
+	<command>ghostty +new-window --working-directory=%f</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>sublime-text</icon>
+	<name>Bulk Rename</name>
+	<submenu></submenu>
+	<unique-id>1755529238589111-2</unique-id>
+	<command>f=%f; subl --command &apos;sbr_bulk_rename_in_dir {&quot;dirs&quot;: [&quot;&apos;&quot;$f&quot;&apos;&quot;]}&apos;</command>
 	<description></description>
 	<range>*</range>
 	<patterns>*</patterns>
