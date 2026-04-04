@@ -50,7 +50,4 @@
 	"row_padding_space": "large",
 	"show_sidebar_tracked_label_colors": true,
 	"show_sidebar_untracked_label_colors": true,
-	// Agila Theme
-	"theme_agila_compact_sidebar": true,
-	"theme_agila_sidebar_small": true,
 }

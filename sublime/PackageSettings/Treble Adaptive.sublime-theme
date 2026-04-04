@@ -1,0 +1,55 @@
+// Documentation at https://www.sublimetext.com/docs/themes.html
+{
+	"variables": {},
+	// Overrides to make tabs look ok with grayscale accent and some syntaxes in light mode
+	"rules": [
+		{
+			"class": "tab_control",
+			"settings": {
+				"tab_style": [
+					"mi",
+					"fa"
+				],
+				"accent_color": "grayscale"
+			},
+			"attributes": [
+				"file_light",
+				"selected"
+			],
+			"layer1.tint": "var(--accent)"
+		},
+		{
+			"class": "tab_label",
+			"settings": {
+				"accent_color": "grayscale"
+			},
+			"parents": [
+				{
+					"class": "tab_control",
+					"attributes": [
+						"file_light",
+						"selected"
+					]
+				}
+			],
+			"fg": "#F0F0F7"
+		},
+		{
+			"class": "tab_close_button",
+			"settings": {
+				"show_tab_close_buttons": true,
+				"accent_color": "grayscale"
+			},
+			"parents": [
+				{
+					"class": "tab_control",
+					"attributes": [
+						"file_light",
+						"selected"
+					]
+				}
+			],
+			"layer1.tint": "#F0F0F7"
+		},
+	]
+}

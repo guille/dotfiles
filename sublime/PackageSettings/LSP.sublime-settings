@@ -1,15 +1,16 @@
 // Settings in here override those in "LSP/LSP.sublime-settings"
 {
-	"show_diagnostics_panel_on_save": 1,
-	"diagnostics_panel_include_severity_level": 1,
-	"diagnostics_delay_ms": 200,
 	"format_on_type": true,
-	"lsp_format_on_save": true,
 	"log_max_size": 0,
+	"lsp_format_on_save": true,
 	"lsp_code_actions_on_save": {
 		"source.fixAll": true,
 		"source.organizeImports": true,
 	},
+	// Diagnostics
+	"show_diagnostics_panel_on_save": 1,
+	"diagnostics_panel_include_severity_level": 1,
+	"diagnostics_delay_ms": 200,
 	// Disable default servers, despite SublimeLSP's warnings
 	"default_clients": {},
 	"clients": {

@@ -1,22 +1,21 @@
 // Documentation at https://www.sublimetext.com/docs/color_schemes.html
 {
 	"variables": {
-		"foreground": "#f8f8f2",
-		"background": "#2c2c2c",
-		"background_lsp": "#2c2c2d", // must be (marginally) different from the original background
-		"off-background": "#353535",
-		"orange": "#fd971f",
-		"purple": "#be84ff",
-		"yellow": "#e6db74",
-		"yellow2": "#f6f080",
-		"light_blue": "#66d9ef",
-		"light_green": "#a6e22e",
-		"light_red": "#f92672",
-		"metallic": "#a7afb4",
-		"comments_fg": "#8e8971",
-		"selection": "#666666",
-		"invisibles": "#555555",
-		"line_highlight": "#474747",
+		"foreground": "#40362a",
+		"background": "#f3ebdc",
+		"background_lsp": "#f3ebdd", // must be (marginally) different from the original background
+		"off-background": "#f0f0ec",
+		"orange": "#c86a00",
+		"purple": "#7c3dcc",
+		"yellow": "#8a7a00",
+		"yellow2": "#9c9200",
+		"light_blue": "#007fa8",
+		"light_green": "#5a9910",
+		"light_red": "#c4003c",
+		"comments_fg": "#a09880",
+		"selection": "#d4b896",
+		"invisibles": "#ebe0cc",
+		"line_highlight": "#ebe0cc",
 		"md_punctuation": "#777777",
 	},
 	"globals": {
