@@ -108,6 +108,10 @@
 				"yaml-language-server",
 				"--stdio"
 			],
+			"disabled_capabilities": {
+				// it's just broken
+				"documentOnTypeFormattingProvider": true,
+			},
 			"settings": {
 				"redhat.telemetry.enabled": false,
 				"yaml.format.enable": true,
