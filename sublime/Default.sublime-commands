@@ -45,6 +45,10 @@
         }
     },
     {
+        "caption": "Lsp: Goto Diagnostic (*)",
+        "command": "custom_lsp_goto_diagnostic"
+    },
+    {
         "caption": "LSP-Tinymist: Pin Main File",
         "command": "lsp_execute",
         "args": {
@@ -85,5 +89,57 @@
     {
         "caption": "View: Reset Font Size",
         "command": "reset_font_size"
+    },
+    // View Layouts
+    {
+        "caption": "View Layout: Single",
+        "command": "set_layout",
+        "args": {
+            "cols": [
+                0.0,
+                1.0
+            ],
+            "rows": [
+                0.0,
+                1.0
+            ],
+            "cells": [
+                [
+                    0,
+                    0,
+                    1,
+                    1
+                ]
+            ]
+        }
+    },
+    {
+        "caption": "View Layout: 2 Columns",
+        "command": "set_layout",
+        "args": {
+            "cols": [
+                0.0,
+                0.5,
+                1.0
+            ],
+            "rows": [
+                0.0,
+                1.0
+            ],
+            "cells": [
+                [
+                    0,
+                    0,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    0,
+                    2,
+                    1
+                ]
+            ]
+        }
     },
 ]
