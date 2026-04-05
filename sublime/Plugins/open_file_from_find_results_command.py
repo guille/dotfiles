@@ -7,7 +7,7 @@ import sublime
 
 
 class OpenFileFromFindResultsCommand(sublime_plugin.TextCommand):
-    """Opens files from Find in Files results when pressing Enter on a filename"""
+    """Opens files from Find in Files/LSP diagnostic/Build output results when pressing Enter on a filename"""
 
     def run(self, edit):
         view = self.view
@@ -41,7 +41,7 @@ class OpenFileFromFindResultsCommand(sublime_plugin.TextCommand):
             sublime.status_message(f"Couldn't find file: {file_path}")
 
     def is_enabled(self):
-        """Only enable this command in Find in Files result views"""
-        return self.view.match_selector(
-            0, "text.find-in-files | entity.name.filename.lsp"
-        )
+        """Only enable this command when the first selection starts in a filename"""
+        view = self.view
+        sel = view.sel()[0]
+        return self.view.match_selector(sel.a, "entity.name.filename")

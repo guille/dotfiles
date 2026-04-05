@@ -430,7 +430,7 @@
 			{
 				"key": "selector",
 				"operator": "equal",
-				"operand": "text.find-in-files | entity.name.filename.lsp"
+				"operand": "entity.name.filename"
 			}
 		]
 	},
