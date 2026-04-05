@@ -54,9 +54,10 @@ def assign_syntax(view: sublime.View) -> bool:
 
         # RSpec/Rails
         if syntax.scope == "source.ruby":
-            if file.endswith("_spec.rb"):
-                view.assign_syntax("scope:source.ruby.rspec")
-                return True
+            # RSpec package does this by default
+            # if file.endswith("_spec.rb"):
+            #     view.assign_syntax("scope:source.ruby.rspec")
+            #     return True
 
             window = view.window()
             if window:
