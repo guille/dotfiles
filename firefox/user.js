@@ -16,7 +16,7 @@ user_pref("devtools.everOpened", true);
 user_pref("findbar.highlightAll", true);
 user_pref("font.name.monospace.x-western", "0xProto Nerd Font");
 user_pref("reader.color_scheme", "dark");
-user_pref("font.name.serif.x-western", "Atkinson Hyperlegible");
+user_pref("font.name.serif.x-western", "Atkinson Hyperlegible Next");
 user_pref("general.autoScroll", true);
 user_pref("intl.accept_languages", "en-us,en,es");
 user_pref("intl.locale.requested", "en-US");

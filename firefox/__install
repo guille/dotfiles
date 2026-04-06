@@ -18,16 +18,18 @@ module_name=firefox
 # upload to https://addons.mozilla.org/ as unlisted
 # download .xpi from versions page
 
+# TODO: Add check, if $HOME/.mozilla exists, exit with error to move to XDG
+
 # TODO: OSX: ~/Library/Application\ Support/Firefox/profiles.ini
-profiles=$(grep '^Path=' "$HOME/.mozilla/firefox/profiles.ini" | cut -d= -f2)
+profiles=$(grep '^Path=' "$HOME/.config/mozilla/firefox/profiles.ini" | cut -d= -f2)
 
 infoprint "[$module_name] creating dotfiles symlinks..."
 while IFS= read -r profile; do
   	# TODO: OSX: ~/Library/Application Support/Firefox/Profiles/XXXXXXXX.your_profile_name
-	ln -sfv "${SCRIPT_BASE_DIR}/$module_name/user.js" "$HOME/.mozilla/firefox/$profile/user.js" 1> /dev/null
-	ln -sfv "${SCRIPT_BASE_DIR}/$module_name/customKeys.json" "$HOME/.mozilla/firefox/$profile/customKeys.json" 1> /dev/null
+	ln -sfv "${SCRIPT_BASE_DIR}/$module_name/user.js" "$HOME/.config/mozilla/firefox/$profile/user.js" 1> /dev/null
+	ln -sfv "${SCRIPT_BASE_DIR}/$module_name/customKeys.json" "$HOME/.config/mozilla/firefox/$profile/customKeys.json" 1> /dev/null
 
-	if [ ! -f "$HOME/.mozilla/firefox/$profile/extensions/tab-finder@dotfiles.xpi" ]; then
+	if [ ! -f "$HOME/.config/mozilla/firefox/$profile/extensions/tab-finder@dotfiles.xpi" ]; then
 		firefox -P "$profile" "${SCRIPT_BASE_DIR}"/$module_name/tab-finder*.xpi
 	fi
 done <<< "$profiles"
