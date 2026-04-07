@@ -17,6 +17,8 @@
 		// Best docs for configuring servers manually are at https://github.com/neovim/nvim-lspconfig
 		//
 		// https://shopify.github.io/ruby-lsp/
+		// https://github.com/Shopify/ruby-lsp/blob/main/vscode/README.md
+		// https://github.com/Shopify/ruby-lsp/blob/main/vscode/package.json
 		"ruby-lsp": {
 			"enabled": true,
 			"command": [
@@ -24,10 +26,13 @@
 			],
 			"selector": "source.ruby | text.html.rails",
 			"initialization_options": {
-				"enabledFeatures": {
-					"diagnostics": true
-				},
 				"experimentalFeaturesEnabled": true
+			},
+			"settings": {
+				// List of globs
+				// "rubyLsp.indexing.excludedPatterns": [],
+				// eg Ruby files without .rb extension
+				// "rubyLsp.indexing.includedPatterns": [],
 			}
 		},
 		// https://go.dev/gopls/editor/sublime
