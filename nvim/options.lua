@@ -21,7 +21,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 -- ruler at 100 chars
-vim.o.colorcolumn="100"
+vim.o.colorcolumn = "100"
 
 -- complete (kinda) like zsh
 vim.o.wildmode = "longest:full,list:full"

@@ -7,11 +7,11 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 vim.api.nvim_create_autocmd("BufReadPost", {
 	desc = 'Remember last cursor position when closing and reopening a file',
 	callback = function()
-			local mark = vim.api.nvim_buf_get_mark(0, '"')
-			local lcount = vim.api.nvim_buf_line_count(0)
-			if mark[1] > 0 and mark[1] <= lcount then
-					pcall(vim.api.nvim_win_set_cursor, 0, mark)
-			end
+		local mark = vim.api.nvim_buf_get_mark(0, '"')
+		local lcount = vim.api.nvim_buf_line_count(0)
+		if mark[1] > 0 and mark[1] <= lcount then
+			pcall(vim.api.nvim_win_set_cursor, 0, mark)
+		end
 	end,
 })
 
@@ -65,9 +65,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		end
 		-- LSP format on save
 		if not client:supports_method('textDocument/willSaveWaitUntil')
-		    and client:supports_method('textDocument/formatting') then
+			and client:supports_method('textDocument/formatting') then
 			vim.api.nvim_create_autocmd('BufWritePre', {
-				group = vim.api.nvim_create_augroup('my.lsp', {clear=false}),
+				group = vim.api.nvim_create_augroup('my.lsp', { clear = false }),
 				buffer = ev.buf,
 				callback = function()
 					vim.lsp.buf.format({ bufnr = ev.buf, id = client.id, timeout_ms = 1000 })

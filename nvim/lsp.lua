@@ -1,7 +1,7 @@
 if vim.version.ge(vim.version(), { 0, 12, 0 }) then
-  vim.pack.add({
-	{ src = 'https://github.com/neovim/nvim-lspconfig', version = 'bedca8b' },
-  })
+	vim.pack.add({
+		{ src = 'https://github.com/neovim/nvim-lspconfig', version = 'bedca8b' },
+	})
 end
 
 -- ════════════════════ Ruby ════════════════════
@@ -11,28 +11,28 @@ vim.lsp.enable('ruby_lsp')
 -- ═══════════════════ Python ═══════════════════
 
 vim.lsp.config('basedpyright', {
-  settings = {
-	basedpyright = {
-	  analysis = {
-		useLibraryCodeForTypes = true,
-		autoImportCompletion = true,
-	  },
-	  disableOrganizeImports = true,
+	settings = {
+		basedpyright = {
+			analysis = {
+				useLibraryCodeForTypes = true,
+				autoImportCompletion = true,
+			},
+			disableOrganizeImports = true,
+		}
 	}
-  }
 })
 vim.lsp.config('ruff', {
-  init_options = {
-	settings = {
-	  fixAll = true,
-	  organizeImports = true,
-	  lint = {
-		enable = true,
-	  },
+	init_options = {
+		settings = {
+			fixAll = true,
+			organizeImports = true,
+			lint = {
+				enable = true,
+			},
+		}
 	}
-  }
 })
-vim.lsp.enable({'basedpyright', 'ruff'})
+vim.lsp.enable({ 'basedpyright', 'ruff' })
 
 -- ═════════════════════ Go ═════════════════════
 

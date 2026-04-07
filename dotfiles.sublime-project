@@ -20,6 +20,30 @@
 			},
 			"LSP-copilot": {
 				"enabled": false
+			},
+			// Set luals up for nvim config
+			"luals": {
+				"enabled": true,
+				"selector": "source.lua",
+				"disabled_capabilities": {
+					"completionProvider": {
+						"triggerCharacters": true
+					}
+				},
+				"settings": {
+					"Lua.runtime.path": [
+						"?.lua",
+						"?/init.lua"
+					],
+					"Lua.runtime.pathStrict": false,
+					"Lua.runtime.version": "LuaJIT",
+					"Lua.workspace.library": [
+						"/usr/share/nvim/runtime"
+					],
+				},
+				"command": [
+					"lua-language-server",
+				]
 			}
 		}
 	}
