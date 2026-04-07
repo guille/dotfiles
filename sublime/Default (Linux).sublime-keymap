@@ -21,6 +21,12 @@
 	},
 	{
 		"keys": [
+			"ctrl+'"
+		],
+		"command": "switch_code_and_test",
+	},
+	{
+		"keys": [
 			"ctrl+left"
 		],
 		"command": "move",
