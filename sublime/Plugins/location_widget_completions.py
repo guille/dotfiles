@@ -278,8 +278,6 @@ class FindInFilesCommitLocationCompletionCommand(sublime_plugin.TextCommand):
 
         pt = sels[0].b
 
-        print("HI")
-
         if type == LocationCompletionType.FILE:
             self.commit_file(edit, pt, completion)
         elif type == LocationCompletionType.PATH:

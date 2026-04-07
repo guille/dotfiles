@@ -13,32 +13,43 @@ class OpenFileFromFindResultsCommand(sublime_plugin.TextCommand):
         view = self.view
         sel = view.sel()[0]
 
-        # Get the current line
-        current_line = view.line(sel)
-        # line text minus the ":" suffix
-        file_path = os.path.expanduser(view.substr(current_line).strip()[:-1])
+        sel = view.expand_to_scope(sel.a, "entity.name.filename")
+        if sel is None:
+            return
+
+        file_path = os.path.expanduser(view.substr(sel))
+
         line_num = 0
 
-        # The line num of the first occurrence is in the next three lines at most
-        current_line = view.rowcol(current_line.end())[0]
-        for i in range(1, 4):
-            next_line_point = view.text_point(current_line + i, 0)
-            if next_line_point < view.size():
-                next_line_region = view.line(next_line_point)
-                next_line_text = view.substr(next_line_region)
-
-                # Look for pattern like "    1:" or "   42:"
-                line_match = re.match(r"^\s*(\d+):", next_line_text)
-                if line_match:
-                    line_num = line_match.group(1)
-                    break
-
-        if os.path.exists(file_path):
-            window = view.window()
-            if window:
-                window.open_file(f"{file_path}:{line_num}", sublime.ENCODED_POSITION)
+        # The line number will either be right after the filename... (build outputs usually)
+        line_contents = view.substr(view.full_line(sel))
+        if line_match := re.match(r"(?:[A-Za-z0-9_.\/ ]+rb):([0-9]+)", line_contents):
+            line_num = line_match.group(1)
         else:
+            # or in the next three lines at most (find in files / LSP diagnostics)
+            current_line = view.rowcol(sel.end())[0]
+            for i in range(1, 4):
+                next_line_point = view.text_point(current_line + i, 0)
+                if next_line_point < view.size():
+                    next_line_region = view.line(next_line_point)
+                    next_line_text = view.substr(next_line_region)
+
+                    # Look for pattern like "    1:" or "   42:"
+                    line_match = re.match(r"^\s*(\d+):", next_line_text)
+                    if line_match:
+                        line_num = line_match.group(1)
+                        break
+
+        window = view.window()
+        if window:
+            if os.path.exists(file_path):
+                window.open_file(
+                    f"{os.path.abspath(file_path)}:{line_num}", sublime.ENCODED_POSITION
+                )
             sublime.status_message(f"Couldn't find file: {file_path}")
+            # TODO: Try assuming it's relative to any open folder
+            # for directory in window.folders():
+            #     print(Path(directory) / file_path)
 
     def is_enabled(self):
         """Only enable this command when the first selection starts in a filename"""
