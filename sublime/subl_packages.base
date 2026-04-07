@@ -2,6 +2,9 @@
 	"channels": [
 		"https://packages.sublimetext.io/channel.json"
 	],
+	"repositories": [
+		"https://raw.githubusercontent.com/guille/sublime-packages/refs/heads/master/packages.json"
+	],
 	"in_process_packages": [],
 	"installed_packages": [
 		###PACKAGES###
