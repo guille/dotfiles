@@ -2,10 +2,11 @@
 -- This is needed for homebrew-installed fzf
 vim.opt.runtimepath:append('/usr/local/opt/fzf')
 
--- TODO: v0.12.x. Installed manually for now
--- vim.pack.add({
--- 	{ src = 'https://github.com/junegunn/fzf.vim', version = '879db51' },
--- })
+if vim.version.ge(vim.version(), { 0, 12, 0 }) then
+	vim.pack.add({
+		{ src = 'https://github.com/junegunn/fzf.vim', version = '34a564c' },
+	})
+end
 
 -- Replaces netrw with fzf popup
 vim.g.loaded_netrw = 1
