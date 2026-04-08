@@ -19,12 +19,10 @@ mise use --global go@latest
 mise x -- go telemetry off
 
 infoprint "[$module_name] installing packages..."
-if is_personal_or_hybrid; then
-	mise use --global go:github.com/go-delve/delve/cmd/dlv@latest
-	mise use --global go:golang.org/x/tools/gopls@latest
-	mise use --global go:golang.org/x/vuln/cmd/govulncheck@latest
-	mise use --global go:honnef.co/go/tools/cmd/staticcheck@latest
-fi
+mise use --global go:github.com/go-delve/delve/cmd/dlv@latest
+mise use --global go:golang.org/x/tools/gopls@latest
+mise use --global go:golang.org/x/vuln/cmd/govulncheck@latest
+mise use --global go:honnef.co/go/tools/cmd/staticcheck@latest
 
 if is_work_or_hybrid; then
 	mise use --global go:oras.land/oras/cmd/oras@latest
