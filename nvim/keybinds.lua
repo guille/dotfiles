@@ -19,12 +19,14 @@ vim.keymap.set('n', '<leader>q', function()
 		vim.cmd('q')
 	end
 end, { noremap = true, silent = true, desc = 'Smart close (buffer if multiple buffers open, otherwise quit)' })
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
-vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Half page down (centered)' })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Half page up (centered)' })
+vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines and keep cursor position' })
 
 vim.keymap.set('n', 'k', 'gk', { noremap = true, desc = 'Move up by visual lines' })
 vim.keymap.set('n', 'j', 'gj', { noremap = true, desc = 'Move down by visual lines' })
+vim.keymap.set('n', 'gl', '$', { desc = 'Go to end of line' })
+vim.keymap.set('n', 'gh', '^', { desc = 'Go to start of line' })
 -- Next instance of exact word
 vim.keymap.set('n', 'gw', '*n')
 -- minus sign goes to outer or matching bracket
@@ -75,7 +77,7 @@ local function smart_tab()
 	end
 	local col = vim.fn.col('.') - 1
 	if col == 0 or vim.fn.getline('.'):sub(1, col):match('^%s*$') then
-		return '\t'       -- indent at BOL/whitespace
+		return '\t'   -- indent at BOL/whitespace
 	else
 		return '<C-x><C-o>' -- trigger omni completion
 	end

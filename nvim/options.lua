@@ -27,6 +27,7 @@ vim.o.colorcolumn = "100"
 vim.o.wildmode = "longest:full,list:full"
 vim.o.wildignorecase = true
 vim.o.completeopt = "menuone,longest,noselect,fuzzy"
+vim.o.autocomplete = true
 
 -- subtitute globally by default
 vim.o.gdefault = true
