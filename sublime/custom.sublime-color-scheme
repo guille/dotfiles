@@ -270,6 +270,11 @@
 			"foreground": "var(light_blue)",
 		},
 		{
+			"name": "Markdown: wiki links",
+			"scope": "meta.link.reference.wiki.description.markdown",
+			"font_style": "underline",
+		},
+		{
 			"name": "Markdown: raw inline",
 			"scope": "markup.raw.inline",
 			"foreground": "var(yellow2)",
