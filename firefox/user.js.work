@@ -1,0 +1,1 @@
+user_pref("network.trr.mode", 2); // Lower it a bit
