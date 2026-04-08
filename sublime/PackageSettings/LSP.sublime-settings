@@ -288,5 +288,15 @@
 			},
 			"settings": {},
 		},
+		// https://docs.syntaqlite.com/
+		"sql": {
+			"enabled": true,
+			"command": [
+				"syntaqlite",
+				"lsp",
+			],
+			"selector": "source.sql",
+			"settings": {},
+		},
 	}
 }
