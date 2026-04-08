@@ -18,9 +18,11 @@ infoprint "[$module_name] installing latest ruby"
 mise use --global ruby@latest
 
 infoprint "[$module_name] installing default gems..."
-prepare_profiled_config "default-gems"
-\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/default-gems" | xargs gem install
-remove_profiled_config "default-gems"
+mise use --global gem:rubocop
+mise use --global gem:ruby-lsp
+if is_personal_or_hybrid; then
+	mise use --global gem:download_tv
+fi
 
 ##
 # Symlinks
