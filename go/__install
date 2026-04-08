@@ -14,14 +14,18 @@ module_name=go
 
 gitignore "go.work"
 
-##
-# Symlinks
-##
-infoprint "[$module_name] creating dotfiles symlinks..."
-prepare_profiled_config "default-packages"
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/default-packages" ~/.default-go-packages 1> /dev/null
 
-# Install after default packages are in the right place
 mise use --global go@latest
-
 mise x -- go telemetry off
+
+infoprint "[$module_name] installing packages..."
+if is_personal_or_hybrid; then
+	mise use --global go:github.com/go-delve/delve/cmd/dlv@latest
+	mise use --global go:golang.org/x/tools/gopls@latest
+	mise use --global go:golang.org/x/vuln/cmd/govulncheck@latest
+	mise use --global go:honnef.co/go/tools/cmd/staticcheck@latest
+fi
+
+if is_work_or_hybrid; then
+	mise use --global go:oras.land/oras/cmd/oras@latest
+fi
