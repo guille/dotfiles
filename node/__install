@@ -12,15 +12,20 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=node
 
 
-prepare_profiled_config "default-npm-packages"
-
-
-##
-# Symlinks
-##
-infoprint "[$module_name] creating dotfiles symlinks..."
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/default-npm-packages" ~/.default-npm-packages 1> /dev/null
-
 add_if_not_there "ignore-scripts=true" "$HOME/.npmrc"
 
+
 mise use -g node@latest
+
+infoprint "[$module_name] installing packages..."
+mise use -g npm:dockerfile-language-server-nodejs
+mise use -g npm:typescript
+mise use -g npm:typescript-language-server
+mise use -g npm:yaml-language-server
+
+if is_personal_or_hybrid; then
+	mise use -g npm:svelte-language-server
+fi
+if is_work_or_hybrid; then
+	mise use -g npm:@bufbuild/buf
+fi
