@@ -20,6 +20,10 @@
         "caption": "Rename tab",
         "command": "rename_tab"
     },
+    {
+        "caption": "Decode selection from base64",
+        "command": "decode_selected_base64"
+    },
     // Scratch buffer
     {
         "caption": "Open Scratch Buffer",
