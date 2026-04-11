@@ -147,6 +147,22 @@
 			"text": "#"
 		}
 	},
+	// Use LSP-powered Expand Selection when available
+	{
+		"keys": [
+			"primary+shift+a"
+		],
+		"command": "lsp_expand_selection",
+		"args": {
+			"fallback": true
+		},
+		"context": [
+			{
+				"key": "lsp.session_with_capability",
+				"operand": "selectionRangeProvider"
+			}
+		]
+	},
 	// Instead of build -> Go To Definition
 	{
 		"keys": [
