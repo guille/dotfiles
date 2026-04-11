@@ -1,0 +1,13 @@
+{
+   "scope": "source.python",
+   "completions": [
+      {
+         "trigger": "ipdb",
+         "contents": "import ipdb; ipdb.set_trace()\n"
+      },
+      {
+         "trigger": "pyright: basic",
+         "contents": "# pyright: basic\n"
+      }
+   ]
+}

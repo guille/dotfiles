@@ -15,7 +15,7 @@
     // "$HOME/.config/sublime-text/Lib/python38",
     // "$HOME/.config/sublime-text/Packages"
   ],
-  "typeCheckingMode": "standard",
+  "typeCheckingMode": "strict",
   "executionEnvironments": [
     {
       "root": "sublime/",

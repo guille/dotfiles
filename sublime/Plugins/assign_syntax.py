@@ -45,8 +45,7 @@ def assign_syntax(view: sublime.View) -> bool:
         view.assign_syntax("scope:source.gemfile.lock")
         return True
 
-    syntax = view.syntax()
-    if syntax:
+    if syntax := view.syntax():
         # AFileIcon assigns this
         if syntax.scope == "source.ini":
             view.assign_syntax("scope:text.plain.config")
@@ -93,5 +92,5 @@ def plugin_loaded():
 
 # Assign Rails syntax when a view is loaded
 class AssignSyntax(sublime_plugin.EventListener):
-    def on_load(self, view):
+    def on_load(self, view: sublime.View):
         assign_syntax(view)

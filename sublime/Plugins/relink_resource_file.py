@@ -16,7 +16,7 @@ class RelinkResourceFileListener(sublime_plugin.EventListener):
     2. There is a link at Packages/User matching the same name as the current
     """
 
-    def on_post_save_async(self, view):
+    def on_post_save_async(self, view: sublime.View):
         path = view.file_name()
         if not path:
             return
@@ -32,7 +32,7 @@ class RelinkResourceFileListener(sublime_plugin.EventListener):
                 if link_target == path:
                     self._relink(symlink_path)
 
-    def _relink(self, path):
+    def _relink(self, path: str):
         link_path = os.readlink(path)
         os.unlink(path)
         os.symlink(link_path, path)

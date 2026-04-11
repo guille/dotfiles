@@ -250,6 +250,9 @@
 				"tombi",
 				"lsp"
 			],
+			"disabled_capabilities": {
+				"semanticTokensProvider": true,
+			},
 			"selector": "source.toml",
 			"settings": {},
 		},

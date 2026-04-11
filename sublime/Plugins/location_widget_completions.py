@@ -1,3 +1,5 @@
+# pyright: basic
+
 """
 Auto Completion for Find in Files "Where:" field
 

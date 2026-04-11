@@ -1,5 +1,7 @@
 import sublime_plugin
 
+import sublime
+
 # See https://github.com/STealthy-and-haSTy/SublimeScraps/blob/master/plugins/open_found_files.py
 
 
@@ -9,7 +11,7 @@ class OpenAllFoundFilesCommand(sublime_plugin.TextCommand):
     all at once, optionally in a new window.
     """
 
-    def run(self, edit, new_window=False):
+    def run(self, edit: sublime.Edit, new_window: bool = False):
         # Collect all found filenames
         positions = self.view.find_by_selector("entity.name.filename.find-in-files")
         window = self.view.window()

@@ -1,3 +1,5 @@
+# pyright: basic
+
 from LSP.plugin.core.settings import userprefs  # pyright: ignore[reportMissingImports]
 from LSP.plugin.goto import (  # pyright: ignore[reportMissingImports]
     DiagnosticUriInputHandler,

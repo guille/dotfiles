@@ -46,7 +46,7 @@ class SyntaxPathInputHandler(sublime_plugin.ListInputHandler):
         return "Choose Scratch Buffer Syntax"
 
     def list_items(self) -> "list[sublime.ListInputItem]":
-        result = []
+        result: "list[sublime.ListInputItem]" = []
         for syntax in sorted(sublime.list_syntaxes(), key=lambda e: e.name):
             path = pathlib.PurePosixPath(syntax.path)
             package = path.parts[1]
@@ -91,7 +91,7 @@ class ScratchBufferCommand(sublime_plugin.WindowCommand):
         view.assign_syntax(syntax)
         view.settings().set("is_temp_scratch", True)
 
-    def input(self, args):
+    def input(self, args: "dict[str, str]"):
         if "syntax_path" not in args and "copy" not in args:
             return SyntaxPathInputHandler()
 
@@ -105,11 +105,11 @@ class ScratchBufferListener(sublime_plugin.EventListener):
     changes do not get lost on accidental close.
     """
 
-    def on_post_save(self, view):
+    def on_post_save(self, view: sublime.View):
         if view.is_scratch() and view.settings().get("is_temp_scratch", True):
             view.set_scratch(False)
 
 
 class ToggleScratchCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
+    def run(self, edit: sublime.Edit):
         self.view.set_scratch(not self.view.is_scratch())

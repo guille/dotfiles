@@ -1,7 +1,8 @@
 import base64
 
-import sublime
 import sublime_plugin
+
+import sublime
 
 
 class DecodeSelectedBase64Command(sublime_plugin.WindowCommand):

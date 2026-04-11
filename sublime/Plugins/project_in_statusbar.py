@@ -25,18 +25,15 @@ def plugin_loaded():
             show_project(view)
 
 
-def show_project(view):
+def show_project(view: sublime.View):
     """
     If a project file is in use, add the name of it to the start of the status
     bar.
     """
-    if view.window() is None:
-        return
-
-    project_file = view.window().project_file_name()
-    if project_file is not None:
-        project_name = os.path.splitext(os.path.basename(project_file))[0]
-        view.set_status("00ProjectName", "  [" + project_name + "]")
+    if window := view.window():
+        if project_file := window.project_file_name():
+            project_name = os.path.splitext(os.path.basename(project_file))[0]
+            view.set_status("00ProjectName", "  [" + project_name + "]")
 
 
 class ProjectInStatusbar(sublime_plugin.EventListener):
@@ -44,11 +41,11 @@ class ProjectInStatusbar(sublime_plugin.EventListener):
     Display the name of the current project in the status bar.
     """
 
-    def on_new(self, view):
+    def on_new(self, view: sublime.View):
         show_project(view)
 
-    def on_load(self, view):
+    def on_load(self, view: sublime.View):
         show_project(view)
 
-    def on_clone(self, view):
+    def on_clone(self, view: sublime.View):
         show_project(view)
