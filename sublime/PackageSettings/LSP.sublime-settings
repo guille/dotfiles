@@ -7,6 +7,8 @@
 		"source.fixAll": true,
 		"source.organizeImports": true,
 	},
+	// Trying this out for a bit
+	"semantic_highlighting": true,
 	// Diagnostics
 	"show_diagnostics_panel_on_save": 1,
 	"diagnostics_panel_include_severity_level": 1,
@@ -182,7 +184,9 @@
 			"command": [
 				"tinymist"
 			],
-			"settings": {},
+			"settings": {
+				"preview.refresh": "onSave",
+			},
 			"selector": "text.typst",
 		},
 		// https://github.com/rcjsuen/dockerfile-language-server

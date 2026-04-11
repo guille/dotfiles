@@ -258,6 +258,10 @@
 			"foreground": "var(foreground)",
 			"background": "var(light_red)",
 		},
+		{
+			"scope": "meta.semantic-token",
+			"background": "var(background_lsp)"
+		},
 		//
 		// LANGUAGE-SPECIFIC OVERRIDES AND EXTENSIONS
 		//
