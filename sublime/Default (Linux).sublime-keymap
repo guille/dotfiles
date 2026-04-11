@@ -361,6 +361,13 @@
 			}
 		]
 	},
+	// Fallback keys for adjusting font size
+	{
+		"keys": [
+			"ctrl+shift++"
+		],
+		"command": "increase_font_size"
+	},
 	{
 		"keys": [
 			"ctrl+shift+-"
@@ -465,7 +472,7 @@
 			{
 				"key": "selector",
 				"operator": "equal",
-				"operand": "text.find-in-files | entity.name.filename.lsp"
+				"operand": "entity.name.filename"
 			}
 		]
 	},
