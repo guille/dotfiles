@@ -24,6 +24,8 @@
     "bash": {
       "*": "ask",
       "ls *": "allow",
+      "bundle exec rspec *": "allow",
+      "bundle exec rubocop *": "allow",
       "go build *": "allow",
       "go test *": "allow",
       "go vet *": "allow",
