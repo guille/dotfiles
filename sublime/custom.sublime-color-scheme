@@ -54,6 +54,11 @@
 			"foreground": "var(light_red)",
 		},
 		{
+			"name": "Quote delimiters",
+			"scope": "punctuation.definition.quoted",
+			"foreground": "var(light_red)",
+		},
+		{
 			"name": "Strings when used as keys",
 			"scope": "string & meta.mapping.key",
 			"foreground": "var(orange)",

@@ -52,6 +52,7 @@ alias top='htop'
 alias c='\cat'
 alias cat='bat'
 alias fd='fd --hidden'
+alias oc='opencode'
 # Safe ops. Ask the user before doing anything destructive.
 alias cp='cp -i'
 alias ln='ln -i'
