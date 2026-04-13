@@ -264,6 +264,9 @@
 				"lsp",
 				"serve"
 			],
+			"disabled_capabilities": {
+				"semanticTokensProvider": true,
+			},
 			"selector": "source.proto",
 			"settings": {},
 		},
