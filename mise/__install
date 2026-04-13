@@ -38,6 +38,7 @@ if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
 	mise use --global kubectx@latest
 	mise use --global kubens@latest
 	mise use --global github:atanunq/viu
+	mise use --global protoc@34
 fi
 
 infoprint "[$module_name] pruning outdated mise tools"
