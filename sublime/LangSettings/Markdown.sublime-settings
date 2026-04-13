@@ -2,4 +2,6 @@
 {
 	"color_scheme": "custom-light.sublime-color-scheme",
 	"draw_white_space": "selection",
+	"trim_only_modified_white_space": false,
+	"trim_trailing_white_space_on_save": "all",
 }
