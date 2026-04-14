@@ -246,6 +246,10 @@ fi
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 [[ -f ~/.zshrc.$(hostname) ]] && source ~/.zshrc.$(hostname)
 
+# Needs to be set after sourcing fzf for _reasons_
+# makes it so `echo "foo""` works transparently
+KEYBOARD_HACK='"'
+
 # ════════════════════════ plugins ════════════════════════
 
 # To customize prompt, edit dots/p10k
