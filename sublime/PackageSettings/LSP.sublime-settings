@@ -202,6 +202,9 @@
 				"buffer",
 				"res"
 			],
+			"disabled_capabilities": {
+				"semanticTokensProvider": true,
+			},
 			"settings": {
 				"docker": {
 					"languageserver": {
