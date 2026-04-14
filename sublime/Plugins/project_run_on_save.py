@@ -7,6 +7,7 @@ if TYPE_CHECKING:
     # 3.11 or newer
     from typing import NotRequired
 
+
 import sublime
 
 """
@@ -40,8 +41,8 @@ Simple plugin to run commands when saving scopes, configured in the project
 
 class RunOnSaveTask(TypedDict):
     cmd: "list[str]"
-    working_dir: NotRequired[str]
-    build_panel: NotRequired[bool]
+    working_dir: "NotRequired[str]"
+    build_panel: "NotRequired[bool]"
 
 
 class ProjectRunOnSaveListener(sublime_plugin.EventListener):
