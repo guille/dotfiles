@@ -311,5 +311,16 @@
 			"selector": "source.sql",
 			"settings": {},
 		},
+		// https://github.com/graphql/graphiql/tree/main/packages/graphql-language-service-server
+		"graphql": {
+			"enabled": true,
+			"command": [
+				"graphql-lsp",
+				"server",
+				"--method=stream",
+			],
+			"selector": "source.graphql",
+			"settings": {},
+		},
 	}
 }

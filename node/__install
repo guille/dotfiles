@@ -28,4 +28,5 @@ if is_personal_or_hybrid; then
 fi
 if is_work_or_hybrid; then
 	mise use -g npm:@bufbuild/buf
+	mise use -g npm:graphql-language-service-cli
 fi
