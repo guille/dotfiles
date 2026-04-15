@@ -28,4 +28,5 @@ if is_work_or_hybrid; then
 	mise use --global go:oras.land/oras/cmd/oras@latest
 	mise use --global go:google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	mise use --global go:google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+	mise use --global go:github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 fi
