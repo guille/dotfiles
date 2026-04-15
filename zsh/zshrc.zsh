@@ -199,7 +199,11 @@ _fzf_comprun() {
 
 # ═════════════════════ tools: zoxide ═════════════════════
 
-eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh --hook none)"
+# only add to zoxide when using z
+z() {
+    __zoxide_z "$@" && zoxide add -- "$(__zoxide_pwd)"
+}
 export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS \
  --keep-right --info=inline \
  --preview-window=down,30% --preview 'eza -1 --icons=always --color=always {2..}'\
