@@ -1,7 +1,0 @@
-%YAML 1.2
----
-# See http://www.sublimetext.com/docs/syntax.html
-scope: source.yaml.helmvalues
-version: 2
-
-extends: Packages/User/YamlWithEmbeds.sublime-syntax
