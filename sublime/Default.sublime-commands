@@ -98,6 +98,10 @@
         "caption": "View: Reset Font Size",
         "command": "reset_font_size"
     },
+    {
+        "caption": "View: Reveal Current File in Side Bar",
+        "command": "reveal_in_side_bar"
+    },
     // View Layouts
     {
         "caption": "View Layout: Single",
