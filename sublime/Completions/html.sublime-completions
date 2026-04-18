@@ -1,0 +1,21 @@
+{
+   "scope": "text.html - string",
+   "completions": [
+      {
+         "trigger": "ahref",
+         "contents": "<a href=\"${1}\">${2}</a>${3}"
+      },
+      {
+         "trigger": "img",
+         "contents": "<img src=\"$1\" alt=\"$2\">$3"
+      },
+      {
+         "trigger": "script",
+         "contents": "<script src=\"$1\"></script>$2"
+      },
+      {
+         "trigger": "style",
+         "contents": "<link rel=stylesheet href=\"$1\">$2"
+      },
+   ]
+}
