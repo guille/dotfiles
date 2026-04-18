@@ -81,6 +81,7 @@ mpv
 sublime-text
 ##
 # proglands and sdks
+dart
 jdk8-openjdk
 postgresql-libs
 ruff
