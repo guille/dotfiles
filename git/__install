@@ -16,6 +16,7 @@ if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	gitignore ".DS_Store"
 fi
 gitignore "*.local"
+gitignore "*.local.md"
 
 if [[ ! -f ~/.gitconfig.local ]]; then
 	touch ~/.gitconfig.local
