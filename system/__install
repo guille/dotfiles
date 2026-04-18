@@ -54,6 +54,8 @@ setup_arch() {
 	\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/pacman" | xargs $INSTALL
 	remove_profiled_config "pacman"
 
+	dart --disable-analytics
+
 	# Install fonts if available and reload fonts
 	infoprint "[$module_name] installing custom fonts and reloading"
 	[ -d "$SCRIPT_BASE_DIR/fonts" ] && cp -r "$SCRIPT_BASE_DIR/fonts/"* ~/.local/share/fonts
