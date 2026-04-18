@@ -21,6 +21,22 @@
 	},
 	{
 		"keys": [
+			"ctrl+;" // Ctrl+ñ with Spanish keyboard layout
+		],
+		"command": "lsp_goto_diagnostic",
+	},
+	{
+		"keys": [
+			"ctrl+\\" // Ctrl+ç with Spanish keyboard layout
+		],
+		"command": "show_overlay",
+		"args": {
+			"overlay": "goto",
+			"text": "#"
+		}
+	},
+	{
+		"keys": [
 			"ctrl+'"
 		],
 		"command": "switch_code_and_test",
@@ -135,16 +151,6 @@
 		"command": "toggle_comment",
 		"args": {
 			"block": false
-		}
-	},
-	{
-		"keys": [
-			"ctrl+\\" // spanish layout: ctrl+ç
-		],
-		"command": "show_overlay",
-		"args": {
-			"overlay": "goto",
-			"text": "#"
 		}
 	},
 	// Use LSP-powered Expand Selection when available
