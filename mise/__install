@@ -28,6 +28,7 @@ gitignore "mise.local.toml"
 
 infoprint "[$module_name] installing global mise tools"
 mise use -g flutter@latest
+mise x -- dart --disable-analytics
 mise x -- flutter --disable-analytics
 mise set -g FLUTTER_ROOT="$(mise where flutter)"
 

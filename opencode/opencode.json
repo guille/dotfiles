@@ -29,6 +29,9 @@
       "*": "ask",
       "bundle exec rspec *": "allow",
       "bundle exec rubocop *": "allow",
+      "dart analyze *": "allow",
+      "flutter analyze *": "allow",
+      "flutter test *": "allow",
       "go build *": "allow",
       "go test *": "allow",
       "go vet *": "allow",
@@ -41,6 +44,7 @@
       "rm *": "deny",
       "sort": "allow",
       "tail *": "allow",
+      "wc *": "allow",
     },
     "external_directory": {
       "*": "deny",
