@@ -1,0 +1,9 @@
+// Settings in here override those in "LSP-Dart/LSP-Dart.sublime-settings"
+{
+	"disabled_capabilities": {
+		"semanticTokensProvider": true
+	},
+	"settings": {
+		"dart.lineLength": 100,
+	}
+}
