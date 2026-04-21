@@ -101,8 +101,8 @@
 			"foreground": "var(light_green)",
 		},
 		{
-			"name": "Anonymous function definition",
-			"scope": "keyword.declaration.function.anonymous",
+			"name": "Anonymous function definition / lambdas",
+			"scope": "keyword.declaration.function.anonymous | keyword.declaration.function.arrow",
 			"font_style": "bold",
 			"foreground": "var(light_green)",
 		},
@@ -136,6 +136,16 @@
 		{
 			"name": "Class names",
 			"scope": "support.class | entity.name.class",
+			"foreground": "var(light_blue)",
+		},
+		{
+			"name": "Interface names",
+			"scope": "entity.name.interface",
+			"foreground": "var(light_blue)",
+		},
+		{
+			"name": "Enums",
+			"scope": "entity.name.enum",
 			"foreground": "var(light_blue)",
 		},
 		{
