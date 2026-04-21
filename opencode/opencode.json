@@ -46,6 +46,7 @@
       "flutter analyze *": "allow",
       "flutter test *": "allow",
       "go build *": "allow",
+      "go env *": "allow",
       "go test *": "allow",
       "go vet *": "allow",
       "grep *": "allow",

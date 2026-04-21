@@ -1,5 +1,20 @@
 import sublime_plugin
 
+# if scope not in SUPPORTED_TYPES:
+# source root markers:
+#   [/src, /lib, ?]
+# test root markers_
+#   [/test, /tests/, /spec, /src/test, /src/tests]
+# test file prefixes
+#   [test_]
+# test file suffixes
+#   [_test, _spec]
+# behaviour flags:
+#   - try_same_dir: whether to look for file name with(/out) prefixes or suffixes in same dir
+#   - assume_same_structure: if source is in /src/foo/bar.py, assume test is in /test/foo/bar_test.py
+#   - feeling_lucky: stop at first result or open picker
+# all configurable behaviour via args? or project settings? (per scope??)
+
 
 class SwitchCodeAndTestCommand(sublime_plugin.WindowCommand):
     SUPPORTED_TYPES: "dict[str, str]" = {

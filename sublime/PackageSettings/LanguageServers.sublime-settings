@@ -214,6 +214,9 @@
 			"--stdio"
 		],
 		"selector": "source.js, source.jsx, source.ts, source.tsx",
+		"disabled_capabilities": {
+			"semanticTokensProvider": true
+		},
 		"initialization_options": {
 			"completionDisableFilterText": true,
 			"disableAutomaticTypingAcquisition": false,
