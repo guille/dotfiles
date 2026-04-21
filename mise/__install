@@ -17,6 +17,7 @@ gitignore "mise.local.toml"
 infoprint "[$module_name] mise config flags"
 mise settings set experimental true
 mise settings set status.show_deps_stale false
+mise settings set install_before "7d"
 
 if command_exists mise; then
 	infoprint "[$module_name] upgrading mise tools"
