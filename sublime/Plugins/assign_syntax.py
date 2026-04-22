@@ -53,6 +53,13 @@ def assign_syntax(view: sublime.View) -> bool:
         if syntax.scope == "source.gradle":
             view.assign_syntax("scope:source.groovy")
             return True
+        # Kotlin package with uppercase
+        if syntax.scope == "source.Kotlin":
+            view.assign_syntax("scope:source.kotlin")
+            return True
+        if syntax.scope == "source.Kotlin.gradle":
+            view.assign_syntax("scope:source.kotlin")
+            return True
 
         # RSpec/Rails
         if syntax.scope == "source.ruby":
