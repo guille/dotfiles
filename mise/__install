@@ -28,11 +28,6 @@ infoprint "[$module_name] setting up usage"
 mise use --global usage
 
 infoprint "[$module_name] installing global mise tools"
-mise use -g flutter@latest
-mise x -- dart --disable-analytics
-mise x -- flutter --disable-analytics
-mise set -g FLUTTER_ROOT="$(mise where flutter)"
-
 mise use -g helm-ls@latest
 
 if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
