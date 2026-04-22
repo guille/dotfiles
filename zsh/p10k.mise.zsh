@@ -44,6 +44,8 @@
       # Do it in steps to avoid chained expansion that triggers "unrecognized modifier" error
       local tool_base="${tool:t}"
       local tool_clean="${tool_base//:/_}"
+      # also replace "-" as env vars can't have dashes
+      tool_clean="${tool_clean//-/_}"
       local state="${(U)tool_clean}"
       p10k segment -r -i "${state}_ICON" -s $state -t "$version"
     done
@@ -81,9 +83,9 @@
   typeset -g POWERLEVEL9K_MISE_LUA_BACKGROUND=4
   # typeset -g POWERLEVEL9K_MISE_LUA_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  typeset -g POWERLEVEL9K_MISE_JAVA_FOREGROUND=1
-  typeset -g POWERLEVEL9K_MISE_JAVA_BACKGROUND=7
-  # typeset -g POWERLEVEL9K_MISE_JAVA_VISUAL_IDENTIFIER_EXPANSION='⭐'
+  typeset -g POWERLEVEL9K_MISE_HTTP_ANDROID_CLI_FOREGROUND=0
+  typeset -g POWERLEVEL9K_MISE_HTTP_ANDROID_CLI_BACKGROUND=35
+  typeset -g POWERLEVEL9K_MISE_HTTP_ANDROID_CLI_VISUAL_IDENTIFIER_EXPANSION='󰀲'
 
   typeset -g POWERLEVEL9K_MISE_ELIXIR_FOREGROUND=0
   typeset -g POWERLEVEL9K_MISE_ELIXIR_BACKGROUND=5
