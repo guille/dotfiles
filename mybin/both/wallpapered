@@ -54,7 +54,7 @@ def process_data(data)
   verticals, horizontals = data.partition(&:vertical?)
 
   # Exactly two monitors, neither of them is vertical, and it's not a laptop's internal: find Dual wallpapers
-  if horizontals.size == 2 && verticals.empty? && !horizontals.any?(:laptop?)
+  if horizontals.size == 2 && verticals.empty? && !horizontals.any?(&:laptop?)
     left, right = verticals.minmax
 
     image = Dir[DUAL_WALLPAPERS_GLOB].sample
