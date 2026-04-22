@@ -225,6 +225,7 @@
 			"preferences": {
 				"includeCompletionsForModuleExports": false,
 			},
+			"tsserver.fallbackPath": "tsserver",
 		},
 		"settings": {},
 	},
