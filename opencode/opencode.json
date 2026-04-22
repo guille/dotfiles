@@ -1,18 +1,5 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "lsp": {
-    "yaml-ls": {
-      "command": [
-        "yaml-language-server",
-        "--stdio"
-      ],
-      "extensions": [
-        ".yaml",
-        ".yml",
-        ".sublime-syntax"
-      ]
-    }
-  },
   "theme": "system",
   "default_agent": "plan",
   "share": "disabled",
@@ -71,4 +58,23 @@
     "github-copilot",
     "opencode",
   ],
+  "lsp": {
+    "yaml-ls": {
+      "command": [
+        "yaml-language-server",
+        "--stdio"
+      ],
+      "extensions": [
+        ".yaml",
+        ".yml",
+        ".sublime-syntax"
+      ]
+    },
+    "kotlin-ls": {
+      "disabled": true
+    },
+    "lua-ls": {
+      "disabled": true
+    },
+  },
 }
