@@ -8,7 +8,6 @@ file_extensions:
   - cfg
   - config
   - ini
-  - metadata
   # Dotfiles stuff
   - config-linux
   - config-macos
