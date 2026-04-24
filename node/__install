@@ -13,6 +13,7 @@ module_name=node
 
 
 add_if_not_there "ignore-scripts=true" "$HOME/.npmrc"
+add_if_not_there "min-release-age=7" "$HOME/.npmrc"
 
 
 mise use -g node@latest
