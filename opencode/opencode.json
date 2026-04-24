@@ -79,5 +79,19 @@
     "lua-ls": {
       "disabled": true
     },
+    "pyright": {
+      "disabled": true
+    },
+    "basedpyright": {
+      "disabled": false,
+      "command": [
+        "basedpyright-langserver",
+        "--stdio"
+      ],
+      "extensions": [
+        ".py",
+        ".pyi"
+      ]
+    }
   },
 }
