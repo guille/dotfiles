@@ -107,7 +107,6 @@ modules_to_install=(
 	mybin
 	bat
 	fd
-	dnie
 	flashspace
 	firefox
 )
