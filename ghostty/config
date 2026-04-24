@@ -40,17 +40,17 @@ palette = 15=#ffffff
 
 ##
 # Settings
-resize-overlay = never
 cursor-style = block
 cursor-style-blink = false
-shell-integration-features = no-cursor
 mouse-hide-while-typing = true
-window-inherit-working-directory = false
-tab-inherit-working-directory = true
-split-inherit-working-directory = true
 notify-on-command-finish = unfocused
 notify-on-command-finish-action = no-bell,notify
 notify-on-command-finish-after = 10s
+resize-overlay = never
+shell-integration-features = no-cursor
+split-inherit-working-directory = true
+tab-inherit-working-directory = true
+window-inherit-working-directory = false
 
 ##
 # Keybinds
@@ -70,7 +70,7 @@ keybind = ctrl+shift+page_down=move_tab:1
 keybind = ctrl+shift+page_up=move_tab:-1
 
 # mistypes
-keybind = shift+enter=text:\n
+keybind = shift+enter=text:\x1b[27;2;13~
 
 keybind = global:super+grave_accent=toggle_quick_terminal
 

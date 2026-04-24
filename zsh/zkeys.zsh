@@ -28,6 +28,9 @@ key[PageDown]=${terminfo[knp]}
 # Ctrl delete / backspace
 bindkey '^[[3;5~' kill-word
 
+# shift + enter
+bindkey '\e[27;2;13~' accept-line
+
 if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
     # Ctrl left / right
     bindkey "^[[1;5C" forward-word
