@@ -1,0 +1,84 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "tomli_w",
+# ]
+# ///
+# pyright: basic
+
+
+"""Sync package.json scripts into mise.toml tasks."""
+
+import json
+import sys
+import warnings
+from pathlib import Path
+
+try:
+    import tomli_w  # pyright: ignore[reportMissingImports]
+    import tomllib
+except ModuleNotFoundError:
+    sys.exit("Error: 'tomli_w' is required")
+
+
+def load_package_scripts(cwd: Path) -> dict[str, str]:
+    pkg = cwd / "package.json"
+    if not pkg.exists():
+        sys.exit(f"Error: {pkg} not found.")
+    data = json.loads(pkg.read_text())
+    scripts = data.get("scripts", {})
+    if not scripts:
+        print("No scripts found in package.json — nothing to do.")
+        sys.exit(0)
+    return scripts
+
+
+def load_mise(mise_path: Path) -> dict:
+    if not mise_path.exists():
+        return {}
+    return tomllib.loads(mise_path.read_text())
+
+
+def sync(cwd: Path) -> None:
+    scripts = load_package_scripts(cwd)
+    mise_path = cwd / "mise.toml"
+    config = load_mise(mise_path)
+
+    tasks: dict = config.setdefault("tasks", {})
+    added, skipped, warned = [], [], []
+
+    for name, command in scripts.items():
+        existing = tasks.get(name)
+        if existing is None:
+            tasks[name] = {"run": command}
+            added.append(name)
+        else:
+            existing_run = (
+                existing.get("run") if isinstance(existing, dict) else existing
+            )
+            if existing_run == command:
+                skipped.append(name)  # identical — silent no-op
+            else:
+                warnings.warn(
+                    f"Task '{name}' already exists with a different command:\n"
+                    f"  existing : {existing_run!r}\n"
+                    f"  skipping : {command!r}",
+                    stacklevel=1,
+                )
+                warned.append(name)
+
+    mise_path.write_text(tomli_w.dumps(config))
+
+    if added:
+        print(f"Added tasks   : {', '.join(added)}")
+    if skipped:
+        print(f"Already in sync: {', '.join(skipped)}")
+    if warned:
+        print(f"Skipped (conflict): {', '.join(warned)}")
+    if not added and not warned:
+        print("Nothing to do — mise.toml is already up to date.")
+
+
+if __name__ == "__main__":
+    sync(Path.cwd())
