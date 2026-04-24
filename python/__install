@@ -13,18 +13,23 @@ module_name=python
 
 
 mise settings add python.uv_venv_auto true
+mise settings set pipx.uvx true
 
 
-# Install after default packages are in the right place
 mise use --global python@latest
 
-# uv and ruff are installed from system packages
 infoprint "[$module_name] installing Python tools with uv"
-\grep -v '^#' "$SCRIPT_BASE_DIR/$module_name/uv_tools.txt" | xargs -n1 uv tool install
+# uv and ruff are installed from system packages
+mise use -g pipx:basedpyright
+mise use -g pipx:pgcli
+mise use -g pipx:mycli
+mise use -g pipx:syntaqlite
+mise use -g pipx:tombi
+mise use -g pipx:ty
 
-# install requests to mise's python
-mise x -- uv pip install --system requests
+# install some common libs to mise's python
+mise x -- uv pip install --system requests lxml
 
 if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
-	uv tool install magic-wormhole
+	mise use -g pipx:magic-wormhole
 fi

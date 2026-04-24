@@ -1,6 +1,0 @@
-basedpyright
-pgcli
-mycli
-syntaqlite
-tombi
-ty
