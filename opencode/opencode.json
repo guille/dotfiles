@@ -20,10 +20,11 @@
       "*": "allow",
       "*.env*": "deny"
     },
-    "task": {
-      "*": "ask",
-      "explore": "allow"
-    },
+    // Bug: https://github.com/anomalyco/opencode/issues/17722
+    // "task": {
+    //   "*": "ask",
+    //   "explore": "allow"
+    // },
     "webfetch": "ask",
     "bash": {
       "*": "ask",
