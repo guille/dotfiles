@@ -58,6 +58,9 @@
     "github-copilot",
     "opencode",
   ],
+  "experimental": {
+    "continue_loop_on_deny": true
+  },
   "lsp": {
     "yaml-ls": {
       "command": [
