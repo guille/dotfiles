@@ -23,6 +23,4 @@ infoprint "[$module_name] creating dotfiles symlinks..."
 
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/config.json" ~/.config/waybar/config 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/style.css" ~/.config/waybar/style.css 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/scripts/dunst.sh" ~/.config/waybar/scripts/dunst.sh 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/scripts/packages.sh" ~/.config/waybar/scripts/packages.sh 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/scripts/vpn.sh" ~/.config/waybar/scripts/vpn.sh 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/scripts/"* ~/.config/waybar/scripts/ 1> /dev/null

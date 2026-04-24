@@ -26,7 +26,8 @@
         "custom/separator",
         "clock",
         "custom/separator",
-        "custom/packages",
+        "custom/dnf",
+        "custom/pacman",
         "idle_inhibitor",
         "custom/dunst",
         "custom/separator",
@@ -148,11 +149,20 @@
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol",
     },
-    "custom/packages": {
-        "format": " <span color=\"#ffd204\">󰣇 </span>{} ",
+    "custom/dnf": {
+        "format": " <span color=\"#ffd204\">󰣛 </span>{} ",
+        "exec": "~/.config/waybar/scripts/dnf.sh",
+        "exec-if": "[ \"$DOTFILES_DISTRO\" = \"Fedora\" ]",
         "tooltip": false,
         "hide-empty-text": true,
-        "exec": "~/.config/waybar/scripts/packages.sh",
+        "interval": 3600
+    },
+    "custom/pacman": {
+        "format": " <span color=\"#ffd204\">󰣇 </span>{} ",
+        "exec": "~/.config/waybar/scripts/pacman.sh",
+        "exec-if": "[ \"$DOTFILES_DISTRO\" = \"Arch\" ]",
+        "tooltip": false,
+        "hide-empty-text": true,
         "interval": 3600
     },
     "idle_inhibitor": {
