@@ -10,7 +10,9 @@
 		"yellow": "#e6db74",
 		"yellow2": "#f6f080",
 		"light_blue": "#66d9ef",
+		"dark_blue": "#7aa6da",
 		"light_green": "#a6e22e",
+		"dark_green": "#a0da3a",
 		"light_red": "#f92672",
 		"metallic": "#a7afb4",
 		"comments_fg": "#8e8971",
@@ -38,6 +40,9 @@
 		"accent": "var(foreground)"
 	},
 	"rules": [
+		// Reference
+		// - Definitions are in bold, calls/uses are not
+		// - Types are in italics
 		{
 			"name": "Catch-all variable",
 			"scope": "variable",
@@ -123,30 +128,55 @@
 		},
 		{
 			"name": "Types",
-			"scope": "(storage.type - keyword.declaration.function - storage.type.function) | support.type | support.class.typing | variable.type",
+			"scope": "(storage.type - keyword.declaration.function - storage.type.function - punctuation) | support.type | support.class.typing | variable.type",
 			"font_style": "italic",
-			"foreground": "var(light_blue)",
+			"foreground": "var(dark_blue)",
 		},
 		{
-			"name": "Type definitions",
+			"name": "Types: generics",
+			"scope": "meta.generic support.class",
+			"font_style": "italic",
+			"foreground": "var(dark_blue)",
+		},
+		{
+			"name": "Types: generic parameter",
+			"scope": "variable.parameter.type | variable.parameter.generic",
+			"font_style": "italic",
+			"foreground": "var(dark_blue)",
+		},
+		{
+			"name": "Types: definitions",
 			"scope": "entity.name.type",
-			"font_style": "italic",
+			"font_style": "bold italic",
+			"foreground": "var(dark_blue)",
+		},
+		{
+			"name": "Types: generics punctuation",
+			"scope": "punctuation.definition.generic",
+			"foreground": "var(foreground)",
+		},
+		{
+			"name": "Classes: definitions",
+			"scope": "entity.name.class",
+			"font_style": "bold",
 			"foreground": "var(light_blue)",
 		},
 		{
-			"name": "Class names",
-			"scope": "support.class | entity.name.class",
+			"name": "Classes: references",
+			"scope": "support.class",
 			"foreground": "var(light_blue)",
 		},
 		{
 			"name": "Interface names",
 			"scope": "entity.name.interface",
 			"foreground": "var(light_blue)",
+			"font_style": "bold italic",
 		},
 		{
 			"name": "Enums",
 			"scope": "entity.name.enum",
 			"foreground": "var(light_blue)",
+			"font_style": "bold",
 		},
 		{
 			"name": "Symbols",
@@ -180,17 +210,22 @@
 		{
 			"name": "Namespaces/Modules",
 			"scope": "entity.name.namespace | constant.other.module",
-			"foreground": "var(light_green)",
+			"foreground": "var(dark_blue)",
 		},
 		{
 			"name": "Class inheritance (superclass)",
 			"scope": "entity.other.inherited-class",
-			"foreground": "var(light_green)",
+			"foreground": "var(dark_blue)",
 		},
 		{
-			"name": "Class inheritance (punctuation)",
-			"scope": "punctuation.separator.inheritance",
-			"foreground": "var(light_green)",
+			"name": "Function calls",
+			"scope": "variable.function",
+			"foreground": "var(dark_green)",
+		},
+		{
+			"name": "Library functions",
+			"scope": "support.function",
+			"foreground": "var(dark_green)",
 		},
 		{
 			"name": "Annotation punctuation",
@@ -198,19 +233,9 @@
 			"foreground": "var(light_red)",
 		},
 		{
-			"name": "Function calls",
-			"scope": "variable.function",
-			"foreground": "var(light_blue)",
-		},
-		{
-			"name": "Library functions",
-			"scope": "support.function",
-			"foreground": "var(light_blue)",
-		},
-		{
 			"name": "Annotations",
-			"scope": "variable.annotation",
-			"foreground": "var(light_blue)",
+			"scope": "meta.annotation",
+			"font_style": "italic",
 		},
 		{
 			"name": "Reserved variable names (this, super, self...) and other vars",
@@ -274,9 +299,37 @@
 			"foreground": "var(foreground)",
 			"background": "var(light_red)",
 		},
+		// LSP: Semantic highlighting
+		// https://github.com/sublimehq/sublime_text/issues/817
 		{
 			"scope": "meta.semantic-token",
 			"background": "var(background_lsp)"
+		},
+		{
+			"scope": "meta.semantic-token.parameter",
+			"foreground": "var(foreground)",
+		},
+		{
+			"scope": "meta.semantic-token.parameter.declaration",
+			"foreground": "var(orange)",
+		},
+		{
+			"scope": "meta.semantic-token.parameter.parameter", // Brittle!
+			"foreground": "var(foreground)",
+		},
+		{
+			"scope": "meta.semantic-token.typeparameter",
+			"font_style": "italic",
+			"foreground": "var(dark_blue)",
+		},
+		{
+			"scope": "meta.semantic-token.type.declaration",
+			"font_style": "bold italic",
+			"foreground": "var(dark_blue)",
+		},
+		{
+			"scope": "meta.semantic-token.property.declaration",
+			"foreground": "var(orange)"
 		},
 		//
 		// LANGUAGE-SPECIFIC OVERRIDES AND EXTENSIONS
@@ -373,11 +426,6 @@
 		},
 		// HTML / XML
 		{
-			"name": "HTML / XML: Tag attribute assignment punctuation",
-			"scope": "punctuation.separator.key-value.html | punctuation.separator.key-value.xml",
-			"foreground": "var(orange)",
-		},
-		{
 			"name": "HTML: <script> tag",
 			"scope": "entity.name.tag.script.html",
 			"font_style": "italic",
@@ -387,6 +435,12 @@
 			"name": "Strings when used as keys",
 			"scope": "meta.mapping.key.js",
 			"foreground": "var(orange)",
+		},
+		{
+			"name": "JS Types",
+			"scope": "meta.type.js support.class.js",
+			"font_style": "italic",
+			"foreground": "var(dark_blue)",
 		},
 		// Containerfile
 		{
@@ -404,13 +458,19 @@
 			"name": "Python Types",
 			"scope": "meta.type.python",
 			"font_style": "italic",
-			"foreground": "var(light_blue)",
+			"foreground": "var(dark_blue)",
 		},
 		// Gemfile.lock
 		{
 			"name": "Gemfile.lock dependency name",
 			"scope": "entity.name.package.bundler.lockfile",
 			"foreground": "var(light_blue)",
+		},
+		// SQL
+		{
+			"name": "SQL: Table names",
+			"scope": "meta.table-name.sql | entity.name.struct.table.sql",
+			"foreground": "var(light_blue)"
 		},
 		// Other
 		{
