@@ -42,6 +42,10 @@
 			"ruff",
 			"server"
 		],
+		"schemes": [
+			"file",
+			"buffer",
+		],
 		"settings": {
 			"organizeImports": true,
 			"lint.enable": true,
@@ -59,6 +63,7 @@
 			"--stdio"
 		],
 		"disabled_capabilities": {
+			// Useful but can't do italics for types yet
 			"semanticTokensProvider": true,
 		},
 		"settings": {
@@ -82,7 +87,6 @@
 			"ty",
 			"server"
 		],
-		"settings": {},
 		"selector": "source.python",
 	},
 	// https://github.com/redhat-developer/yaml-language-server
@@ -169,6 +173,9 @@
 		"settings": {
 			"preview.refresh": "onSave",
 		},
+		"disabled_capabilities": {
+			"semanticTokensProvider": true,
+		},
 		"selector": "text.typst",
 	},
 	// https://github.com/rcjsuen/dockerfile-language-server
@@ -182,30 +189,10 @@
 		"schemes": [
 			"file",
 			"buffer",
-			"res"
 		],
 		"disabled_capabilities": {
+			// Terrible scopes
 			"semanticTokensProvider": true,
-		},
-		"settings": {
-			"docker": {
-				"languageserver": {
-					"diagnostics": {
-						// string values must be equal to "ignore", "warning", or "error"
-						"deprecatedMaintainer": "warning",
-						"directiveCasing": "warning",
-						"emptyContinuationLine": "warning",
-						"instructionCasing": "warning",
-						"instructionCmdMultiple": "warning",
-						"instructionEntrypointMultiple": "warning",
-						"instructionHealthcheckMultiple": "warning",
-						"instructionJSONInSingleQuotes": "warning"
-					},
-					"formatter": {
-						"ignoreMultilineInstructions": false,
-					}
-				}
-			}
 		},
 		"selector": "source.dockerfile | source.containerfile"
 	},
@@ -218,6 +205,7 @@
 		],
 		"selector": "source.js, source.jsx, source.ts, source.tsx",
 		"disabled_capabilities": {
+			// Does too much
 			"semanticTokensProvider": true
 		},
 		"initialization_options": {
@@ -230,7 +218,6 @@
 			},
 			"tsserver.fallbackPath": "tsserver",
 		},
-		"settings": {},
 	},
 	// https://tombi-toml.github.io/tombi/docs/language-server
 	"tombi": {
@@ -239,11 +226,14 @@
 			"tombi",
 			"lsp"
 		],
+		"schemes": [
+			"file",
+			"buffer",
+		],
 		"disabled_capabilities": {
 			"semanticTokensProvider": true,
 		},
 		"selector": "source.toml",
-		"settings": {},
 	},
 	// https://buf.build/docs/cli/editors-lsp/
 	"buf": {
@@ -257,7 +247,6 @@
 			"semanticTokensProvider": true,
 		},
 		"selector": "source.proto",
-		"settings": {},
 	},
 	// https://github.com/sveltejs/language-tools/tree/master/docs
 	"svelte": {
@@ -266,26 +255,10 @@
 			"svelteserver",
 			"--stdio"
 		],
-		"selector": "text.html.svelte",
-		"initialization_options": {
-			"configuration": {
-				"svelte.plugin": {
-					"css": {
-						"enable": true,
-					},
-					"html": {
-						"enable": true,
-					},
-					"svelte": {
-						"enable": true,
-					},
-					"typescript": {
-						"enable": true,
-					}
-				}
-			}
+		"disabled_capabilities": {
+			"semanticTokensProvider": true,
 		},
-		"settings": {},
+		"selector": "text.html.svelte",
 	},
 	// https://docs.syntaqlite.com/
 	"sql": {
@@ -294,8 +267,14 @@
 			"syntaqlite",
 			"lsp",
 		],
+		"schemes": [
+			"file",
+			"buffer",
+		],
+		"disabled_capabilities": {
+			"semanticTokensProvider": true,
+		},
 		"selector": "source.sql",
-		"settings": {},
 	},
 	// https://github.com/graphql/graphiql/tree/main/packages/graphql-language-service-server
 	"graphql": {
@@ -306,6 +285,5 @@
 			"--method=stream",
 		],
 		"selector": "source.graphql",
-		"settings": {},
 	},
 }
