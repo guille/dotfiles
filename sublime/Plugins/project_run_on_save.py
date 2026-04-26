@@ -63,8 +63,11 @@ class ProjectRunOnSaveListener(sublime_plugin.EventListener):
             )
         else:
             try:
-                subprocess.run(expanded_cmd, check=True, cwd=working_dir)
-            except subprocess.CalledProcessError:
+                subprocess.run(
+                    expanded_cmd, check=True, cwd=working_dir, capture_output=True
+                )
+            except subprocess.CalledProcessError as e:
+                print(e.stderr)
                 window.status_message(f"Error running {' '.join(expanded_cmd)}")
             except FileNotFoundError:
                 window.status_message(f"Command not found {expanded_cmd[0]}")
