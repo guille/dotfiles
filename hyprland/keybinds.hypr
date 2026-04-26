@@ -6,10 +6,6 @@ $secondMod = SUPER_SHIFT
 # ghostty quick terminal
 bind = $mainMod, dead_grave, global, :LOGO+grave
 
-# Mimic pgup/pgdown behavior with Alt+up/down
-# bind = ALT, Down, sendshortcut, , Next,
-# bind = ALT, Up, sendshortcut, , Prior,
-
 # Execs
 bind = $mainMod, Return, exec, $terminal
 bind = $mainMod, D, exec, $menu
@@ -17,6 +13,15 @@ bind = $mainMod, C, exec, firefox
 bind = $mainMod, O, exec, vaulter
 bind = $mainMod, J, exec, emoji --rofi
 bind = $mainMod, T, exec, [workspace 3] ghostty -e zsh -ic nnn
+
+# Clipboard
+bind = $mainMod, P, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
+
+# Screenshot
+bind = , Print, exec, grim -g "$(slurp)" - | tee $screenshots_dir/$(date +%F-%T).png | wl-copy
+
+# reload config
+bind = $secondMod, C, exec, hyprctl reload
 
 # Window management
 bind = $mainMod, F, fullscreen, toggle
@@ -63,9 +68,6 @@ bind = $secondMod, ordmasculine, movetoworkspacesilent, 10
 bind = ALT, Tab, workspace, e+1
 bind = SHIFT ALT, Tab, workspace, e-1
 
-# reload config
-bind = $secondMod, C, exec, hyprctl reload
-
 # close focused window
 bind = $secondMod, Q, killactive,
 
@@ -82,23 +84,6 @@ bindm = $mainMod, mouse:273, resizewindow
 # Move workspace to the next monitor
 bind = $mainMod, X, movecurrentworkspacetomonitor, +1
 
-# Clipboard
-bind = $mainMod, P, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
-
-# Screenshot
-bind = , Print, exec, grim -g "$(slurp)" - | tee $screenshots_dir/$(date +%F-%T).png | wl-copy
-
-# Resize mode
-bind = $mainMod, R,submap,󰁌 resize
-submap=󰁌 resize
-bind = , right, resizeactive, 35 0
-bind = , left, resizeactive, -35 0
-bind = , up, resizeactive, 0 -35
-bind = , down, resizeactive, 0 35
-bind = , Return,submap,reset
-bind = , Escape,submap,reset
-submap=reset
-
 # Laptop multimedia keys for volume and LCD brightness
 bindel = , XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
 bindel = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
@@ -112,7 +97,3 @@ bindl = , XF86AudioNext, exec, playerctl next
 bindl = , XF86AudioPause, exec, playerctl play-pause
 bindl = , XF86AudioPlay, exec, playerctl play-pause
 bindl = , XF86AudioPrev, exec, playerctl previous
-
-# dwindle only
-# bind = $mainMod, E, layoutmsg, togglesplit
-# bind = $mainMod, P, pseudo,

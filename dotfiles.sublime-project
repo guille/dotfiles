@@ -26,6 +26,7 @@
 				"enabled": true,
 				"selector": "source.lua",
 				"disabled_capabilities": {
+					"semanticTokensProvider": true,
 					"completionProvider": {
 						"triggerCharacters": true
 					}
@@ -33,13 +34,17 @@
 				"settings": {
 					"Lua.runtime.path": [
 						"?.lua",
-						"?/init.lua"
+						"?/init.lua",
+						// "/usr/share/hypr/stubs"
 					],
 					"Lua.runtime.pathStrict": false,
 					"Lua.runtime.version": "LuaJIT",
 					"Lua.workspace.library": [
 						"/usr/share/nvim/runtime"
 					],
+					"Lua.diagnostics.globals": [
+						"hl"
+					]
 				},
 				"command": [
 					"lua-language-server",

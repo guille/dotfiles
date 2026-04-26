@@ -22,12 +22,12 @@ windowrule {
 # ↑ smart gaps: no gaps if only one window open ↑
 
 # Ignore maximize requests from all apps
-windowrule {
-    name = suppress-maximize-events
-    match:class = .*
+# windowrule {
+#     name = suppress-maximize-events
+#     match:class = .*
 
-    suppress_event = maximize
-}
+#     suppress_event = maximize
+# }
 windowrule {
     name = firefox
     match:class = ^firefox$
