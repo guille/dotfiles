@@ -28,8 +28,8 @@ class SwitchCodeAndTestCommand(sublime_plugin.WindowCommand):
 
     SCOPE_CONFIGS: "dict[str, dict[str, Any]]" = {
         "source.go": {
-            "source_root_markers": ["cmd", "internal", "pkg"],
-            "test_root_markers": ["cmd", "internal", "pkg"],
+            "source_root_markers": [],
+            "test_root_markers": [],
             "test_file_prefixes": [],
             "test_file_suffixes": ["_test"],
             "try_same_dir": True,
