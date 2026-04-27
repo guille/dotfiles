@@ -46,10 +46,26 @@ class OpenFileFromFindResultsCommand(sublime_plugin.TextCommand):
                 window.open_file(
                     f"{os.path.abspath(file_path)}:{line_num}", sublime.ENCODED_POSITION
                 )
+                return
+
+            # Try relative to any open folder
+            for folder in window.folders():
+                candidate = os.path.join(folder, file_path)
+                if os.path.exists(candidate):
+                    window.open_file(
+                        f"{candidate}:{line_num}", sublime.ENCODED_POSITION
+                    )
+                    return
+
+            # Last-ditch: try relative to packages path
+            packages_candidate = os.path.join(sublime.packages_path(), file_path)
+            if os.path.exists(packages_candidate):
+                window.open_file(
+                    f"{packages_candidate}:{line_num}", sublime.ENCODED_POSITION
+                )
+                return
+
             sublime.status_message(f"Couldn't find file: {file_path}")
-            # TODO: Try assuming it's relative to any open folder
-            # for directory in window.folders():
-            #     print(Path(directory) / file_path)
 
     def is_enabled(self):
         """Only enable this command when the first selection starts in a filename"""
