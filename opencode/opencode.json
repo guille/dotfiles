@@ -49,7 +49,7 @@
       "wc *": "allow",
     },
     "external_directory": {
-      "*": "deny",
+      "*": "ask",
       "~/go/pkg/mod/**": "allow",
       "~/work/**": "allow",
       "/tmp/**": "ask"
