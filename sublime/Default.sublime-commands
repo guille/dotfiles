@@ -24,6 +24,10 @@
         "caption": "Decode selection from base64",
         "command": "decode_selected_base64"
     },
+    {
+        "caption": "Copy Path: Relative",
+        "command": "copy_relative_path"
+    },
     // Scratch buffer
     {
         "caption": "Open Scratch Buffer",
@@ -76,7 +80,7 @@
         }
     },
     {
-        "caption": "Copy Path",
+        "caption": "Copy Path: Absolute",
         "command": "copy_path",
     },
     {
