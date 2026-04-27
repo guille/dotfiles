@@ -1,6 +1,7 @@
 zsh/zvars
 firefox/user.js
 hyprland/local_confs.hypr
+hyprland/local_confs.lua
 sublime/packages
 sublime/Package Control.sublime-settings
 sublime/Preferences.sublime-settings
