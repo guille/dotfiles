@@ -1,0 +1,759 @@
+%YAML 1.2
+---
+name: SQLite
+scope: source.sql.sqlite
+version: 2
+
+extends: Packages/SQL/SQL (basic).sublime-syntax
+
+file_extensions:
+  - sql
+
+variables:
+  additional_toplevel_reserved: |-
+    (?xi: analyze | attach | begin | commit | detach | end | explain | pragma
+    | limit | offset | recursive | reindex | release | replace | returning
+    | rollback | savepoint | vacuum | values | window | with )
+
+  simple_types: |-
+    (?xi: blob | bool | boolean | date | datetime | integer | int | json
+    | numeric | real | text )
+
+  types_with_optional_number: |-
+    (?xi: bigint | char(?:acter)? | clob | dec(?:imal)? | double\s+precision
+    | double | float | int2 | int8 | nchar | native\s+character | nvarchar
+    | unsigned\s+big\s+int | varchar | varying\s+character )
+
+contexts:
+  create-target:
+    - meta_prepend: true
+    - include: create-virtual-table
+    - include: create-view
+    - include: create-trigger
+
+  drop-target:
+    - meta_prepend: true
+    - include: drop-view
+    - include: drop-trigger
+
+  dml-statements:
+    - meta_prepend: true
+    - match: \b(?i:with)\b
+      scope: keyword.other.dml.sql
+      push: with-clause
+    - match: \b(?i:(?:insert(?:\s+or\s+(?:rollback|abort|fail|ignore|replace))?\s+into|replace(?:\s+into)?))\b
+      scope: keyword.other.dml.sql
+      push: expect-table-name
+    - match: \b(?i:update(?:\s+or\s+(?:rollback|abort|fail|ignore|replace))?)\b
+      scope: keyword.other.dml.sql
+      push: dml-update
+    - match: \b(?i:on\s+conflict)\b
+      scope: keyword.other.dml.sql
+    - match: \b(?i:do)\b
+      scope: keyword.other.dml.sql
+    - match: \b(?i:nothing|returning)\b
+      scope: keyword.other.dml.sql
+    - match: \b(?i:limit|offset)\b
+      scope: keyword.other.dml.sql
+    - match: \b(?i:window)\b
+      scope: keyword.other.dml.sql
+      push: window-definitions
+
+  other-statements:
+    - meta_prepend: true
+    - include: explain-statements
+    - include: transaction-statements
+    - include: pragma-statements
+    - include: vacuum-statements
+    - include: attach-detach-statements
+    - include: reindex-analyze-statements
+
+  expressions:
+    - meta_prepend: true
+    - include: cast-expressions
+    - include: exists-expressions
+    - include: filter-expressions
+    - include: over-expressions
+    - include: like-expressions
+
+  literals-and-variables:
+    - meta_prepend: true
+    - include: bind-parameters
+    - include: blob-literals
+
+  constants:
+    - meta_append: true
+    - include: booleans
+
+  numbers:
+    - meta_prepend: true
+    - match: \b0x[0-9A-Fa-f]+\b
+      scope: meta.number.integer.hexadecimal.sql constant.numeric.value.sql
+    - match: \b\d+\.\d+(?:[eE][+-]?\d+)?\b
+      scope: meta.number.float.decimal.sql constant.numeric.value.sql
+    - match: \b\d+[eE][+-]?\d+\b
+      scope: meta.number.float.decimal.sql constant.numeric.value.sql
+
+  operators:
+    - meta_prepend: true
+    - match: \|\|
+      scope: keyword.operator.concatenation.sql
+    - match: '<<|>>|[&|~]'
+      scope: keyword.operator.bitwise.sql
+    - match: '%'
+      scope: keyword.operator.arithmetic.sql
+    - match: \b(?i:glob|match|regexp)\b
+      scope: keyword.operator.comparison.sql
+
+  maybe-operator:
+    - meta_prepend: true
+    - match: \|\|
+      scope: keyword.operator.concatenation.sql
+      pop: 1
+    - match: '<<|>>|[&|~]'
+      scope: keyword.operator.bitwise.sql
+      pop: 1
+    - match: '%'
+      scope: keyword.operator.arithmetic.sql
+      pop: 1
+    - match: \b(?i:glob|match|regexp)\b
+      scope: keyword.operator.comparison.sql
+      pop: 1
+
+  identifier-part:
+    - meta_prepend: true
+    - include: bracket-quoted-identifier-part
+
+  maybe-table-alias:
+    - meta_prepend: true
+    - match: \b(?i:indexed\s+by)\b
+      scope: keyword.other.dml.sql
+      push: expect-index-name
+    - match: \b(?i:not\s+indexed)\b
+      scope: keyword.other.dml.sql
+
+  create-table-args:
+    - meta_prepend: true
+    - include: sqlite-table-options
+
+  column-modifiers:
+    - meta_prepend: true
+    - include: sqlite-column-modifiers
+
+  alter-table-args:
+    - meta_scope: meta.table.sql
+    - match: \b(?i:rename)\b
+      scope: keyword.other.ddl.sql
+      push: alter-table-rename-target
+    - match: \b(?i:add)\b
+      scope: keyword.other.ddl.sql
+      push: alter-table-add-target
+    - match: \b(?i:drop)\b
+      scope: keyword.other.ddl.sql
+      push: alter-table-drop-target
+    - include: else-pop
+
+  ###[ SQLITE IDENTIFIERS ]######################################################
+
+  bracket-quoted-identifier-part:
+    - match: \[
+      scope: punctuation.definition.identifier.begin.sql
+      set: inside-bracket-quoted-identifier-part
+
+  inside-bracket-quoted-identifier-part:
+    - meta_include_prototype: false
+    - match: \]
+      scope: punctuation.definition.identifier.end.sql
+      pop: 1
+    - include: identifier-prototype
+
+  bind-parameters:
+    - match: '(?:\?(?:\d+)?)|(?:[:@$][A-Za-z_][A-Za-z0-9_]*)'
+      scope: variable.parameter.sql
+
+  blob-literals:
+    - match: \b[xX]'[0-9A-Fa-f]*'
+      scope: meta.string.sql string.quoted.single.sql
+
+  ###[ SQLITE CTE / WINDOW EXPRESSIONS ]#########################################
+
+  with-clause:
+    - meta_scope: meta.with.sql
+    - match: \b(?i:recursive)\b
+      scope: keyword.other.dml.sql
+    - match: (?=\b(?i:select|insert|update|delete|values)\b)
+      set: sql
+    - match: ','
+      scope: punctuation.separator.sequence.sql
+    - match: (?=\S)
+      push:
+        - cte-body
+        - maybe-column-name-declaration-list
+        - cte-name
+        - single-identifier
+
+  cte-name:
+    - meta_include_prototype: false
+    - meta_content_scope: entity.name.struct.table.sql
+    - include: immediately-pop
+
+  cte-body:
+    - match: \b(?i:as)\b
+      scope: keyword.context.block.sql
+      set: cte-subquery
+    - include: else-pop
+
+  cte-subquery:
+    - match: \(
+      scope: punctuation.section.group.begin.sql
+      set: inside-cte-subquery
+    - include: else-pop
+
+  inside-cte-subquery:
+    - meta_scope: meta.group.sql
+    - match: \)
+      scope: punctuation.section.group.end.sql
+      pop: 1
+    - include: sql
+
+  maybe-column-name-declaration-list:
+    - match: \(
+      scope: punctuation.section.group.begin.sql
+      set: inside-column-name-declaration-list
+    - include: else-pop
+
+  inside-column-name-declaration-list:
+    - meta_scope: meta.group.table-columns.sql
+    - match: \)
+      scope: punctuation.section.group.end.sql
+      pop: 1
+    - match: ','
+      scope: punctuation.separator.sequence.sql
+    - match: (?=\S)
+      push:
+        - column-name-declaration
+        - single-identifier
+
+  window-definitions:
+    - meta_scope: meta.window.sql
+    - match: (?=[;)}]|\b(?:{{toplevel_reserved}}|{{additional_toplevel_reserved}})\b)
+      pop: 1
+    - match: ','
+      scope: punctuation.separator.sequence.sql
+    - match: (?=\S)
+      push:
+        - window-definition-body
+        - window-name-declaration
+        - single-identifier
+
+  window-name-declaration:
+    - meta_include_prototype: false
+    - meta_content_scope: entity.name.struct.other.sql
+    - include: immediately-pop
+
+  window-name:
+    - meta_include_prototype: false
+    - meta_content_scope: meta.other-name.sql
+    - include: immediately-pop
+
+  window-definition-body:
+    - match: \b(?i:as)\b
+      scope: keyword.context.block.sql
+      set: window-definition-group
+    - include: else-pop
+
+  window-definition-group:
+    - match: \(
+      scope: punctuation.section.group.begin.sql
+      set: inside-window-definition
+    - include: else-pop
+
+  inside-window-definition:
+    - meta_scope: meta.group.sql
+    - match: \)
+      scope: punctuation.section.group.end.sql
+      pop: 1
+    - include: window-keywords
+    - include: expressions-or-column-names
+
+  window-keywords:
+    - match: \b(?i:partition\s+by|order\s+by|range|rows|groups|between|and|unbounded|preceding|following|current\s+row|exclude|ties|others|no|group)\b
+      scope: keyword.other.dml.sql
+
+  filter-expressions:
+    - match: \b(?i:filter)\b
+      scope: keyword.other.dml.sql
+      push: filter-expression-args
+
+  filter-expression-args:
+    - match: \(
+      scope: punctuation.section.group.begin.sql
+      set: inside-filter-expression
+    - include: else-pop
+
+  inside-filter-expression:
+    - meta_scope: meta.group.sql
+    - match: \)
+      scope: punctuation.section.group.end.sql
+      pop: 1
+    - match: \b(?i:where)\b
+      scope: keyword.other.dml.sql
+    - include: expressions
+
+  over-expressions:
+    - match: \b(?i:over)\b
+      scope: keyword.other.dml.sql
+      push: over-expression-args
+
+  over-expression-args:
+    - match: \(
+      scope: punctuation.section.group.begin.sql
+      set: inside-window-definition
+    - match: (?=\S)
+      set:
+        - window-name
+        - single-identifier
+    - include: else-pop
+
+  cast-expressions:
+    - match: \b(?i:cast)\b
+      scope: keyword.other.sql
+      push: cast-expression-args
+
+  cast-expression-args:
+    - match: \(
+      scope: meta.group.sql punctuation.section.arguments.begin.sql
+      set: inside-cast-expression
+    - include: else-pop
+
+  inside-cast-expression:
+    - meta_content_scope: meta.function-call.sql meta.group.sql
+    - match: \)
+      scope: meta.function-call.sql meta.group.sql punctuation.section.arguments.end.sql
+      pop: 1
+    - match: \b(?i:as)\b
+      scope: keyword.context.block.sql
+      push: expect-type
+    - include: expressions-or-column-names
+
+  exists-expressions:
+    - match: \b(?i:exists)\b
+      scope: keyword.operator.logical.sql
+      push: maybe-group
+
+  ###[ SQLITE DDL ]##############################################################
+
+  create-virtual-table:
+    - match: \b(?i:virtual\s+table)\b
+      scope: keyword.other.ddl.sql
+      set:
+        - create-virtual-table-args
+        - expect-table-creation-name
+        - create-table-condition
+
+  create-virtual-table-args:
+    - meta_scope: meta.table.sql
+    - match: \b(?i:using)\b
+      scope: keyword.other.ddl.sql
+      set:
+        - maybe-group
+        - virtual-table-module-name
+        - single-identifier
+    - include: else-pop
+
+  virtual-table-module-name:
+    - meta_include_prototype: false
+    - meta_content_scope: support.function.sql
+    - include: immediately-pop
+
+  create-view:
+    - match: \b(?i:(?:temp(?:orary)?\s+)?view)\b
+      scope: keyword.other.ddl.sql
+      set:
+        - create-view-args
+        - expect-view-creation-name
+        - create-view-condition
+
+  create-view-condition:
+    - meta_include_prototype: false
+    - include: maybe-condition
+
+  create-view-args:
+    - meta_scope: meta.view.sql
+    - match: \(
+      scope: punctuation.section.group.begin.sql
+      set:
+        - create-view-after-columns
+        - inside-column-name-declaration-list
+    - match: \b(?i:as)\b
+      scope: keyword.context.block.sql
+      pop: 1
+    - include: else-pop
+
+  create-view-after-columns:
+    - match: \b(?i:as)\b
+      scope: keyword.context.block.sql
+      pop: 1
+    - include: else-pop
+
+  create-trigger:
+    - match: \b(?i:(?:temp(?:orary)?\s+)?trigger)\b
+      scope: keyword.other.ddl.sql
+      set:
+        - create-trigger-args
+        - expect-trigger-creation-name
+        - create-trigger-condition
+
+  create-trigger-condition:
+    - meta_include_prototype: false
+    - include: maybe-condition
+
+  create-trigger-args:
+    - meta_scope: meta.trigger.sql
+    - match: \b(?i:before|after|instead\s+of)\b
+      scope: keyword.other.ddl.sql
+    - match: \b(?i:delete|insert)\b
+      scope: keyword.other.dml.sql
+    - match: \b(?i:update)\b
+      scope: keyword.other.dml.sql
+      push: trigger-update-of
+    - match: \b(?i:on)\b
+      scope: keyword.other.sql
+      push: expect-table-name
+    - match: \b(?i:for\s+each\s+row)\b
+      scope: keyword.other.ddl.sql
+    - match: \b(?i:when)\b
+      scope: keyword.control.conditional.when.sql
+    - match: \b(?i:begin)\b
+      scope: keyword.context.block.sql
+      set: inside-trigger-body
+    - include: expressions-or-column-names
+
+  trigger-update-of:
+    - match: \b(?i:of)\b
+      scope: keyword.other.ddl.sql
+      set: trigger-update-column-list
+    - include: else-pop
+
+  trigger-update-column-list:
+    - match: (?=\b(?i:on)\b)
+      pop: 1
+    - match: ','
+      scope: punctuation.separator.sequence.sql
+    - match: (?=\S)
+      push:
+        - column-name
+        - single-identifier
+
+  inside-trigger-body:
+    - meta_scope: meta.block.trigger.sql
+    - match: \b(?i:end)\b
+      scope: keyword.context.block.sql
+      pop: 1
+    - include: sql
+
+  drop-view:
+    - match: \b(?i:view)\b
+      scope: keyword.other.ddl.sql
+      set:
+        - drop-view-args
+        - expect-view-name
+        - drop-view-condition
+
+  drop-view-condition:
+    - meta_include_prototype: false
+    - include: maybe-condition
+
+  drop-view-args:
+    - meta_include_prototype: false
+    - meta_scope: meta.view.sql
+    - include: immediately-pop
+
+  drop-trigger:
+    - match: \b(?i:trigger)\b
+      scope: keyword.other.ddl.sql
+      set:
+        - drop-trigger-args
+        - expect-trigger-name
+        - drop-trigger-condition
+
+  drop-trigger-condition:
+    - meta_include_prototype: false
+    - include: maybe-condition
+
+  drop-trigger-args:
+    - meta_include_prototype: false
+    - meta_scope: meta.trigger.sql
+    - include: immediately-pop
+
+  sqlite-table-options:
+    - match: \b(?i:without\s+rowid|strict)\b
+      scope: keyword.other.ddl.sql
+
+  sqlite-column-modifiers:
+    - match: \b(?i:(?:generated\s+always\s+)?as)\b
+      scope: storage.modifier.sql
+      push: maybe-group
+    - match: \b(?i:autoincrement|stored|virtual)\b
+      scope: storage.modifier.sql
+    - match: \b(?i:on\s+conflict)\b
+      scope: storage.modifier.sql
+    - match: \b(?i:rollback|abort|fail|ignore|replace)\b
+      scope: constant.language.sql
+    - match: \b(?i:collate)\b
+      scope: storage.modifier.sql
+      push: inside-collate-expression
+    - match: \b(?i:match)\b
+      scope: storage.modifier.sql
+      push: expect-other-name
+    - match: \b(?i:on\s+(?:delete|update))\b
+      scope: storage.modifier.sql
+    - match: \b(?i:set\s+(?:null|default)|cascade|restrict|no\s+action)\b
+      scope: storage.modifier.sql
+    - match: \b(?i:deferrable|initially|deferred|immediate)\b
+      scope: storage.modifier.sql
+
+  alter-table-rename-target:
+    - match: \b(?i:column)\b
+      scope: keyword.other.ddl.sql
+      set:
+        - expect-column-name
+        - maybe-to
+        - expect-column-name
+    - match: \b(?i:to)\b
+      scope: keyword.other.ddl.sql
+      set: expect-table-name
+    - include: else-pop
+
+  alter-table-add-target:
+    - match: \b(?i:column)\b
+      scope: keyword.other.ddl.sql
+      set: expect-column-declaration
+    - match: (?=\S)
+      set: expect-column-declaration
+
+  alter-table-drop-target:
+    - match: \b(?i:column)\b
+      scope: keyword.other.ddl.sql
+      set: expect-column-name
+    - match: (?=\S)
+      set: expect-column-name
+
+  ###[ SQLITE ADMIN / TRANSACTIONS ]#############################################
+
+  explain-statements:
+    - match: \b(?i:(explain)(?:\s+(query)\s+(plan))?)\b
+      captures:
+        1: keyword.other.sql
+        2: keyword.other.sql
+        3: keyword.other.sql
+
+  transaction-statements:
+    - match: \b(?i:(begin)(?:\s+(deferred|immediate|exclusive))?(?:\s+(transaction))?)\b
+      captures:
+        1: keyword.other.luw.sql
+        2: storage.modifier.sql
+        3: keyword.other.luw.sql
+    - match: \b(?i:(commit|end)(?:\s+(transaction))?)\b
+      captures:
+        1: keyword.other.luw.sql
+        2: keyword.other.luw.sql
+    - match: \b(?i:(rollback)(?:\s+(transaction))?)\b
+      captures:
+        1: keyword.other.luw.sql
+        2: keyword.other.luw.sql
+      push: rollback-tail
+    - match: \b(?i:savepoint)\b
+      scope: keyword.other.luw.sql
+      push:
+        - savepoint-creation-name
+        - single-identifier
+    - match: \b(?i:release)\b
+      scope: keyword.other.luw.sql
+      push: release-tail
+
+  rollback-tail:
+    - match: \b(?i:to)\b
+      scope: keyword.other.luw.sql
+      push: rollback-savepoint-target
+    - include: eol-pop
+    - include: else-pop
+
+  rollback-savepoint-target:
+    - match: \b(?i:savepoint)\b
+      scope: keyword.other.luw.sql
+    - match: (?=\S)
+      push:
+        - savepoint-name
+        - single-identifier
+    - include: eol-pop
+    - include: else-pop
+
+  release-tail:
+    - match: \b(?i:savepoint)\b
+      scope: keyword.other.luw.sql
+    - match: (?=\S)
+      push:
+        - savepoint-name
+        - single-identifier
+    - include: eol-pop
+    - include: else-pop
+
+  savepoint-creation-name:
+    - meta_include_prototype: false
+    - meta_content_scope: entity.name.struct.other.sql
+    - include: immediately-pop
+
+  savepoint-name:
+    - meta_include_prototype: false
+    - meta_content_scope: meta.other-name.sql
+    - include: immediately-pop
+
+  pragma-statements:
+    - match: \b(?i:pragma)\b
+      scope: keyword.other.sql
+      push:
+        - pragma-args
+        - pragma-name
+        - single-identifier
+
+  pragma-name:
+    - meta_include_prototype: false
+    - meta_content_scope: support.constant.sql
+    - include: immediately-pop
+
+  pragma-args:
+    - meta_scope: meta.statement.pragma.sql
+    - match: '='
+      scope: keyword.operator.assignment.sql
+      push: pragma-value
+    - match: \(
+      scope: punctuation.section.group.begin.sql
+      set: inside-pragma-args
+    - include: eol-pop
+    - include: else-pop
+
+  inside-pragma-args:
+    - meta_scope: meta.group.sql
+    - match: \)
+      scope: punctuation.section.group.end.sql
+      pop: 1
+    - include: pragma-value
+    - include: eol-pop
+
+  pragma-value:
+    - match: \b(?i:on|off|yes|no|true|false)\b
+      scope: constant.language.sql
+    - include: expressions-or-column-names
+    - include: eol-pop
+    - include: else-pop
+
+  vacuum-statements:
+    - match: \b(?i:vacuum)\b
+      scope: keyword.other.sql
+      push: vacuum-args
+
+  vacuum-args:
+    - meta_scope: meta.statement.vacuum.sql
+    - match: \b(?i:into)\b
+      scope: keyword.other.sql
+    - include: strings
+    - match: (?=\S)
+      push:
+        - database-name
+        - single-identifier
+    - include: eol-pop
+    - include: else-pop
+
+  attach-detach-statements:
+    - match: \b(?i:attach)\b
+      scope: keyword.other.sql
+      push: attach-args
+    - match: \b(?i:detach)\b
+      scope: keyword.other.sql
+      push: detach-args
+
+  attach-args:
+    - meta_scope: meta.statement.attach.sql
+    - match: \b(?i:database)\b
+      scope: keyword.other.sql
+    - match: \b(?i:as)\b
+      scope: keyword.context.sql
+      push: expect-database-name
+    - include: expressions
+    - include: eol-pop
+    - include: else-pop
+
+  detach-args:
+    - meta_scope: meta.statement.detach.sql
+    - match: \b(?i:database)\b
+      scope: keyword.other.sql
+    - match: (?=\S)
+      push:
+        - database-name
+        - single-identifier
+    - include: eol-pop
+    - include: else-pop
+
+  reindex-analyze-statements:
+    - match: \b(?i:reindex|analyze)\b
+      scope: keyword.other.sql
+      push: maybe-object-name
+
+  maybe-object-name:
+    - match: (?=\S)
+      push:
+        - other-name
+        - single-identifier
+    - include: eol-pop
+    - include: else-pop
+
+  eol-pop:
+    - match: $
+      pop: 1
+
+  ###[ SQLITE OBJECT NAMES ]#####################################################
+
+  expect-view-creation-name:
+    - meta_include_prototype: false
+    - include: comments
+    - match: (?=\S)
+      set: [view-creation-name, single-identifier]
+
+  view-creation-name:
+    - meta_include_prototype: false
+    - meta_content_scope: entity.name.struct.view.sql
+    - include: immediately-pop
+
+  expect-view-name:
+    - meta_include_prototype: false
+    - include: comments
+    - match: (?=\S)
+      set: [view-name, single-identifier]
+
+  view-name:
+    - meta_include_prototype: false
+    - meta_content_scope: meta.view-name.sql
+    - include: immediately-pop
+
+  expect-trigger-creation-name:
+    - meta_include_prototype: false
+    - include: comments
+    - match: (?=\S)
+      set: [trigger-creation-name, single-identifier]
+
+  trigger-creation-name:
+    - meta_include_prototype: false
+    - meta_content_scope: entity.name.struct.trigger.sql
+    - include: immediately-pop
+
+  expect-trigger-name:
+    - meta_include_prototype: false
+    - include: comments
+    - match: (?=\S)
+      set: [trigger-name, single-identifier]
+
+  trigger-name:
+    - meta_include_prototype: false
+    - meta_content_scope: meta.trigger-name.sql
+    - include: immediately-pop
