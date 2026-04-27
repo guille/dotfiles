@@ -96,7 +96,7 @@ hl.windowrule {
 	name = "qbittorrent",
 	match = { class = "^org.qbittorrent.qBittorrent$" },
 
-	workspace = 6,
+	workspace = 10,
 }
 
 hl.windowrule {
