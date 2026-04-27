@@ -18,6 +18,6 @@ infoprint "[$module_name] creating dotfiles symlinks..."
 
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/opencode.json" ~/.config/opencode/opencode.json 1> /dev/null
 
-if [ ! -f ~/.config/opencode/plugins/notify.ts ]; then
-    curl -fLs "https://raw.githubusercontent.com/guille/opencode-notify-plugin/refs/heads/master/src/index.ts" -o ~/.config/opencode/plugins/notify.ts
-fi
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/notify.ts" ~/.config/opencode/plugins/notify.ts 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/summarize.ts" ~/.config/opencode/plugins/summarize.ts 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/trash.ts" ~/.config/opencode/plugins/trash.ts 1> /dev/null
