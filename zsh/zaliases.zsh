@@ -214,6 +214,11 @@ notes() {
 	fd -0 . $notes_dir | ff --multi --delimiter '/' --with-nth -1 --read0 --select-1 --exit-0 --print0 --query ${1:-""} | xargs -0 subl
 }
 
+# newer versions of mise might need --name-only?
+mr() {
+	# -r is gnu xargs only
+	mise tasks ls --all | fzf -1 --query "$*" | xargs -r mise run
+}
 
 # ════════════════════════════════════════════════════════════════════════
 # K8s
