@@ -50,4 +50,6 @@
 	"row_padding_space": "large",
 	"show_sidebar_tracked_label_colors": true,
 	"show_sidebar_untracked_label_colors": true,
+	// MarkdownEditing
+	"mde.auto_match_heading_hashes": false,
 }
