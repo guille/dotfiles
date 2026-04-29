@@ -233,6 +233,9 @@
 		"disabled_capabilities": {
 			"semanticTokensProvider": true,
 		},
+		"settings": {
+			"tombi.format.rules.key-value-equals-sign-alignment": true,
+		},
 		"selector": "source.toml",
 	},
 	// https://buf.build/docs/cli/editors-lsp/

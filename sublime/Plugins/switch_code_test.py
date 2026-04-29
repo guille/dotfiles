@@ -34,6 +34,20 @@ class SwitchCodeAndTestCommand(sublime_plugin.WindowCommand):
             "test_file_suffixes": ["_test"],
             "try_same_dir": True,
         },
+        "source.ts": {
+            "source_root_markers": [],
+            "test_root_markers": [],
+            "test_file_prefixes": [],
+            "test_file_suffixes": [".test"],
+            "try_same_dir": True,
+        },
+        "source.ts.unittest": {  # AFI scope
+            "source_root_markers": [],
+            "test_root_markers": [],
+            "test_file_prefixes": [],
+            "test_file_suffixes": [".test"],
+            "try_same_dir": True,
+        },
         "source.dart": {
             "source_root_markers": ["lib"],
             "test_root_markers": ["test"],
