@@ -46,6 +46,7 @@
       "rm *": "deny",
       "sort": "allow",
       "tail *": "allow",
+      "uv run pytest *": "allow",
       "wc *": "allow",
     },
     "external_directory": {
