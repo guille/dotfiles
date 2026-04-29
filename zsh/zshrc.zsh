@@ -214,7 +214,7 @@ function execute_zoxide() {
   zle accept-line
 }
 zle -N execute_zoxide
-bindkey '^j' execute_zoxide # same byte as \n, brittle
+bindkey '^[j' execute_zoxide # alt+j
 # fuzzy search zoxide from its own db, with full paths (unlike zi) and go to best option
 function zz() {
 	local result

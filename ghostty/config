@@ -70,7 +70,7 @@ keybind = ctrl+shift+page_down=move_tab:1
 keybind = ctrl+shift+page_up=move_tab:-1
 
 # mistypes
-keybind = shift+enter=text:\x1b[27;2;13~
+keybind = shift+enter=text:\n
 
 keybind = global:super+grave_accent=toggle_quick_terminal
 
