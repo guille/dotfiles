@@ -78,10 +78,12 @@ class ProjectRunOnSaveListener(sublime_plugin.EventListener):
         if window is None or syntax is None:
             return
 
-        project_data = cast("dict[str, Any]", window.project_data())
-        tasks: "list[RunOnSaveTask]" = (
-            project_data.get("config", {}).get("run_on_save", {}).get(syntax.scope, [])
-        )
+        if project_data := cast("dict[str, Any]", window.project_data()):
+            tasks: "list[RunOnSaveTask]" = (
+                project_data.get("config", {})
+                .get("run_on_save", {})
+                .get(syntax.scope, [])
+            )
 
-        for task in tasks:
-            self.run_task(task, window)
+            for task in tasks:
+                self.run_task(task, window)
