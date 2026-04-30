@@ -12,12 +12,28 @@ class OpenFileFromFindResultsCommand(sublime_plugin.TextCommand):
     def run(self, edit: sublime.Edit):
         view = self.view
         sel = view.sel()[0]
+        window = view.window()
+        if window is None:
+            return
 
         sel = view.expand_to_scope(sel.a, "entity.name.filename")
         if sel is None:
             return
 
-        file_path = os.path.expanduser(view.substr(sel))
+        file_path = view.substr(sel)
+
+        # Handle untitled buffers: <untitled 1234> or <untitled 1234> (tab title)
+        untitled_match = re.match(r"<untitled (\d+)>", file_path)
+        if untitled_match:
+            buffer_id = int(untitled_match.group(1))
+            for v in window.views():
+                if v.buffer().id() == buffer_id:
+                    window.focus_view(v)
+                    return
+            sublime.status_message(f"Couldn't find buffer: {buffer_id}")
+            return
+
+        file_path = os.path.expanduser(file_path)
 
         line_num = 0
 
@@ -40,32 +56,28 @@ class OpenFileFromFindResultsCommand(sublime_plugin.TextCommand):
                         line_num = line_match.group(1)
                         break
 
-        window = view.window()
-        if window:
-            if os.path.exists(file_path):
-                window.open_file(
-                    f"{os.path.abspath(file_path)}:{line_num}", sublime.ENCODED_POSITION
-                )
+        if os.path.exists(file_path):
+            window.open_file(
+                f"{os.path.abspath(file_path)}:{line_num}", sublime.ENCODED_POSITION
+            )
+            return
+
+        # Try relative to any open folder
+        for folder in window.folders():
+            candidate = os.path.join(folder, file_path)
+            if os.path.exists(candidate):
+                window.open_file(f"{candidate}:{line_num}", sublime.ENCODED_POSITION)
                 return
 
-            # Try relative to any open folder
-            for folder in window.folders():
-                candidate = os.path.join(folder, file_path)
-                if os.path.exists(candidate):
-                    window.open_file(
-                        f"{candidate}:{line_num}", sublime.ENCODED_POSITION
-                    )
-                    return
+        # Last-ditch: try relative to packages path
+        packages_candidate = os.path.join(sublime.packages_path(), file_path)
+        if os.path.exists(packages_candidate):
+            window.open_file(
+                f"{packages_candidate}:{line_num}", sublime.ENCODED_POSITION
+            )
+            return
 
-            # Last-ditch: try relative to packages path
-            packages_candidate = os.path.join(sublime.packages_path(), file_path)
-            if os.path.exists(packages_candidate):
-                window.open_file(
-                    f"{packages_candidate}:{line_num}", sublime.ENCODED_POSITION
-                )
-                return
-
-            sublime.status_message(f"Couldn't find file: {file_path}")
+        sublime.status_message(f"Couldn't find file: {file_path}")
 
     def is_enabled(self):
         """Only enable this command when the first selection starts in a filename"""
