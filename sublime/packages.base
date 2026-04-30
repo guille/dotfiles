@@ -13,6 +13,7 @@
 		"LSP-html",
 		"LSP-json",
 		"MarkdownEditing",
+		"MultiEditUtils",
 		"MoveTab",
 		"Mise",
 		"NeoCodeMap",
