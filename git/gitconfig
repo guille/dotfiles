@@ -57,6 +57,7 @@
 	last = show --quiet
 	# amend, with and without editing the message
 	amend = commit --amend
+	vamend = !GIT_EDITOR=nvim git commit --amend
 	qamend = commit --amend --no-edit
 	# only pushes if remote hasn't changed
 	pushf = push --force-with-lease
