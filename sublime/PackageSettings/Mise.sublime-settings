@@ -1,0 +1,6 @@
+{
+	"vars_to_exclude_from_autoloading": [
+		// Can mess with LSPs
+		"PATH"
+	],
+}

@@ -1,0 +1,8 @@
+// Settings in here override those in "LSP/lsp_utils.sublime-settings"
+{
+	// beta testing the build with pointer compression enabled
+	// https://github.com/sublimelsp/node-pointer-compression-builds
+	"nodejs_runtime": [
+		"local-test"
+	]
+}
