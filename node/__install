@@ -19,14 +19,14 @@ add_if_not_there "min-release-age=7" "$HOME/.npmrc"
 mise use -g node@latest
 mise use -g pnpm@latest
 
-mise settings set npm.package_manager pnpm
-
 mise x -- pnpm config set minimumReleaseAge 10080 # 1 week
 mise x -- pnpm config set blockExoticSubdeps true
 mise x -- pnpm config set trustPolicy no-downgrade
 mise x -- pnpm config set trustPolicyIgnoreAfter 525600 # 1 year
 
 infoprint "[$module_name] installing packages..."
+# pnpm messes with expected tool paths too much for lsps
+mise settings set npm.package_manager npm
 mise use -g npm:dockerfile-language-server-nodejs
 mise use -g npm:typescript
 mise use -g npm:typescript-language-server
