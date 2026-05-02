@@ -206,7 +206,9 @@
 		"selector": "source.js, source.jsx, source.ts, source.tsx",
 		"disabled_capabilities": {
 			// Does too much
-			"semanticTokensProvider": true
+			"semanticTokensProvider": true,
+			// oxfmt
+			"documentFormattingProvider": true,
 		},
 		"initialization_options": {
 			"completionDisableFilterText": true,
@@ -218,6 +220,28 @@
 			},
 			"tsserver.fallbackPath": "tsserver",
 		},
+	},
+	// https://oxc.rs/docs/guide/usage/linter/config.html
+	"oxlint": {
+		"enabled": true,
+		"command": [
+			"oxlint",
+			"--lsp"
+		],
+		"settings": {
+			// needs oxlint-tsgolint@latest installed
+			// "typeAware": true,
+		},
+		"selector": "source.js, source.jsx, source.ts, source.tsx, text.html.svelte",
+	},
+	// https://oxc.rs/docs/guide/usage/formatter/config.html
+	"oxfmt": {
+		"enabled": true,
+		"command": [
+			"oxfmt",
+			"--lsp"
+		],
+		"selector": "source.js, source.jsx, source.ts, source.tsx, text.html.svelte",
 	},
 	// https://tombi-toml.github.io/tombi/docs/language-server
 	"tombi": {

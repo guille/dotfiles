@@ -31,6 +31,8 @@ mise use -g npm:dockerfile-language-server-nodejs
 mise use -g npm:typescript
 mise use -g npm:typescript-language-server
 mise use -g npm:yaml-language-server
+mise use -g npm:oxfmt
+mise use -g npm:oxlint
 
 if is_personal_or_hybrid; then
 	mise use -g npm:svelte-language-server
