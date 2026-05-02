@@ -214,9 +214,8 @@ notes() {
 	fd -0 . $notes_dir | ff --multi --delimiter '/' --with-nth -1 --read0 --select-1 --exit-0 --print0 --query ${1:-""} | xargs -0 subl
 }
 
-# mise > 2026.4.25 has --name-only
 mr() {
-	task=$(mise tasks ls --all | fzf -1 --query "$*")
+	task=$(mise tasks ls --all --name-only | fzf -1 --query "$*")
 	mise run "$task"
 }
 

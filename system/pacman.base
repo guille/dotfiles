@@ -48,7 +48,7 @@ kubectl
 kubectx
 lsof
 magic-wormhole
-mise
+# mise
 mupdf-tools
 neovim
 nnn

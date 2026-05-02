@@ -12,13 +12,39 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=mise
 
 
+manual_install_mise () {
+	INSTALLER=$(mktemp /tmp/mise-install.XXXXXX.sh)
+
+	echo "Fetching installer from https://mise.run ..."
+	curl -fsSL https://mise.run -o "$INSTALLER"
+
+	bat "$INSTALLER"
+
+	printf "Proceed with installation? [y/N] "
+	read -r answer
+	case "$answer" in
+	  [yY]|[yY][eE][sS])
+	    sh "$INSTALLER"
+	    ;;
+	  *)
+	    echo "Aborted."
+	    exit 1
+	    ;;
+	esac
+	rm -f "$INSTALLER"
+}
+
+if [[ "$DOTFILES_DISTRO" == "Arch" ]]; then
+	command_exists mise || manual_install_mise
+fi
+
+
 gitignore "mise.local.toml"
 
 infoprint "[$module_name] mise config flags"
 mise settings set experimental true
 mise settings set status.show_deps_stale false
-mise settings set install_before "7d" || true # renamed v2026.4.22
-mise settings set minimum_release_age "7d"|| true
+mise settings set minimum_release_age "7d"
 
 if command_exists mise; then
 	infoprint "[$module_name] upgrading mise tools"
