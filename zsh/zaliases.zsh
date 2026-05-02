@@ -216,8 +216,8 @@ notes() {
 
 # mise > 2026.4.25 has --name-only
 mr() {
-	# -r is gnu xargs only
-	mise tasks ls --all | fzf -1 --query "$*" | xargs -r mise run
+	task=$(mise tasks ls --all | fzf -1 --query "$*")
+	mise run "$task"
 }
 
 # ════════════════════════════════════════════════════════════════════════
