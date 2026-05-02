@@ -90,6 +90,9 @@
         "basedpyright-langserver",
         "--stdio"
       ],
+      "initialization": {
+        "basedpyright.analysis.typeCheckingMode": "standard"
+      },
       "extensions": [
         ".py",
         ".pyi"
