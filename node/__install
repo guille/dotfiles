@@ -24,6 +24,7 @@ mise settings set npm.package_manager pnpm
 mise x -- pnpm config set minimumReleaseAge 10080 # 1 week
 mise x -- pnpm config set blockExoticSubdeps true
 mise x -- pnpm config set trustPolicy no-downgrade
+mise x -- pnpm config set trustPolicyIgnoreAfter 525600 # 1 year
 
 infoprint "[$module_name] installing packages..."
 mise use -g npm:dockerfile-language-server-nodejs
