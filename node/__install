@@ -17,6 +17,13 @@ add_if_not_there "min-release-age=7" "$HOME/.npmrc"
 
 
 mise use -g node@latest
+mise use -g pnpm@latest
+
+mise settings set npm.package_manager pnpm
+
+mise x -- pnpm config set minimumReleaseAge 10080 # 1 week
+mise x -- pnpm config set blockExoticSubdeps true
+mise x -- pnpm config set trustPolicy no-downgrade
 
 infoprint "[$module_name] installing packages..."
 mise use -g npm:dockerfile-language-server-nodejs
