@@ -1,36 +1,32 @@
 [
     // Custom plugins/commands
     {
-        "caption": "Select next word",
-        "command": "find_next_word",
-    },
-    {
-        "caption": "New project from root",
-        "command": "new_project_from_root",
-    },
-    {
-        "caption": "Run dmn's task picker",
-        "command": "dmn",
-    },
-    {
-        "caption": "Find in Files: Open Matching Files",
-        "command": "open_all_found_files",
-    },
-    {
-        "caption": "UI: Clear Console",
-        "command": "clear_console"
-    },
-    {
-        "caption": "Rename tab",
-        "command": "rename_tab"
+        "caption": "Copy Path: Relative",
+        "command": "copy_relative_path"
     },
     {
         "caption": "Decode selection from base64",
         "command": "decode_selected_base64"
     },
     {
-        "caption": "Copy Path: Relative",
-        "command": "copy_relative_path"
+        "caption": "Find in Files: Open Matching Files",
+        "command": "open_all_found_files",
+    },
+    {
+        "caption": "New project from root",
+        "command": "new_project_from_root",
+    },
+    {
+        "caption": "Rename tab",
+        "command": "rename_tab"
+    },
+    {
+        "caption": "Select next word",
+        "command": "find_next_word",
+    },
+    {
+        "caption": "UI: Clear Console",
+        "command": "clear_console"
     },
     // Scratch buffer
     {
@@ -69,12 +65,12 @@
     },
     // Useful things that don't show in command palette by default
     {
-        "caption": "Show Console",
-        "command": "show_panel",
-        "args": {
-            "panel": "console",
-            "toggle": true
-        }
+        "caption": "Copy Path: Absolute",
+        "command": "copy_path",
+    },
+    {
+        "caption": "Delete file",
+        "command": "trash_file",
     },
     {
         "caption": "Find in files",
@@ -84,12 +80,12 @@
         }
     },
     {
-        "caption": "Copy Path: Absolute",
-        "command": "copy_path",
-    },
-    {
-        "caption": "Delete file",
-        "command": "trash_file",
+        "caption": "Show Console",
+        "command": "show_panel",
+        "args": {
+            "panel": "console",
+            "toggle": true
+        }
     },
     {
         "caption": "Toggle Spell Check",
