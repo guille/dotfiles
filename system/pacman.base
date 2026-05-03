@@ -34,6 +34,7 @@ xorg-xwayland
 # terminal utils
 aria2
 bat
+difftastic
 docker
 docker-buildx
 eza

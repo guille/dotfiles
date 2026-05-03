@@ -36,6 +36,7 @@ xorg-x11-server-Xwayland
 aria2
 bat
 containerd
+difftastic
 docker-cli
 docker-compose
 docker-buildx
