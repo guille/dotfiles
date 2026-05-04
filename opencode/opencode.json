@@ -46,6 +46,7 @@
       "rm *": "deny",
       "sort": "allow",
       "tail *": "allow",
+      "true": "allow",
       "uv run pytest *": "allow",
       "wc *": "allow",
     },
