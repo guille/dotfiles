@@ -1,6 +1,7 @@
 		"GraphQL",
 		"jsonnet syntax",
 		"LSP-copilot",
+		"LSP-tailwindcss",
 		"LSP-terraform",
 		"Protobuf Syntax Hightlighting",
 		"Terraform",
