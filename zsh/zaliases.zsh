@@ -210,8 +210,30 @@ pskill() {
 
 notes() {
 	local notes_dir=~/notes
+	local query="${1:-""}"
 
-	fd -0 . $notes_dir | ff --multi --delimiter '/' --with-nth -1 --read0 --select-1 --exit-0 --print0 --query ${1:-""} | xargs -0 subl
+	local result
+	result=$(fd -0 . "$notes_dir" | ff --multi --delimiter '/' --with-nth -1 --read0 --select-1 --exit-0 --print-query --query "$query")
+	local fzf_exit=$?
+
+	# --print-query makes fzf always emit the query as the first line,
+	# followed by any selected files
+	local query_used selected_files
+	query_used=$(printf '%s\n' "$result" | head -1)
+	selected_files=$(printf '%s\n' "$result" | tail -n +2)
+
+	if [[ -n "$selected_files" ]]; then
+		printf '%s\n' "$selected_files" | xargs subl
+	elif [[ $fzf_exit -ne 130 && -n "$query_used" ]]; then
+		# No match selected, not cancelled (130 = Ctrl-C / Esc)
+		local filepath="$notes_dir/$query_used"
+		printf "File '%s' does not exist, create? [Y/n] " "$query_used"
+		local answer
+		read -r answer </dev/tty
+		if [[ "$answer" != "n" && "$answer" != "N" ]]; then
+			subl "$filepath"
+		fi
+	fi
 }
 
 mr() {
