@@ -35,9 +35,10 @@
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
-    os_icon               # os identifier
+    os_icon                 # os identifier
     context                 # user@hostname
     dmn                     # custom pty bridge
+    orbit                   # pending orbit reminders
     nnn                     # nnn shell (https://github.com/jarun/nnn)
     mise                    # custom (https://github.com/romkatv/powerlevel10k/issues/2212)
     aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
@@ -1817,7 +1818,12 @@
 
   function prompt_dmn() {
     [[ -n $PTY_BRIDGE ]] || return
-    p10k segment -f 244 -i '󰡚' -t ""
+    p10k segment -b 1 -f 244 -i '󰡚' -t ""
+  }
+
+  function prompt_orbit() {
+    [[ -f ~/.local/share/orbit/pending ]] || return
+    p10k segment -b 57 -f 209 -i ' ' -t ""
   }
 
   # Transient prompt works similarly to the builtin transient_rprompt option. It trims down prompt
