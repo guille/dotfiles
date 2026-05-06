@@ -44,7 +44,7 @@
       "mkdir *": "allow",
       "rg *": "allow",
       "rm *": "deny",
-      "sort": "allow",
+      "sort *": "allow",
       "tail *": "allow",
       "true": "allow",
       "uv run pytest *": "allow",
