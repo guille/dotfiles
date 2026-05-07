@@ -19,6 +19,7 @@ mise use --global go@latest
 mise x -- go telemetry off
 
 infoprint "[$module_name] installing packages..."
+mise use --global go:github.com/guille/orbit/cmd/orbit@latest
 mise use --global go:github.com/go-delve/delve/cmd/dlv@latest
 mise use --global go:golang.org/x/tools/gopls@latest
 mise use --global go:golang.org/x/vuln/cmd/govulncheck@latest
