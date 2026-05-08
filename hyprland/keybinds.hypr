@@ -15,7 +15,7 @@ bind = $mainMod, J, exec, emoji --rofi
 bind = $mainMod, T, exec, [workspace 3] ghostty -e zsh -ic nnn
 
 # Clipboard
-bind = $mainMod, P, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
+bind = $mainMod, P, exec, cliphist list | rofi -i -dmenu | cliphist decode | wl-copy
 
 # Screenshot
 bind = , Print, exec, grim -g "$(slurp)" - | tee $screenshots_dir/$(date +%F-%T).png | wl-copy
