@@ -3,6 +3,7 @@
   "theme": "system",
   "default_agent": "plan",
   "share": "disabled",
+  "snapshot": false,
   "autoupdate": false,
   "permission": {
     "*": "ask",

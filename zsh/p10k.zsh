@@ -1818,7 +1818,7 @@
 
   function prompt_dmn() {
     [[ -n $PTY_BRIDGE ]] || return
-    p10k segment -b 1 -f 244 -i '󰡚' -t ""
+    p10k segment -b 0 -f 244 -i '󰡚' -t ""
   }
 
   function prompt_orbit() {
