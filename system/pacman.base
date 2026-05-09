@@ -37,6 +37,7 @@ bat
 difftastic
 docker
 docker-buildx
+dog
 eza
 fd
 fzf

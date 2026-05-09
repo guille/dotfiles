@@ -88,6 +88,9 @@
 	i = "!git add -N . && git gap"
 	# weirdly useful
 	git = !git
+	# -m wip gets old
+	wip = "!git commit -m \"$(what-the-commit)\""
+	rewip = "!git commit --amend -m \"$(what-the-commit)\""
 
 [status]
 	submoduleSummary = true
