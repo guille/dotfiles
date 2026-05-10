@@ -25,6 +25,8 @@ mise use --global go:golang.org/x/tools/gopls@latest
 mise use --global go:golang.org/x/vuln/cmd/govulncheck@latest
 mise use --global go:honnef.co/go/tools/cmd/staticcheck@latest
 
+mise use --global golangci-lint@atest
+
 if is_work_or_hybrid; then
 	mise use --global go:oras.land/oras/cmd/oras@latest
 	mise use --global go:google.golang.org/protobuf/cmd/protoc-gen-go@latest
