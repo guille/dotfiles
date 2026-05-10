@@ -12,7 +12,6 @@ general {
 
 # See https://wiki.hypr.land/Configuring/Dwindle-Layout/ for more
 dwindle {
-    pseudotile = true
     preserve_split = true
     default_split_ratio = 1.25
 }
@@ -46,7 +45,6 @@ misc {
     force_default_wallpaper = 0
     font_family = 0xProto Nerd Font
     disable_hyprland_logo = true
-    vfr = true
     focus_on_activate = true # god bless
     mouse_move_enables_dpms = true
     key_press_enables_dpms = true

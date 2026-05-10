@@ -17,7 +17,6 @@ hl.config {
 -- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
 hl.config {
     dwindle = {
-        pseudotile = true,
         preserve_split = true,
         default_split_ratio = 1.25,
     },
@@ -59,7 +58,6 @@ hl.config {
         force_default_wallpaper = 0,
         font_family = "0xProto Nerd Font",
         disable_hyprland_logo = true,
-        vfr = true,
         focus_on_activate = true,
         mouse_move_enables_dpms = true,
         key_press_enables_dpms = true,
