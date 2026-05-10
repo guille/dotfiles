@@ -55,7 +55,8 @@ infoprint "[$module_name] setting up usage"
 mise use --global usage
 
 infoprint "[$module_name] installing global mise tools"
-mise use -g helm-ls@latest
+mise use --global helm-ls@latest
+mise use --global github:guille/orbit@latest
 
 if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
 	# we get these thru pacman in Arch
