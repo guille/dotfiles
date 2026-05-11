@@ -70,6 +70,7 @@ if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
 fi
 
 if is_work; then
+	mise use --global mirrord@latest
 	mise use --global protoc@34
 	mise use --global github:fullstorydev/grpcurl@latest
 fi
