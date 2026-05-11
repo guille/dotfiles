@@ -236,9 +236,17 @@ notes() {
 	fi
 }
 
+# run mise task (fzf-powered)
 mr() {
-	task=$(mise tasks ls --all --name-only | fzf -1 --query "$*")
-	mise run "$task"
+  local task
+	task=$(mise tasks ls --all --name-only | fzf -1 -0 --query "$*")
+	[[ -n "$task" ]] && mise run "$task" || echo "no task selected/found"
+}
+# put mise task in zsh prompt (fzf-powered)
+mrr() {
+  local task
+  task=$(mise tasks ls --all --name-only | fzf -1 -0 --query "$*")
+  [[ -n "$task" ]] && print -z "mise run $task" || echo "no task selected/found"
 }
 
 # ════════════════════════════════════════════════════════════════════════
