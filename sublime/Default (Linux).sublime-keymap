@@ -12,15 +12,6 @@
 	},
 	{
 		"keys": [
-			"ctrl+=" // Ctrl+¡ with Spanish keyboard layout
-		],
-		"command": "build",
-		"args": {
-			"select": true
-		}
-	},
-	{
-		"keys": [
 			"ctrl+;" // Ctrl+ñ with Spanish keyboard layout
 		],
 		"command": "lsp_goto_diagnostic",
@@ -41,6 +32,34 @@
 		],
 		"command": "switch_code_and_test",
 	},
+	// Use Mise if available, fall back to normal build systems
+	{
+		"keys": [
+			"ctrl+=" // Ctrl+¡ with Spanish keyboard layout
+		],
+		"command": "build",
+		"args": {
+			"select": true
+		},
+	},
+	{
+		"keys": [
+			"ctrl+=" // Ctrl+¡ with Spanish keyboard layout
+		],
+		"command": "show_overlay",
+		"args": {
+			"overlay": "command_palette",
+			"command": "mise_run_task"
+		},
+		"context": [
+			{
+				"key": "mise.project_has_keyfile",
+				"operand": true,
+				"operator": "equal"
+			}
+		]
+	},
+	// Prefer subword motions
 	{
 		"keys": [
 			"ctrl+left"
