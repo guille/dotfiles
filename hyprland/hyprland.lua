@@ -38,9 +38,9 @@ hl.on("hyprland.start", function()
     hl.exec_cmd(config.terminal, { workspace = 3 })
 end)
 
--- hl.on("monitor.attached", function()
---     hl.exec_cmd("pkill --full --signal HUP --require-handler wallpapered")
--- end)
+hl.on("monitor.added", function()
+    hl.exec_cmd("pkill --full --signal HUP --require-handler wallpapered")
+end)
 
 -- catch-all monitor rule
 hl.monitor {
