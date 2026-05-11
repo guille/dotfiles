@@ -1,6 +1,6 @@
 -- https://wiki.hypr.land/Configuring/
 
-local config = require("config")
+local config = require("hyprland.config")
 
 
 -- env vars
@@ -50,10 +50,10 @@ hl.monitor {
     scale    = "auto",
 }
 
-require("look_and_feel")
-require("keybinds")
-require("rules")
-require("local_confs")
+require("hyprland.look_and_feel")
+require("hyprland.keybinds")
+require("hyprland.rules")
+require("hyprland.local_confs")
 
 hl.config {
     input = {

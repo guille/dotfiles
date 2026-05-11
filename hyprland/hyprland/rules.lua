@@ -92,14 +92,14 @@ hl.window_rule {
 	idle_inhibit = "fullscreen",
 }
 
-hl.windowrule {
+hl.window_rule {
 	name = "qbittorrent",
 	match = { class = "^org.qbittorrent.qBittorrent$" },
 
 	workspace = 10,
 }
 
-hl.windowrule {
+hl.window_rule {
 	name = "pavucontrol",
 	match = { class = "^org.pulseaudio.pavucontrol$" },
 
@@ -107,14 +107,14 @@ hl.windowrule {
 	pin = true,
 }
 
-hl.windowrule {
+hl.window_rule {
 	name = "imv",
 	match = { class = "^imv$" },
 
 	opaque = true,
 }
 
-hl.windowrule {
+hl.window_rule {
 	name = "slack",
 	match = { class = "^Slack$" },
 

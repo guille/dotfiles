@@ -1,4 +1,4 @@
-local config = require("config")
+local config = require("hyprland.config")
 
 -- hyprctl globalshortcuts
 -- ghostty quick terminal
@@ -30,10 +30,10 @@ hl.bind("SUPER + up", hl.dsp.focus({ direction = "up" }))
 hl.bind("SUPER + down", hl.dsp.focus({ direction = "down" }))
 
 -- Move window with secondMod + arrow keys
-hl.bind("SUPER + SHIFT + left", hl.dsp.swap({ direction = "left" }))
-hl.bind("SUPER + SHIFT + right", hl.dsp.swap({ direction = "right" }))
-hl.bind("SUPER + SHIFT + up", hl.dsp.swap({ direction = "up" }))
-hl.bind("SUPER + SHIFT + down", hl.dsp.swap({ direction = "down" }))
+hl.bind("SUPER + SHIFT + left", hl.dsp.window.swap({ direction = "left" }))
+hl.bind("SUPER + SHIFT + right", hl.dsp.window.swap({ direction = "right" }))
+hl.bind("SUPER + SHIFT + up", hl.dsp.window.swap({ direction = "up" }))
+hl.bind("SUPER + SHIFT + down", hl.dsp.window.swap({ direction = "down" }))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
@@ -63,7 +63,7 @@ hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Move workspace to the next monitor
-hl.bind("SUPER + X", hl.dsp.window.move(), { monitor = "+1" })
+hl.bind("SUPER + X", hl.dsp.window.move({ monitor = "+1" }))
 
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),

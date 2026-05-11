@@ -35,7 +35,7 @@
 					"Lua.runtime.path": [
 						"?.lua",
 						"?/init.lua",
-						// "/usr/share/hypr/stubs"
+						"/usr/share/hypr/stubs",
 					],
 					"Lua.runtime.pathStrict": false,
 					"Lua.runtime.version": "LuaJIT",
