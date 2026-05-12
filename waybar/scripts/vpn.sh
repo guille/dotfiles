@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
-if type "nxcli" &> /dev/null; then
-	nxcli status 2>/dev/null | grep -qi disconnected || echo "󰖂 "
+if command -v "nxcli" &> /dev/null; then
+	if nxcli status -f 2>/dev/null | jq empty >/dev/null 2>&1; then
+		echo "󰖂 "
+	else
+		echo ""
+	fi
 fi
