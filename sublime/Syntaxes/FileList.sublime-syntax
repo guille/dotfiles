@@ -1,0 +1,13 @@
+%YAML 1.2
+---
+name: File List
+scope: text.plain.file-list
+version: 2
+
+contexts:
+  main:
+    - match: ((?:[a-zA-Z]:[\/\\]|~\/|[.\/])?(?:[\w\-.]+[\/\\])+[\w\-.]+\.[\w-]+):?(\d+)?:?(\d+)?
+      captures:
+        1: entity.name.filename.build-output.mise
+        2: constant.numeric.line-number.build-output.mise
+        3: constant.numeric.line-number.build-output.mise
