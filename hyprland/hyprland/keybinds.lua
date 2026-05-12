@@ -42,8 +42,8 @@ for i = 1, 10 do
 	hl.bind("SUPER + " .. key, hl.dsp.focus({ workspace = i }))
 	hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
-hl.bind("SUPER + ordmasculine", hl.dsp.focus({ workspace = 0 }))
-hl.bind("SUPER + SHIFT + ordmasculine", hl.dsp.window.move({ workspace = 0 }))
+hl.bind("SUPER + ordmasculine", hl.dsp.focus({ workspace = 10 }))
+hl.bind("SUPER + SHIFT + ordmasculine", hl.dsp.window.move({ workspace = 10 }))
 
 -- Alt+Tab / Shift+Alt+Tab to cycle workspaces
 hl.bind("ALT + Tab", hl.dsp.focus({ workspace = "e+1" }))
