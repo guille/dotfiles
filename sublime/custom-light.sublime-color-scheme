@@ -173,6 +173,23 @@
 			"font_style": "bold italic",
 		},
 		{
+			"name": "Traits",
+			"scope": "entity.name.trait",
+			"foreground": "var(light_blue)",
+			"font_style": "bold italic",
+		},
+		{
+			"name": "Structs",
+			"scope": "entity.name.struct",
+			"foreground": "var(dark_blue)",
+			"font_style": "bold italic",
+		},
+		{
+			"name": "Impls",
+			"scope": "entity.name.impl",
+			"foreground": "var(light_blue)",
+		},
+		{
 			"name": "Enums",
 			"scope": "entity.name.enum",
 			"foreground": "var(light_blue)",

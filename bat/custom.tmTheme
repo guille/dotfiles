@@ -2,9 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!--
 Hopefully one day syntect reaches feature parity with ST and I can re-use the sublime-color-scheme file
-https://github.com/trishume/syntect/issues/323
-https://github.com/trishume/syntect/issues/271
 https://github.com/trishume/syntect/issues/244
+https://github.com/trishume/syntect/pull/604
 -->
 <plist version="1.0">
 <dict>
