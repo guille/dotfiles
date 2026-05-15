@@ -8,7 +8,7 @@ https://github.com/trishume/syntect/pull/604
 <plist version="1.0">
 <dict>
   <key>author</key>
-  <string>github.com/jonschlinkert</string>
+  <string>github.com/guille</string>
   <key>colorSpaceName</key>
   <string>sRGB</string>
   <key>gutterSettings</key>
@@ -25,9 +25,9 @@ https://github.com/trishume/syntect/pull/604
     <string>#a6e22e</string>
   </dict>
   <key>name</key>
-  <string>Monokai Extended</string>
+  <string>My Theme</string>
   <key>semanticClass</key>
-  <string>theme.dark.monokai_extended</string>
+  <string>theme.dark.custom</string>
   <key>settings</key>
   <array>
     <dict>
@@ -227,13 +227,50 @@ https://github.com/trishume/syntect/pull/604
       <key>name</key>
       <string>Types</string>
       <key>scope</key>
-      <string>(storage.type - keyword.declaration.function - storage.type.function) | support.type | support.class.typing</string>
+      <string>storage.type - keyword.declaration.function - storage.type.function - punctuation | support.type | support.class.typing | variable.type</string>
       <key>settings</key>
       <dict>
         <key>fontStyle</key>
         <string>italic</string>
         <key>foreground</key>
-        <string>#66d9ef</string>
+        <string>#7aa6da</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Types: Generics</string>
+      <key>scope</key>
+      <string>meta.generic support.class</string>
+      <key>settings</key>
+      <dict>
+        <key>fontStyle</key>
+        <string>italic</string>
+        <key>foreground</key>
+        <string>#7aa6da</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Types: Generic parameter</string>
+      <key>scope</key>
+      <string>variable.parameter.type | variable.parameter.generic</string>
+      <key>settings</key>
+      <dict>
+        <key>fontStyle</key>
+        <string>italic</string>
+        <key>foreground</key>
+        <string>#7aa6da</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Types: Generics punctuation</string>
+      <key>scope</key>
+      <string>punctuation.definition.generic</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#f8f8f2</string>
       </dict>
     </dict>
     <dict>
@@ -244,18 +281,94 @@ https://github.com/trishume/syntect/pull/604
       <key>settings</key>
       <dict>
         <key>fontStyle</key>
-        <string>italic</string>
+        <string>italic bold</string>
+        <key>foreground</key>
+        <string>#7aa6da</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Classes: definitions</string>
+      <key>scope</key>
+      <string>entity.name.class</string>
+      <key>settings</key>
+      <dict>
+        <key>fontStyle</key>
+        <string>bold</string>
         <key>foreground</key>
         <string>#66d9ef</string>
       </dict>
     </dict>
     <dict>
       <key>name</key>
-      <string>Class names</string>
+      <string>Classes: references</string>
       <key>scope</key>
-      <string>support.class | entity.name.class</string>
+      <string>support.class</string>
       <key>settings</key>
       <dict>
+        <key>foreground</key>
+        <string>#66d9ef</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Interface</string>
+      <key>scope</key>
+      <string>entity.name.interface</string>
+      <key>settings</key>
+      <dict>
+        <key>fontStyle</key>
+        <string>bold italic</string>
+        <key>foreground</key>
+        <string>#66d9ef</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Traits</string>
+      <key>scope</key>
+      <string>entity.name.trait</string>
+      <key>settings</key>
+      <dict>
+        <key>fontStyle</key>
+        <string>bold italic</string>
+        <key>foreground</key>
+        <string>#66d9ef</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Structs</string>
+      <key>scope</key>
+      <string>entity.name.struct</string>
+      <key>settings</key>
+      <dict>
+        <key>fontStyle</key>
+        <string>bold italic</string>
+        <key>foreground</key>
+        <string>#7aa6da</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Impls</string>
+      <key>scope</key>
+      <string>entity.name.impl</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#66d9ef</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Enums</string>
+      <key>scope</key>
+      <string>entity.name.enum</string>
+      <key>settings</key>
+      <dict>
+        <key>fontStyle</key>
+        <string>bold</string>
         <key>foreground</key>
         <string>#66d9ef</string>
       </dict>
@@ -323,7 +436,7 @@ https://github.com/trishume/syntect/pull/604
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#a6e22e</string>
+        <string>#7aa6da</string>
       </dict>
     </dict>
     <dict>
@@ -334,18 +447,29 @@ https://github.com/trishume/syntect/pull/604
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#a6e22e</string>
+        <string>#7aa6da</string>
       </dict>
     </dict>
     <dict>
       <key>name</key>
-      <string>Class inheritance (punctuation)</string>
+      <string>Function calls</string>
       <key>scope</key>
-      <string>punctuation.separator.inheritance</string>
+      <string>variable.function</string>
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#a6e22e</string>
+        <string>#a0da3a</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Library functions</string>
+      <key>scope</key>
+      <string>support.function</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#a0da3a</string>
       </dict>
     </dict>
     <dict>
@@ -361,35 +485,13 @@ https://github.com/trishume/syntect/pull/604
     </dict>
     <dict>
       <key>name</key>
-      <string>Function calls</string>
-      <key>scope</key>
-      <string>variable.function</string>
-      <key>settings</key>
-      <dict>
-        <key>foreground</key>
-        <string>#66d9ef</string>
-      </dict>
-    </dict>
-    <dict>
-      <key>name</key>
-      <string>Library functions</string>
-      <key>scope</key>
-      <string>support.function</string>
-      <key>settings</key>
-      <dict>
-        <key>foreground</key>
-        <string>#66d9ef</string>
-      </dict>
-    </dict>
-    <dict>
-      <key>name</key>
       <string>Annotations</string>
       <key>scope</key>
-      <string>variable.annotation</string>
+      <string>meta.annotation</string>
       <key>settings</key>
       <dict>
-        <key>foreground</key>
-        <string>#66d9ef</string>
+        <key>fontStyle</key>
+        <string>italic</string>
       </dict>
     </dict>
     <dict>
@@ -415,7 +517,7 @@ https://github.com/trishume/syntect/pull/604
         <key>fontStyle</key>
         <string>italic</string>
         <key>foreground</key>
-        <string>#a7afb6</string>
+        <string>#a7afb4</string>
       </dict>
     </dict>
     <dict>
@@ -425,6 +527,8 @@ https://github.com/trishume/syntect/pull/604
       <string>comment</string>
       <key>settings</key>
       <dict>
+        <key>fontStyle</key>
+        <string>bold</string>
         <key>foreground</key>
         <string>#8e8971</string>
       </dict>

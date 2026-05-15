@@ -145,15 +145,15 @@
 			"foreground": "var(dark_blue)",
 		},
 		{
+			"name": "Types: generics punctuation",
+			"scope": "punctuation.definition.generic",
+			"foreground": "var(foreground)",
+		},
+		{
 			"name": "Types: definitions",
 			"scope": "entity.name.type",
 			"font_style": "bold italic",
 			"foreground": "var(dark_blue)",
-		},
-		{
-			"name": "Types: generics punctuation",
-			"scope": "punctuation.definition.generic",
-			"foreground": "var(foreground)",
 		},
 		{
 			"name": "Classes: definitions",
