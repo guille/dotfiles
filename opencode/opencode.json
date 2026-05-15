@@ -55,7 +55,8 @@
       "*": "ask",
       "~/go/pkg/mod/**": "allow",
       "~/work/**": "allow",
-      "/tmp/**": "ask"
+      "/tmp/**": "ask",
+      "/tmp/opencode-summarized/**": "allow"
     },
   },
   "enabled_providers": [
