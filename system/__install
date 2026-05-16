@@ -45,6 +45,7 @@ setup_ufw () {
 }
 
 setup_arch() {
+	infoprint "[$module_name] setting up arch (btw)"
 	# If we can't find sublime-text, add the repository
 	pacman -Ss sublime-text &> /dev/null || install_sublime_repo
 
@@ -88,6 +89,7 @@ setup_arch() {
 }
 
 setup_fedora() {
+	infoprint "[$module_name] setting up fedora"
 	install_sublime_repo
 	infoprint "[$module_name] adding zsh-users:zsh-completions"
 	sudo dnf config-manager addrepo --overwrite --from-repofile=https://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/Fedora_Rawhide/shells:zsh-users:zsh-completions.repo
@@ -109,6 +111,7 @@ setup_fedora() {
 }
 
 setup_osx() {
+	infoprint "[$module_name] setting up osx"
 	infoprint "[$module_name] installing from Brewfile"
 	export HOMEBREW_BUNDLE_FILE="$SCRIPT_BASE_DIR/$module_name/Brewfile"
 	HOMEBREW_NO_AUTO_UPDATE=1 brew bundle check 1>/dev/null || brew bundle install
@@ -169,6 +172,9 @@ fi
 
 
 if [[ "$DOTFILES_OS" == "Linux" ]]; then
+	infoprint "[$module_name] linking default fontconfig"
+	mkdir -p ~/.config/fontconfig
+	ln -sf "${SCRIPT_BASE_DIR}/$module_name/fonts.conf" ~/.config/fontconfig/fonts.conf
 	if [[ "$DOTFILES_DISTRO" == "Arch" ]]; then
 		setup_arch
 	elif [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
