@@ -1,0 +1,193 @@
+#!/usr/bin/env bash
+#
+# git-revisa — git subcommand wrapper for revisa
+#
+# Usage:
+#   git revisa                     — diff working tree vs HEAD
+#   git revisa <commit>            — diff <commit> vs working tree
+#   git revisa <a>..<b>            — diff commit a vs commit b
+#   git revisa <a>...<b>           — diff merge-base(a,b) vs b
+#   git revisa --staged            — diff staged changes vs HEAD
+#   git revisa pr <number>         — diff PR base vs PR head (requires gh CLI)
+#   git revisa -- <path>...        — restrict diff to specific paths
+#
+# The script auto-configures revisa as a git difftool on first run.
+#
+# Environment:
+#   GIT_REVISA_TOOL  — override the difftool name (default: "revisa")
+#
+set -euo pipefail
+
+TOOL="${GIT_REVISA_TOOL:-revisa}"
+
+usage() {
+    cat <<'EOF'
+Usage: git revisa [<options>] [<commit> [<commit>]] [-- <path>...]
+       git revisa pr <number>
+
+Options:
+  --staged        Compare staged changes against HEAD
+  pr <number>     Compare a GitHub PR's base and head branches (requires gh)
+  -h, --help      Show this help message
+
+All other arguments are passed through to git difftool.
+EOF
+}
+
+# Ensure revisa is configured as a git difftool.
+ensure_difftool_configured() {
+    local current_cmd
+    current_cmd=$(git config --get "difftool.${TOOL}.cmd" 2>/dev/null) || true
+
+    if [[ -z "$current_cmd" ]]; then
+        # Find the revisa binary.
+        local revisa_bin
+        revisa_bin=$(command -v revisa 2>/dev/null) || true
+
+        if [[ -z "$revisa_bin" ]]; then
+            echo "error: 'revisa' binary not found on PATH." >&2
+            echo "Install revisa and ensure it is on your PATH, then run again." >&2
+            exit 1
+        fi
+
+        echo "Configuring revisa as a git difftool..." >&2
+        local escaped_bin="${revisa_bin//\'/\'\\\'\'}"
+        git config --global "difftool.${TOOL}.cmd" "'${escaped_bin}' diff --left \"\$LOCAL\" --right \"\$REMOTE\""
+        git config --global "difftool.${TOOL}.trustExitCode" true
+        echo "Done. Global git config updated." >&2
+    fi
+}
+
+# Try to fetch a branch/ref from any remote that has it.
+# Usage: fetch_ref_from_any_remote <branch_name> [<expected_oid>]
+fetch_ref_from_any_remote() {
+    local ref_name="$1"
+    local expected_oid="${2:-}"
+
+    # If we already have the expected OID, no fetch needed.
+    if [[ -n "$expected_oid" ]] && git cat-file -t "$expected_oid" &>/dev/null; then
+        return 0
+    fi
+
+    # Try each remote until the fetch succeeds.
+    local remote
+    for remote in $(git remote 2>/dev/null); do
+        if git fetch "$remote" "$ref_name" 2>/dev/null; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+# Resolve a branch name to a remote-tracking ref (e.g., "main" -> "origin/main").
+resolve_remote_ref() {
+    local ref_name="$1"
+    local remote
+    for remote in $(git remote 2>/dev/null); do
+        if git rev-parse --verify "${remote}/${ref_name}" &>/dev/null; then
+            echo "${remote}/${ref_name}"
+            return
+        fi
+    done
+    # Last resort: maybe it's a local branch.
+    echo "$ref_name"
+}
+
+# --- PR mode ---
+handle_pr() {
+    local pr_number="${1#\#}"  # Strip leading '#' if present
+    shift
+
+    if ! [[ "$pr_number" =~ ^[0-9]+$ ]]; then
+        echo "error: PR number must be numeric, got '${pr_number}'" >&2
+        exit 1
+    fi
+
+    if ! command -v gh &>/dev/null; then
+        echo "error: 'gh' CLI is required for PR review. Install from https://cli.github.com" >&2
+        exit 1
+    fi
+
+    # Fetch PR metadata (single API call). Capture output first to detect errors.
+    local pr_tsv
+    if ! pr_tsv=$(gh pr view "$pr_number" \
+        --json baseRefOid,headRefOid,baseRefName,headRefName \
+        --jq '[.baseRefOid, .headRefOid, .baseRefName, .headRefName] | @tsv' 2>&1); then
+        echo "error: failed to fetch PR #${pr_number}: ${pr_tsv}" >&2
+        exit 1
+    fi
+
+    local base_oid head_oid base_ref head_ref
+    read -r base_oid head_oid base_ref head_ref <<< "$pr_tsv"
+
+    # Ensure we have the commits locally. OIDs are preferred (exact commits);
+    # fall back to branch names via remote fetch.
+    if [[ -n "$base_oid" && -n "$head_oid" ]]; then
+        # Try to resolve the OIDs; fetch from remotes if missing.
+        if ! git cat-file -t "$base_oid" &>/dev/null; then
+            if ! fetch_ref_from_any_remote "$base_ref" "$base_oid"; then
+                echo "error: could not fetch base ref '${base_ref}' from any remote" >&2
+                exit 1
+            fi
+        fi
+        if ! git cat-file -t "$head_oid" &>/dev/null; then
+            if ! fetch_ref_from_any_remote "$head_ref" "$head_oid"; then
+                echo "error: could not fetch head ref '${head_ref}' from any remote" >&2
+                exit 1
+            fi
+        fi
+    else
+        if [[ -z "$base_ref" || -z "$head_ref" ]]; then
+            echo "error: could not determine PR #${pr_number} refs" >&2
+            exit 1
+        fi
+        # No OIDs — must resolve via branch names.
+        if ! fetch_ref_from_any_remote "$base_ref"; then
+            echo "error: could not fetch base ref '${base_ref}' from any remote" >&2
+            exit 1
+        fi
+        if ! fetch_ref_from_any_remote "$head_ref"; then
+            echo "error: could not fetch head ref '${head_ref}' from any remote" >&2
+            exit 1
+        fi
+        # Try to resolve branch to a remote-tracking ref.
+        base_oid=$(resolve_remote_ref "$base_ref")
+        head_oid=$(resolve_remote_ref "$head_ref")
+    fi
+
+    # Use merge-base to get the actual diff base (like GitHub does).
+    local merge_base
+    merge_base=$(git merge-base "$base_oid" "$head_oid" 2>/dev/null) || {
+        echo "warning: could not compute merge-base, using base commit directly" >&2
+        merge_base="$base_oid"
+    }
+
+    exec git difftool -d -t "$TOOL" --no-prompt "$merge_base" "$head_oid" "$@"
+}
+
+# --- Main ---
+ensure_difftool_configured
+
+if [[ $# -eq 0 ]]; then
+    # No args: diff working tree vs HEAD.
+    exec git difftool -d -t "$TOOL" --no-prompt HEAD
+fi
+
+case "$1" in
+    -h|--help)
+        usage
+        exit 0
+        ;;
+    pr)
+        if [[ $# -lt 2 ]]; then
+            echo "error: 'pr' requires a PR number" >&2
+            usage >&2
+            exit 1
+        fi
+        handle_pr "${@:2}"
+        ;;
+    *)
+        # Pass everything through to git difftool.
+        exec git difftool -d -t "$TOOL" --no-prompt "$@"
+        ;;
+esac

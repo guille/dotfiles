@@ -134,6 +134,13 @@
 	# show submodule logs in diff
 	submodule = log
 
+[difftool]
+	# stops processing files if the tool exited != 0 for any of them
+	trustExitCode = true
+
+[difftool "revisa"]
+	cmd = revisa diff --left \"$LOCAL\" --right \"$REMOTE\"
+
 [rerere]
 	enabled = true
 

@@ -104,6 +104,7 @@ alias docclean='docker ps -aq | xargs -I "{}" bash -c "docker rm --force {}"'
 # alias _gitpruneo='git remote prune origin || true'
 # alias gitbclean="_gitpruneo && git branch -r | awk '{print \$1}' | \egrep -v -f /dev/fd/0 <(git branch -vv | \grep origin) | awk '{print \$1}' | xargs git branch -D"
 
+alias gr='git revisa'
 # Go to the root of git directory
 groot() {
 	if git_root=$(git rev-parse --show-toplevel 2>/dev/null); then
