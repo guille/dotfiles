@@ -122,6 +122,25 @@
 			"sub_words": true
 		}
 	},
+	// Move Tabs
+	{
+		"keys": [
+			"ctrl+shift+pageup"
+		],
+		"command": "move_tab",
+		"args": {
+			"forward": false
+		}
+	},
+	{
+		"keys": [
+			"ctrl+shift+pagedown"
+		],
+		"command": "move_tab",
+		"args": {
+			"forward": true
+		}
+	},
 	// Swap paste <-> paste_and_indent
 	{
 		"keys": [
