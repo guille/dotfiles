@@ -8,7 +8,8 @@
         "hyprland/submap"
     ],
     "modules-center": [
-        "mpd"
+        "mpd",
+        "privacy"
     ],
     "modules-right": [
         "battery",
@@ -34,6 +35,7 @@
         "tray",
         "custom/power"
     ],
+    "privacy": {},
     "hyprland/workspaces": {
         "all-outputs": true,
         "format": "{name}{icon}",
