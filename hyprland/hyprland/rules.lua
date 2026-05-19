@@ -83,6 +83,13 @@ hl.window_rule {
 }
 
 hl.window_rule {
+	name      = "revisa",
+	match     = { title = "^revisa$" },
+
+	workspace = 4,
+}
+
+hl.window_rule {
 	name         = "mpv",
 	match        = { class = "^mpv$" },
 

@@ -91,6 +91,12 @@ windowrule {
     workspace = 4 silent
 }
 windowrule {
+    name = revisa
+    match:title = ^revisa*
+
+    workspace = 4
+}
+windowrule {
     name = mpv
     match:class = ^mpv$
 
