@@ -63,7 +63,7 @@ hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Move workspace to the next monitor
-hl.bind("SUPER + X", hl.dsp.window.move({ monitor = "+1" }))
+hl.bind("SUPER + X", hl.dsp.workspace.move({ monitor = "+1" }))
 
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
