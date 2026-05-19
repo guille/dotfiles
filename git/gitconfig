@@ -49,6 +49,8 @@
 	dc = diff --cached
 	# show diff summary stats
 	ds = diff --stat=160,120 --compact-summary
+	# same for a commit
+	lines-changed = show --shortstat --oneline --no-renames --format=\"\"
 	# difftastic
 	difft = -c diff.external=difft diff
 	showt = -c diff.external=difft show --ext-diff

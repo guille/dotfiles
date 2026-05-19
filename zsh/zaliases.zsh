@@ -114,6 +114,15 @@ groot() {
 gc() {
 	git clone "$1" && cd "$(basename "$1" .git)"
 }
+git-recent-stats() {
+	local count=${1:-5}
+	echo "------------------------"
+	for commit in $(git rev-list -n $count HEAD); do
+		git show --no-patch --format="Commit: %h%nMessage: %s" "$commit"
+		git show --shortstat --format="" "$commit" | tail -n1
+		echo "------------------------"
+	done
+}
 
 untilok() { until $@; do :; done }
 untilfail() { while $@; do :; done }
