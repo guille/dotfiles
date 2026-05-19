@@ -23,6 +23,7 @@
 	"font_face": "0xProto Nerd Font",
 	"font_size": ###FONT_SIZE###,
 	"default_font_size": ###FONT_SIZE###,
+	"hardware_acceleration": "opengl",
 	"hide_tab_scrolling_buttons": true,
 	"highlight_line": true,
 	"indent_guide_options": [
