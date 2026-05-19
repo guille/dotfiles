@@ -28,6 +28,10 @@
         "caption": "UI: Clear Console",
         "command": "clear_console"
     },
+    {
+        "caption": "Paste Repeater",
+        "command": "paste_repeater"
+    },
     // Scratch buffer
     {
         "caption": "Open Scratch Buffer",
