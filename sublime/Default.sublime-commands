@@ -69,6 +69,10 @@
     },
     // Useful things that don't show in command palette by default
     {
+        "caption": "Edit: Join Lines",
+        "command": "join_lines"
+    },
+    {
         "caption": "Copy Path: Absolute",
         "command": "copy_path",
     },
