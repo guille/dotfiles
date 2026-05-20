@@ -22,6 +22,7 @@ infoprint "[$module_name] installing Python tools with uv"
 # uv and ruff are installed from system packages
 mise use -g pipx:basedpyright
 mise use -g pipx:dmn-pty
+mise use -g pipx:httpie
 mise use -g pipx:pgcli
 mise use -g pipx:mycli
 mise use -g pipx:syntaqlite
