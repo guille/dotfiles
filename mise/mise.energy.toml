@@ -1,0 +1,50 @@
+[tools]
+"gem:download_tv"                       = { version = "latest", minimum_release_age = "0d" }
+"gem:rubocop"                           = "latest"
+"gem:ruby-lsp"                          = "latest"
+"github:guille/orbit"                   = { version = "latest", minimum_release_age = "0d" }
+"github:guille/revisa"                  = { version = "latest", minimum_release_age = "0d" }
+go                                      = "latest"
+"go:github.com/go-delve/delve/cmd/dlv"  = "latest"
+"go:golang.org/x/tools/gopls"           = "latest"
+"go:golang.org/x/vuln/cmd/govulncheck"  = "latest"
+"go:honnef.co/go/tools/cmd/staticcheck" = "latest"
+golangci-lint                           = "latest"
+helm-ls                                 = "latest"
+node                                    = "latest"
+"npm:dockerfile-language-server-nodejs" = "latest"
+"npm:oxfmt"                             = "latest"
+"npm:oxlint"                            = "latest"
+"npm:svelte-language-server"            = "latest"
+"npm:typescript"                        = "latest"
+"npm:typescript-language-server"        = "latest"
+"npm:yaml-language-server"              = "latest"
+"pipx:basedpyright"                     = "latest"
+"pipx:dmn-pty"                          = { version = "latest", minimum_release_age = "0d" }
+"pipx:httpie" = "latest"
+"pipx:mycli"                            = "latest"
+"pipx:pgcli"                            = "latest"
+"pipx:syntaqlite"                       = "0.5.7"
+"pipx:tombi"                            = "latest"
+"pipx:ty"                               = "latest"
+pnpm                                    = "latest"
+python                                  = "latest"
+ruby                                    = "latest"
+usage                                   = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = []
+experimental                        = true
+minimum_release_age                 = "7d"
+
+[settings.python]
+uv_venv_auto = true
+
+[settings.status]
+show_deps_stale = false
+
+[settings.pipx]
+uvx = true
+
+[settings.npm]
+package_manager = "npm"
