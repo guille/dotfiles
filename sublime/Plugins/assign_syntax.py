@@ -8,28 +8,28 @@ import sublime
 HELM_VALUES_REGEX = re.compile(r".*values.*\.(?:yml|yaml)$")
 HELM_TEMPLATES_REGEX = re.compile(r".*\/templates\/.*\/?[^\/]+\.(?:yml|yaml|tpl)$")
 
+"""
+Rails project config:
+
+```json
+{
+    "folders":
+    [
+        {
+            "path": "/path/to/root/dir"
+        }
+    ],
+    "config": {
+        "rails": true
+    }
+}
+```
+"""
+
 
 def assign_syntax(view: sublime.View) -> bool:
     """
     Automatically assigns syntaxes
-
-    Rules (by order of precedence):
-    1. Assign Bundler Lockfile for files ending in [Gg]emfile.lock
-    2. Assign RSpec for Ruby files ending in `_spec.rb`
-    3. Assign Rails to Ruby files when the project data has a config like:
-    ```json
-    {
-        "folders":
-        [
-            {
-                "path": "/path/to/root/dir"
-            }
-        ],
-        "config": {
-            "rails": true
-        }
-    }
-    ```
 
     Returns True when a rule matched, False otherwise
     """
@@ -37,30 +37,7 @@ def assign_syntax(view: sublime.View) -> bool:
     if file is None:
         return False
 
-    # Ruby stuff
-    # AFileIcon assigns text.plain.lock without this
-    # Setting "aliases": false stops it but then we lose the icon, would need configuring separately...
-    # https://github.com/SublimeText/AFileIcon/blob/master/preferences/file_type_lock.tmPreferences
-    if file.endswith(("Gemfile.lock", "gemfile.lock")):
-        view.assign_syntax("scope:source.gemfile.lock")
-        return True
-
     if syntax := view.syntax():
-        # AFileIcon assigns these
-        if syntax.scope == "source.ini":
-            view.assign_syntax("scope:text.plain.config")
-            return True
-        if syntax.scope == "source.gradle":
-            view.assign_syntax("scope:source.groovy")
-            return True
-        # Kotlin package with uppercase
-        if syntax.scope == "source.Kotlin":
-            view.assign_syntax("scope:source.kotlin")
-            return True
-        if syntax.scope == "source.Kotlin.gradle":
-            view.assign_syntax("scope:source.kotlin")
-            return True
-
         # RSpec/Rails
         if syntax.scope == "source.ruby":
             # RSpec package does this by default
@@ -71,7 +48,7 @@ def assign_syntax(view: sublime.View) -> bool:
             window = view.window()
             if window:
                 project_data = cast("dict[str, Any]", window.project_data())
-                if project_data.get("config", {}).get("rails", False):
+                if project_data and project_data.get("config", {}).get("rails", False):
                     view.assign_syntax("scope:source.ruby.rails")
                     return True
 
