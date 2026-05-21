@@ -84,11 +84,8 @@ infoprint "[main] configured & loaded zvars"
 modules_to_install=(
 	system # always first!
 	zsh
-	mise
 	ruby
-	go
-	python
-	node
+	mise
 	git
 	sublime
 	mpd

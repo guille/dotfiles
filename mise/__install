@@ -15,7 +15,7 @@ module_name=mise
 manual_install_mise () {
 	INSTALLER=$(mktemp /tmp/mise-install.XXXXXX.sh)
 
-	echo "Fetching installer from https://mise.run ..."
+	infoprint "[$module_name] installing mise manually"
 	curl -fsSL https://mise.run -o "$INSTALLER"
 
 	bat "$INSTALLER"
@@ -27,11 +27,132 @@ manual_install_mise () {
 	    sh "$INSTALLER"
 	    ;;
 	  *)
-	    echo "Aborted."
+		errorprint "[$module_name] installation aborted"
 	    exit 1
 	    ;;
 	esac
 	rm -f "$INSTALLER"
+}
+
+bootstrap_mise() {
+	infoprint "[$module_name] setting global config flags"
+	mise settings set experimental true
+	mise settings set status.show_deps_stale false
+	mise settings set minimum_release_age "7d"
+
+	infoprint "[$module_name] installing tools: global"
+	mise use --global usage@latest
+	mise use --global helm-ls@latest
+	mise use --global github:guille/orbit@latest --before=0d
+	mise use --global github:guille/revisa@latest --before=0d
+
+	if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
+		# we get these thru pacman in Arch
+		mise use --global eza@latest
+		mise use --global opencode@latest
+		mise use --global typst@latest
+		mise use --global kubectl@latest
+		mise use --global kubectx@latest
+		mise use --global kubens@latest
+		mise use --global github:atanunq/viu
+		mise use --global forgejo:mergiraf/mergiraf
+	fi
+
+	if is_work; then
+		mise use --global mirrord@latest
+		mise use --global protoc@34
+		mise use --global github:fullstorydev/grpcurl@latest
+	fi
+
+	# ══════════════════════════════════════════════════════
+
+	infoprint "[$module_name] installing tools: ruby"
+	mise use --global ruby@latest
+	mise use --global gem:rubocop@latest
+	mise use --global gem:ruby-lsp@latest
+	if is_personal_or_hybrid; then
+		mise use --global gem:download_tv@latest
+	fi
+
+	# ══════════════════════════════════════════════════════
+
+	infoprint "[$module_name] installing tools: python"
+	mise settings add python.uv_venv_auto true
+	mise settings set pipx.uvx true
+
+	mise use --global python@latest
+	# uv and ruff are installed from system packages
+	mise use --global pipx:basedpyright
+	mise use --global pipx:dmn-pty
+	mise use --global pipx:httpie
+	mise use --global pipx:pgcli
+	mise use --global pipx:mycli
+	mise use --global pipx:syntaqlite
+	mise use --global pipx:tombi
+	mise use --global pipx:ty
+	if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
+		mise use --global pipx:magic-wormhole
+	fi
+
+	# install some common libs to mise's python
+	mise x -- uv pip install --system requests lxml
+
+
+	# ══════════════════════════════════════════════════════
+
+	infoprint "[$module_name] installing tools: go"
+
+	gitignore "go.work"
+
+	mise use --global go@latest
+	mise x -- go telemetry off
+
+	mise use --global go:github.com/go-delve/delve/cmd/dlv@latest
+	mise use --global go:golang.org/x/tools/gopls@latest
+	mise use --global go:golang.org/x/vuln/cmd/govulncheck@latest
+	mise use --global go:honnef.co/go/tools/cmd/staticcheck@latest
+
+	mise use --global gotestsum@latest
+	mise use --global golangci-lint@latest
+
+	if is_work_or_hybrid; then
+		mise use --global go:oras.land/oras/cmd/oras@latest
+		mise use --global go:google.golang.org/protobuf/cmd/protoc-gen-go@latest
+		mise use --global go:google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+		mise use --global go:github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
+	fi
+
+	# ══════════════════════════════════════════════════════
+
+	infoprint "[$module_name] installing tools: node"
+
+	add_if_not_there "ignore-scripts=true" "$HOME/.npmrc"
+	add_if_not_there "min-release-age=7" "$HOME/.npmrc"
+
+	mise use --global node@latest
+	mise use --global pnpm@latest
+
+	mise x -- pnpm config set minimumReleaseAge 10080 # 1 week
+	mise x -- pnpm config set blockExoticSubdeps true
+	mise x -- pnpm config set trustPolicy no-downgrade
+	mise x -- pnpm config set trustPolicyIgnoreAfter 525600 # 1 year
+
+	# pnpm messes with expected tool paths too much for lsps
+	mise settings set npm.package_manager npm
+	mise use --global npm:dockerfile-language-server-nodejs
+	mise use --global npm:typescript
+	mise use --global npm:typescript-language-server
+	mise use --global npm:yaml-language-server
+	mise use --global npm:oxfmt
+	mise use --global npm:oxlint
+
+	if is_personal_or_hybrid; then
+		mise use --global npm:svelte-language-server
+	fi
+	if is_work_or_hybrid; then
+		mise use --global npm:@bufbuild/buf
+		mise use --global npm:graphql-language-service-cli
+	fi
 }
 
 if [[ "$DOTFILES_DISTRO" == "Arch" ]]; then
@@ -41,44 +162,21 @@ fi
 
 gitignore "mise.local.toml"
 
-infoprint "[$module_name] mise config flags"
-mise settings set experimental true
-mise settings set status.show_deps_stale false
-mise settings set minimum_release_age "7d"
-
-if command_exists mise; then
-	infoprint "[$module_name] upgrading mise tools"
-	mise upgrade
+if [ ! -f "$module_name/mise.$(hostname).toml" ]; then
+	touch "$module_name/mise.$(hostname).toml"
+	ln -sf "${SCRIPT_BASE_DIR}/$module_name/mise.$(hostname).toml" "$XDG_CONFIG_HOME/mise/config.toml"
+	bootstrap_mise
+else
+	infoprint "[$module_name] installing defined tools"
+	mise install
 fi
 
-infoprint "[$module_name] setting up usage"
-mise use --global usage
-
-infoprint "[$module_name] installing global mise tools"
-mise use --global helm-ls@latest
-mise use --global github:guille/orbit@latest
-mise use --global github:guille/revisa@latest
-
-if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
-	# we get these thru pacman in Arch
-	mise use --global eza@latest
-	mise use --global opencode@latest
-	mise use --global typst@latest
-	mise use --global kubectl@latest
-	mise use --global kubectx@latest
-	mise use --global kubens@latest
-	mise use --global github:atanunq/viu
-	mise use --global forgejo:mergiraf/mergiraf
+if [ ! -f "$XDG_CONFIG_HOME/mise/mise.lock" ]; then
+	infoprint "[$module_name] generating lockfile"
+	mise lock --global
 fi
 
-if is_work; then
-	mise use --global mirrord@latest
-	mise use --global protoc@34
-	mise use --global github:fullstorydev/grpcurl@latest
-fi
-
-infoprint "[$module_name] pruning outdated mise tools"
-mise prune
+# ══════════════════════════════════════════════════════
 
 infoprint "[$module_name] activating for this session"
 eval "$(mise activate bash)"

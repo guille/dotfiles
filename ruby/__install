@@ -14,16 +14,6 @@ module_name=ruby
 infoprint "[$module_name] making gems install without docs"
 add_if_not_there 'gem: --no-document' ~/.gemrc
 
-infoprint "[$module_name] installing latest ruby"
-mise use --global ruby@latest
-
-infoprint "[$module_name] installing default gems..."
-mise use --global gem:rubocop
-mise use --global gem:ruby-lsp
-if is_personal_or_hybrid; then
-	mise use --global gem:download_tv
-fi
-
 ##
 # Symlinks
 ##

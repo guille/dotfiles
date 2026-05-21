@@ -1,0 +1,66 @@
+[settings]
+experimental        = true
+minimum_release_age = "7d"
+
+[settings.status]
+show_deps_stale = false
+
+[settings.python]
+uv_venv_auto = true
+
+[settings.pipx]
+uvx = true
+
+[settings.npm]
+package_manager = "npm"
+
+[tools]
+eza                                                          = "latest"
+"forgejo:mergiraf/mergiraf"                                  = "latest"
+"gem:rubocop"                                                = "latest"
+"gem:ruby-lsp"                                               = "latest"
+"github:atanunq/viu"                                         = "latest"
+"github:fullstorydev/grpcurl"                                = "latest"
+"github:guille/orbit"                                        = { version = "latest", minimum_release_age = "0d" }
+"github:guille/revisa"                                       = { version = "latest", minimum_release_age = "0d" }
+go                                                           = "latest"
+"go:github.com/go-delve/delve/cmd/dlv"                       = "latest"
+"go:github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc" = "latest"
+"go:golang.org/x/tools/gopls"                                = "latest"
+"go:golang.org/x/vuln/cmd/govulncheck"                       = "latest"
+"go:google.golang.org/grpc/cmd/protoc-gen-go-grpc"           = "latest"
+"go:google.golang.org/protobuf/cmd/protoc-gen-go"            = "latest"
+"go:honnef.co/go/tools/cmd/staticcheck"                      = "latest"
+"go:oras.land/oras/cmd/oras"                                 = "latest"
+golangci-lint                                                = "latest"
+gotestsum                                                    = "latest"
+helm-ls                                                      = "latest"
+kubectl                                                      = "latest"
+kubectx                                                      = "latest"
+kubens                                                       = "latest"
+mirrord                                                      = "latest"
+node                                                         = "latest"
+"npm:@bufbuild/buf"                                          = "latest"
+"npm:dockerfile-language-server-nodejs"                      = "latest"
+"npm:graphql-language-service-cli"                           = "latest"
+"npm:oxfmt"                                                  = "latest"
+"npm:oxlint"                                                 = "latest"
+"npm:typescript"                                             = "latest"
+"npm:typescript-language-server"                             = "latest"
+"npm:yaml-language-server"                                   = "latest"
+opencode                                                     = "latest"
+"pipx:basedpyright"                                          = "latest"
+"pipx:dmn-pty"                                               = { version = "latest", minimum_release_age = "0d" }
+"pipx:httpie"                                                = "latest"
+"pipx:magic-wormhole"                                        = "latest"
+"pipx:mycli"                                                 = "latest"
+"pipx:pgcli"                                                 = "latest"
+"pipx:syntaqlite"                                            = "latest"
+"pipx:tombi"                                                 = "latest"
+"pipx:ty"                                                    = "latest"
+pnpm                                                         = "latest"
+protoc                                                       = "34"
+python                                                       = "latest"
+ruby                                                         = "latest"
+typst                                                        = "latest"
+usage                                                        = "latest"
