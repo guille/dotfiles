@@ -33,6 +33,7 @@
       "bundle exec rubocop *": "allow",
       "dart analyze *": "allow",
       "flutter analyze *": "allow",
+      "flutter gen-l10n *": "allow",
       "flutter test *": "allow",
       "go build *": "allow",
       "go env *": "allow",
