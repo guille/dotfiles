@@ -35,11 +35,11 @@ class OpenFileFromFindResultsCommand(sublime_plugin.TextCommand):
 
         file_path = os.path.expanduser(file_path)
 
-        line_num = 0
+        line_num = 1
 
         # The line number will either be right after the filename... (build outputs usually)
         line_contents = view.substr(view.full_line(sel))
-        if line_match := re.match(r"(?:[A-Za-z0-9_.\/ ]+rb):([0-9]+)", line_contents):
+        if line_match := re.search(r"(?:[^\s:]+):(\d+)", line_contents):
             line_num = line_match.group(1)
         else:
             # or in the next three lines at most (find in files / LSP diagnostics)
