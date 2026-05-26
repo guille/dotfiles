@@ -43,6 +43,7 @@
       "head *": "allow",
       "ls *": "allow",
       "mise run *": "allow",
+      "mix *": "allow",
       "mkdir *": "allow",
       "rg *": "allow",
       "rm *": "deny",
