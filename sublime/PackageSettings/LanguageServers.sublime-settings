@@ -264,7 +264,7 @@
 	},
 	// https://buf.build/docs/cli/editors-lsp/
 	"buf": {
-		"enabled": true,
+		"enabled": false,
 		"command": [
 			"buf",
 			"lsp",
@@ -272,6 +272,7 @@
 		],
 		"disabled_capabilities": {
 			"semanticTokensProvider": true,
+			"documentFormattingProvider": true,
 		},
 		"selector": "source.proto",
 	},
