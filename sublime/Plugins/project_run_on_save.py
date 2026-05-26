@@ -25,6 +25,7 @@ Simple plugin to run commands when saving scopes, configured in the project
             "source.proto": [
                 {
                     "cmd": ["protoc", "$file_path"],
+                    "syntax": "Packages/Mise/Mise Build.sublime-syntax",
                     "build_panel": true,
                 },
                 {
@@ -57,9 +58,16 @@ class ProjectRunOnSaveListener(sublime_plugin.EventListener):
         )
         expanded_cmd = cast("list[str]", expanded_cmd)
         if task.get("build_panel", False):
+            args: sublime.CommandArgs = {
+                "cmd": expanded_cmd,
+                "working_dir": working_dir,
+            }
+            if syntax := task.get("syntax"):
+                args["syntax"] = syntax
+
             window.run_command(
                 "exec",
-                {"cmd": expanded_cmd, "working_dir": working_dir},
+                args,
             )
         else:
             try:
