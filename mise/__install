@@ -60,7 +60,7 @@ bootstrap_mise() {
 
 	if is_work; then
 		mise use --global mirrord@latest
-		mise use --global protoc@34
+		mise use --global protoc@24.4
 		mise use --global github:fullstorydev/grpcurl@latest
 	fi
 
