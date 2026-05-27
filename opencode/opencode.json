@@ -39,6 +39,7 @@
       "go env *": "allow",
       "go test *": "allow",
       "go vet *": "allow",
+      "gotestsum *": "allow",
       "grep *": "allow",
       "head *": "allow",
       "ls *": "allow",
