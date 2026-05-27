@@ -3,6 +3,7 @@
 "gem:rubocop"                           = "latest"
 "gem:ruby-lsp"                          = "latest"
 "github:guille/orbit"                   = { version = "latest", minimum_release_age = "0d" }
+"github:guille/integritas"              = { version = "latest", minimum_release_age = "0d" }
 "github:guille/revisa"                  = { version = "latest", minimum_release_age = "0d" }
 go                                      = "latest"
 "go:github.com/go-delve/delve/cmd/dlv"  = "latest"
@@ -21,7 +22,7 @@ node                                    = "latest"
 "npm:yaml-language-server"              = "latest"
 "pipx:basedpyright"                     = "latest"
 "pipx:dmn-pty"                          = { version = "latest", minimum_release_age = "0d" }
-"pipx:httpie" = "latest"
+"pipx:httpie"                           = "latest"
 "pipx:mycli"                            = "latest"
 "pipx:pgcli"                            = "latest"
 "pipx:syntaqlite"                       = "0.5.7"

@@ -22,6 +22,7 @@ eza                                                          = "latest"
 "github:atanunq/viu"                                         = "latest"
 "github:fullstorydev/grpcurl"                                = "latest"
 "github:guille/orbit"                                        = { version = "latest", minimum_release_age = "0d" }
+"github:guille/integritas"                                   = { version = "latest", minimum_release_age = "0d" }
 "github:guille/revisa"                                       = { version = "latest", minimum_release_age = "0d" }
 go                                                           = "latest"
 "go:github.com/go-delve/delve/cmd/dlv"                       = "latest"
