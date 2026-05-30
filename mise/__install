@@ -49,6 +49,7 @@ bootstrap_mise() {
 
 	if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
 		# we get these thru pacman in Arch
+		mise use --global claude-code@latest
 		mise use --global eza@latest
 		mise use --global opencode@latest
 		mise use --global typst@latest
