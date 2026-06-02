@@ -12,6 +12,11 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=claude
 
 
+# work only
+if is_personal; then
+	exit
+fi
+
 mkdir -p ~/.claude/
 
 # why are these all in env ugh
