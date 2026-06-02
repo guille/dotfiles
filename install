@@ -99,6 +99,7 @@ modules_to_install=(
 	nvim
 	rofi
 	dunst
+	claude
 	opencode
 	tailscale
 	mybin

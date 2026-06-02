@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# Claude Code
+##
+
+module_name=claude
+
+
+mkdir -p ~/.claude/
+
+# why are these all in env ugh
+add_if_not_there "export DISABLE_UPGRADE_COMMAND=1" ~/.zshenv.local
+add_if_not_there "export DISABLE_TELEMETRY=1" ~/.zshenv.local
+add_if_not_there "export DISABLE_UPDATES=1" ~/.zshenv.local
+# https://github.com/anthropics/claude-code/issues/37780
+# add_if_not_there "export IS_DEMO=1" ~/.zshenv.local
+
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/settings.json" ~/.claude/settings.json 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/statusline-command.sh" ~/.claude/statusline-command.sh 1> /dev/null

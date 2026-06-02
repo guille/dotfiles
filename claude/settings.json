@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "theme": "auto",
+  "autoUpdatesChannel": "stable",
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [
+      "Fucking around",
+      "Finding out"
+    ]
+  },
+  "showThinkingSummaries": true,
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline-command.sh",
+    "padding": 1
+  }
+}
