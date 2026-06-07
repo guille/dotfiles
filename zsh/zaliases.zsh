@@ -53,6 +53,8 @@ alias c='\cat'
 alias cat='bat'
 alias fd='fd --hidden'
 alias oc='opencode'
+alias wr='wormhole receive'
+alias ws='wormhole send'
 # Safe ops. Ask the user before doing anything destructive.
 alias cp='cp -i'
 alias ln='ln -i'
