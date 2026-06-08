@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+# Example usage:
+# in 30 min "echo hi"
+# in 1h 18 min "systemctl reboot"
+# in 10 s "docker compose down"
+
+if [ $# -lt 2 ]; then
+    echo "Usage: in <time-spec>... <command>"
+    echo "  Time spec: <number><unit> or <number> <unit>"
+    echo "  Units: s (seconds), min (minutes), h/hr/hours (hours)"
+    echo "Examples:"
+    echo "  in 30 min \"echo hi\""
+    echo "  in 1h 18 min \"systemctl reboot\""
+    echo "  in 10 s \"docker compose down\""
+    exit 1
+fi
+
+total_seconds=0
+cmd=()
+
+while [ $# -gt 0 ]; do
+    arg="$1"
+    shift
+
+    if [[ "$arg" =~ ^([0-9]+)([a-zA-Z]+)$ ]]; then
+        num="${BASH_REMATCH[1]}"
+        unit="${BASH_REMATCH[2]}"
+        case "$unit" in
+            s|sec|seconds)
+                total_seconds=$((total_seconds + num))
+                ;;
+            min|mins|minutes)
+                total_seconds=$((total_seconds + num * 60))
+                ;;
+            h|hr|hrs|hours|hour)
+                total_seconds=$((total_seconds + num * 3600))
+                ;;
+            *)
+                echo "Error: Unknown time unit '$unit'"
+                exit 1
+                ;;
+        esac
+    elif [[ "$arg" =~ ^[0-9]+$ ]]; then
+        num="$arg"
+        if [ $# -eq 0 ]; then
+            echo "Error: Missing unit after '$num'"
+            exit 1
+        fi
+        unit="$1"
+        shift
+        case "$unit" in
+            s|sec|seconds)
+                total_seconds=$((total_seconds + num))
+                ;;
+            min|mins|minutes)
+                total_seconds=$((total_seconds + num * 60))
+                ;;
+            h|hr|hrs|hours|hour)
+                total_seconds=$((total_seconds + num * 3600))
+                ;;
+            *)
+                echo "Error: Unknown time unit '$unit'"
+                exit 1
+                ;;
+        esac
+    else
+        cmd+=("$arg")
+        while [ $# -gt 0 ]; do
+            cmd+=("$1")
+            shift
+        done
+    fi
+done
+
+if [ ${#cmd[@]} -eq 0 ]; then
+    echo "Error: No command specified"
+    exit 1
+fi
+
+if [ $total_seconds -le 0 ]; then
+    echo "Error: Time must be positive"
+    exit 1
+fi
+
+echo "[$(date +"%Y-%m-%d %R:%S")] Waiting ${total_seconds}s before executing: ${cmd[*]}"
+sleep "$total_seconds"
+echo "[$(date +"%Y-%m-%d %R:%S")] Executing: ${cmd[*]}"
+eval "${cmd[*]}"

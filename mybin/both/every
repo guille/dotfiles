@@ -13,7 +13,7 @@ every() {
     if [ $# -lt 3 ] || [ $# -gt 4 ]; then
         echo "Usage: every <number> <unit> <command> [--until-ok|--until-fail]"
         echo "  number: positive integer"
-        echo "  unit: 's' for seconds or 'min' for minutes"
+        echo "  unit: s, sec, seconds | min, mins, minutes"
         echo "  command: command to execute"
         echo "  --until-ok: stop when command succeeds (exit code 0)"
         echo "  --until-fail: stop when command fails (exit code != 0)"
@@ -32,10 +32,13 @@ every() {
     fi
 
     # Validate unit parameter
-    if [[ "$unit" != "s" && "$unit" != "min" ]]; then
-        echo "Error: Second parameter must be 's' or 'min'"
-        return 1
-    fi
+    case "$unit" in
+        s|sec|seconds|min|mins|minutes) ;;
+        *)
+            echo "Error: Unknown unit '$unit'. Valid units: s, sec, seconds, min, mins, minutes"
+            return 1
+            ;;
+    esac
 
     # Validate condition parameter if provided
     if [ -n "$condition" ] && [[ "$condition" != "--until-ok" && "$condition" != "--until-fail" ]]; then
@@ -45,11 +48,14 @@ every() {
 
     # Calculate sleep interval in seconds
     local sleep_interval
-    if [ "$unit" = "s" ]; then
-        sleep_interval="$number"
-    else
-        sleep_interval=$((number * 60))
-    fi
+    case "$unit" in
+        s|sec|seconds)
+            sleep_interval="$number"
+            ;;
+        min|mins|minutes)
+            sleep_interval=$((number * 60))
+            ;;
+    esac
 
     if [ -n "$condition" ]; then
         echo "Running '$command' every $number $unit until condition met (Ctrl+C to stop)"
