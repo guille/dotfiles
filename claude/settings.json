@@ -1,7 +1,10 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "theme": "auto",
-  "autoUpdatesChannel": "stable",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline-command.sh",
+    "padding": 1
+  },
   "spinnerVerbs": {
     "mode": "replace",
     "verbs": [
@@ -9,10 +12,8 @@
       "Finding out"
     ]
   },
+  "autoUpdatesChannel": "stable",
   "showThinkingSummaries": true,
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline-command.sh",
-    "padding": 1
-  }
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "auto"
 }
