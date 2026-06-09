@@ -1,0 +1,68 @@
+{
+  "contributions": {
+    "settings": [
+      {
+        "file_patterns": [
+          "/*.sublime-project"
+        ],
+        "schema": {
+          "properties": {
+            "config": {
+              "type": "object",
+              "additionalProperties": false,
+              "markdownDescription": "Dotfiles project configuration.",
+              "properties": {
+                "rails": {
+                  "type": "boolean",
+                  "description": "Use Rails syntax instead of plain Ruby."
+                },
+                "assign_syntax": {
+                  "type": "object",
+                  "description": "Map file basenames to syntax scopes for automatic syntax assignment.",
+                  "additionalProperties": {
+                    "type": "string",
+                    "description": "A syntax scope string."
+                  }
+                },
+                "run_on_save": {
+                  "type": "object",
+                  "description": "Commands to run on save, keyed by syntax scope.",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["cmd"],
+                      "properties": {
+                        "cmd": {
+                          "type": "array",
+                          "description": "The command to run as an array of strings.",
+                          "items": {
+                            "type": "string"
+                          },
+                          "minItems": 1
+                        },
+                        "syntax": {
+                          "type": "string",
+                          "description": "Path to a syntax file to filter which files this command applies to."
+                        },
+                        "build_panel": {
+                          "type": "boolean",
+                          "description": "Show output in the build panel."
+                        },
+                        "working_dir": {
+                          "type": "string",
+                          "description": "Working directory for the command."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

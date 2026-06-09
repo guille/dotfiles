@@ -4,7 +4,6 @@
 name: Generic Config File
 file_extensions:
   # Generic
-  - conf
   - cfg
   - config
   - ini

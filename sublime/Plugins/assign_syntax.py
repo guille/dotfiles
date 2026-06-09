@@ -1,4 +1,5 @@
 import re
+from pathlib import Path
 from typing import Any, cast
 
 import sublime_plugin
@@ -20,7 +21,10 @@ Rails project config:
         }
     ],
     "config": {
-        "rails": true
+        "rails": true,
+        "assign_syntax": {
+            "config.git": "text.git.config"
+        }
     }
 }
 ```
@@ -37,6 +41,19 @@ def assign_syntax(view: sublime.View) -> bool:
     if file is None:
         return False
 
+    project_data = None
+    if window := view.window():
+        project_data = cast("dict[str, Any]", window.project_data())
+
+    # Assign based on basename
+    if project_data and (
+        syntaxes := project_data.get("config", {}).get("assign_syntax", {})
+    ):
+        basename = Path(file).name
+        if basename in syntaxes:
+            view.assign_syntax(f"scope:{syntaxes[basename]}")
+            return True
+
     if syntax := view.syntax():
         # RSpec/Rails
         if syntax.scope == "source.ruby":
@@ -45,12 +62,9 @@ def assign_syntax(view: sublime.View) -> bool:
             #     view.assign_syntax("scope:source.ruby.rspec")
             #     return True
 
-            window = view.window()
-            if window:
-                project_data = cast("dict[str, Any]", window.project_data())
-                if project_data and project_data.get("config", {}).get("rails", False):
-                    view.assign_syntax("scope:source.ruby.rails")
-                    return True
+            if project_data and project_data.get("config", {}).get("rails", False):
+                view.assign_syntax("scope:source.ruby.rails")
+                return True
 
         # Helm
         elif syntax.scope == "source.yaml":

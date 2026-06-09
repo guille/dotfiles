@@ -8,6 +8,15 @@
 			]
 		}
 	],
+	"config": {
+		"assign_syntax": {
+			"fonts.conf": "text.xml",
+			"ripgreprc": "text.plain.config",
+			"input.conf": "text.plain.config",
+			"mpv.conf": "text.plain.config",
+			"fdignore": "text.git.ignore"
+		}
+	},
 	"settings": {
 		"LSP": {
 			"LSP-json": {
