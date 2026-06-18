@@ -64,6 +64,7 @@ bootstrap_mise() {
 		mise use --global mirrord@latest
 		mise use --global protoc@24.4
 		mise use --global github:fullstorydev/grpcurl@latest
+		mise use --global krew@latest
 	fi
 
 	# ══════════════════════════════════════════════════════

@@ -11,6 +11,7 @@ export PATH=~/.local/bin:$PATH
 if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	export PATH="/usr/local/opt/libpq/bin:$PATH"
 fi
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/ripgreprc"
 
