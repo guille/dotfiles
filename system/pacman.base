@@ -43,7 +43,6 @@ fd
 fzf
 git
 git-delta
-helm
 htop
 jq
 kubectl

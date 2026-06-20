@@ -42,7 +42,6 @@ bootstrap_mise() {
 
 	infoprint "[$module_name] installing tools: global"
 	mise use --global usage@latest
-	mise use --global helm-ls@latest
 	mise use --global github:guille/orbit@latest --minimum-release-age=0d
 	mise use --global github:guille/integritas@latest --minimum-release-age=0d
 	mise use --global github:guille/revisa@latest --minimum-release-age=0d
@@ -51,16 +50,20 @@ bootstrap_mise() {
 		# we get these thru pacman in Arch
 		mise use --global claude-code@latest
 		mise use --global eza@latest
+		mise use --global forgejo:mergiraf/mergiraf
+		mise use --global github:atanunq/viu
 		mise use --global opencode@latest
 		mise use --global typst@latest
-		mise use --global kubectl@latest
-		mise use --global kubectx@latest
-		mise use --global kubens@latest
-		mise use --global github:atanunq/viu
-		mise use --global forgejo:mergiraf/mergiraf
+
+		if is_work_or_hybrid; then
+			mise use --global kubectl@latest
+			mise use --global kubectx@latest
+			mise use --global kubens@latest
+		fi
 	fi
 
-	if is_work; then
+	if is_work_or_hybrid; then
+		mise use --global helm-ls@latest
 		mise use --global mirrord@latest
 		mise use --global protoc@24.4
 		mise use --global github:fullstorydev/grpcurl@latest
