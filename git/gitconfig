@@ -5,8 +5,6 @@
 	abbrev = 4
 	# linux/macos only
 	autocrlf = input
-	# global gitignore
-	excludesFile = ~/.gitignore
 	# faster git status (https://git-scm.com/docs/git-update-index#_untracked_cache)
 	untrackedCache = true
 

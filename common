@@ -70,5 +70,5 @@ add_if_not_there() {
 # Wrapper for add_if_not_there with the global gitignore file
 gitignore() {
 	infoprint "[$module_name] adding $1 to global gitignore"
-	add_if_not_there "$1" ~/.gitignore
+	add_if_not_there "$1" ~/.config/git/ignore
 }

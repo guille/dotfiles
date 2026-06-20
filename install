@@ -82,11 +82,11 @@ infoprint "[main] configured & loaded zvars"
 
 
 modules_to_install=(
-	system # always first!
+	system  # always first!
 	zsh
-	ruby
+	git     # ensure .config/git exists for all others
+	ruby    # set up gemrc before mise installs gems
 	mise
-	git
 	sublime
 	mpd
 	ghostty
