@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+# Example usage:
+# at 9 "echo hi"
+# at 9:00 "echo hi"
+# at 09:00 "echo hi"
+# at 21:00 "echo hi"
+# at 21 "echo hi"
+
+if [ $# -lt 2 ]; then
+    echo "Usage: at <time> <command>"
+    echo "  Time: HH or HH:MM (24-hour format)"
+    echo "  Runs the command at the specified time each day"
+    echo "  (wraps around if the time has already passed today)"
+    echo "Examples:"
+    echo "  at 9 \"echo hi\""
+    echo "  at 21:00 \"systemctl reboot\""
+    exit 1
+fi
+
+time_arg="$1"
+shift
+
+hour=
+minute=0
+
+if [[ "$time_arg" =~ ^([0-9]{1,2}):([0-9]{2})$ ]]; then
+    hour="${BASH_REMATCH[1]}"
+    minute="${BASH_REMATCH[2]}"
+elif [[ "$time_arg" =~ ^([0-9]{1,2})$ ]]; then
+    hour="${BASH_REMATCH[1]}"
+else
+    echo "Error: Invalid time format '$time_arg'. Use HH or HH:MM"
+    exit 1
+fi
+
+hour=$((10#$hour))
+minute=$((10#$minute))
+
+if [ "$hour" -gt 23 ] || [ "$minute" -gt 59 ]; then
+    echo "Error: Invalid time. Hour must be 0-23, minute must be 0-59"
+    exit 1
+fi
+
+today=$(date +%Y-%m-%d)
+target_epoch=$(date -d "$today $hour:$minute:00" +%s 2>/dev/null)
+
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to parse time"
+    exit 1
+fi
+
+now_epoch=$(date +%s)
+
+# adds 24h to wrap around today
+if [ "$target_epoch" -le "$now_epoch" ]; then
+    target_epoch=$((target_epoch + 86400))
+fi
+
+sleep_seconds=$((target_epoch - now_epoch))
+
+printf -v time_fmt "%02d:%02d" "$hour" "$minute"
+echo "[$(date +"%Y-%m-%d %R:%S")] Waiting ${sleep_seconds}s until ${time_fmt} before executing: $*"
+sleep "$sleep_seconds"
+echo "[$(date +"%Y-%m-%d %R:%S")] Executing: $*"
+eval "$*"
