@@ -57,6 +57,7 @@ perl
 plocate
 ripgrep
 rsync
+sqlite
 tailscale
 xxd
 tree
