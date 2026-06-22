@@ -56,6 +56,7 @@ bootstrap_mise() {
 		mise use --global typst@latest
 
 		if is_work_or_hybrid; then
+			mise use --global kubecolor@latest
 			mise use --global kubectl@latest
 			mise use --global kubectx@latest
 			mise use --global kubens@latest

@@ -35,6 +35,7 @@ fi
 
 # https://unix.stackexchange.com/questions/148545/why-does-sudo-ignore-aliases
 alias sudo='sudo '
+alias watch='watch -c '
 
 alias resource='source ~/.zshrc && source ~/.zshenv'
 
@@ -272,9 +273,12 @@ mrr() {
 # ════════════════════════════════════════════════════════════════════════
 # K8s
 
-alias k='kubectl'
+alias k='kubecolor'
+alias kubectl='kubecolor'
 alias kx='kubectx'
 alias kn='kubens'
+compdef kubecolor=kubectl
+export KUBECOLOR_OBJ_FRESH="1h"
 
 merge-kubeconfigs() {
 	files=$(printf "%s:" ~/.kube/configs/*.yaml)

@@ -45,8 +45,6 @@ git
 git-delta
 htop
 jq
-kubectl
-kubectx
 lsof
 magic-wormhole
 mergiraf
