@@ -4,12 +4,12 @@ local config = require("hyprland.config")
 -- ghostty quick terminal
 hl.bind("SUPER + dead_grave", hl.dsp.global(":LOGO+grave"))
 
-hl.bind("SUPER + Return", hl.dsp.exec_cmd(config.terminal))
+hl.bind("SUPER + Return", hl.dsp.exec_cmd(config.terminal_window))
 hl.bind("SUPER + D", hl.dsp.exec_cmd(config.menu))
 hl.bind("SUPER + C", hl.dsp.exec_cmd("firefox"))
 hl.bind("SUPER + O", hl.dsp.exec_cmd("vaulter"))
 hl.bind("SUPER + J", hl.dsp.exec_cmd("emoji --rofi"))
-hl.bind("SUPER + T", hl.dsp.exec_cmd(config.terminal .. " -e zsh -ic nnn", { workspace = 3 }))
+hl.bind("SUPER + T", hl.dsp.exec_cmd(config.terminal_window .. " -e zsh -ic nnn", { workspace = 3 }))
 
 -- Clipboard
 hl.bind("SUPER + P", hl.dsp.exec_cmd("cliphist list | rofi -i -dmenu | cliphist decode | wl-copy"))
