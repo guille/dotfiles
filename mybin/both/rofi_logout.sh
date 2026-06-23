@@ -58,7 +58,7 @@ run_cmd() {
 		elif [[ $1 == '--reboot' ]]; then
 			systemctl reboot
 		elif [[ $1 == '--logout' ]]; then
-			hyprctl dispatch exit
+			hyprctl dispatch 'hl.dsp.exit()'
 		fi
 	else
 		exit 0

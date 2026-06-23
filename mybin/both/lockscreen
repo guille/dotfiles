@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-hyprctl dispatch dpms off
+hyprctl dispatch 'hl.dsp.dpms({ action = "disable" })'
 sleep 1
 
 # only lock on work machines
