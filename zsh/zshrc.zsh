@@ -73,6 +73,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons=always --color=alway
 zstyle ':fzf-tab:complete:eza:*' fzf-preview 'eza -1 --icons=always --color=always $realpath'
 zstyle ':fzf-tab:complete:bat:*' fzf-preview 'bat --color=always --style=numbers --line-range=:500 "$realpath" 2>/dev/null || eza -1 --icons=always --color=always "$realpath"'
 zstyle ':fzf-tab:complete:rm:*' fzf-preview 'bat --color=always --style=numbers --line-range=:500 "$realpath" 2>/dev/null || eza -1 --icons=always --color=always "$realpath"'
+zstyle ':fzf-tab:complete:subl:*' fzf-preview 'bat --color=always --style=numbers --line-range=:500 "$realpath" 2>/dev/null || eza -1 --icons=always --color=always "$realpath"'
 zstyle ':fzf-tab:complete:rmdir:*' fzf-preview 'eza -1 --icons=always --color=always $realpath'
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
