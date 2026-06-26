@@ -1,10 +1,47 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
+    "allow": [
+      "Edit(*)",
+      "Glob",
+      "Grep",
+      "Read(*)",
+      "Bash(bundle exec rspec *)",
+      "Bash(bundle exec rubocop *)",
+      "Bash(dart analyze *)",
+      "Bash(flutter analyze *)",
+      "Bash(flutter gen-l10n *)",
+      "Bash(flutter test *)",
+      "Bash(go build *)",
+      "Bash(go env *)",
+      "Bash(go test *)",
+      "Bash(go vet *)",
+      "Bash(gotestsum *)",
+      "Bash(grep *)",
+      "Bash(head *)",
+      "Bash(ls *)",
+      "Bash(mise run *)",
+      "Bash(mix *)",
+      "Bash(mkdir *)",
+      "Bash(rg *)",
+      "Bash(sort *)",
+      "Bash(tail *)",
+      "Bash(true)",
+      "Bash(uv run pytest *)",
+      "Bash(wc *)"
+    ],
     "deny": [
       "NotebookEdit",
       "WebSearch",
-      "mcp__*"
+      "mcp__*",
+      "Edit(mise.toml)",
+      "Edit(mise.local.toml)",
+      "Read(*.env*)",
+      "Bash(rm *)"
+    ],
+    "additionalDirectories": [
+      "~/go/pkg/mod",
+      "~/work"
     ]
   },
   "statusLine": {
@@ -22,5 +59,19 @@
   "autoUpdatesChannel": "stable",
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
-  "theme": "auto"
+  "theme": "auto",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(rm *)",
+            "command": "trash=\"${NNN_TRASH:-gio trash}\"; jq --arg trash \"$trash\" 'if (.tool_input.command | test(\"^rm\\\\s+[^-]\")) then {hookSpecificOutput: {hookEventName: \"PreToolUse\", updatedInput: {command: (.tool_input.command | sub(\"^rm\"; $trash))}}} else {} end'"
+          }
+        ]
+      }
+    ]
+  }
 }
