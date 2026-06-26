@@ -1,0 +1,103 @@
+# yaml-language-server: $schema=https://github.com/kubecolor/kubecolor/raw/main/config-schema.json
+objFreshThreshold: 1h
+theme:
+  base:
+    danger: "#f92672"
+    info: "#66d9ef"
+    muted: "#8e8971"
+    primary: "#f8f8f2"
+    secondary: "#a7afb4"
+    success: "#a6e22e"
+    warning: "#fd971f"
+    key: "#fd971f"
+  data:
+    string: "#e6db74"
+    true: "fg=#be84ff:bold"
+    false: "#be84ff"
+    number: "#be84ff"
+    null: "fg=#be84ff:italic"
+    quantity: "#be84ff"
+    duration: "#a0da3a"
+    durationFresh: "fg=#a6e22e:bold"
+    ratio:
+      equal: "#a6e22e"
+  status:
+    success: "fg=#a6e22e:bold"
+    error: "fg=#f92672:bold"
+  table:
+    header: "fg=#f8f8f2:bold"
+    columns: "fg=#f8f8f2/fg=#a7afb4/fg=#f8f8f2/fg=#f8f8f2/fg=#f8f8f2/fg=#f8f8f2/fg=#f8f8f2/fg=#f8f8f2/fg=#f8f8f2/fg=#f8f8f2/fg=#f8f8f2/fg=#f8f8f2/fg=#f8f8f2/fg=#f8f8f2/fg=#f8f8f2"
+  shell:
+    comment: "fg=#8e8971:italic"
+    command: "fg=#a6e22e:bold"
+    arg: "#f8f8f2"
+    flag: "#f92672"
+  stderr:
+    noneFound: "#e6db74"
+    noneFoundNamespace: "#fd971f"
+  apply:
+    created: "fg=#a6e22e:bold"
+    configured: "#66d9ef"
+    unchanged: "#8e8971"
+    serverside: "#be84ff"
+    dryRun: "#8e8971"
+    fallback: "#f8f8f2"
+  annotate:
+    annotated: "fg=#a6e22e:bold"
+    fallback: "#f8f8f2"
+  create:
+    created: "fg=#a6e22e:bold"
+    fallback: "#f8f8f2"
+  delete:
+    deleted: "fg=#f92672:bold"
+    fallback: "#f8f8f2"
+  diff:
+    added: "fg=#a6e22e:bold"
+    removed: "fg=#f92672:bold"
+  drain:
+    cordoned: "#fd971f"
+    evictingPod: "#e6db74"
+    evicted: "fg=#f92672:bold"
+    drained: "fg=#a6e22e:bold"
+    fallback: "#f8f8f2"
+  explain:
+    required: "fg=#f92672:bold:underline"
+  expose:
+    exposed: "fg=#a6e22e:bold"
+  help:
+    header: "fg=#a6e22e:bold"
+    flag: "#f92672"
+    flagDesc: "#f8f8f2"
+    url: "fg=#66d9ef:underline"
+    text: "#f8f8f2"
+  label:
+    labeled: "fg=#a6e22e:bold"
+    unlabeled: "fg=#f92672:bold"
+    notLabeled: "#e6db74"
+    fallback: "#f8f8f2"
+  logs:
+    date: "#be84ff"
+    sourceRef: "#66d9ef"
+    guid: "#be84ff"
+    severity:
+      trace: "#a7afb4"
+      info: "#66d9ef"
+      fatal: "fg=#f92672:bold"
+      panic: "fg=#f8f8f2:bg=#f92672:bold"
+  options:
+    flag: "#f92672"
+  patch:
+    patched: "fg=#a6e22e:bold"
+    fallback: "#f8f8f2"
+  rollout:
+    rolledBack: "fg=#f92672:bold"
+    paused: "#e6db74"
+    resumed: "fg=#a6e22e:bold"
+    restarted: "#66d9ef"
+    fallback: "#f8f8f2"
+  scale:
+    scaled: "fg=#a6e22e:bold"
+    fallback: "#f8f8f2"
+  uncordon:
+    uncordoned: "fg=#a6e22e:bold"
+    fallback: "#f8f8f2"

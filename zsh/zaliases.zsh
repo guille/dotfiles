@@ -278,7 +278,6 @@ alias kubectl='kubecolor'
 alias kx='kubectx'
 alias kn='kubens'
 compdef kubecolor=kubectl
-export KUBECOLOR_OBJ_FRESH="1h"
 
 merge-kubeconfigs() {
 	files=$(printf "%s:" ~/.kube/configs/*.yaml)

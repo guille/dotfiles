@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# Kubernetes
+##
+
+module_name=k8s
+
+
+# Work only
+if is_personal; then
+	exit
+fi
+
+
+mkdir -p ~/.kube/configs
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/color.yaml" ~/.kube/color.yaml
