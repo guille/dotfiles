@@ -19,13 +19,20 @@
 
     # Check cache with file-based invalidation
     if ! _p9k_cache_stat_get "$0" "$cfg_file"; then
-      local -a plugins
-      local line
-      for line in ${(f)"$(mise ls --current --local 2>/dev/null)"}; do
-        local parts=(${=line})
-        [[ ${#parts} -ge 2 ]] && plugins+=("$parts[1] $parts[2]")
-      done
-      _p9k_cache_stat_set "${plugins[@]}"
+      local mise_output
+      mise_output="$(mise ls --current --local 2>/dev/null)"
+      local -i mise_status=$?
+      if (( mise_status == 0 )); then
+        local -a plugins
+        local line
+        for line in ${(f)mise_output}; do
+          local parts=(${=line})
+          [[ ${#parts} -ge 2 ]] && plugins+=("$parts[1] $parts[2]")
+        done
+        _p9k_cache_stat_set "${plugins[@]}"
+      else
+        _p9k__cache_val=()
+      fi
     fi
 
     # Use cached results directly
