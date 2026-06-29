@@ -44,10 +44,28 @@
       "~/work"
     ]
   },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "trash=\"${NNN_TRASH:-gio trash}\"; jq --arg trash \"$trash\" 'if (.tool_input.command | test(\"^rm\\\\s+[^-]\")) then {hookSpecificOutput: {hookEventName: \"PreToolUse\", updatedInput: {command: (.tool_input.command | sub(\"^rm\"; $trash))}}} else {} end'",
+            "if": "Bash(rm *)"
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline-command.sh",
     "padding": 1
+  },
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true
   },
   "spinnerVerbs": {
     "mode": "replace",
@@ -59,19 +77,5 @@
   "autoUpdatesChannel": "stable",
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
-  "theme": "auto",
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "if": "Bash(rm *)",
-            "command": "trash=\"${NNN_TRASH:-gio trash}\"; jq --arg trash \"$trash\" 'if (.tool_input.command | test(\"^rm\\\\s+[^-]\")) then {hookSpecificOutput: {hookEventName: \"PreToolUse\", updatedInput: {command: (.tool_input.command | sub(\"^rm\"; $trash))}}} else {} end'"
-          }
-        ]
-      }
-    ]
-  }
+  "theme": "auto"
 }
