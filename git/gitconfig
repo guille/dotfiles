@@ -89,8 +89,8 @@
 	# weirdly useful
 	git = !git
 	# -m wip gets old
-	wip = "!git commit -m \"$(what-the-commit)\""
-	rewip = "!git commit --amend -m \"$(what-the-commit)\""
+	wip = "!git commit -m \"$(what-the-commit)\" -m \"Sourced-From: whatthecommit.com\""
+	rewip = "!git commit --amend -m \"$(what-the-commit)\" -m \"Sourced-From: whatthecommit.com\""
 
 [status]
 	submoduleSummary = true
