@@ -14,7 +14,7 @@
 --glob=!{.git,node_modules,Trash}
 
 # Don't print lines longer than this limit.
---max-columns=500
+# --max-columns=500
 
 # Colours
 --colors=path:fg:208
