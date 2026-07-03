@@ -66,7 +66,7 @@ def assign_syntax(view: sublime.View) -> bool:
                 view.assign_syntax("scope:source.ruby.rails")
                 return True
 
-        # Helm
+        # Helm / YamlPipelines
         elif syntax.scope == "source.yaml":
             # Uncomment if/when helm-ls supports these
             # if file.endswith("Chart.yaml"):
@@ -79,6 +79,14 @@ def assign_syntax(view: sublime.View) -> bool:
 
             if HELM_TEMPLATES_REGEX.match(file):
                 view.assign_syntax("scope:source.helm")
+                return True
+
+            if ".github/workflows/" in file or ".github/actions/" in file:
+                view.assign_syntax("scope:source.yaml.pipeline.github-actions")
+                return True
+
+            if file.endswith(".gitlab-ci.yml"):
+                view.assign_syntax("scope:source.yaml.pipeline.gitlab")
                 return True
 
     return False
