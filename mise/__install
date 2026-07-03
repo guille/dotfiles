@@ -146,6 +146,7 @@ bootstrap_mise() {
 
 	# pnpm messes with expected tool paths too much for lsps
 	mise settings set npm.package_manager npm
+	mise use --global npm:@actions/languageserver
 	mise use --global npm:dockerfile-language-server-nodejs
 	mise use --global npm:typescript
 	mise use --global npm:typescript-language-server

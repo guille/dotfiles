@@ -150,8 +150,8 @@
 				],
 			},
 		},
-		// Leave Go/Helm to its own LSP
-		"selector": "(source.yml | source.yaml) - source.yaml.go - source.yaml.helm",
+		// Leave Go/Helm/GHActions to its own LSP
+		"selector": "(source.yml | source.yaml) - source.yaml.go - source.yaml.helm - source.yaml.pipeline.github-actions",
 	},
 	// https://github.com/mrjosh/helm-ls?tab=readme-ov-file#default-configuration
 	"helm-ls": {
