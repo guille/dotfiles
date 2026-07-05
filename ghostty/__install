@@ -15,6 +15,12 @@ module_name=ghostty
 infoprint "[$module_name] enabling systemd service..."
 command_exists systemctl && systemctl enable --user app-com.mitchellh.ghostty.service
 
+# Need it here and not (just) on hyprland as systemd
+# wins the race sometimes and ghostty runs without the env var
+# https://github.com/ghostty-org/ghostty/discussions/8899
+mkdir -p ~/.config/environment.d/
+add_if_not_there "GTK_IM_MODULE=simple" ~/.config/environment.d/10-gtk-im.conf
+
 mkdir -p ~/.config/ghostty
 
 infoprint "[$module_name] creating dotfiles symlinks..."
