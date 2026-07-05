@@ -62,6 +62,13 @@ hl.window_rule {
 }
 
 hl.window_rule {
+	name      = "foliate",
+	match     = { class = "^com.github.johnfactotum.Foliate$" },
+
+	workspace = 4,
+}
+
+hl.window_rule {
 	name      = "obsidian",
 	match     = { class = "^obsidian$" },
 
