@@ -18,7 +18,7 @@
                 },
                 "assign_syntax": {
                   "type": "object",
-                  "description": "Map file basenames to syntax scopes for automatic syntax assignment.",
+                  "description": "Map file paths to syntax scopes for automatic syntax assignment (uses Path.match).",
                   "additionalProperties": {
                     "type": "string",
                     "description": "A syntax scope string."
@@ -32,7 +32,9 @@
                     "items": {
                       "type": "object",
                       "additionalProperties": false,
-                      "required": ["cmd"],
+                      "required": [
+                        "cmd"
+                      ],
                       "properties": {
                         "cmd": {
                           "type": "array",

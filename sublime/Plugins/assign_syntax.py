@@ -45,14 +45,15 @@ def assign_syntax(view: sublime.View) -> bool:
     if window := view.window():
         project_data = cast("dict[str, Any]", window.project_data())
 
-    # Assign based on basename
+    # Assign based on path (glob)
     if project_data and (
         syntaxes := project_data.get("config", {}).get("assign_syntax", {})
     ):
-        basename = Path(file).name
-        if basename in syntaxes:
-            view.assign_syntax(f"scope:{syntaxes[basename]}")
-            return True
+        p = Path(file)
+        for pattern, syntax in syntaxes.items():
+            if p.match(pattern):
+                view.assign_syntax(f"scope:{syntax}")
+                return True
 
     if syntax := view.syntax():
         # RSpec/Rails
