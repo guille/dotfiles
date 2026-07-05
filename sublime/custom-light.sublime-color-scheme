@@ -489,6 +489,14 @@
 			"scope": "meta.table-name.sql | entity.name.struct.table.sql",
 			"foreground": "var(light_blue)"
 		},
+		// YamlPipelines
+		{
+			// https://github.com/SublimeText/YamlPipelines/issues/51
+			"name": "GHA Jobs",
+			"scope": "entity.name.function.github-actions",
+			"foreground": "var(orange)",
+			"font_style": "",
+		},
 		// Other
 		{
 			"name": "diff.deleted",
