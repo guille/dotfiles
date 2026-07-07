@@ -16,6 +16,16 @@ hl.window_rule {
 
 -- ↑ smart gaps: no gaps if only one window open ↑
 
+
+--
+-- Workspace rules
+--
+
+
+hl.workspace_rule({ workspace = "4", layout = "scrolling" })
+
+
+
 -- Ignore maximize requests from all apps
 -- hl.window_rule {
 -- 	name           = "suppress-maximize-events",
@@ -23,6 +33,11 @@ hl.window_rule {
 
 -- 	suppress_event = "maximize",
 -- }
+
+
+--
+-- Window rules
+--
 
 hl.window_rule {
 	name         = "firefox",
