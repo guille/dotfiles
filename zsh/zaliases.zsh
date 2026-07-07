@@ -276,7 +276,32 @@ mrr() {
 alias k='kubecolor'
 alias kubectl='kubecolor'
 alias kx='kubectx'
-alias kn='kubens'
+# alias kn='kubens'
+# okto-friendly
+kn() {
+  if kubectl get namespaces -o name --request-timeout=3s >/dev/null 2>&1; then
+    kubens "$@"
+    return
+  fi
+
+  local ctx cache ns
+  ctx=$(kubectl config current-context) || return 1
+  cache="$HOME/.kube/ns-cache/$ctx"
+
+  if [ "$#" -gt 0 ]; then
+    ns="$1"
+  elif command -v fzf >/dev/null; then
+    ns=$(cat "$cache" 2>/dev/null | fzf --prompt='namespace> ' --print-query --height=~40% | tail -1)
+  else
+    printf "Namespace: "
+    read -r ns
+  fi
+
+  kubectl config set-context --current --namespace="$ns" || return 1
+
+  mkdir -p "${cache%/*}"
+  grep -qxF "$ns" "$cache" 2>/dev/null || echo "$ns" >> "$cache"
+}
 compdef kubecolor=kubectl
 
 merge-kubeconfigs() {
