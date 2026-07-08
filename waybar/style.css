@@ -99,10 +99,6 @@
   font-weight: bold;
 }
 
-#cpu {
-  /* No styles */
-}
-
 #cpu.warning {
   color: orange;
 }
@@ -127,24 +123,8 @@
   animation-duration: 2s;
 }
 
-#network {
-  /* No styles */
-}
-
 #network.disconnected {
   color: orange;
-}
-
-#pulseaudio {
-  /* No styles */
-}
-
-#pulseaudio.muted {
-  /* No styles */
-}
-
-#tray {
-  /* No styles */
 }
 
 #window {
@@ -193,4 +173,8 @@
 #custom-separator {
   color: #959ca1;
   margin: 0 1px;
+}
+
+#custom-ntfy.active {
+  color: #ffd204;
 }

@@ -30,6 +30,7 @@
         "custom/dnf",
         "custom/pacman",
         "idle_inhibitor",
+        "custom/ntfy",
         "custom/dunst",
         "custom/separator",
         "tray",
@@ -173,6 +174,12 @@
             "activated": "<span color=\"#ffd204\">󰅶 </span>",
             "deactivated": "󰾪 "
         }
+    },
+    "custom/ntfy": {
+        "exec": "~/.config/waybar/scripts/ntfy-forward-status.sh",
+        "on-click": "~/.config/waybar/scripts/ntfy-forward-toggle.sh",
+        "signal": 8,
+        "return-type": "json"
     },
     "custom/vpn": {
         "format": " <span color=\"#ffd204\">{}</span>",

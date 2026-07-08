@@ -115,3 +115,7 @@
 [ncmpcpp_icon]
     appname="ncmpcpp"
     default_icon = deepin-music
+
+[script-test]
+    summary = "*"
+    script = ~/mybin/ntfy.sh
