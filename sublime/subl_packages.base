@@ -1,6 +1,6 @@
 {
 	"channels": [
-		"https://packages.sublimetext.io/channel.json"
+		"https://packages.sublimetext.com/channel_v4.json"
 	],
 	"repositories": [
 		"https://raw.githubusercontent.com/guille/sublime-packages/refs/heads/master/packages.json"
