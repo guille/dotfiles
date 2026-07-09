@@ -102,9 +102,12 @@ zstyle ':fzf-tab:complete:mise:*' fzf-preview \
 esac'
 zstyle ':fzf-tab:complete:aws:*' fzf-preview 'aws $word help 2>/dev/null | head -50'
 
+# use zsh's menu for 2 candidates, fzf pops up at 3 or more
+zstyle ':fzf-tab:*' min-candidates 3
+zstyle ':completion:*' menu select
 
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-zstyle ':completion:*' menu no
+# zstyle ':completion:*' menu no
 # Menu pops at 5 entries
 # zstyle ':completion:*' menu select=5
 # Show group descriptions
