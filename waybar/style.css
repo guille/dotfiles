@@ -44,7 +44,7 @@
 #waybar {
   background: #2c2c2c;
   color: #d9d8d8;
-  font-family: "0xProto Nerd Font, sans-serif";
+  font-family: "0xProto Nerd Font", monospace;
   font-size: 14px;
 }
 
@@ -53,10 +53,17 @@
 #battery,
 #clock,
 #cpu,
+#custom-dnf,
+#custom-dunst,
+#custom-ntfy,
+#custom-pacman,
 #custom-power,
+#custom-vpn,
 #disk,
+#idle_inhibitor,
 #memory,
 #mode,
+#mpd,
 #network,
 #power-profiles-daemon,
 #pulseaudio,

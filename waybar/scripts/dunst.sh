@@ -3,14 +3,14 @@
 status() {
 	if dunstctl is-paused --exit-code; then
 		count=$(dunstctl count waiting)
-		disabled_text=" "
+		disabled_text=""
 		if [ "$count" != 0 ]; then
 			disabled_text=" $count"
 		fi
 		printf '{"text":"%s"}\n' "$disabled_text"
 	else
 		# echo ""
-		printf '{"text":" ","class":"active"}\n'
+		printf '{"text":"","class":"active"}\n'
 	fi
 }
 

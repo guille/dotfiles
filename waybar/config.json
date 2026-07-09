@@ -67,8 +67,8 @@
     "clock": {
         "interval": 60,
         "tooltip": false,
-        "format": "<span color=\"#ffd204\">󰥔</span>  {:%d/%m %H:%M}",
-        "format-alt": "<span color=\"#ffd204\">󰥔</span>  {:%a %d/%m %H:%M:%S}"
+        "format": "<span color=\"#ffd204\">󰥔</span> {:%d/%m %H:%M}",
+        "format-alt": "<span color=\"#ffd204\">󰥔</span> {:%a %d/%m %H:%M:%S}"
     },
     "cpu": {
         "interval": 30,
@@ -122,12 +122,18 @@
     //         "power-saver": ""
     //     }
     // },
+    "custom/vpn": {
+        "format": "<span color=\"#ffd204\">{}</span>",
+        "tooltip": false,
+        "exec": "~/.config/waybar/scripts/vpn.sh",
+        "interval": 60
+    },
     "network": {
-        "format-wifi": "<span color=\"#ffd204\">󰖩 </span> {essid}",
-        "format-ethernet": "<span color=\"#ffd204\"> </span>{ipaddr}",
+        "format-wifi": "<span color=\"#ffd204\">󰖩</span> {essid}",
+        "format-ethernet": "<span color=\"#ffd204\"></span> {ipaddr}",
         "tooltip-format": "{ifname} via {gwaddr}",
         "format-linked": "{ifname} (No IP)",
-        "format-disconnected": "<span color=\"#ffd204\">󰖪 </span>  Disconnected"
+        "format-disconnected": "<span color=\"#ffd204\">󰖪</span> Disconnected"
     },
     // "disk": {
     //     "interval": 30,
@@ -141,9 +147,9 @@
     // },
     "pulseaudio": {
         // Scrolling changes volume
-        "format": "<span color=\"#ffd204\">{icon}</span>  {volume}%",
+        "format": "<span color=\"#ffd204\">{icon}</span> {volume}%",
         "tooltip": false,
-        "format-muted": "<span color=\"#959ca1\">󰖁</span>  {volume}%",
+        "format-muted": "<span color=\"#959ca1\">󰖁</span> {volume}%",
         "format-icons": {
             "default": [
                 "󰕿",
@@ -155,7 +161,7 @@
         "on-click-right": "pavucontrol",
     },
     "custom/dnf": {
-        "format": " <span color=\"#ffd204\">󰣛 </span>{} ",
+        "format": "<span color=\"#ffd204\">󰣛</span> {}",
         "exec": "~/.config/waybar/scripts/dnf.sh",
         "exec-if": "[ \"$DOTFILES_DISTRO\" = \"Fedora\" ]",
         "tooltip": false,
@@ -163,7 +169,7 @@
         "interval": 21600 // 6h
     },
     "custom/pacman": {
-        "format": " <span color=\"#ffd204\">󰣇 </span>{} ",
+        "format": "<span color=\"#ffd204\">󰣇</span> {}",
         "exec": "~/.config/waybar/scripts/pacman.sh",
         "exec-if": "[ \"$DOTFILES_DISTRO\" = \"Arch\" ]",
         "tooltip": false,
@@ -173,8 +179,8 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "<span color=\"#ffd204\">󰅶 </span>",
-            "deactivated": "󰾪 "
+            "activated": "<span color=\"#ffd204\">󰅶</span>",
+            "deactivated": "󰾪"
         }
     },
     "custom/ntfy": {
@@ -183,21 +189,15 @@
         "signal": 8,
         "return-type": "json"
     },
-    "custom/vpn": {
-        "format": " <span color=\"#ffd204\">{}</span>",
-        "tooltip": false,
-        "exec": "~/.config/waybar/scripts/vpn.sh",
-        "restart-interval": 60
-    },
     "custom/dunst": {
-        "format": " {}",
+        "format": "{}",
         "return-type": "json",
         "tooltip": false,
         "exec": "~/.config/waybar/scripts/dunst.sh",
         "on-click": "dunstctl set-paused toggle"
     },
     "custom/power": {
-        "format": "<span color=\"#ee2e24\"> </span>",
+        "format": "<span color=\"#ee2e24\"></span>",
         "tooltip": false,
         "interval": "once",
         "on-click": "~/mybin/rofi_logout.sh"
