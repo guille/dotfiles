@@ -53,7 +53,7 @@
         "format-disconnected": "󰎊",
         "format-stopped": "<span color=\"#ffd204\">󰎈</span> Stopped",
         "unknown-tag": "N/A",
-        "interval": 5,
+        "interval": 30,
         "state-icons": {
             // Swapped so it's clearer that clicking changes it
             "paused": "󰐊",
@@ -65,16 +65,18 @@
     },
     "tray": {},
     "clock": {
-        "interval": 5,
+        "interval": 60,
         "tooltip": false,
         "format": "<span color=\"#ffd204\">󰥔</span>  {:%d/%m %H:%M}",
         "format-alt": "<span color=\"#ffd204\">󰥔</span>  {:%a %d/%m %H:%M:%S}"
     },
     "cpu": {
+        "interval": 30,
         "format": "<span color=\"#ffd204\">CPU</span> {usage}%",
         "tooltip": false
     },
     "memory": {
+        "interval": 30,
         "format": "<span color=\"#ffd204\">RAM</span> {}%"
     },
     "backlight": {
@@ -109,17 +111,17 @@
             ""
         ]
     },
-    "power-profiles-daemon": {
-        "format": "{icon}",
-        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-        "tooltip": true,
-        "format-icons": {
-            "default": "",
-            "performance": "",
-            "balanced": "",
-            "power-saver": ""
-        }
-    },
+    // "power-profiles-daemon": {
+    //     "format": "{icon}",
+    //     "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    //     "tooltip": true,
+    //     "format-icons": {
+    //         "default": "",
+    //         "performance": "",
+    //         "balanced": "",
+    //         "power-saver": ""
+    //     }
+    // },
     "network": {
         "format-wifi": "<span color=\"#ffd204\">󰖩 </span> {essid}",
         "format-ethernet": "<span color=\"#ffd204\"> </span>{ipaddr}",
@@ -127,16 +129,16 @@
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "<span color=\"#ffd204\">󰖪 </span>  Disconnected"
     },
-    "disk": {
-        "interval": 30,
-        "format": "<span color=\"#ffd204\">{path}</span> {percentage_used}% used",
-        "path": "/"
-    },
-    "disk#disk2": {
-        "interval": 30,
-        "format": "<span color=\"#ffd204\">{path}</span> {percentage_used}% used",
-        "path": "/home/guille"
-    },
+    // "disk": {
+    //     "interval": 30,
+    //     "format": "<span color=\"#ffd204\">{path}</span> {percentage_used}% used",
+    //     "path": "/"
+    // },
+    // "disk#disk2": {
+    //     "interval": 30,
+    //     "format": "<span color=\"#ffd204\">{path}</span> {percentage_used}% used",
+    //     "path": "/home/guille"
+    // },
     "pulseaudio": {
         // Scrolling changes volume
         "format": "<span color=\"#ffd204\">{icon}</span>  {volume}%",
@@ -158,7 +160,7 @@
         "exec-if": "[ \"$DOTFILES_DISTRO\" = \"Fedora\" ]",
         "tooltip": false,
         "hide-empty-text": true,
-        "interval": 3600
+        "interval": 21600 // 6h
     },
     "custom/pacman": {
         "format": " <span color=\"#ffd204\">󰣇 </span>{} ",
@@ -166,7 +168,7 @@
         "exec-if": "[ \"$DOTFILES_DISTRO\" = \"Arch\" ]",
         "tooltip": false,
         "hide-empty-text": true,
-        "interval": 3600
+        "interval": 21600 // 6h
     },
     "idle_inhibitor": {
         "format": "{icon}",
@@ -197,6 +199,7 @@
     "custom/power": {
         "format": "<span color=\"#ee2e24\"> </span>",
         "tooltip": false,
+        "interval": "once",
         "on-click": "~/mybin/rofi_logout.sh"
     },
     "custom/separator": {
