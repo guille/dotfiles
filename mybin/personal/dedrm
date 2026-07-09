@@ -1,39 +1,48 @@
 #!/usr/bin/env bash
 
-# Determine the argument to use
+# Determine the file(s) to work on
 if [ -n "$1" ]; then
-    arg="$1"
+    files=("$@")
 else
-    # Check if File.ascm exists in current directory
-    if [ -f "URLLink.acsm" ]; then
-        arg="URLLink.acsm"
-        echo "No argument provided, using URLLink.acsm from current directory"
-    else
-        echo "Error: No argument provided and URLLink.acsm not found in current directory"
+    # No argument provided: work on every *.acsm in the current directory
+    shopt -s nullglob
+    files=(*.acsm)
+    shopt -u nullglob
+
+    if [ "${#files[@]}" -eq 0 ]; then
+        echo "Error: No argument provided and no *.acsm found in current directory"
         exit 1
     fi
+    echo "No argument provided, using ${#files[@]} *.acsm file(s) from current directory"
 fi
 
-# Download the ACSM data
-output=$(acsmdownloader "$arg" 2>&1)
+status=0
+for arg in "${files[@]}"; do
+    echo "=== Processing $arg ==="
 
-# Print the output so user can see what happened
-echo "$output"
+    # Download the ACSM data
+    output=$(acsmdownloader "$arg" 2>&1)
 
-# Extract filename from the line starting with "Created "
-filename=$(echo "$output" | \grep "^Created " | sed 's/^Created //')
+    # Print the output so user can see what happened
+    echo "$output"
 
-# Check if we found a filename
-if [ -n "$filename" ]; then
-    echo "Extracted filename: $filename"
+    # Extract filename from the line starting with "Created "
+    filename=$(echo "$output" | \grep "^Created " | sed 's/^Created //')
 
-    echo "Removing DRM from $filename"
-    if adept_remove "$filename"; then
-        rm "$arg"
+    # Check if we found a filename
+    if [ -n "$filename" ]; then
+        echo "Extracted filename: $filename"
+
+        echo "Removing DRM from $filename"
+        if adept_remove "$filename"; then
+            rm "$arg"
+        else
+            status=1
+        fi
     else
-        exit 1
+        echo "Error: Could not find a line starting with 'Created ' in the output"
+        status=1
     fi
-else
-    echo "Error: Could not find a line starting with 'Created ' in the output"
-    exit 1
-fi
+done
+
+exit $status
