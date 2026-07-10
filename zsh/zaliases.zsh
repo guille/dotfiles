@@ -20,7 +20,7 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 		fi
 	}
 	ding() {
-		paplay /usr/share/sounds/freedesktop/stereo/complete.oga
+		paplay /usr/share/sounds/freedesktop/stereo/bell.oga
 	}
 elif [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
 	ding() {
