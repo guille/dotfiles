@@ -252,9 +252,9 @@ notes() {
 # run mise task (fzf-powered)
 mr() {
 	local task
-	task=$(mise tasks ls --all --name-only | fzf -1 -0 --query "$*")
+	task=$(mise tasks ls --all --name-only | fzf -1 -0 --query "${1:-}")
 	if [[ -n "$task" ]]; then
-		mise run "$task"
+		mise run "$task" "${@:2}"
 	else
 		echo "no task selected/found"
 	fi
