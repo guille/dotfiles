@@ -84,6 +84,13 @@ hl.window_rule {
 }
 
 hl.window_rule {
+	name      = "sigil",
+	match     = { class = "^sigil$" },
+
+	workspace = 4,
+}
+
+hl.window_rule {
 	name      = "obsidian",
 	match     = { class = "^obsidian$" },
 
