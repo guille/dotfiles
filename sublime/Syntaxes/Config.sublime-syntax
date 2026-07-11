@@ -7,6 +7,13 @@ file_extensions:
   - cfg
   - config
   - ini
+  # systemd
+  - service
+  - timer
+  # quadlets
+  - container
+  - network
+  - volume
   # Dotfiles stuff
   - config-linux
   - config-macos
