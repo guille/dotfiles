@@ -51,7 +51,7 @@ contexts:
       pop: 1
 
   assignments:
-    - match: "\\S+(?=\\s*=)"
+    - match: "[^=\\s]+(?=\\s*=)"
       scope: meta.mapping.key.config string.config
     - match: "="
       scope: keyword.operator.assignment.config
