@@ -106,7 +106,7 @@
 			"redhat.telemetry.enabled": false,
 			"yaml.format.enable": true,
 			// https://www.schemastore.org/api/json/catalog.json
-			"yaml.schemaStore.enable": false,
+			"yaml.schemaStore.enable": true,
 			// CloudFormation stuff
 			// "yaml.customTags": [
 			// 	"!Ref",
@@ -289,7 +289,7 @@
 		"selector": "text.html.svelte",
 	},
 	// https://docs.syntaqlite.com/
-	"sql": {
+	"syntaqlite": {
 		"enabled": true,
 		"command": [
 			"syntaqlite",
@@ -302,7 +302,7 @@
 		"disabled_capabilities": {
 			"semanticTokensProvider": true,
 		},
-		"selector": "source.sql",
+		"selector": "source.sql.sqlite",
 	},
 	// https://github.com/graphql/graphiql/tree/main/packages/graphql-language-service-server
 	"graphql": {
