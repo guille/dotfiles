@@ -158,9 +158,9 @@ tempe () {
 }
 
 sbr() {
-  local dir="${1:+$(realpath "$1")}"
-  dir="${dir:-$(pwd)}"
-  subl --command 'sbr_bulk_rename_in_dir {"dirs": ["'"$dir"'"]}'
+	local dir="${1:+$(realpath "$1")}"
+	dir="${dir:-$(pwd)}"
+	subl --command 'sbr_bulk_rename_in_dir {"dirs": ["'"$dir"'"]}'
 }
 
 # ════════════════════════════════════════════════════════════════════════
@@ -273,43 +273,45 @@ mrr() {
 # ════════════════════════════════════════════════════════════════════════
 # K8s
 
-alias k='kubecolor'
-alias kubectl='kubecolor'
-alias kx='kubectx'
-# alias kn='kubens'
-# okto-friendly
-kn() {
-  if kubectl get namespaces -o name --request-timeout=3s >/dev/null 2>&1; then
-    kubens "$@"
-    return
-  fi
+if command_exists kubectl; then
+	alias k='kubecolor'
+	alias kubectl='kubecolor'
+	alias kx='kubectx'
+	# alias kn='kubens'
+	# okto-friendly
+	kn() {
+		if kubectl get namespaces -o name --request-timeout=3s >/dev/null 2>&1; then
+			kubens "$@"
+			return
+		fi
 
-  local ctx cache ns
-  ctx=$(kubectl config current-context) || return 1
-  cache="$HOME/.kube/ns-cache/$ctx"
+		local ctx cache ns
+		ctx=$(kubectl config current-context) || return 1
+		cache="$HOME/.kube/ns-cache/$ctx"
 
-  if [ "$#" -gt 0 ]; then
-    ns="$1"
-  elif command -v fzf >/dev/null; then
-    ns=$(cat "$cache" 2>/dev/null | fzf --prompt='namespace> ' --print-query --height=~40% | tail -1)
-  else
-    printf "Namespace: "
-    read -r ns
-  fi
+		if [ "$#" -gt 0 ]; then
+			ns="$1"
+		elif command -v fzf >/dev/null; then
+			ns=$(cat "$cache" 2>/dev/null | fzf --prompt='namespace> ' --print-query --height=~40% | tail -1)
+		else
+			printf "Namespace: "
+			read -r ns
+		fi
 
-  kubectl config set-context --current --namespace="$ns" || return 1
+		kubectl config set-context --current --namespace="$ns" || return 1
 
-  mkdir -p "${cache%/*}"
-  grep -qxF "$ns" "$cache" 2>/dev/null || echo "$ns" >> "$cache"
-}
-compdef kubecolor=kubectl
+		mkdir -p "${cache%/*}"
+		grep -qxF "$ns" "$cache" 2>/dev/null || echo "$ns" >> "$cache"
+	}
+	compdef kubecolor=kubectl
 
-merge-kubeconfigs() {
-	files=$(printf "%s:" ~/.kube/configs/*.yaml)
-	files=${files%:}
+	merge-kubeconfigs() {
+		files=$(printf "%s:" ~/.kube/configs/*.yaml)
+		files=${files%:}
 
-	KUBECONFIG="$files" kubectl config view --flatten > ~/.kube/config
-}
+		KUBECONFIG="$files" kubectl config view --flatten > ~/.kube/config
+	}
+fi
 
 # ════════════════════════════════════════════════════════════════════════
 # Media
