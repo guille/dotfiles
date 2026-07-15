@@ -11,6 +11,10 @@ source "$SCRIPT_BASE_DIR/common"
 
 module_name=bat
 
+if command_exists batcat; then
+	mkdir -p ~/.local/bin
+    ln -s "$(command -v batcat)" ~/.local/bin/bat
+fi
 
 mkdir -p "$(bat --config-dir)/themes"
 
@@ -25,7 +29,8 @@ mkdir -p "$(bat --config-dir)/themes"
 # Symlinks
 ##
 infoprint "[$module_name] creating dotfiles symlinks..."
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/custom.tmTheme" "$(bat --config-dir)/themes/custom.tmTheme" 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/config" "$(bat --config-file)" 1> /dev/null
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/custom.tmTheme" "$(bat --config-dir)/themes/custom.tmTheme"
+
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/config" "$(bat --config-file)"
 
 bat cache --build
