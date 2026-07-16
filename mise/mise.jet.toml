@@ -1,0 +1,21 @@
+[tools]
+"github:atanunq/viu"      = "latest"
+"github:dandavison/delta" = "latest"
+"github:guille/orbit"     = { version = "latest", minimum_release_age = "0d" }
+"github:neovim/neovim"    = "latest"
+"pipx:pgcli"              = "latest"
+sops                      = "latest"
+usage                     = "latest"
+uv                        = "latest"
+
+[tasks.pgcli]
+run = "pgcli postgresql://postgres@localhost"
+
+[settings]
+minimum_release_age = "7d"
+
+[settings.pipx]
+uvx = true
+
+[settings.python]
+uv_venv_auto = "create|source"

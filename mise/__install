@@ -84,7 +84,7 @@ bootstrap_mise() {
 	# ══════════════════════════════════════════════════════
 
 	infoprint "[$module_name] installing tools: python"
-	mise settings add python.uv_venv_auto true
+	mise settings add python.uv_venv_auto "create|source"
 	mise settings set pipx.uvx true
 
 	mise use --global python@latest
@@ -99,6 +99,9 @@ bootstrap_mise() {
 	mise use --global pipx:ty
 	if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
 		mise use --global pipx:magic-wormhole
+	fi
+	if is_personal_or_hybrid; then
+		mise use --global pipx:copyparty
 	fi
 
 	# install some common libs to mise's python

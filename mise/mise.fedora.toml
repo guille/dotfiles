@@ -6,7 +6,7 @@ minimum_release_age = "7d"
 show_deps_stale = false
 
 [settings.python]
-uv_venv_auto = true
+uv_venv_auto = "create|source"
 
 [settings.pipx]
 uvx = true

@@ -34,6 +34,7 @@ python                                  = "latest"
 ruby                                    = "latest"
 usage                                   = "latest"
 sops                                    = "latest"
+"pipx:copyparty"                        = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = []
@@ -41,7 +42,7 @@ experimental                        = true
 minimum_release_age                 = "7d"
 
 [settings.python]
-uv_venv_auto = true
+uv_venv_auto = "create|source"
 
 [settings.status]
 show_deps_stale = false
