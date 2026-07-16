@@ -2,7 +2,7 @@
 	# use git-delta for paging
 	# automatically switch to side-by-side diff if wide enough (https://github.com/dandavison/delta/issues/359)
 	# Decorations needs to be first: https://github.com/dandavison/delta/issues/549
-	pager = DELTA_FEATURES=$([[ ${COLUMNS:-$(tput cols)} -gt 130 ]] && echo "+decorations side-by-side" || echo "+") delta
+	pager = DELTA_FEATURES=$([ ${COLUMNS:-$(tput cols)} -gt 130 ] && echo "+decorations side-by-side" || echo "+") delta
 
 [interactive]
 	diffFilter = delta --color-only
