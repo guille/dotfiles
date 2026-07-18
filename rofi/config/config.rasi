@@ -5,12 +5,16 @@ configuration {
 	case-sensitive: false;
 	normalize-match: true;
 	show-icons: true;
+	sort: true;
 	icon-theme: "Papirus";
+	drun-match-fields: "name,exec";
 	matching: "fuzzy";
 	sorting-method: "fzf";
 	display-drun: "Apps";
+
 	drun {
 		fallback-icon: "application-x-addon";
 	}
 }
+
 @theme "launcher.rasi"
