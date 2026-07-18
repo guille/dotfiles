@@ -84,6 +84,10 @@ bootstrap_mise() {
 	# ══════════════════════════════════════════════════════
 
 	infoprint "[$module_name] installing tools: python"
+
+	mkdir -p ~/.config/uv
+	add_if_not_there "exclude-newer = \"7 days\"" ~/.config/uv/uv.toml
+
 	mise settings add python.uv_venv_auto "create|source"
 	mise settings set pipx.uvx true
 
