@@ -19,11 +19,11 @@ git submodule update --init
 
 [ -L ~/.powerlevel10k ] && unlink ~/.powerlevel10k
 infoprint "[$module_name] linking powerlevel10k..."
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/powerlevel10k" ~/.powerlevel10k 1> /dev/null
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/powerlevel10k" ~/.powerlevel10k
 
 [ -L ~/.fzf-tab ] && unlink ~/.fzf-tab
 infoprint "[$module_name] linking fzf-tab..."
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/fzf-tab" ~/.fzf-tab 1> /dev/null
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/fzf-tab" ~/.fzf-tab
 
 
 ##
@@ -32,15 +32,20 @@ ln -sfv "${SCRIPT_BASE_DIR}/$module_name/fzf-tab" ~/.fzf-tab 1> /dev/null
 
 infoprint "[$module_name] creating dotfiles symlinks..."
 
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zshrc.zsh" ~/.zshrc 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zprofile.zsh" ~/.zprofile 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zshenv.zsh" ~/.zshenv 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zkeys.zsh" ~/.zkeys 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zaliases.zsh" ~/.zaliases 1> /dev/null
+h=$(hostname)
 
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zvars" ~/.zvars 1> /dev/null
+[[ -f "${SCRIPT_BASE_DIR}/$module_name/zshrc.$h.zsh" ]] && ln -sf "${SCRIPT_BASE_DIR}/$module_name/zshrc.$h.zsh" ~/.zshrc."$h"
+[[ -f "${SCRIPT_BASE_DIR}/$module_name/zshenv.$h.zsh" ]] && ln -sf "${SCRIPT_BASE_DIR}/$module_name/zshenv.$h.zsh" ~/.zshenv."$h"
 
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/p10k.zsh" ~/.p10k.zsh 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/p10k.mise.zsh" ~/.p10k.mise.zsh 1> /dev/null
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/zaliases.zsh" ~/.zaliases
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/zkeys.zsh" ~/.zkeys
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/zprofile.zsh" ~/.zprofile
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/zshenv.zsh" ~/.zshenv
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/zshrc.zsh" ~/.zshrc
 
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/zsh-history-substring-search.zsh" ~/.zhist_substr 1> /dev/null
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/zvars" ~/.zvars
+
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/p10k.zsh" ~/.p10k.zsh
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/p10k.mise.zsh" ~/.p10k.mise.zsh
+
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/zsh-history-substring-search.zsh" ~/.zhist_substr
