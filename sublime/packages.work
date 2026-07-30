@@ -1,5 +1,6 @@
 		"GraphQL",
 		"jsonnet syntax",
+		"LSP-file-watcher-rust",
 		"LSP-tailwindcss",
 		"LSP-terraform",
 		"Protobuf Syntax Hightlighting",
