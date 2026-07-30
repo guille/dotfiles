@@ -54,6 +54,7 @@ bootstrap_mise() {
 		mise use --global github:atanunq/viu
 		mise use --global opencode@latest
 		mise use --global typst@latest
+		mise use --global watchexec@latest
 
 		if is_work_or_hybrid; then
 			mise use --global kubecolor@latest
