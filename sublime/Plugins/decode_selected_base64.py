@@ -1,4 +1,5 @@
 import base64
+import gzip
 
 import sublime_plugin
 
@@ -23,7 +24,14 @@ class DecodeSelectedBase64Command(sublime_plugin.WindowCommand):
             region = view.sel()[0]
             contents = view.substr(region).strip(" ").strip("\n")
             print(f"c: {contents}")
-            decoded = base64.decodebytes(contents.encode()).decode()
+            raw = base64.decodebytes(contents.encode())
+            if raw[:2] == b"\x1f\x8b":
+                raw = gzip.decompress(raw)
+            try:
+                decoded = raw.decode()
+            except UnicodeDecodeError:
+                self._popup_error("Decoded bytes aren't valid UTF-8 text")
+                return
             print(f"d: {decoded}")
             if decoded:
                 sublime.set_clipboard(decoded)
