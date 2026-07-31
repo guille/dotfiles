@@ -1,1 +1,2 @@
 user_pref("network.trr.mode", 2); // Lower it a bit
+user_pref("network.trr.excluded-domains", "home.guillerg.dev"); // Work devices are not on tailnet
