@@ -78,6 +78,8 @@
 	autosquash = "!git rebase --autosquash $(git merge-base HEAD ${@:-'@{u}'})"
 	# same but up to the remote's default branch
 	autosquashall = "!git rebase --autosquash $(git merge-base HEAD ${@:-origin/HEAD})"
+	# testing new command
+	hf = "!git log --oneline origin/HEAD..HEAD | fzf --preview 'git show --color=always {1}' | cut -d' ' -f1 | xargs -r git history fixup"
 	# rebase with the given number of latest commits, "i" for interactively
 	reb = "!r() { git rebase --autosquash HEAD~$1; }; r"
 	rebi = "!r() { git rebase -i HEAD~$1; }; r"
