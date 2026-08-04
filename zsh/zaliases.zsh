@@ -87,6 +87,10 @@ function restart() {
 }
 alias rewall='pkill --full --signal HUP --require-handler wallpapered'
 
+set-title() {
+	print -rn -- $'\e]2;'"$1"$'\e\\'
+}
+
 # ════════════════════════════════════════════════════════════════════════
 
 # Don't interpret brackets in arguments as glob patterns.
@@ -254,6 +258,7 @@ mr() {
 	local task
 	task=$(mise tasks ls --all --name-only | fzf -1 -0 --query "${1:-}")
 	if [[ -n "$task" ]]; then
+		set-title "mise: $task"
 		mise run "$task" "${@:2}"
 	else
 		echo "no task selected/found"
@@ -264,6 +269,7 @@ mrr() {
 	local task
 	task=$(mise tasks ls --all --name-only | fzf -1 -0 --query "$*")
 	if [[ -n "$task" ]]; then
+		set-title "mise: $task"
 		print -z "mise run $task"
 	else
 		echo "no task selected/found"
