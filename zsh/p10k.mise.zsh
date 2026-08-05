@@ -54,9 +54,22 @@
       # also replace "-" as env vars can't have dashes
       tool_clean="${tool_clean//-/_}"
       local state="${(U)tool_clean}"
+      # Trim noisy versions
+      local pat=$POWERLEVEL9K_MISE_VERSION_PATTERN[$state]
+      if [[ -n $pat ]]; then
+        local -a match mbegin mend
+        [[ $version == ${~pat} ]] && version=$match[1]
+      fi
       p10k segment -r -i "${state}_ICON" -s $state -t "$version"
     done
   }
+
+  # The values are extended globs whose first backreference is the version to display.
+  typeset -gA POWERLEVEL9K_MISE_VERSION_PATTERN=(
+    ELIXIR '(#b)([0-9.]##)-otp*'    # 1.20.2-otp-29          -> 1.20.2
+    JAVA   '(#b)*-([0-9.]##)*'      # temurin-25.0.3+9.0.LTS -> 25.0.3
+    DOTNET '(#b)([0-9]##.[0-9]##)*' # 9.0.104                -> 9.0
+  )
 
   # Colors (default)
   typeset -g POWERLEVEL9K_MISE_FOREGROUND=0
