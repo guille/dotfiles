@@ -39,6 +39,7 @@ bootstrap_mise() {
 	mise settings set experimental true
 	mise settings set status.show_deps_stale false
 	mise settings set minimum_release_age "7d"
+	mise settings set java.shorthand_vendor "temurin"
 
 	infoprint "[$module_name] installing tools: global"
 	mise use --global usage@latest
