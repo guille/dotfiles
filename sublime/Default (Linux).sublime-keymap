@@ -20,11 +20,12 @@
 		"keys": [
 			"ctrl+\\" // Ctrl+ç with Spanish keyboard layout
 		],
-		"command": "show_overlay",
-		"args": {
-			"overlay": "goto",
-			"text": "#"
-		}
+		"command": "lsp_goto_diagnostic",
+		// "command": "show_overlay",
+		// "args": {
+		// 	"overlay": "goto",
+		// 	"text": "#"
+		// }
 	},
 	{
 		"keys": [
