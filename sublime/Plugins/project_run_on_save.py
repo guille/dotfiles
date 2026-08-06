@@ -44,19 +44,22 @@ class RunOnSaveTask(TypedDict):
     cmd: "list[str]"
     working_dir: "NotRequired[str]"
     build_panel: "NotRequired[bool]"
+    syntax: "NotRequired[str]"
 
 
 class ProjectRunOnSaveListener(sublime_plugin.EventListener):
     def run_task(self, task: RunOnSaveTask, window: sublime.Window):
-        expanded_cmd = sublime.expand_variables(task["cmd"], window.extract_variables())
+        variables = window.extract_variables()
+        expanded_cmd = cast(
+            "list[str]", sublime.expand_variables(task["cmd"], variables)
+        )
         working_dir: str = cast(
             str,
             sublime.expand_variables(
                 task.get("working_dir", "$project_path"),
-                window.extract_variables(),
+                variables,
             ),
         )
-        expanded_cmd = cast("list[str]", expanded_cmd)
         if task.get("build_panel", False):
             args: sublime.CommandArgs = {
                 "cmd": expanded_cmd,
@@ -72,7 +75,11 @@ class ProjectRunOnSaveListener(sublime_plugin.EventListener):
         else:
             try:
                 subprocess.run(
-                    expanded_cmd, check=True, cwd=working_dir, capture_output=True
+                    expanded_cmd,
+                    check=True,
+                    cwd=working_dir,
+                    capture_output=True,
+                    text=True,
                 )
             except subprocess.CalledProcessError as e:
                 print(e.stderr)
@@ -80,7 +87,7 @@ class ProjectRunOnSaveListener(sublime_plugin.EventListener):
             except FileNotFoundError:
                 window.status_message(f"Command not found {expanded_cmd[0]}")
 
-    def on_pre_save_async(self, view: sublime.View):
+    def on_post_save_async(self, view: sublime.View):
         window = view.window()
         syntax = view.syntax()
         if window is None or syntax is None:
