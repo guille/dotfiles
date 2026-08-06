@@ -122,6 +122,19 @@
 			"sub_words": true
 		}
 	},
+	// Select next occurrence of the selection
+	{
+		"keys": [
+			"ctrl+alt+d"
+		],
+		"command": "find_next_word",
+		"context": [
+			{
+				"key": "setting.is_widget",
+				"operand": false
+			}
+		]
+	},
 	// Move Tabs
 	{
 		"keys": [
