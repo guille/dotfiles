@@ -68,7 +68,7 @@ bootstrap_mise() {
 	if is_work_or_hybrid; then
 		mise use --global helm-ls@latest
 		mise use --global mirrord@latest
-		mise use --global protoc@24.4
+		mise use --global protoc@latest
 		mise use --global github:fullstorydev/grpcurl@latest
 		mise use --global krew@latest
 	fi
