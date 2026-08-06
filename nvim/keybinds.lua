@@ -10,7 +10,6 @@ vim.keymap.set('n', '<leader>v', vim.cmd.vs, { noremap = true, desc = 'Open new 
 vim.keymap.set('n', '<leader>h', vim.cmd.sp, { noremap = true, desc = 'Open new horizontal split and focus it' })
 vim.keymap.set('n', '<leader>m', 'gcc', { remap = true, desc = 'Comment/uncomment line' })
 vim.keymap.set('v', '<leader>m', 'gc', { remap = true, desc = 'Comment/uncomment selection' })
-vim.keymap.set('n', '<Esc><Esc>', ':nohlsearch <CR>', { noremap = true, silent = true, desc = 'Clear search highlight' })
 vim.keymap.set('n', '<leader>q', function()
 	local buffers = vim.fn.getbufinfo({ buflisted = 1 })
 	if #buffers > 1 then
@@ -53,13 +52,16 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set('v', '<', '<gv', { noremap = true, silent = true })
 vim.keymap.set('v', '>', '>gv', { noremap = true, silent = true })
 
+-- single <Esc>: a separate <Esc><Esc> map would stall every Esc for 'timeoutlen'
+-- hover/diagnostic/signature floats are relative='cursor', not 'win'
 vim.keymap.set('n', '<Esc>', function()
 	for _, win in pairs(vim.api.nvim_list_wins()) do
-		if vim.api.nvim_win_get_config(win).relative == 'win' then
-			vim.api.nvim_win_close(win, false)
+		if vim.api.nvim_win_get_config(win).relative ~= '' then
+			pcall(vim.api.nvim_win_close, win, false)
 		end
 	end
-end)
+	vim.cmd('nohlsearch')
+end, { desc = 'Close floating windows and clear search highlight' })
 
 
 -- spanish layout mappings
@@ -84,5 +86,5 @@ local function smart_tab()
 end
 vim.keymap.set('i', '<Tab>', smart_tab, { expr = true, noremap = true })
 vim.keymap.set('i', '<S-Tab>', function()
-	return vim.fn.pumvisible() == 1 and '<C-d>'
+	return vim.fn.pumvisible() == 1 and '<C-p>' or ''
 end, { expr = true, noremap = true })

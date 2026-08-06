@@ -1,6 +1,6 @@
 if vim.version.ge(vim.version(), { 0, 12, 0 }) then
 	vim.pack.add({
-		{ src = 'https://github.com/neovim/nvim-lspconfig', version = 'bedca8b' },
+		{ src = 'https://github.com/neovim/nvim-lspconfig', version = '43ed379' },
 	})
 end
 

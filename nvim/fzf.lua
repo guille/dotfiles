@@ -1,10 +1,12 @@
 -- Pacman and Alpine already put fzf in rtp, so it gets loaded
 -- This is needed for homebrew-installed fzf
-vim.opt.runtimepath:append('/usr/local/opt/fzf')
+if vim.fn.isdirectory('/usr/local/opt/fzf') == 1 then
+	vim.opt.runtimepath:append('/usr/local/opt/fzf')
+end
 
 if vim.version.ge(vim.version(), { 0, 12, 0 }) then
 	vim.pack.add({
-		{ src = 'https://github.com/junegunn/fzf.vim', version = '34a564c' },
+		{ src = 'https://github.com/junegunn/fzf.vim', version = 'd2a59a9' },
 	})
 end
 

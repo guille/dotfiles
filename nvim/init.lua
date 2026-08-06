@@ -33,6 +33,27 @@ monokai.setup {
 			fg = palette.green,
 			style = 'bold',
 		},
+		-- diagnostics segment: base4 sets it apart from StatusLine's base3
+		StatusLSP = {
+			fg = palette.base7,
+			bg = palette.base4,
+		},
+		StatusErrorIcon = {
+			fg = palette.red,
+			bg = palette.base4,
+		},
+		StatusWarnIcon = {
+			fg = palette.orange,
+			bg = palette.base4,
+		},
+		StatusInfoIcon = {
+			fg = palette.aqua,
+			bg = palette.base4,
+		},
+		StatusHintIcon = {
+			fg = palette.purple,
+			bg = palette.base4,
+		},
 	},
 }
 

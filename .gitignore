@@ -7,3 +7,5 @@ sublime/Package Control.sublime-settings
 sublime/Preferences.sublime-settings
 system/aur
 system/pacman
+
+__pycache__/

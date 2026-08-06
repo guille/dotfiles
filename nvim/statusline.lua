@@ -1,48 +1,35 @@
-local function get_diagnostics()
-	if not vim.diagnostic then
-		return ""
-	end
-	local d = vim.diagnostic.get(0)
-	local e, w, i, h = 0, 0, 0, 0
-	for _, v in ipairs(d) do
-		if v.severity == vim.diagnostic.severity.ERROR then
-			e = e + 1
-		elseif v.severity == vim.diagnostic.severity.WARN then
-			w = w + 1
-		elseif v.severity == vim.diagnostic.severity.INFO then
-			i = i + 1
-		elseif v.severity == vim.diagnostic.severity.HINT then
-			h = h + 1
+-- highest first: the segment reads worst-to-least severe
+local levels = {
+	{ severity = vim.diagnostic.severity.ERROR, hl = 'StatusErrorIcon', icon = '' },
+	{ severity = vim.diagnostic.severity.WARN,  hl = 'StatusWarnIcon',  icon = '' },
+	{ severity = vim.diagnostic.severity.INFO,  hl = 'StatusInfoIcon',  icon = '' },
+	{ severity = vim.diagnostic.severity.HINT,  hl = 'StatusHintIcon',  icon = '' },
+}
+
+local function get_diagnostics(bufnr)
+	local s = ""
+	for _, level in ipairs(levels) do
+		local n = #vim.diagnostic.get(bufnr, { severity = level.severity })
+		if n > 0 then
+			s = s .. ("%%#%s#%s %d "):format(level.hl, level.icon, n)
 		end
 	end
-
-	local s = ""
-	if e > 0 then
-		s = s .. "%#StatusErrorIcon# " .. e .. " "
-	end
-	if w > 0 then
-		s = s .. "%#StatusWarnIcon# " .. w .. " "
-	end
-	if i > 0 then
-		s = s .. "%#StatusInfoIcon# " .. i .. " "
-	end
-	if h > 0 then
-		s = s .. "%#StatusHintIcon# " .. h .. " "
-	end
-
-	-- reset to StatusLine for following text
-	return s .. "%#StatusLine#"
+	return s
 end
 
 function custom_line()
+	-- statusline is evaluated per window, so counts must follow that window's
+	-- buffer rather than the focused one
+	local winid = vim.g.statusline_winid
+	local bufnr = vim.api.nvim_win_get_buf(winid)
+
 	local st = ""
-	local di = get_diagnostics()
+	local di = get_diagnostics(bufnr)
 	if di ~= "" then
-		st = st .. "%#StatusLSP# " .. di .. " " .. "%#StatusLSPToNorm#"
+		st = "%#StatusLSP# " .. di .. "%#StatusLine#"
 	end
 
-	local focus = vim.g.statusline_winid == vim.fn.win_getid()
-	if focus then
+	if winid == vim.fn.win_getid() then
 		return "%#StatuslineMode# %{v:lua.string.upper(mode())} %#StatusLine#┃ %<%f %y %-4(%m%) %r %=%-19(%l/%L:%c%)" ..
 			st
 	else
@@ -51,3 +38,11 @@ function custom_line()
 end
 
 vim.o.statusline = "%!v:lua.custom_line()"
+
+-- diagnostics arrive asynchronously and do not themselves trigger a redraw
+vim.api.nvim_create_autocmd('DiagnosticChanged', {
+	desc = 'Refresh statusline diagnostic counts',
+	callback = function()
+		vim.cmd('redrawstatus!')
+	end,
+})
