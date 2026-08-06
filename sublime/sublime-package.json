@@ -24,6 +24,53 @@
                     "description": "A syntax scope string."
                   }
                 },
+                "switch_code_test": {
+                  "type": "object",
+                  "description": "Code/test switching configuration, keyed by syntax scope (e.g. \"source.go\"). Merged per-key on top of the built-in defaults; adding a scope here also overrides the specialized commands for Ruby/Elixir.",
+                  "additionalProperties": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "markdownDescription": "Config for a syntax scope. When the scope has no built-in defaults, `source_root_markers`, `test_root_markers`, `test_file_prefixes` and `test_file_suffixes` must all be set.",
+                    "properties": {
+                      "source_root_markers": {
+                        "type": "array",
+                        "description": "Path segments identifying source roots (e.g. [\"lib\", \"app\", \"lib/host\"]). Markers can be multi-segment.",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "test_root_markers": {
+                        "type": "array",
+                        "description": "Path segments identifying test roots (e.g. [\"spec\", \"test\", \"tests\"]). Markers can be multi-segment.",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "test_file_prefixes": {
+                        "type": "array",
+                        "description": "Prefixes added to test filenames (e.g. [\"test_\"]).",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "test_file_suffixes": {
+                        "type": "array",
+                        "description": "Suffixes added to test file stems (e.g. [\"_test\", \"_spec\"]).",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "try_same_dir": {
+                        "type": "boolean",
+                        "description": "Only look for the counterpart in the same directory."
+                      },
+                      "feeling_lucky": {
+                        "type": "boolean",
+                        "description": "Open the first match instead of showing a picker."
+                      }
+                    }
+                  }
+                },
                 "run_on_save": {
                   "type": "object",
                   "description": "Commands to run on save, keyed by syntax scope.",
