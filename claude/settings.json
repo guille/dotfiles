@@ -59,6 +59,9 @@
       }
     ]
   },
+  "worktree": {
+    "bgIsolation": "none"
+  },
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline-command.sh",
