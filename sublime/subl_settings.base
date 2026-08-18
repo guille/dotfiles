@@ -19,6 +19,7 @@
 		".venv",
 		"__pycache__",
 		".ruff_cache",
+		".claude/worktrees",
 	],
 	"font_face": "0xProto Nerd Font",
 	"font_size": ###FONT_SIZE###,
