@@ -56,10 +56,12 @@ alias fd='fd --hidden'
 alias oc='opencode'
 alias wr='wormhole receive'
 alias ws='wormhole send'
-# Safe ops. Ask the user before doing anything destructive.
-alias cp='cp -i'
-alias ln='ln -i'
-alias mv='mv -i'
+# Safe ops. Ask the user before doing anything destructive (interactive only).
+if [[ -o interactive ]]; then
+	alias cp='cp -i'
+	alias ln='ln -i'
+	alias mv='mv -i'
+fi
 # eza
 alias ls='eza --icons=auto --color=auto --group-directories-first'
 alias ll='eza --icons=auto --color=auto --group-directories-first -l'
