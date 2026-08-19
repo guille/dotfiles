@@ -34,7 +34,6 @@
       "NotebookEdit",
       "WebSearch",
       "mcp__*",
-      "Edit(mise.toml)",
       "Edit(mise.local.toml)",
       "Read(*.env*)",
       "Bash(rm *)"
@@ -52,8 +51,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "trash=\"${NNN_TRASH:-gio trash}\"; jq --arg trash \"$trash\" 'if (.tool_input.command | test(\"^rm\\\\s+[^-]\")) then {hookSpecificOutput: {hookEventName: \"PreToolUse\", updatedInput: {command: (.tool_input.command | sub(\"^rm\"; $trash))}}} else {} end'",
-            "if": "Bash(rm *)"
+            "command": "trash=\"${NNN_TRASH:-gio trash}\"; jq --arg trash \"$trash\" '(.tool_input.command // \"\") as $cmd | ($cmd | gsub(\"(?<pre>(?:^|;|&&|\\\\|\\\\|)\\\\s*)rm(?<flags>(?:\\\\s+-{1,2}[A-Za-z][A-Za-z0-9-]*)*)\\\\s+(?<rest>[^-\\\\s;&|][^;&|]*)\"; \"\\(.pre)\\($trash)\\(if (.flags | test(\"f\")) then \" -f\" else \"\" end) \\(.rest)\")) as $new | if $new == $cmd then {} else {hookSpecificOutput: {hookEventName: \"PreToolUse\", updatedInput: {command: $new}}} end'"
           }
         ]
       }
