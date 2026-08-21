@@ -266,13 +266,22 @@ mr() {
 		echo "no task selected/found"
 	fi
 }
+
+_mr_widget() {
+    BUFFER='mr'
+    CURSOR=$#BUFFER
+    zle accept-line
+}
+zle -N _mr_widget
+bindkey '^[m' _mr_widget  # alt+m
+
 # put mise task in zsh prompt (fzf-powered)
 mrr() {
 	local task
 	task=$(mise tasks ls --all --name-only | fzf -1 -0 --query "$*")
 	if [[ -n "$task" ]]; then
 		set-title "mise: $task"
-		print -z "mise run $task"
+		print -z "mise run $task -- "
 	else
 		echo "no task selected/found"
 	fi
