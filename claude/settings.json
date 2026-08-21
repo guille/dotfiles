@@ -38,6 +38,7 @@
       "Read(*.env*)",
       "Bash(rm *)"
     ],
+    "defaultMode": "auto",
     "additionalDirectories": [
       "~/go/pkg/mod",
       "~/work"
