@@ -48,6 +48,19 @@ hl.window_rule {
 }
 
 hl.window_rule {
+	name   = "firefox-yt",
+	match  = { title = ".*YouTube — Mozilla Firefox$" },
+
+	opaque = true,
+}
+hl.window_rule {
+	name   = "firefox-upnext",
+	match  = { title = ".*upnext — Mozilla Firefox$" },
+
+	opaque = true,
+}
+
+hl.window_rule {
 	name         = "firefox2",
 	match        = { class = "^org.mozilla.firefox$" },
 
