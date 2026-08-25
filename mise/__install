@@ -43,6 +43,7 @@ bootstrap_mise() {
 
 	infoprint "[$module_name] installing tools: global"
 	mise use --global usage@latest
+	mise use --global watchexec@latest
 	mise use --global github:guille/orbit@latest --minimum-release-age=0d
 	mise use --global github:guille/integritas@latest --minimum-release-age=0d
 	mise use --global github:guille/revisa@latest --minimum-release-age=0d
@@ -55,7 +56,6 @@ bootstrap_mise() {
 		mise use --global github:atanunq/viu
 		mise use --global opencode@latest
 		mise use --global typst@latest
-		mise use --global watchexec@latest
 
 		if is_work_or_hybrid; then
 			mise use --global kubecolor@latest
