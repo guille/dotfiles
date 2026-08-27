@@ -11,6 +11,23 @@ uv                        = "latest"
 [tasks.pgcli]
 run = "pgcli postgresql://postgres@localhost"
 
+[tasks."trackr:migrate"]
+run = "podman exec trackr /app/bin/migrate"
+
+[tasks.pull-restart]
+usage = 'arg "<container>"'
+run   = "podman pull ghcr.io/guille/${usage_container?} && systemctl --user restart ${usage_container?}"
+
+[tasks.feeds-db]
+run = """
+sqlite3 -readonly "$(podman volume inspect systemd-feeds-data | jq -r '.[0].Mountpoint + "/feeds.db"')"
+"""
+
+[tasks.upnext-db]
+run = """
+sqlite -readonly "$(podman volume inspect systemd-upnext-data | jq -r '.[0].Mountpoint + "/upnext.db"')"
+"""
+
 [settings]
 minimum_release_age = "7d"
 
