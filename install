@@ -96,6 +96,7 @@ modules_to_install=(
 	nnn
 	thunar
 	ripgrep
+	orbit
 	nvim
 	rofi
 	dunst

@@ -1,0 +1,15 @@
+#:schema ./schema.json
+
+orbit_bin = "/home/guille/.local/share/mise/shims/orbit"
+
+[tasks.backup]
+command  = "/home/guille/.local/bin/backup.sh"
+schedule = "Wed *-*-* 09:00:00"
+
+[tasks.podman-container-prune]
+command  = "podman container prune -f"
+schedule = "weekly"
+
+[tasks.podman-image-prune]
+command  = "podman image prune -a -f --filter 'until=24h'"
+schedule = "weekly"

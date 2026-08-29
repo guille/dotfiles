@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# orbit
+##
+
+module_name=orbit
+
+mkdir -p ~/.config/orbit
+
+if [ -f "$module_name/orbit.$(hostname).toml" ]; then
+	ln -sf "${SCRIPT_BASE_DIR}/$module_name/orbit.$(hostname).toml" "$XDG_CONFIG_HOME/orbit/orbit.toml"
+	orbit apply -f
+fi
