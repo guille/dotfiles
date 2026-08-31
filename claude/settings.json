@@ -31,6 +31,7 @@
       "Bash(wc *)"
     ],
     "deny": [
+      "Artifact",
       "NotebookEdit",
       "WebSearch",
       "mcp__*",
@@ -78,6 +79,7 @@
     ]
   },
   "autoUpdatesChannel": "stable",
+  "tui": "fullscreen",
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
   "theme": "auto"
