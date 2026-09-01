@@ -28,6 +28,7 @@ shorthand_vendor = "temurin"
 "github:guille/revisa"                                       = { version = "latest", minimum_release_age = "0d" }
 "go:github.com/go-delve/delve/cmd/dlv"                       = "latest"
 "go:github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc" = "latest"
+"go:golang.org/x/perf/cmd/benchstat"                         = "latest"
 "go:golang.org/x/tools/gopls"                                = "latest"
 "go:golang.org/x/vuln/cmd/govulncheck"                       = "latest"
 "go:google.golang.org/grpc/cmd/protoc-gen-go-grpc"           = "latest"

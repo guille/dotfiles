@@ -6,6 +6,7 @@
 "github:guille/orbit"                   = { version = "latest", minimum_release_age = "0d" }
 "github:guille/revisa"                  = { version = "latest", minimum_release_age = "0d" }
 "go:github.com/go-delve/delve/cmd/dlv"  = "latest"
+"go:golang.org/x/perf/cmd/benchstat"    = "latest"
 "go:golang.org/x/tools/gopls"           = "latest"
 "go:golang.org/x/vuln/cmd/govulncheck"  = "latest"
 "go:honnef.co/go/tools/cmd/staticcheck" = "latest"

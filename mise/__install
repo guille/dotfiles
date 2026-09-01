@@ -125,6 +125,7 @@ bootstrap_mise() {
 	mise x -- go telemetry off
 
 	mise use --global go:github.com/go-delve/delve/cmd/dlv@latest
+	mise use --global go:golang.org/x/perf/cmd/benchstat@latest
 	mise use --global go:golang.org/x/tools/gopls@latest
 	mise use --global go:golang.org/x/vuln/cmd/govulncheck@latest
 	mise use --global go:honnef.co/go/tools/cmd/staticcheck@latest
