@@ -23,7 +23,7 @@
 "pipx:httpie"                           = "latest"
 "pipx:mycli"                            = "latest"
 "pipx:pgcli"                            = "latest"
-"pipx:syntaqlite"                       = "0.5.7"
+"pipx:syntaqlite"                       = "latest"
 "pipx:tombi"                            = "latest"
 "pipx:ty"                               = "latest"
 go                                      = "latest"
