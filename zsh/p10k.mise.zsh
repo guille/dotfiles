@@ -17,8 +17,8 @@
     fi
     [[ -z $cfg_file ]] && return
 
-    # Check cache with file-based invalidation
-    if ! _p9k_cache_stat_get "$0" "$cfg_file"; then
+    # Invalidate on config stat, plus mise's own env fingerprint.
+    if ! _p9k_cache_stat_get "$0 $__MISE_DIFF" "$cfg_file"; then
       local mise_output
       mise_output="$(mise ls --current --local 2>/dev/null)"
       local -i mise_status=$?
