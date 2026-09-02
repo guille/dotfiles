@@ -3,6 +3,7 @@
 "github:dandavison/delta" = "latest"
 "github:guille/orbit"     = { version = "latest", minimum_release_age = "0d" }
 "github:neovim/neovim"    = "latest"
+"pipx:magic-wormhole"     = "latest"
 "pipx:pgcli"              = "latest"
 sops                      = "latest"
 usage                     = "latest"
