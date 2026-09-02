@@ -8,6 +8,7 @@ extends: Packages/SQL/SQL (basic).sublime-syntax
 
 file_extensions:
   - sql
+  - .sqliterc
 
 variables:
   additional_toplevel_reserved: |-
@@ -25,6 +26,10 @@ variables:
     | unsigned\s+big\s+int | varchar | varying\s+character )
 
 contexts:
+  main:
+    - meta_prepend: true
+    - include: dot-commands
+
   create-target:
     - meta_prepend: true
     - include: create-virtual-table
@@ -98,9 +103,9 @@ contexts:
     - meta_prepend: true
     - match: \|\|
       scope: keyword.operator.concatenation.sql
-    - match: '<<|>>|[&|~]'
+    - match: "<<|>>|[&|~]"
       scope: keyword.operator.bitwise.sql
-    - match: '%'
+    - match: "%"
       scope: keyword.operator.arithmetic.sql
     - match: \b(?i:glob|match|regexp)\b
       scope: keyword.operator.comparison.sql
@@ -110,10 +115,10 @@ contexts:
     - match: \|\|
       scope: keyword.operator.concatenation.sql
       pop: 1
-    - match: '<<|>>|[&|~]'
+    - match: "<<|>>|[&|~]"
       scope: keyword.operator.bitwise.sql
       pop: 1
-    - match: '%'
+    - match: "%"
       scope: keyword.operator.arithmetic.sql
       pop: 1
     - match: \b(?i:glob|match|regexp)\b
@@ -183,7 +188,7 @@ contexts:
       scope: keyword.other.dml.sql
     - match: (?=\b(?i:select|insert|update|delete|values)\b)
       set: sql
-    - match: ','
+    - match: ","
       scope: punctuation.separator.sequence.sql
     - match: (?=\S)
       push:
@@ -227,7 +232,7 @@ contexts:
     - match: \)
       scope: punctuation.section.group.end.sql
       pop: 1
-    - match: ','
+    - match: ","
       scope: punctuation.separator.sequence.sql
     - match: (?=\S)
       push:
@@ -238,7 +243,7 @@ contexts:
     - meta_scope: meta.window.sql
     - match: (?=[;)}]|\b(?:{{toplevel_reserved}}|{{additional_toplevel_reserved}})\b)
       pop: 1
-    - match: ','
+    - match: ","
       scope: punctuation.separator.sequence.sql
     - match: (?=\S)
       push:
@@ -438,7 +443,7 @@ contexts:
   trigger-update-column-list:
     - match: (?=\b(?i:on)\b)
       pop: 1
-    - match: ','
+    - match: ","
       scope: punctuation.separator.sequence.sql
     - match: (?=\S)
       push:
@@ -624,7 +629,7 @@ contexts:
 
   pragma-args:
     - meta_scope: meta.statement.pragma.sql
-    - match: '='
+    - match: "="
       scope: keyword.operator.assignment.sql
       push: pragma-value
     - match: \(
@@ -710,6 +715,87 @@ contexts:
 
   eol-pop:
     - match: $
+      pop: 1
+
+  ###[ SQLITE CLI DOT COMMANDS ]#################################################
+
+  # Dot commands and `#` comments belong to the sqlite3 shell, not to SQL: the
+  # library rejects both. The shell only recognises them when the marker is in
+  # column 0 and no SQL statement is pending, so anchoring to `^` is what keeps
+  # them from colliding with the member-accessor dot. Only being reachable from
+  # `main` approximates the "no statement pending" half of the rule.
+  dot-commands:
+    - match: ^(?=\.[A-Za-z])
+      push:
+        - inside-dot-command
+        - dot-command-name
+    - match: ^#
+      scope: punctuation.definition.comment.sqlite
+      push: inside-shell-comment
+
+  dot-command-name:
+    - meta_include_prototype: false
+    # Command names are matched case-sensitively by the shell, so an uppercase
+    # letter anywhere is a hard error rather than an unknown command.
+    - match: (\.)[a-z][a-z0-9]*(?!\S)
+      scope: keyword.other.dot-command.sqlite
+      captures:
+        1: punctuation.definition.keyword.sqlite
+      pop: 1
+    - match: (\.)\S+
+      scope: invalid.illegal.dot-command.sqlite
+      captures:
+        1: punctuation.definition.keyword.sqlite
+      pop: 1
+
+  inside-dot-command:
+    - meta_include_prototype: false
+    - meta_scope: meta.dot-command.sqlite
+    - include: dot-command-options
+    - include: dot-command-constants
+    - include: dot-command-strings
+    - include: eol-pop
+
+  dot-command-options:
+    - match: (?<!\S)--?[A-Za-z][\w-]*
+      scope: variable.parameter.option.sqlite
+
+  dot-command-constants:
+    - match: (?<!\S)(?i:on|off|yes|no|true|false)(?!\S)
+      scope: constant.language.sqlite
+
+  # Shell-style quoting, unrelated to SQL's: `"` opens a string rather than a
+  # quoted identifier, `''` is not an escape, and both forms end at the newline.
+  dot-command-strings:
+    - match: \'
+      scope: punctuation.definition.string.begin.sqlite
+      push: inside-dot-command-single-quoted-string
+    - match: \"
+      scope: punctuation.definition.string.begin.sqlite
+      push: inside-dot-command-double-quoted-string
+
+  inside-dot-command-single-quoted-string:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.sqlite string.quoted.single.sqlite
+    - match: \'
+      scope: punctuation.definition.string.end.sqlite
+      pop: 1
+    - include: eol-pop
+
+  inside-dot-command-double-quoted-string:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.sqlite string.quoted.double.sqlite
+    - match: \\.
+      scope: constant.character.escape.sqlite
+    - match: \"
+      scope: punctuation.definition.string.end.sqlite
+      pop: 1
+    - include: eol-pop
+
+  inside-shell-comment:
+    - meta_include_prototype: false
+    - meta_scope: comment.line.number-sign.sqlite
+    - match: \n
       pop: 1
 
   ###[ SQLITE OBJECT NAMES ]#####################################################
