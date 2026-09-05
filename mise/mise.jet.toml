@@ -1,6 +1,7 @@
 [tools]
 "github:atanunq/viu"      = "latest"
 "github:dandavison/delta" = "latest"
+"github:guille/nag"       = { version = "latest", minimum_release_age = "0d" }
 "github:guille/orbit"     = { version = "latest", minimum_release_age = "0d" }
 "github:neovim/neovim"    = "latest"
 "pipx:magic-wormhole"     = "latest"

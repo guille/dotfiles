@@ -44,6 +44,7 @@ bootstrap_mise() {
 	infoprint "[$module_name] installing tools: global"
 	mise use --global usage@latest
 	mise use --global watchexec@latest
+	mise use --global github:guille/nag@latest --minimum-release-age=0d
 	mise use --global github:guille/orbit@latest --minimum-release-age=0d
 	mise use --global github:guille/integritas@latest --minimum-release-age=0d
 	mise use --global github:guille/revisa@latest --minimum-release-age=0d

@@ -39,6 +39,7 @@
     context                 # user@hostname
     dmn                     # custom pty bridge
     orbit                   # pending orbit reminders
+    nag                     # pending nags
     nnn                     # nnn shell (https://github.com/jarun/nnn)
     mise                    # custom (https://github.com/romkatv/powerlevel10k/issues/2212)
     aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
@@ -1825,6 +1826,16 @@
   function prompt_orbit() {
     [[ -f ~/.local/share/orbit/pending ]] || return
     p10k segment -b 57 -f 209 -i ' ' -t ""
+  }
+
+  function instant_prompt_nag() {
+    prompt_nag
+  }
+
+  function prompt_nag() {
+    local -a n; n=(${NAG_DIR:-$HOME/.local/state/nag}/*(N))
+    (( $#n )) || return
+    p10k segment -b 124 -f 7 -i '' -t "$#n"
   }
 
   # Transient prompt works similarly to the builtin transient_rprompt option. It trims down prompt

@@ -255,6 +255,15 @@ notes() {
 	fi
 }
 
+nagf() {
+	results=$(nag ls | fzf -0 --multi --with-nth 2.. --delimiter '\t' --query "$*" --preview 'nag show {1}' --preview-window down:60%:wrap)
+	if [[ -n "$results" ]]; then
+		nag ack <<< "$results"
+	else
+		echo "no nag selected/found"
+	fi
+}
+
 # run mise task (fzf-powered)
 mr() {
 	local task
