@@ -17,6 +17,8 @@ networkmanager
 nm-connection-editor
 openssh
 pipewire
+pipewire-pulse
+pavucontrol
 polkit
 qt5-wayland
 qt6-wayland
@@ -88,10 +90,6 @@ ruff
 tinymist
 typst
 uv
-##
-# media
-pavucontrol
-pulseaudio
 ##
 # files
 gvfs
