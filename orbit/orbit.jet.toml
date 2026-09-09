@@ -3,8 +3,9 @@
 orbit_bin = "/home/guille/.local/share/mise/shims/orbit"
 
 [tasks.backup]
-command  = "/home/guille/.local/bin/backup.sh"
-schedule = "Wed *-*-* 09:00:00"
+command           = "/home/guille/.local/bin/backup.sh"
+schedule          = "Wed *-*-* 09:00:00"
+if_failed.command = "nag add -k backup_failed 'Backup failed'"
 
 [tasks.podman-container-prune]
 command  = "podman container prune -f"

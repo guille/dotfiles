@@ -46,6 +46,11 @@
     ]
   },
   "model": "opus[1m]",
+  "skillOverrides": {
+    "legacy-context": "name-only",
+    "code-review": "user-invocable-only",
+    "deploy": "off"
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -66,11 +71,6 @@
     "type": "command",
     "command": "~/.claude/statusline-command.sh",
     "padding": 1
-  },
-  "skillOverrides": {
-    "legacy-context": "name-only",
-    "code-review": "user-invocable-only",
-    "deploy": "off"
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
