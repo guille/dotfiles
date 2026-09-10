@@ -206,16 +206,19 @@ _fzf_comprun() {
 eval "$(zoxide init zsh --hook none)"
 # only add to zoxide when using z
 z() {
-    __zoxide_z "$@" && zoxide add -- "$(__zoxide_pwd)"
+	__zoxide_z "$@" && zoxide add -- "$(__zoxide_pwd)"
+	if [[ -d master ]]; then # for worktrees
+		cd master
+	fi
 }
 export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS \
  --keep-right --info=inline \
  --preview-window=down,30% --preview 'eza -1 --icons=always --color=always {2..}'\
 "
 function execute_zoxide() {
-  __zoxide_zi
-  # _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" __zoxide_zi
-  zle accept-line
+	__zoxide_zi
+	# _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" __zoxide_zi
+	zle accept-line
 }
 zle -N execute_zoxide
 bindkey '^[j' execute_zoxide # alt+j
@@ -225,6 +228,9 @@ function zz() {
 	result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --filter "${@:-}" | head -n1)
 	if [[ -n "$result" ]]; then
 		z "$result"
+		if [[ -d master ]]; then # for worktrees
+			cd master
+		fi
 	fi
 }
 # fuzzy search zoxide from its own db, with full paths (unlike zi) and bring up a fzf picker
@@ -233,6 +239,9 @@ function zzz() {
 	result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --query "${@:-}" --preview 'eza -1 --icons=always --color=always {}')
 	if [[ -n "$result" ]]; then
 		z "$result"
+		if [[ -d master ]]; then # for worktrees
+			cd master
+		fi
 	fi
 }
 
