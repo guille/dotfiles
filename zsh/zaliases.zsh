@@ -264,6 +264,38 @@ nagf() {
 	fi
 }
 
+# cd to another worktree of the current repo (fzf-powered)
+wt() {
+	local root
+	root=$(git rev-parse --git-common-dir 2>/dev/null) || { echo "not in a git repo"; return 1 }
+	root=${${root:A}:h}
+
+	# porcelain records are blank-line separated; the bare repo is not a target
+	local -a paths
+	paths=(${(f)"$(git worktree list --porcelain |
+		awk '/^worktree /{p = substr($0, 10)} /^bare$/{p = ""} !NF{if (p) print p; p = ""} END{if (p) print p}')"})
+
+	local here=$(git rev-parse --show-toplevel 2>/dev/null)
+	local p
+	local -a lines
+	for p in $paths; do
+		[[ $p == $here ]] && continue
+		lines+=("$p"$'\t'"${${p#$root/}:-${p:t}}")
+	done
+
+	local selected
+	selected=$(print -l -- $lines | fzf --select-1 --exit-0 --query "$*" \
+		--delimiter '\t' --with-nth 2 \
+		--preview 'git -C {1} -c color.status=always status -sb; echo; git -C {1} log --oneline -15 --color=always' \
+		--preview-window down:60%)
+
+	if [[ -n "$selected" ]]; then
+		cd "${selected%%$'\t'*}"
+	else
+		echo "no worktree selected/found"
+	fi
+}
+
 # run mise task (fzf-powered)
 mr() {
 	local task
