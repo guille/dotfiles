@@ -35,8 +35,6 @@
       "NotebookEdit",
       "WebSearch",
       "mcp__*",
-      "Edit(mise.local.toml)",
-      "Read(*.env*)",
       "Bash(rm *)"
     ],
     "defaultMode": "auto",
