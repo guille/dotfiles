@@ -266,9 +266,10 @@ nagf() {
 
 # cd to another worktree of the current repo (fzf-powered)
 wt() {
-	local root
-	root=$(git rev-parse --git-common-dir 2>/dev/null) || { echo "not in a git repo"; return 1 }
-	root=${${root:A}:h}
+	local gitdir
+	gitdir=$(git rev-parse --git-common-dir 2>/dev/null) || { echo "not in a git repo"; return 1 }
+	gitdir=${gitdir:A}
+	local root=${gitdir:h}
 
 	# porcelain records are blank-line separated; the bare repo is not a target
 	local -a paths
@@ -283,18 +284,40 @@ wt() {
 		lines+=("$p"$'\t'"${${p#$root/}:-${p:t}}")
 	done
 
+	# git refuses to remove a dirty or locked worktree, so surface its complaint
+	# in the header rather than tearing down the picker. Parens would be read
+	# back as action syntax; strip them.
+	local -x WT_GIT_DIR=$gitdir
+	local remove='transform:name={2}; if err=$(git --git-dir="$WT_GIT_DIR" worktree remove {1} 2>&1); then
+			echo "exclude+change-header(removed $name)"
+		else
+			echo "change-header($(printf "%s" "$err" | tr -d "()" | tr "\n" " "))"
+		fi'
+
 	local selected
 	selected=$(print -l -- $lines | fzf --select-1 --exit-0 --query "$*" \
 		--delimiter '\t' --with-nth 2 \
+		--header 'ctrl-d: git worktree remove' \
+		--bind "ctrl-d:$remove" \
 		--preview 'git -C {1} -c color.status=always status -sb; echo; git -C {1} log --oneline -15 --color=always' \
 		--preview-window down:60%)
 
 	if [[ -n "$selected" ]]; then
-		cd "${selected%%$'\t'*}"
+		local dir=${selected%%$'\t'*} name=${selected#*$'\t'}
+		echo "switching to $name"
+		cd "$dir"
 	else
 		echo "no worktree selected/found"
 	fi
 }
+
+_wt_widget() {
+    BUFFER='wt'
+    CURSOR=$#BUFFER
+    zle accept-line
+}
+zle -N _wt_widget
+bindkey '^[w' _wt_widget  # alt+w
 
 # run mise task (fzf-powered)
 mr() {
