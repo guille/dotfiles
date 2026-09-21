@@ -1,14 +1,14 @@
-import type { Plugin } from "@opencode-ai/plugin";
-import { $ } from "bun";
+import { Plugin } from "@opencode/plugin"
+import { spawn } from "node:child_process"
 
 /**
  * Event types that signal the user's attention is needed.
  */
 const NOTIFY_EVENTS = new Set([
-  "session.idle",     // generation completed
-  "session.error",    // an error occurred
-  "permission.asked", // permission needed (tool wants to run)
-  "question.asked",   // question tool invoked (user input requested)
+  "session.idle",             // generation completed
+  "session.execution.failed", // an error occurred
+  "permission.asked",         // permission needed (tool wants to run)
+  "form.created",             // question tool invoked (user input requested)
 ])
 
 /**
@@ -23,31 +23,38 @@ const NOTIFY_EVENTS = new Set([
  */
 const DEFAULT_COMMAND = `notify-send -i org.gnome.Robots "OpenCode" "Waiting for user ($OPENCODE_EVENT)"`
 
-export const NotifyPlugin: Plugin = async (ctx) => {
-  const { client } = ctx
-  const command =
-    process.env.OPENCODE_NOTIFY_COMMAND?.trim() || DEFAULT_COMMAND
+export default Plugin.define({
+  id: "notify",
+  setup: async (ctx) => {
+    const command = process.env.OPENCODE_NOTIFY_COMMAND?.trim() || DEFAULT_COMMAND
+    const controller = new AbortController()
 
-  return {
-    event: async ({ event }: { event: Event }): Promise<void> => {
-      const runtimeEvent = event as { type: string; properties: Record<string, unknown> }
-      if (!NOTIFY_EVENTS.has(runtimeEvent.type)) return
+    // fire-and-forget, never block OpenCode
+    const notify = (type: string) =>
+      spawn("sh", ["-c", command], {
+        env: { ...process.env, OPENCODE_EVENT: type },
+        stdio: "ignore",
+        detached: true,
+      })
+        .on("error", () => {})
+        .unref()
 
-      if (runtimeEvent.type === "session.idle") {
-        const activeSession = await client.session.get({ path: { id: runtimeEvent.properties.sessionID } })
+    const pump = async () => {
+      for await (const event of ctx.event.subscribe({ signal: controller.signal })) {
+        if (!NOTIFY_EVENTS.has(event.type)) continue
 
-        if (activeSession.data?.parentID) {
+        if (event.type === "session.idle") {
+          const session = await ctx.session.get({ sessionID: event.data.sessionID })
           // We're in a subagent, don't notify over session.idle
-          return
+          if (session.parentID) continue
         }
+
+        notify(event.type)
       }
-
-      // fire-and-forget, never block OpenCode
-      $`OPENCODE_EVENT=${runtimeEvent.type} sh -c ${command}`
-        .quiet()
-        .catch(() => { })
     }
-  }
-}
 
-export default NotifyPlugin;
+    void pump().catch(() => {})
+
+    return () => controller.abort()
+  },
+})
