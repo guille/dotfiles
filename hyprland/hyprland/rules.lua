@@ -111,10 +111,11 @@ hl.window_rule {
 }
 
 hl.window_rule {
-	name      = "libreoffice",
-	match     = { class = "^libreoffice-.*" },
+	name             = "libreoffice",
+	match            = { class = "^libreoffice-.*" },
 
-	workspace = 4,
+	workspace        = 4,
+	fullscreen_state = "0",
 }
 
 hl.window_rule {
