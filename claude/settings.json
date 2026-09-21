@@ -35,6 +35,7 @@
       "NotebookEdit",
       "WebSearch",
       "mcp__*",
+      "Bash(npx *)",
       "Bash(rm *)"
     ],
     "defaultMode": "auto",
