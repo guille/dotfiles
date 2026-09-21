@@ -6,11 +6,11 @@ import sublime
 
 
 class ClearConsoleCommand(sublime_plugin.WindowCommand):
-    def run(self):
+    def run(self, **kwargs: sublime_plugin.Value):
         p = sublime.load_settings("Preferences.sublime-settings")
         current = p.get("console_max_history_lines")
         try:
             p.set("console_max_history_lines", 1)
-            print("")
+            print()
         finally:
             p.set("console_max_history_lines", current)

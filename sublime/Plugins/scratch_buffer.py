@@ -46,7 +46,7 @@ class SyntaxPathInputHandler(sublime_plugin.ListInputHandler):
         return "Choose Scratch Buffer Syntax"
 
     def list_items(self) -> "list[sublime.ListInputItem]":
-        result: "list[sublime.ListInputItem]" = []
+        result: list[sublime.ListInputItem] = []
         for syntax in sorted(sublime.list_syntaxes(), key=lambda e: e.name):
             path = pathlib.PurePosixPath(syntax.path)
             package = path.parts[1]
@@ -72,7 +72,9 @@ class ScratchBufferCommand(sublime_plugin.WindowCommand):
     If `copy` is set, copies the syntax from the currently-opened view
     """
 
-    def run(self, syntax_path: str = "", copy: bool = False):
+    def run(
+        self, syntax_path: str = "", copy: bool = False, **kwargs: sublime_plugin.Value
+    ):
         if copy:
             view = self.window.active_view()
             syntax = view.syntax() if view else None
@@ -85,7 +87,7 @@ class ScratchBufferCommand(sublime_plugin.WindowCommand):
             )
 
         view = self.window.new_file()
-        view.set_name("Scratch: {}".format(syntax.name))
+        view.set_name(f"Scratch: {syntax.name}")
 
         view.set_scratch(True)
         view.assign_syntax(syntax)
@@ -111,5 +113,5 @@ class ScratchBufferListener(sublime_plugin.EventListener):
 
 
 class ToggleScratchCommand(sublime_plugin.TextCommand):
-    def run(self, edit: sublime.Edit):
+    def run(self, edit: sublime.Edit, **kwargs: sublime_plugin.Value):
         self.view.set_scratch(not self.view.is_scratch())

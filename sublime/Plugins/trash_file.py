@@ -7,7 +7,7 @@ class TrashFileCommand(sublime_plugin.WindowCommand):
     Prompts for confirmation when there are unsaved changes
     """
 
-    def run(self):
+    def run(self, **kwargs: sublime_plugin.Value):
         view = self.window.active_view()
         if view is None:
             return

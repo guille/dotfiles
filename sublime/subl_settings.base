@@ -54,4 +54,5 @@
 	"show_sidebar_untracked_label_colors": true,
 	// MarkdownEditing
 	"mde.auto_match_heading_hashes": false,
+	"terminal_command": "ghostty +new-window --working-directory=\"$dir\"",
 }

@@ -4,7 +4,7 @@ import sublime
 
 
 class CopyRelativePathCommand(sublime_plugin.WindowCommand):
-    def run(self):
+    def run(self, **kwargs: sublime_plugin.Value):
         view = self.window.active_view()
         if view is None:
             return

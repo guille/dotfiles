@@ -4,7 +4,7 @@ import sublime_plugin
 
 
 class MoveTabCommand(sublime_plugin.WindowCommand):
-    def run(self, forward: bool = False) -> None:
+    def run(self, forward: bool = False, **kwargs: sublime_plugin.Value) -> None:
         if not (view := self.window.active_view()):
             return
         group, index = self.window.get_view_index(view)

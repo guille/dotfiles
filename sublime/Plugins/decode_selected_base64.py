@@ -36,7 +36,7 @@ class DecodeSelectedBase64Command(sublime_plugin.TextCommand):
             max_height=2048,
         )
 
-    def run(self, edit: sublime.Edit):
+    def run(self, edit: sublime.Edit, **kwargs: sublime_plugin.Value):
         regions = [r for r in self.view.sel() if not r.empty()]
         try:
             decoded = "\n".join(_decode(self.view.substr(r)) for r in regions)

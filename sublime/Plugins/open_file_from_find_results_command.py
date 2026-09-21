@@ -9,7 +9,7 @@ import sublime
 class OpenFileFromFindResultsCommand(sublime_plugin.TextCommand):
     """Opens files from Find in Files/LSP diagnostic/Build output results when pressing Enter on a filename"""
 
-    def run(self, edit: sublime.Edit):
+    def run(self, edit: sublime.Edit, **kwargs: sublime_plugin.Value):
         view = self.view
         sel = view.sel()[0]
         window = view.window()

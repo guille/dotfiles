@@ -28,6 +28,7 @@ class SwitchCodeTestGenericCommand(sublime_plugin.WindowCommand):
         test_file_suffixes: "list[str]|None" = None,
         try_same_dir: bool = False,
         feeling_lucky: bool = False,
+        **kwargs: sublime_plugin.Value,
     ):
         if (
             source_root_markers is None
@@ -68,8 +69,8 @@ class SwitchCodeTestGenericCommand(sublime_plugin.WindowCommand):
 
         existing = [p for p in candidates if p.is_file()]
         # deduplicate while preserving order
-        seen: "set[Path]" = set()
-        unique: "list[Path]" = []
+        seen: set[Path] = set()
+        unique: list[Path] = []
         for p in existing:
             resolved = p.resolve()
             if resolved not in seen:
@@ -106,7 +107,7 @@ class SwitchCodeTestGenericCommand(sublime_plugin.WindowCommand):
         name = file_path.name
         stem = file_path.stem
         ext = file_path.suffix
-        results: "list[str]" = []
+        results: list[str] = []
         for prefix in prefixes:
             if prefix and name.startswith(prefix):
                 results.append(name[len(prefix) :])
@@ -125,7 +126,7 @@ class SwitchCodeTestGenericCommand(sublime_plugin.WindowCommand):
         name = file_path.name
         stem = file_path.stem
         ext = file_path.suffix
-        results: "list[str]" = []
+        results: list[str] = []
         for prefix in prefixes:
             if prefix:
                 results.append(prefix + name)
@@ -217,7 +218,7 @@ class SwitchCodeTestGenericCommand(sublime_plugin.WindowCommand):
                     return [candidate]
             return []
 
-        candidates: "list[Path]" = []
+        candidates: list[Path] = []
         parts = file_path.parts
 
         for test_marker in test_root_markers:
@@ -269,7 +270,7 @@ class SwitchCodeTestGenericCommand(sublime_plugin.WindowCommand):
                     return [candidate]
             return []
 
-        candidates: "list[Path]" = []
+        candidates: list[Path] = []
         parts = file_path.parts
 
         for source_marker in source_root_markers:

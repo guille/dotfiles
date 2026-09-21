@@ -47,22 +47,18 @@ class RunOnSaveTask(TypedDict):
     syntax: "NotRequired[str]"
 
 
+def expand(value: str, variables: "dict[str, str]") -> str:
+    return cast(str, sublime.expand_variables(value, variables))
+
+
 class ProjectRunOnSaveListener(sublime_plugin.EventListener):
     def run_task(self, task: RunOnSaveTask, window: sublime.Window):
         variables = window.extract_variables()
-        expanded_cmd = cast(
-            "list[str]", sublime.expand_variables(task["cmd"], variables)
-        )
-        working_dir: str = cast(
-            str,
-            sublime.expand_variables(
-                task.get("working_dir", "$project_path"),
-                variables,
-            ),
-        )
+        expanded_cmd = [expand(arg, variables) for arg in task["cmd"]]
+        working_dir = expand(task.get("working_dir", "$project_path"), variables)
         if task.get("build_panel", False):
-            args: sublime.CommandArgs = {
-                "cmd": expanded_cmd,
+            args: dict[str, sublime.Value] = {
+                "cmd": [*expanded_cmd],
                 "working_dir": working_dir,
             }
             if syntax := task.get("syntax"):
@@ -94,7 +90,7 @@ class ProjectRunOnSaveListener(sublime_plugin.EventListener):
             return
 
         if project_data := cast("dict[str, Any]", window.project_data()):
-            tasks: "list[RunOnSaveTask]" = (
+            tasks: list[RunOnSaveTask] = (
                 project_data.get("config", {})
                 .get("run_on_save", {})
                 .get(syntax.scope, [])

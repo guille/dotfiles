@@ -1,10 +1,9 @@
 {
-  // TODO: ST>4200 changes to Python 3.14
   "extraPaths": [
-    "/Applications/Sublime Text.app/Contents/MacOS/Lib/python38",
+    "/Applications/Sublime Text.app/Contents/MacOS/Lib/python314",
     "/Applications/Sublime Text.app/Contents/MacOS/Lib/python3",
     "/Applications/Sublime Text.app/Contents/MacOS/Packages",
-    "/opt/sublime_text/Lib/python38",
+    "/opt/sublime_text/Lib/python314",
     "/opt/sublime_text/Lib/python3",
     "/opt/sublime_text/Packages",
   ],
@@ -12,7 +11,7 @@
   "executionEnvironments": [
     {
       "root": "sublime/",
-      "pythonVersion": "3.8",
+      "pythonVersion": "3.14",
     },
   ]
 }

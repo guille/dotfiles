@@ -1,5 +1,4 @@
 import re
-from typing import Dict, Optional
 
 import sublime_plugin
 
@@ -9,7 +8,7 @@ _WORD_ONLY = re.compile(r"\w+")
 
 # view id -> the region this command added last, so repeated presses walk forward
 # from it instead of from the bottom-most selection.
-_last_added: Dict[int, sublime.Region] = {}
+_last_added: dict[int, sublime.Region] = {}
 
 
 def _is_word_char(view: sublime.View, pt: int) -> bool:
@@ -39,7 +38,7 @@ def _next_match(
     whole_word: bool,
     start: int,
     taken: sublime.Selection,
-) -> Optional[sublime.Region]:
+) -> sublime.Region | None:
     while start <= view.size():
         found = view.find(text, start, sublime.FindFlags.LITERAL)
         if found.begin() < 0:  # find() returns Region(-1, -1) when there is no match
@@ -55,7 +54,7 @@ def _next_match(
 
 
 class FindNextWordCommand(sublime_plugin.TextCommand):
-    def run(self, edit: sublime.Edit):
+    def run(self, edit: sublime.Edit, **kwargs: sublime_plugin.Value):
         view = self.view
         sel = view.sel()
         if not len(sel):

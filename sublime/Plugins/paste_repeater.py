@@ -4,7 +4,7 @@ import sublime
 
 
 class PasteRepeaterCommand(sublime_plugin.TextCommand):
-    def run(self, edit: sublime.Edit):
+    def run(self, edit: sublime.Edit, **kwargs: sublime_plugin.Value):
         if window := self.view.window():
             window.show_input_panel(
                 "PasteRepeater: How many times? ", "", self.on_done, None, None

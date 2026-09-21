@@ -4,7 +4,7 @@ import sublime
 
 
 class RenameTabCommand(sublime_plugin.TextCommand):
-    def run(self, edit: sublime.Edit):
+    def run(self, edit: sublime.Edit, **kwargs: sublime_plugin.Value):
         window = self.view.window()
         if window is None:
             return

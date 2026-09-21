@@ -26,7 +26,7 @@ class NewProjectFromRootCommand(sublime_plugin.WindowCommand):
         if view is not None:
             view.show_popup(html, max_width=2048, max_height=2048)
 
-    def run(self):
+    def run(self, **kwargs: sublime_plugin.Value):
         if self.window.project_file_name() or self.window.workspace_file_name():
             self._popup_error("Already in project!")
             return
