@@ -17,7 +17,6 @@
 "npm:oxlint"                            = "latest"
 "npm:svelte-language-server"            = "latest"
 "npm:typescript"                        = "latest"
-"npm:typescript-language-server"        = "latest"
 "npm:yaml-language-server"              = "latest"
 "pipx:basedpyright"                     = "latest"
 "pipx:dmn-pty"                          = { version = "latest", minimum_release_age = "0d" }

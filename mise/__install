@@ -161,7 +161,6 @@ bootstrap_mise() {
 	mise use --global npm:@actions/languageserver
 	mise use --global npm:dockerfile-language-server-nodejs
 	mise use --global npm:typescript
-	mise use --global npm:typescript-language-server
 	mise use --global npm:yaml-language-server
 	mise use --global npm:oxfmt
 	mise use --global npm:oxlint
