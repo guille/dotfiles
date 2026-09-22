@@ -2,7 +2,7 @@
 if [[ -o login ]]; then
     eval "$(mise activate zsh --shims)"
     set -a
-    eval $(mise env --dotenv)
+    eval "$(mise env -s zsh)"
     set +a
 fi
 
