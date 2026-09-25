@@ -1,7 +1,6 @@
 configuration {
-	modi: "window,drun,ssh,combi";
+	modes: "drun";
 	font: "0xProto Nerd Font 10";
-	combi-modi: "drun";
 	case-sensitive: false;
 	normalize-match: true;
 	show-icons: true;
@@ -10,6 +9,10 @@ configuration {
 	drun-match-fields: "name,exec";
 	matching: "fuzzy";
 	sorting-method: "fzf";
+	/*
+	TODO: rofi >= 2.0.0
+	sorting-method: "fzf-v2";
+	*/
 	display-drun: "Apps";
 
 	drun {
