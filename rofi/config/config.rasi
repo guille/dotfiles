@@ -1,7 +1,8 @@
 configuration {
 	modes: "drun";
 	font: "0xProto Nerd Font 10";
-	case-sensitive: false;
+	case-smart: true;
+	matching-negate-char: "";
 	normalize-match: true;
 	show-icons: true;
 	sort: true;
@@ -14,6 +15,10 @@ configuration {
 	sorting-method: "fzf-v2";
 	*/
 	display-drun: "Apps";
+	display-run:                "";
+	display-filebrowser:        "";
+	display-window:             "";
+	window-format:              "{w} · {c} · {t}";
 
 	drun {
 		fallback-icon: "application-x-addon";

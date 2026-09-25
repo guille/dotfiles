@@ -1,0 +1,598 @@
+%YAML 1.2
+---
+# Rofi Advanced Style Information, as parsed by rofi's lexer/theme-lexer.l
+# and lexer/theme-parser.y.
+name: Rasi
+scope: source.rasi
+version: 2
+
+file_extensions:
+  - rasi
+  - rasinc
+
+variables:
+  break: '(?![[:alnum:]-])'
+  word: '[[:alnum:]-]+'
+  element: '[[:alpha:]][[:alnum:]-]*'
+  env_name: '[[:alpha:]_][[:alnum:]_]*'
+  units: '(?:(?:px|mm|em|ch|(?i:deg|grad|rad|turn)){{break}}|%)'
+  media_types: '(?:monitor-id|(?:min|max)-(?:width|height|aspect-ratio)|enabled)'
+  position: |-
+    (?xi:
+      (?:north|south)(?:east|west)?
+    | (?:east|west)(?:north|south)?
+    | center
+    ){{break}}
+  keyword_values: |-
+    (?xi:
+      none | bold | underline | italic | strikethrough
+    | uppercase | lowercase | capitalize
+    | dash | solid
+    | horizontal | vertical
+    | default | pointer | text
+    ){{break}}
+  color_names: |-
+    (?xi:
+      aliceblue | antiquewhite | aqua | aquamarine | azure | beige | bisque
+    | black | blanchedalmond | blue | blueviolet | brown | burlywood
+    | cadetblue | chartreuse | chocolate | coral | cornflowerblue | cornsilk
+    | crimson | cyan | darkblue | darkcyan | darkgoldenrod | darkgray
+    | darkgrey | darkgreen | darkkhaki | darkmagenta | darkolivegreen
+    | darkorange | darkorchid | darkred | darksalmon | darkseagreen
+    | darkslateblue | darkslategray | darkslategrey | darkturquoise
+    | darkviolet | deeppink | deepskyblue | dimgray | dimgrey | dodgerblue
+    | firebrick | floralwhite | forestgreen | fuchsia | gainsboro
+    | ghostwhite | gold | goldenrod | gray | grey | green | greenyellow
+    | honeydew | hotpink | indianred | indigo | ivory | khaki | lavender
+    | lavenderblush | lawngreen | lemonchiffon | lightblue | lightcoral
+    | lightcyan | lightgoldenrodyellow | lightgray | lightgrey | lightgreen
+    | lightpink | lightsalmon | lightseagreen | lightskyblue
+    | lightslategray | lightslategrey | lightsteelblue | lightyellow | lime
+    | limegreen | linen | magenta | maroon | mediumaquamarine | mediumblue
+    | mediumorchid | mediumpurple | mediumseagreen | mediumslateblue
+    | mediumspringgreen | mediumturquoise | mediumvioletred | midnightblue
+    | mintcream | mistyrose | moccasin | navajowhite | navy | oldlace
+    | olive | olivedrab | orange | orangered | orchid | palegoldenrod
+    | palegreen | paleturquoise | palevioletred | papayawhip | peachpuff
+    | peru | pink | plum | powderblue | purple | rebeccapurple | red
+    | rosybrown | royalblue | saddlebrown | salmon | sandybrown | seagreen
+    | seashell | sienna | silver | skyblue | slateblue | slategray
+    | slategrey | snow | springgreen | steelblue | tan | teal | thistle
+    | tomato | turquoise | violet | wheat | white | whitesmoke | yellow
+    | yellowgreen
+    ){{break}}
+
+contexts:
+  prototype:
+    - include: comments
+
+  main:
+    - include: imports
+    - include: media
+    - include: configuration
+    - include: sections
+    - match: \}
+      scope: invalid.illegal.stray-bracket.rasi
+
+###[ COMMENTS ]################################################################
+
+  comments:
+    - match: //
+      scope: punctuation.definition.comment.rasi
+      push: line-comment
+    - match: /\*
+      scope: punctuation.definition.comment.begin.rasi
+      push: block-comment
+
+  line-comment:
+    - meta_include_prototype: false
+    - meta_scope: comment.line.double-slash.rasi
+    - match: $\n?
+      pop: 1
+
+  block-comment:
+    - meta_include_prototype: false
+    - meta_scope: comment.block.rasi
+    - include: block-comment-content
+
+  nested-block-comment:
+    - meta_include_prototype: false
+    - include: block-comment-content
+
+  block-comment-content:
+    - match: \*/
+      scope: punctuation.definition.comment.end.rasi
+      pop: 1
+    - match: /\*
+      scope: punctuation.definition.comment.begin.rasi
+      push: nested-block-comment
+
+###[ IMPORTS ]#################################################################
+
+  imports:
+    - match: (?:(@)(?:import|theme)|(\?)import){{break}}
+      scope: keyword.control.import.rasi
+      captures:
+        1: punctuation.definition.keyword.rasi
+        2: punctuation.definition.keyword.rasi
+      push: [import-meta, import-path]
+
+  import-meta:
+    - meta_include_prototype: false
+    - meta_scope: meta.at-rule.import.rasi
+    - include: immediately-pop
+
+  import-path:
+    - match: (?=["'])
+      set: string
+    - include: else-pop
+
+###[ MEDIA ]###################################################################
+
+  media:
+    - match: (@)media{{break}}
+      scope: keyword.control.at-rule.media.rasi
+      captures:
+        1: punctuation.definition.keyword.rasi
+      push: media-prelude
+
+  media-prelude:
+    - meta_scope: meta.at-rule.media.rasi
+    - match: \(
+      scope: punctuation.section.group.begin.rasi
+      push: media-query
+    - match: (?=\{)
+      set: media-body
+    - include: else-pop
+
+  media-query:
+    - meta_scope: meta.group.rasi
+    - match: \)
+      scope: punctuation.section.group.end.rasi
+      pop: 1
+    - match: '{{media_types}}{{break}}'
+      scope: support.type.property-name.media.rasi
+    - match: ':'
+      scope: punctuation.separator.key-value.rasi
+    - match: (?i:dmenu){{break}}
+      scope: constant.language.dmenu.rasi
+    - include: booleans
+    - include: numbers
+    - include: minus
+    - include: env-function
+    - match: (?=[;{}])
+      pop: 1
+
+  media-body:
+    - match: \{
+      scope: punctuation.section.block.begin.rasi
+      set: media-block
+
+  media-block:
+    - meta_scope: meta.block.rasi
+    - match: \}
+      scope: punctuation.section.block.end.rasi
+      pop: 1
+    - include: main
+
+###[ SECTIONS ]################################################################
+
+  configuration:
+    - match: (?i:configuration){{break}}
+      scope: meta.selector.rasi keyword.other.configuration.rasi
+      push: configuration-block
+
+  configuration-block:
+    - match: \{
+      scope: punctuation.section.block.begin.rasi
+      set: configuration-body
+    - include: else-pop
+
+  configuration-body:
+    - meta_scope: meta.block.rasi
+    - include: block-end
+    - match: (?={{word}}(?:\s*,\s*{{word}})*\s*\{)
+      push: [section-block, configuration-section-names]
+    - include: properties
+
+  configuration-section-names:
+    - meta_scope: meta.selector.rasi
+    - match: '{{word}}'
+      scope: entity.name.tag.rasi
+    - match: ','
+      scope: punctuation.separator.sequence.rasi
+    - include: else-pop
+
+  sections:
+    - match: \*
+      scope: meta.selector.rasi entity.name.tag.wildcard.rasi
+      push: section-block
+    - match: (?=#|{{element}})
+      push: [section-block, selector]
+
+  selector:
+    - meta_scope: meta.selector.rasi
+    - match: (#)?({{element}})
+      captures:
+        1: punctuation.definition.entity.rasi
+        2: entity.name.tag.rasi
+      push: selector-states
+    - match: ','
+      scope: punctuation.separator.sequence.rasi
+    - include: else-pop
+
+  selector-states:
+    - match: \.
+      scope: punctuation.separator.path.rasi
+    - match: '{{element}}'
+      scope: entity.other.attribute-name.state.rasi
+    - include: else-pop
+
+  section-block:
+    - match: \{
+      scope: punctuation.section.block.begin.rasi
+      set: section-body
+    - include: else-pop
+
+  section-body:
+    - meta_scope: meta.block.rasi
+    - include: block-end
+    - include: properties
+
+  block-end:
+    - match: \}
+      scope: punctuation.section.block.end.rasi
+      pop: 1
+
+###[ PROPERTIES ]##############################################################
+
+  properties:
+    - match: '{{word}}'
+      scope: meta.property-name.rasi support.type.property-name.rasi
+      push: property-separator
+
+  property-separator:
+    - match: ':'
+      scope: punctuation.separator.key-value.rasi
+      set: property-value
+    - include: else-pop
+
+  property-value:
+    - meta_content_scope: meta.property-value.rasi
+    - match: ;
+      scope: punctuation.terminator.rule.rasi
+      pop: 1
+    - match: (?=\})
+      pop: 1
+    - include: values
+
+  values:
+    - include: strings
+    - include: hex-colors
+    - include: color-functions
+    - include: calc-function
+    - include: var-function
+    - include: env-function
+    - include: url-function
+    - include: gradient-function
+    - include: lists
+    - include: common-values
+    # Unquoted words outside lists are a rofi parse error. Consuming them
+    # stops keywords matching mid-word.
+    - match: '{{element}}'
+    - match: /
+      scope: punctuation.separator.sequence.rasi
+    - match: ','
+      scope: punctuation.separator.sequence.rasi
+
+  # Values also valid inside lists.
+  common-values:
+    - include: env-expansion
+    - include: references
+    - include: numbers
+    - include: minus
+    - include: booleans
+    - include: inherit
+    - include: keywords
+    - include: color-names
+
+###[ LISTS ]###################################################################
+
+  lists:
+    - match: \[
+      scope: punctuation.section.sequence.begin.rasi
+      push: list-body
+
+  list-body:
+    - meta_scope: meta.sequence.list.rasi
+    - match: \]
+      scope: punctuation.section.sequence.end.rasi
+      pop: 1
+    - match: ','
+      scope: punctuation.separator.sequence.rasi
+    - include: list-strings
+    - include: calc-function
+    - include: common-values
+    - match: '{{element}}'
+      scope: string.unquoted.rasi
+    - match: (?=[;}])
+      pop: 1
+
+###[ STRINGS ]#################################################################
+
+  strings:
+    - match: (?=["'])
+      push: string
+
+  string:
+    - match: '"'
+      scope: punctuation.definition.string.begin.rasi
+      set: double-quoted-string
+    - match: "'"
+      scope: punctuation.definition.string.begin.rasi
+      set: single-quoted-string
+
+  double-quoted-string:
+    - meta_include_prototype: false
+    - meta_scope: string.quoted.double.rasi
+    - match: '"'
+      scope: punctuation.definition.string.end.rasi
+      pop: 1
+    - include: string-escapes
+    - include: string-eol
+
+  single-quoted-string:
+    - meta_include_prototype: false
+    - meta_scope: string.quoted.single.rasi
+    - match: "'"
+      scope: punctuation.definition.string.end.rasi
+      pop: 1
+    - include: string-escapes
+    - include: string-eol
+
+  string-escapes:
+    - match: \\(?:[0-7]{1,3}|.)
+      scope: constant.character.escape.rasi
+
+  string-eol:
+    - match: \n
+      scope: invalid.illegal.unclosed-string.rasi
+      pop: 1
+
+  # Inside lists the lexer ends a string at the first matching quote, so a
+  # backslash cannot escape it.
+  list-strings:
+    - match: '"'
+      scope: punctuation.definition.string.begin.rasi
+      push: list-double-quoted-string
+    - match: "'"
+      scope: punctuation.definition.string.begin.rasi
+      push: list-single-quoted-string
+
+  list-double-quoted-string:
+    - meta_include_prototype: false
+    - meta_scope: string.quoted.double.rasi
+    - match: '"'
+      scope: punctuation.definition.string.end.rasi
+      pop: 1
+    - match: \\(?:[0-7]{1,3}|[^"])
+      scope: constant.character.escape.rasi
+    - include: string-eol
+
+  list-single-quoted-string:
+    - meta_include_prototype: false
+    - meta_scope: string.quoted.single.rasi
+    - match: "'"
+      scope: punctuation.definition.string.end.rasi
+      pop: 1
+    - match: \\(?:[0-7]{1,3}|[^'])
+      scope: constant.character.escape.rasi
+    - include: string-eol
+
+###[ COLORS ]##################################################################
+
+  hex-colors:
+    - match: (#)(?:\h{8}|\h{6}|\h{3,4}){{break}}
+      scope: constant.other.color.rgb-value.rasi
+      captures:
+        1: punctuation.definition.constant.rasi
+    - match: (argb:)\h{8}{{break}}
+      scope: constant.other.color.argb-value.rasi
+      captures:
+        1: punctuation.definition.constant.rasi
+    - match: '#[[:alnum:]-]*|argb:[[:alnum:]-]*'
+      scope: invalid.illegal.color.rasi
+
+  color-names:
+    - match: (?i:transparent){{break}}
+      scope: support.constant.color.w3c-special-color-keyword.rasi
+    - match: '{{color_names}}'
+      scope: support.constant.color.w3c-standard-color-name.rasi
+
+  color-functions:
+    - match: ((?i:rgba?|hsla?|hwb|cmyk))\s*(\()
+      captures:
+        1: meta.function-call.identifier.rasi support.function.color.rasi
+        2: meta.function-call.arguments.rasi punctuation.section.group.begin.rasi
+      push: color-function-arguments
+
+  color-function-arguments:
+    - meta_content_scope: meta.function-call.arguments.rasi
+    - include: function-end
+    - include: numbers
+    - include: minus
+    - include: env-expansion
+    - match: '[,/]'
+      scope: punctuation.separator.sequence.rasi
+    - include: function-bail
+
+###[ FUNCTIONS ]###############################################################
+
+  calc-function:
+    - match: ((?i:calc))\s*(\()
+      captures:
+        1: meta.function-call.identifier.rasi support.function.calc.rasi
+        2: meta.function-call.arguments.rasi punctuation.section.group.begin.rasi
+      push: calc-arguments
+
+  calc-arguments:
+    - meta_content_scope: meta.function-call.arguments.rasi
+    - include: function-end
+    - include: calc-expression
+
+  calc-group:
+    - meta_scope: meta.group.rasi
+    - match: \)
+      scope: punctuation.section.group.end.rasi
+      pop: 1
+    - include: calc-expression
+
+  calc-expression:
+    - match: \(
+      scope: punctuation.section.group.begin.rasi
+      push: calc-group
+    - include: numbers
+    - include: env-expansion
+    - match: '[-+*/]'
+      scope: keyword.operator.arithmetic.rasi
+    - match: (?:modulo|min|max|round|floor|ceil){{break}}
+      scope: keyword.operator.word.rasi
+    - include: function-bail
+
+  var-function:
+    - match: (var)\s*(\()
+      captures:
+        1: meta.function-call.identifier.rasi support.function.var.rasi
+        2: meta.function-call.arguments.rasi punctuation.section.group.begin.rasi
+      push: [function-default-value, var-name]
+
+  var-name:
+    - match: '{{element}}'
+      scope: variable.other.reference.rasi
+      pop: 1
+    - include: else-pop
+
+  env-function:
+    - match: (env)\s*(\()
+      captures:
+        1: meta.function-call.identifier.rasi support.function.env.rasi
+        2: meta.function-call.arguments.rasi punctuation.section.group.begin.rasi
+      push: [function-default-value, env-name]
+
+  env-name:
+    - match: '{{env_name}}'
+      scope: variable.other.environment.rasi
+      pop: 1
+    - include: else-pop
+
+  function-default-value:
+    - meta_content_scope: meta.function-call.arguments.rasi
+    - include: function-end
+    - include: function-bail
+    - include: values
+
+  url-function:
+    - match: ((?i:url))\s*(\()
+      captures:
+        1: meta.function-call.identifier.rasi support.function.url.rasi
+        2: meta.function-call.arguments.rasi punctuation.section.group.begin.rasi
+      push: url-arguments
+
+  url-arguments:
+    - meta_content_scope: meta.function-call.arguments.rasi
+    - include: function-end
+    - include: strings
+    - match: (?i:none|both|width|height){{break}}
+      scope: support.constant.property-value.rasi
+    - match: ','
+      scope: punctuation.separator.sequence.rasi
+    - include: function-bail
+
+  gradient-function:
+    - match: ((?i:linear-gradient))\s*(\()
+      captures:
+        1: meta.function-call.identifier.rasi support.function.gradient.rasi
+        2: meta.function-call.arguments.rasi punctuation.section.group.begin.rasi
+      push: gradient-arguments
+
+  gradient-arguments:
+    - meta_content_scope: meta.function-call.arguments.rasi
+    - include: function-end
+    - match: (?i:to){{break}}
+      scope: keyword.other.rasi
+    - match: (?i:top|left|right|bottom){{break}}
+      scope: support.constant.property-value.rasi
+    - include: hex-colors
+    - include: color-functions
+    - include: env-expansion
+    - include: references
+    - include: numbers
+    - include: minus
+    - include: color-names
+    - match: '[,/]'
+      scope: punctuation.separator.sequence.rasi
+    - include: function-bail
+
+  function-end:
+    - match: \)
+      scope: meta.function-call.arguments.rasi punctuation.section.group.end.rasi
+      pop: 1
+
+  function-bail:
+    - match: (?=[;{}])
+      pop: 1
+
+###[ SCALARS ]#################################################################
+
+  numbers:
+    - match: (\d+\.\d+)(?:[ \t]*({{units}}))?
+      scope: meta.number.float.decimal.rasi
+      captures:
+        1: constant.numeric.value.rasi
+        2: constant.numeric.suffix.rasi
+    - match: (\d+)(?:[ \t]*({{units}}))?
+      scope: meta.number.integer.decimal.rasi
+      captures:
+        1: constant.numeric.value.rasi
+        2: constant.numeric.suffix.rasi
+
+  minus:
+    - match: '-'
+      scope: keyword.operator.arithmetic.rasi
+
+  booleans:
+    - match: true{{break}}
+      scope: constant.language.boolean.true.rasi
+    - match: false{{break}}
+      scope: constant.language.boolean.false.rasi
+
+  inherit:
+    - match: inherit{{break}}
+      scope: constant.language.inherit.rasi
+
+  keywords:
+    - match: '{{position}}|{{keyword_values}}'
+      scope: support.constant.property-value.rasi
+
+  references:
+    - match: (@){{word}}
+      scope: variable.other.reference.rasi
+      captures:
+        1: punctuation.definition.variable.rasi
+
+  env-expansion:
+    - match: (\$\{){{env_name}}(\})
+      scope: variable.other.environment.rasi
+      captures:
+        1: punctuation.definition.variable.begin.rasi
+        2: punctuation.definition.variable.end.rasi
+
+###[ PROTOTYPES ]##############################################################
+
+  else-pop:
+    - match: (?=\S)
+      pop: 1
+
+  immediately-pop:
+    - match: ''
+      pop: 1

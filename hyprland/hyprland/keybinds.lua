@@ -12,7 +12,9 @@ hl.bind("SUPER + J", hl.dsp.exec_cmd("emoji --rofi"))
 hl.bind("SUPER + T", hl.dsp.exec_cmd(config.terminal_window .. " -e zsh -ic nnn", { workspace = 3 }))
 
 -- Clipboard
-hl.bind("SUPER + P", hl.dsp.exec_cmd("cliphist list | rofi -i -dmenu | cliphist decode | wl-copy"))
+hl.bind("SUPER + P",
+	hl.dsp.exec_cmd(
+	"cliphist list | rofi -dmenu -display-columns 2 -no-show-icons -no-custom -p 📋 | cliphist decode | wl-copy"))
 
 hl.bind("Print",
 	hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | tee " .. config.screenshots_dir .. "/$(date +%F-%T).png | wl-copy"))

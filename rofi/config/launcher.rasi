@@ -2,18 +2,6 @@
  * Adapted from https://github.com/adi1090x/rofi
  **/
 
-/*****----- Configuration -----*****/
-configuration {
-	modi:                       "drun";
-    show-icons:                 true;
-    display-drun:               "Apps";
-    display-run:                "";
-    display-filebrowser:        "";
-    display-window:             "";
-	drun-display-format:        "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
-	window-format:              "{w} · {c} · {t}";
-}
-
 /*****----- Global Properties -----*****/
 @import                          "~/.config/rofi/colors/arc.rasi"
 
