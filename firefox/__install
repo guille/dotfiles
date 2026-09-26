@@ -33,7 +33,17 @@ while IFS= read -r profile; do
 	ln -sfv "${SCRIPT_BASE_DIR}/$module_name/user.js" "$HOME/.config/mozilla/firefox/$profile/user.js" 1> /dev/null
 	ln -sfv "${SCRIPT_BASE_DIR}/$module_name/customKeys.json" "$HOME/.config/mozilla/firefox/$profile/customKeys.json" 1> /dev/null
 
+	# Custom extensions
 	if [ ! -f "$HOME/.config/mozilla/firefox/$profile/extensions/tab-finder@dotfiles.xpi" ]; then
-		firefox -P "$profile" "${SCRIPT_BASE_DIR}"/$module_name/tab-finder*.xpi
+		curl -fsSL -o "$HOME/.config/mozilla/firefox/$profile/extensions/tab-finder@dotfiles.xpi" \
+		  https://github.com/guille/firefox-tab-finder/releases/latest/download/tab-finder.xpi
+
+		firefox -P "$profile" "${SCRIPT_BASE_DIR}"/$module_name/tab-finder@dotfiles.xpi
+	fi
+
+	if [ ! -f "$HOME/.config/mozilla/firefox/$profile/extensions/florilegio@personal.xpi" ]; then
+		curl -fsSL -o "$HOME/.config/mozilla/firefox/$profile/extensions/florilegio@personal.xpi" \
+		  https://github.com/guille/florilegio/releases/latest/download/florilegio.xpi
+		firefox -P "$profile" "${SCRIPT_BASE_DIR}"/$module_name/florilegio@personal.xpi
 	fi
 done <<< "$profiles"
