@@ -219,6 +219,9 @@ function execute_zoxide() {
 	__zoxide_zi
 	# _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" __zoxide_zi
 	zle accept-line
+	if [[ -d master ]]; then # for worktrees
+		cd master
+	fi
 }
 zle -N execute_zoxide
 bindkey '^[j' execute_zoxide # alt+j
