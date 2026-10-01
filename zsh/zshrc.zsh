@@ -150,6 +150,8 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 	export MANROFFOPT="-c"
 fi
 
+export LESS="-i -W -R"
+
 # ══════════════════════ tools: fzf ══════════════════════
 
 source <(fzf --zsh)
