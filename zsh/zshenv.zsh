@@ -18,6 +18,8 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/ripgreprc"
 export OPENCODE_DISABLE_LSP_DOWNLOAD=true
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
+export GOPRIVATE="go.guillerg.dev/arca"
+
 # export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 [[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
