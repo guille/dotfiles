@@ -1,0 +1,12 @@
+{
+	"$schema": "https://opencode.ai/v2/cli.json",
+	"tabs": {
+		"mode": "off",
+	},
+	"theme": {
+		"mode": "system"
+	},
+	// "attention": {
+	// 	"notifications": true,
+	// }
+}

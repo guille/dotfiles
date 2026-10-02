@@ -1,108 +1,107 @@
 {
-  "$schema": "https://opencode.ai/config.json",
-  "theme": "system",
-  "default_agent": "plan",
-  "share": "disabled",
-  "snapshot": false,
-  "autoupdate": false,
-  "permission": {
-    "*": "ask",
-    "edit": {
-      "*": "allow",
-      "mise.toml": "deny",
-      "mise.local.toml": "deny",
-    },
-    "glob": "allow",
-    "list": "allow",
-    "grep": "allow",
-    "todowrite": "allow",
-    "todoread": "allow",
-    "read": {
-      "*": "allow",
-      "*.env*": "deny"
-    },
-    // Bug: https://github.com/anomalyco/opencode/issues/17722
-    // "task": {
-    //   "*": "ask",
-    //   "explore": "allow"
-    // },
-    "webfetch": "ask",
-    "bash": {
-      "*": "ask",
-      "bundle exec rspec *": "allow",
-      "bundle exec rubocop *": "allow",
-      "dart analyze *": "allow",
-      "flutter analyze *": "allow",
-      "flutter gen-l10n *": "allow",
-      "flutter test *": "allow",
-      "go build *": "allow",
-      "go env *": "allow",
-      "go test *": "allow",
-      "go vet *": "allow",
-      "gotestsum *": "allow",
-      "grep *": "allow",
-      "head *": "allow",
-      "ls *": "allow",
-      "mise run *": "allow",
-      "mix *": "allow",
-      "mkdir *": "allow",
-      "rg *": "allow",
-      "rm *": "deny",
-      "sort *": "allow",
-      "tail *": "allow",
-      "true": "allow",
-      "uv run pytest *": "allow",
-      "wc *": "allow",
-    },
-    "external_directory": {
-      "*": "ask",
-      "~/go/pkg/mod/**": "allow",
-      "~/work/**": "allow",
-      "/tmp/**": "ask",
-      "/tmp/opencode-summarized/**": "allow"
-    },
-  },
-  "enabled_providers": [
-    "github-copilot",
-    "opencode",
-  ],
-  "experimental": {
-    "continue_loop_on_deny": true
-  },
-  "lsp": {
-    "yaml-ls": {
-      "command": [
-        "yaml-language-server",
-        "--stdio"
-      ],
-      "extensions": [
-        ".yaml",
-        ".yml",
-        ".sublime-syntax"
-      ]
-    },
-    "kotlin-ls": {
-      "disabled": true
-    },
-    "lua-ls": {
-      "disabled": true
-    },
-    "pyright": {
-      "disabled": true
-    },
-    "basedpyright": {
-      "disabled": false,
-      "command": [
-        "basedpyright-langserver",
-        "--stdio"
-      ],
-      "initialization": {
-        "basedpyright.analysis.typeCheckingMode": "standard"
-      },
-      "extensions": [
-        ".py",
-        ".pyi"
-      ]
-    }
-  },
+	"$schema": "https://opencode.ai/config.json",
+	"default_agent": "plan",
+	"theme": "system",
+	"share": "disabled",
+	"snapshot": false,
+	"autoupdate": false,
+	"permission": {
+		"*": "ask",
+		"edit": {
+			"*": "allow",
+			"mise.toml": "deny",
+			"mise.local.toml": "deny",
+		},
+		"glob": "allow",
+		"list": "allow",
+		"grep": "allow",
+		"todowrite": "allow",
+		"todoread": "allow",
+		"read": {
+			"*": "allow",
+			"*.env*": "deny"
+		},
+		// Bug: https://github.com/anomalyco/opencode/issues/17722
+		// "task": {
+		//   "*": "ask",
+		//   "explore": "allow"
+		// },
+		"webfetch": "ask",
+		"bash": {
+			"*": "ask",
+			"bundle exec rspec *": "allow",
+			"bundle exec rubocop *": "allow",
+			"dart analyze *": "allow",
+			"flutter analyze *": "allow",
+			"flutter gen-l10n *": "allow",
+			"flutter test *": "allow",
+			"go build *": "allow",
+			"go env *": "allow",
+			"go test *": "allow",
+			"go vet *": "allow",
+			"gotestsum *": "allow",
+			"grep *": "allow",
+			"head *": "allow",
+			"ls *": "allow",
+			"mise run *": "allow",
+			"mix *": "allow",
+			"mkdir *": "allow",
+			"rg *": "allow",
+			"rm *": "deny",
+			"sort *": "allow",
+			"tail *": "allow",
+			"true": "allow",
+			"uv run pytest *": "allow",
+			"wc *": "allow",
+		},
+		"external_directory": {
+			"*": "ask",
+			"~/go/pkg/mod/**": "allow",
+			"~/work/**": "allow",
+			"/tmp/**": "ask",
+			"/tmp/opencode-summarized/**": "allow"
+		},
+	},
+	"enabled_providers": [
+		"opencode",
+	],
+	"experimental": {
+		"continue_loop_on_deny": true
+	},
+	"lsp": {
+		"yaml-ls": {
+			"command": [
+				"yaml-language-server",
+				"--stdio"
+			],
+			"extensions": [
+				".yaml",
+				".yml",
+				".sublime-syntax"
+			]
+		},
+		"kotlin-ls": {
+			"disabled": true
+		},
+		"lua-ls": {
+			"disabled": true
+		},
+		"pyright": {
+			"disabled": true
+		},
+		"basedpyright": {
+			"disabled": false,
+			"command": [
+				"basedpyright-langserver",
+				"--stdio"
+			],
+			"initialization": {
+				"basedpyright.analysis.typeCheckingMode": "standard"
+			},
+			"extensions": [
+				".py",
+				".pyi"
+			]
+		}
+	},
 }
