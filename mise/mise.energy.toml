@@ -36,7 +36,6 @@ python                                  = "latest"
 ruby                                    = "latest"
 usage                                   = "latest"
 sops                                    = "latest"
-"pipx:copyparty"                        = "latest"
 watchexec                               = "latest"
 
 [settings]

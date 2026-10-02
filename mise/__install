@@ -113,9 +113,6 @@ bootstrap_mise() {
 	if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
 		mise use --global pipx:magic-wormhole
 	fi
-	if is_personal_or_hybrid; then
-		mise use --global pipx:copyparty
-	fi
 
 	# install some common libs to mise's python
 	mise x -- uv pip install --system requests lxml
