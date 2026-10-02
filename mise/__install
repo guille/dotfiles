@@ -41,6 +41,11 @@ bootstrap_mise() {
 	mise settings set minimum_release_age "7d"
 	mise settings set java.shorthand_vendor "temurin"
 
+	if is_personal; then
+		mise settings set github.oauth_client_id=Ov23liQ8UZ6MyjYCbUqf
+		mise token github --oauth
+	fi
+
 	infoprint "[$module_name] installing tools: global"
 	mise use --global usage@latest
 	mise use --global watchexec@latest

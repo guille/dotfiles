@@ -55,3 +55,6 @@ uvx = true
 
 [settings.npm]
 package_manager = "npm"
+
+[settings.github]
+oauth_client_id = "Ov23liQ8UZ6MyjYCbUqf"
