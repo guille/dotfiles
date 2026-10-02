@@ -1,11 +1,9 @@
-import { Plugin } from "@opencode/plugin"
-
 const TRASH = process.env.NNN_TRASH ?? "gio trash"
 
 /**
  * OpenCode plugin that replaces "rm foo" with "$NNN_TRASH foo"
  */
-export default Plugin.define({
+export default {
   id: "trash",
   setup: async (ctx) => {
     await ctx.shell.hook("create.before", (event) => {
@@ -15,4 +13,4 @@ export default Plugin.define({
       if (/^rm\s+[^-]/.test(cmd)) event.command = cmd.replace(/^rm/, TRASH)
     })
   },
-})
+}

@@ -1,4 +1,3 @@
-import { Plugin } from "@opencode/plugin"
 import { spawn } from "node:child_process"
 
 /**
@@ -23,7 +22,7 @@ const NOTIFY_EVENTS = new Set([
  */
 const DEFAULT_COMMAND = `notify-send -i org.gnome.Robots "OpenCode" "Waiting for user ($OPENCODE_EVENT)"`
 
-export default Plugin.define({
+export default {
   id: "notify",
   setup: async (ctx) => {
     const command = process.env.OPENCODE_NOTIFY_COMMAND?.trim() || DEFAULT_COMMAND
@@ -57,4 +56,4 @@ export default Plugin.define({
 
     return () => controller.abort()
   },
-})
+}

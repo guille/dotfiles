@@ -1,4 +1,3 @@
-import { Plugin } from "@opencode/plugin"
 import { writeFileSync, mkdirSync } from "node:fs"
 import { join } from "node:path"
 import { tmpdir } from "node:os"
@@ -18,7 +17,7 @@ const DIR = join(tmpdir(), "opencode-summarized")
  * Skips output that was already truncated by opencode's built-in
  * truncation, and skips non-shell tools.
  */
-export default Plugin.define({
+export default {
   id: "summarize",
   setup: async (ctx) => {
     mkdirSync(DIR, { recursive: true })
@@ -61,4 +60,4 @@ export default Plugin.define({
       }
     })
   },
-})
+}
