@@ -80,6 +80,7 @@
 	autosquashall = "!git rebase --autosquash $(git merge-base HEAD ${@:-origin/HEAD})"
 	# testing new command
 	hf = "!git log --oneline origin/HEAD..HEAD | fzf --preview 'git show --color=always {1}' | cut -d' ' -f1 | xargs -r git history fixup"
+	hd = "!git log --oneline origin/HEAD..HEAD | fzf --preview 'git show --color=always {1}' | cut -d' ' -f1 | xargs -r git history drop"
 	# rebase with the given number of latest commits, "i" for interactively
 	reb = "!r() { git rebase --autosquash HEAD~$1; }; r"
 	rebi = "!r() { git rebase -i HEAD~$1; }; r"
