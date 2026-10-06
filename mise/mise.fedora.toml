@@ -17,6 +17,9 @@ package_manager = "npm"
 [settings.java]
 shorthand_vendor = "temurin"
 
+[settings.github]
+credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST"'
+
 [tools]
 "forgejo:mergiraf/mergiraf"                                  = "latest"
 "gem:rubocop"                                                = "latest"
