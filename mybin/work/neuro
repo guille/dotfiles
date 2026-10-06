@@ -1,0 +1,1334 @@
+#!/usr/bin/env -S uv run --quiet --script
+# /// script
+# requires-python = ">=3.14"
+# dependencies = ["textual>=8.2,<9"]
+# ///
+"""neuro: browse, edit and prune Claude Code memories (~/.claude/projects/*/memory)."""
+
+import json
+import os
+import posixpath
+import re
+import shlex
+import subprocess
+import sys
+import threading
+import time
+from dataclasses import dataclass, field
+from pathlib import Path
+from urllib.parse import unquote
+
+type Meta = dict[str, str | dict[str, str]]
+
+ROOT = Path(os.environ.get("CLAUDE_CONFIG_DIR") or Path.home() / ".claude") / "projects"
+STATE = (
+    Path(os.environ.get("XDG_STATE_HOME") or Path.home() / ".local/state")
+    / "claude-neuro.json"
+)
+HOME = str(Path.home())
+
+TYPES = {
+    "user": ("◆", "#c792ea"),
+    "feedback": ("●", "#ffb86c"),
+    "project": ("▲", "#7aa2f7"),
+    "reference": ("■", "#9ece6a"),
+}
+UNTYPED = ("○", "#7f849c")
+WARN, ERROR = "#e0af68", "#f7768e"
+
+POINTER_RE = re.compile(
+    r"^\s*[-*+]\s+\[(?P<title>[^\]]*)\]\((?P<target>[^)\s]+)\)\s*(?:[—–:-]+\s*)?(?P<hook>.*?)\s*$"
+)
+WIKI_RE = re.compile(r"\[\[([^\]|#\n]+)(?:[|#][^\]\n]*)?\]\]")
+MDLINK_RE = re.compile(r"\]\(([^)\s#]+\.md)(?:#[^)]*)?\)")
+CWD_RE = re.compile(rb'"cwd":"((?:[^"\\]|\\.)*)"')
+CODE_RE = re.compile(r"(```.*?```|`[^`\n]*`)", re.DOTALL)
+
+
+# ── model ────────────────────────────────────────────────────────────────────
+
+
+def norm_target(target: str) -> str:
+    return posixpath.normpath(unquote(target)).removeprefix("./")
+
+
+def humanize(slug: str) -> str:
+    words = re.sub(r"[-_]+", " ", slug).strip()
+    return words[:1].upper() + words[1:]
+
+
+def unquote_yaml(value: str) -> str:
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in "'\"":
+        return value[1:-1]
+    return value
+
+
+def parse_frontmatter(text: str) -> tuple[Meta, str]:
+    """Just enough YAML for memory frontmatter: scalars plus one level of nesting."""
+    lines = text.split("\n")
+    if not lines or lines[0].strip() != "---":
+        return {}, text
+    end = next(
+        (i for i in range(1, len(lines)) if lines[i].strip() in ("---", "...")), None
+    )
+    if end is None:
+        return {}, text
+    meta: Meta = {}
+    parent: dict[str, str] | None = None
+    for line in lines[1:end]:
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        key, sep, value = line.strip().partition(":")
+        if not sep:
+            continue
+        key, value = key.strip(), unquote_yaml(value.strip())
+        if line[0] in " \t" and parent is not None:
+            parent[key] = value
+        elif value == "":
+            parent = meta[key] = {}
+        else:
+            parent = None
+            meta[key] = value
+    return meta, "\n".join(lines[end + 1 :]).lstrip("\n")
+
+
+def outgoing_refs(text: str) -> list[str]:
+    return [m.strip() for m in WIKI_RE.findall(text)] + [
+        norm_target(m) for m in MDLINK_RE.findall(text)
+    ]
+
+
+def encode_path(path: str) -> str:
+    return re.sub(r"[^A-Za-z0-9]", "-", path)
+
+
+def project_path(project_dir: Path) -> str:
+    """The real cwd, from session transcripts; the dir name alone is lossy (/ . _ all become -)."""
+    for session in sorted(
+        project_dir.glob("*.jsonl"), key=lambda p: -p.stat().st_mtime
+    )[:5]:
+        try:
+            with session.open("rb") as f:
+                chunk = f.read(256 * 1024)
+        except OSError:
+            continue
+        for m in CWD_RE.finditer(chunk):
+            cwd = json.loads(b'"' + m.group(1) + b'"')
+            if encode_path(cwd) == project_dir.name:
+                return cwd
+    return guess_path(project_dir.name)
+
+
+def guess_path(name: str) -> str:
+    """Rebuild the path by walking the filesystem, preferring the longest existing segment."""
+    tokens = name.split("-")[1:]
+
+    def walk(base: str, rest: list[str]) -> str | None:
+        if not rest:
+            return base
+        dot = rest[0] == "" and len(rest) > 1
+        rest = rest[1:] if dot else rest
+        for k in range(len(rest), 0, -1):
+            for sep in "-_.":
+                seg = ("." if dot else "") + sep.join(rest[:k])
+                if os.path.isdir(cand := posixpath.join(base, seg)) and (
+                    found := walk(cand, rest[k:])
+                ):
+                    return found
+                if k == 1:
+                    break
+        return None
+
+    return walk("/", tokens) or "/" + "/".join(tokens)
+
+
+def tildify(path: str) -> str:
+    return (
+        "~" + path[len(HOME) :] if path == HOME or path.startswith(HOME + "/") else path
+    )
+
+
+def atomic_write(path: Path, text: str) -> None:
+    tmp = path.with_name(f".{path.name}.neuro-tmp")
+    tmp.write_text(text)
+    os.replace(tmp, path)
+
+
+@dataclass(eq=False)
+class Memory:
+    project: Project
+    filename: str
+    path: Path | None
+    title: str
+    description: str = ""
+    type: str = ""
+    slug: str = ""
+    meta: Meta = field(default_factory=dict)
+    raw: str = ""
+    body: str = ""
+    mtime: float = 0.0
+    pointer: str | None = None
+    pointer_line: int | None = None
+    _haystack: str | None = None
+
+    @property
+    def id(self) -> str:
+        return f"{self.project.key}/{self.filename}"
+
+    @property
+    def missing(self) -> bool:
+        return self.path is None
+
+    @property
+    def orphan(self) -> bool:
+        return self.path is not None and self.pointer is None
+
+    @property
+    def haystack(self) -> str:
+        if self._haystack is None:
+            parts = (
+                self.title,
+                self.slug,
+                self.filename,
+                self.description,
+                self.type,
+                self.project.name,
+                self.body,
+            )
+            self._haystack = "\n".join(parts).lower()
+        return self._haystack
+
+
+@dataclass(eq=False)
+class Project:
+    key: str
+    memdir: Path
+    path: str
+    memories: list[Memory] = field(default_factory=list)
+    index_text: str = ""
+    mtime: float = 0.0
+    _lookup: dict[str, Memory] = field(default_factory=dict)
+
+    @property
+    def index_path(self) -> Path:
+        return self.memdir / "MEMORY.md"
+
+    @property
+    def name(self) -> str:
+        return posixpath.basename(self.path.rstrip("/")) or self.path
+
+    @property
+    def parent(self) -> str:
+        return tildify(posixpath.dirname(self.path.rstrip("/")))
+
+    @property
+    def exists(self) -> bool:
+        return os.path.isdir(self.path)
+
+    @property
+    def files(self) -> list[Memory]:
+        return [m for m in self.memories if not m.missing]
+
+    @property
+    def issues(self) -> list[Memory]:
+        return [m for m in self.memories if m.missing or m.orphan]
+
+    def resolve(self, ref: str) -> Memory | None:
+        return self._lookup.get(ref) or self._lookup.get(ref.removesuffix(".md"))
+
+    def links(self, mem: Memory) -> list[tuple[str, Memory | None]]:
+        seen: dict[str, Memory | None] = {}
+        for ref in outgoing_refs(mem.body):
+            target = self.resolve(ref)
+            if target is not mem:
+                seen.setdefault(target.id if target else ref, target)
+        return [(ref, target) for ref, target in seen.items()]
+
+    def backlinks(self, mem: Memory) -> list[tuple[Memory, int, str]]:
+        """Lines in other memories that link to `mem`, as (memory, 1-based line, text)."""
+        hits = []
+        for other in self.files:
+            if other is mem:
+                continue
+            for n, line in enumerate(other.raw.splitlines(), 1):
+                if any(self.resolve(r) is mem for r in outgoing_refs(line)):
+                    hits.append((other, n, line.strip()))
+        return hits
+
+
+def read_text(path: Path) -> str:
+    try:
+        return path.read_text(errors="replace")
+    except OSError:
+        return ""
+
+
+def load_memory(
+    project: Project,
+    path: Path,
+    title: str | None,
+    hook: str,
+    line: str | None,
+    n: int | None,
+) -> Memory:
+    raw = read_text(path)
+    meta, body = parse_frontmatter(raw)
+    nested = meta.get("metadata")
+    if not isinstance(nested, dict):
+        nested = {}
+    slug = meta.get("name") or path.stem
+    return Memory(
+        project=project,
+        filename=path.name,
+        path=path,
+        title=title or humanize(str(slug)),
+        description=str(meta.get("description") or hook),
+        type=str(meta.get("type") or nested.get("type") or ""),
+        slug=str(slug),
+        meta=meta,
+        raw=raw,
+        body=body,
+        mtime=path.stat().st_mtime,
+        pointer=line,
+        pointer_line=n,
+    )
+
+
+def load_project(project_dir: Path, path: str) -> Project:
+    memdir = project_dir / "memory"
+    project = Project(key=project_dir.name, memdir=memdir, path=path)
+    project.index_text = read_text(project.index_path)
+    files = {
+        e.name
+        for e in os.scandir(memdir)
+        if e.name.endswith(".md") and e.name != "MEMORY.md" and e.is_file()
+    }
+    seen: set[str] = set()
+    for n, line in enumerate(project.index_text.splitlines(), 1):
+        m = POINTER_RE.match(line)
+        if not m or "://" in m["target"] or not m["target"].endswith(".md"):
+            continue
+        target = norm_target(m["target"])
+        if target in seen:
+            continue
+        seen.add(target)
+        if target in files or (memdir / target).is_file():
+            project.memories.append(
+                load_memory(project, memdir / target, m["title"], m["hook"], line, n)
+            )
+        else:
+            project.memories.append(
+                Memory(
+                    project,
+                    target,
+                    None,
+                    m["title"] or target,
+                    m["hook"],
+                    pointer=line,
+                    pointer_line=n,
+                )
+            )
+    for name in sorted(files - seen):
+        project.memories.append(
+            load_memory(project, memdir / name, None, "", None, None)
+        )
+    for mem in project.files:
+        for key in (mem.slug, mem.filename, Path(mem.filename).stem):
+            project._lookup.setdefault(key, mem)
+    mtimes = [m.mtime for m in project.files]
+    if project.index_path.exists():
+        mtimes.append(project.index_path.stat().st_mtime)
+    project.mtime = max(mtimes, default=0.0)
+    return project
+
+
+_paths: dict[str, str] = {}
+
+
+def load_all() -> list[Project]:
+    projects = []
+    for entry in os.scandir(ROOT):
+        memdir = Path(entry.path) / "memory"
+        if not memdir.is_dir():
+            continue
+        if entry.name not in _paths:
+            _paths[entry.name] = project_path(Path(entry.path))
+        project = load_project(Path(entry.path), _paths[entry.name])
+        if project.memories:
+            projects.append(project)
+    projects.sort(key=lambda p: -p.mtime)
+    return projects
+
+
+def signature() -> int:
+    sig = []
+    for entry in os.scandir(ROOT):
+        try:
+            for f in os.scandir(entry.path + "/memory"):
+                st = f.stat()
+                sig.append((f.path, st.st_mtime_ns, st.st_size))
+        except (FileNotFoundError, NotADirectoryError):
+            pass
+    return hash(tuple(sig))
+
+
+@dataclass
+class Deletion:
+    title: str
+    index_path: Path
+    files: list[tuple[Path, bytes]]
+    lines: list[tuple[int, str]]
+
+
+def remove_pointers(index_path: Path, targets: set[str]) -> list[tuple[int, str]]:
+    """Drop index lines pointing at `targets`; returns the removed (0-based line, text) for undo."""
+    if not targets or not index_path.exists():
+        return []
+    kept, removed = [], []
+    for i, line in enumerate(index_path.read_text().splitlines(keepends=True)):
+        m = POINTER_RE.match(line)
+        (
+            removed.append((i, line))
+            if m and norm_target(m["target"]) in targets
+            else kept.append(line)
+        )
+    if removed:
+        atomic_write(index_path, "".join(kept))
+    return removed
+
+
+def delete(mem: Memory, also: list[Memory]) -> Deletion:
+    files = []
+    if mem.path and mem.path.exists():
+        files.append((mem.path, mem.path.read_bytes()))
+        mem.path.unlink()
+    targets = {mem.filename} | {m.filename for m in also}
+    lines = remove_pointers(mem.project.index_path, targets)
+    return Deletion(mem.title, mem.project.index_path, files, lines)
+
+
+def restore(d: Deletion) -> None:
+    for path, data in d.files:
+        if path.exists():
+            raise FileExistsError(f"{path.name} exists again; not overwriting")
+    for path, data in d.files:
+        path.write_bytes(data)
+    if d.lines:
+        lines = (
+            d.index_path.read_text().splitlines(keepends=True)
+            if d.index_path.exists()
+            else []
+        )
+        for i, text in sorted(d.lines):
+            if lines and not lines[-1].endswith("\n"):
+                lines[-1] += "\n"
+            lines.insert(
+                min(i, len(lines)), text if text.endswith("\n") else text + "\n"
+            )
+        atomic_write(d.index_path, "".join(lines))
+
+
+def add_pointer(mem: Memory) -> None:
+    line = (
+        f"- [{mem.title}]({mem.filename})"
+        + (f" — {mem.description}" if mem.description else "")
+        + "\n"
+    )
+    text = read_text(mem.project.index_path)
+    if text and not text.endswith("\n"):
+        text += "\n"
+    atomic_write(mem.project.index_path, text + line)
+
+
+def matches(haystack: str, query: str) -> bool:
+    return all(term in haystack for term in query.lower().split())
+
+
+def ago(ts: float) -> str:
+    s = max(0, time.time() - ts)
+    for limit, div, unit in (
+        (60, 1, "s"),
+        (3600, 60, "m"),
+        (86400, 3600, "h"),
+        (86400 * 14, 86400, "d"),
+        (86400 * 60, 604800, "w"),
+        (86400 * 365, 2592000, "mo"),
+    ):
+        if s < limit:
+            return "now" if unit == "s" else f"{int(s // div)}{unit}"
+    return f"{int(s // 31536000)}y"
+
+
+# ── editor ───────────────────────────────────────────────────────────────────
+
+GUI_EDITORS = {
+    "subl",
+    "sublime_text",
+    "code",
+    "codium",
+    "cursor",
+    "zed",
+    "zeditor",
+    "gedit",
+    "gnome-text-editor",
+    "kate",
+    "mate",
+    "gvim",
+    "mvim",
+    "neovide",
+}
+PLUS_LINE_EDITORS = {
+    "vi",
+    "vim",
+    "nvim",
+    "nano",
+    "emacs",
+    "emacsclient",
+    "micro",
+    "kak",
+    "hx",
+    "helix",
+    "mg",
+    "joe",
+    "ne",
+}
+
+
+def editor_command(path: Path, line: int | None) -> tuple[list[str], bool]:
+    cmd = shlex.split(
+        os.environ.get("NEURO_EDITOR")
+        or os.environ.get("VISUAL")
+        or os.environ.get("EDITOR")
+        or "vi"
+    )
+    exe = Path(cmd[0]).name
+    if line and exe in PLUS_LINE_EDITORS:
+        cmd += [f"+{line}", str(path)]
+    elif line and exe in {"subl", "sublime_text", "zed", "zeditor", "cursor"}:
+        cmd.append(f"{path}:{line}")
+    elif line and exe in {"code", "codium"}:
+        cmd += ["-g", f"{path}:{line}"]
+    else:
+        cmd.append(str(path))
+    return cmd, exe in GUI_EDITORS
+
+
+# ── UI ───────────────────────────────────────────────────────────────────────
+
+from rich.table import Table
+from rich.text import Text
+from textual import events
+from textual.app import App, ComposeResult
+from textual.binding import Binding
+from textual.containers import Horizontal, Vertical, VerticalScroll
+from textual.content import Content
+from textual.screen import ModalScreen
+from textual.widgets import (
+    Button,
+    Checkbox,
+    Footer,
+    Input,
+    Markdown,
+    OptionList,
+    Static,
+)
+from textual.widgets.option_list import Option, OptionDoesNotExist
+
+ALL = "*"
+SORTS = ("index", "recent", "type", "name")
+
+
+def badge(kind: str) -> tuple[str, str]:
+    return TYPES.get(kind, UNTYPED)
+
+
+def linkify_wiki(body: str) -> str:
+    """[[slug]] → markdown links the preview can follow, leaving code untouched."""
+    parts = CODE_RE.split(body)
+    for i in range(0, len(parts), 2):
+        parts[i] = WIKI_RE.sub(
+            lambda m: f"[{m.group(1)}](neuro:{m.group(1).strip()})", parts[i]
+        )
+    return "".join(parts)
+
+
+class Nav(OptionList):
+    BINDINGS = [
+        Binding("j", "cursor_down", show=False),
+        Binding("k", "cursor_up", show=False),
+        Binding("g", "first", show=False),
+        Binding("G", "last", show=False),
+        Binding("ctrl+d", "page_down", show=False),
+        Binding("ctrl+u", "page_up", show=False),
+    ]
+
+
+class Preview(VerticalScroll):
+    BINDINGS = [
+        Binding("j", "scroll_down", show=False),
+        Binding("k", "scroll_up", show=False),
+        Binding("g", "scroll_home", show=False),
+        Binding("G", "scroll_end", show=False),
+        Binding("space,ctrl+d", "page_down", show=False),
+        Binding("b,ctrl+u", "page_up", show=False),
+    ]
+
+
+class FilterInput(Input):
+    BINDINGS = [
+        Binding("escape", "app.cancel_filter", show=False),
+        Binding("down,tab", "app.accept_filter", show=False),
+    ]
+
+
+class ConfirmDelete(ModalScreen[bool | None]):
+    BINDINGS = [
+        Binding("escape,n,q", "dismiss(None)", "Cancel"),
+        Binding("y", "confirm", "Delete"),
+    ]
+
+    def __init__(
+        self,
+        mem: Memory,
+        backlinks: list[tuple[Memory, int, str]],
+        dangling: list[Memory],
+    ) -> None:
+        super().__init__()
+        self.mem, self.refs, self.dangling = mem, backlinks, dangling
+
+    def compose(self) -> ComposeResult:
+        mem = self.mem
+        facts = Table.grid(padding=(0, 2))
+        facts.add_column(style="dim", no_wrap=True)
+        facts.add_column(overflow="fold")
+        facts.add_row(
+            "File",
+            Text(tildify(str(mem.path)))
+            if mem.path
+            else Text("already missing, only the pointer goes", "italic"),
+        )
+        if mem.pointer:
+            facts.add_row(f"MEMORY.md:{mem.pointer_line}", Text(mem.pointer.strip()))
+        else:
+            facts.add_row("MEMORY.md", Text("not indexed, nothing to remove", "italic"))
+        refs = Table.grid(padding=(0, 2))
+        labels = [f"{other.filename}:{n}" for other, n, _ in self.refs[:8]]
+        refs.add_column(
+            style="dim",
+            no_wrap=True,
+            min_width=min(40, max(map(len, labels), default=0)),
+        )
+        refs.add_column(no_wrap=True, overflow="ellipsis")
+        for label, (_, _, line) in zip(labels, self.refs):
+            refs.add_row(Text(label), Text(line))
+        if len(self.refs) > 8:
+            refs.add_row(f"… {len(self.refs) - 8} more", "")
+        with Vertical(id="dialog"):
+            yield Static(
+                Text.assemble(
+                    ("Delete ", "bold"), (mem.title, f"bold {ERROR}"), ("?", "bold")
+                ),
+                id="dialog-title",
+            )
+            yield Static(facts)
+            if self.refs:
+                n = len(self.refs)
+                yield Static(
+                    Text(
+                        f"⚠ {n} link{'s' * (n > 1)} to it will dangle:", f"bold {WARN}"
+                    )
+                )
+                yield Static(refs, classes="indent")
+            if self.dangling:
+                names = ", ".join(m.filename for m in self.dangling[:3]) + (
+                    " …" if len(self.dangling) > 3 else ""
+                )
+                yield Static(
+                    Text(
+                        f"MEMORY.md already has {len(self.dangling)} dangling pointer(s): {names}",
+                        WARN,
+                    )
+                )
+                yield Checkbox("Clean those up too", value=True, id="cleanup")
+            with Horizontal(id="buttons"):
+                yield Button("Cancel  n", id="cancel")
+                yield Button("Delete  y", variant="error", id="delete")
+
+    def on_mount(self) -> None:
+        self.query_one("#delete").focus()
+
+    def action_confirm(self) -> None:
+        boxes = self.query(Checkbox)
+        self.dismiss(bool(boxes) and boxes.first().value)
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        self.action_confirm() if event.button.id == "delete" else self.dismiss(None)
+
+
+class Neuro(App):
+    TITLE = "neuro"
+    CSS = """
+    Screen { background: $background; }
+    #topbar { dock: top; height: 1; padding: 0 2; background: $panel; color: $text-muted; }
+    #main { height: 1fr; }
+    .pane {
+        height: 1fr; background: $surface;
+        border: round $panel-lighten-2; border-title-color: $text-muted; border-subtitle-color: $text-muted;
+    }
+    .pane:focus-within { border: round $accent; border-title-color: $accent; border-title-style: bold; }
+    #projects-pane { width: 34; }
+    #memories-pane { width: 1fr; min-width: 40; }
+    #preview-pane { width: 1.3fr; }
+    Nav { height: 1fr; border: none; background: transparent; padding: 0; scrollbar-size-vertical: 1; }
+    Nav:focus { border: none; background-tint: transparent; }
+    Nav > .option-list--option { padding: 0 1; }
+    Preview { padding: 0 2; scrollbar-size-vertical: 1; }
+    #meta { padding: 1 0 0 0; }
+    #body { background: transparent; padding: 0; margin: 0; }
+    #links { margin: 1 0 1 0; }
+    #filter { dock: bottom; display: none; margin: 0 1; }
+    #filter.-active { display: block; }
+    Screen.-narrow #preview-pane { display: none; }
+    Screen.-narrow.-detail #preview-pane { display: block; }
+    Screen.-narrow.-detail #projects-pane { display: none; }
+    Screen.-zoom #projects-pane, Screen.-zoom #memories-pane { display: none; }
+    Screen.-zoom #preview-pane { display: block; }
+
+    ConfirmDelete { align: center middle; background: $background 60%; }
+    #dialog { width: 90; max-width: 95%; height: auto; padding: 1 2; background: $surface; border: thick $error; }
+    #dialog > * { height: auto; margin-bottom: 1; }
+    #dialog-title { text-style: bold; }
+    #dialog .indent { margin: -1 0 1 2; }
+    #buttons { align-horizontal: right; height: auto; margin: 0; }
+    #buttons Button { margin-left: 2; }
+    """
+
+    BINDINGS = [
+        Binding("q", "quit", "Quit"),
+        Binding("slash", "filter", "Filter"),
+        Binding("e", "edit", "Edit"),
+        Binding("i", "edit_index", "Edit MEMORY.md"),
+        Binding("d", "delete", "Delete"),
+        Binding("a", "add_pointer", "Add to index"),
+        Binding("u", "undo", "Undo"),
+        Binding("s", "cycle_sort", "Sort"),
+        Binding("z", "zoom", "Zoom"),
+        Binding("y", "copy_path", "Copy path"),
+        Binding("r", "reload", "Reload", show=False),
+        Binding("question_mark", "toggle_help", "Keys", show=False),
+        Binding("left,h", "pane(-1)", show=False),
+        Binding("right,l", "pane(1)", show=False),
+        Binding("escape", "back", show=False),
+    ]
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.projects: list[Project] = []
+        self.project_key = ALL
+        self.context = "projects"
+        self.filters = {"projects": "", "memories": ""}
+        self.filter_target = "memories"
+        self.sort = "index"
+        self.undo_stack: list[Deletion] = []
+        self.link_targets: list[Memory] = []
+        self._shown: tuple[int, float, str] | None = None
+        self._preview_timer = None
+        self._sig = 0
+
+    # layout
+
+    def compose(self) -> ComposeResult:
+        yield Static(id="topbar")
+        with Horizontal(id="main"):
+            with Vertical(id="projects-pane", classes="pane"):
+                yield Nav(id="projects")
+            with Vertical(id="memories-pane", classes="pane"):
+                yield Nav(id="memories")
+            with Vertical(id="preview-pane", classes="pane"):
+                with Preview(id="preview"):
+                    yield Static(id="meta")
+                    yield Markdown(id="body", open_links=False)
+                    yield Static(id="links")
+        yield FilterInput(id="filter", placeholder="filter…   ↓ list · esc clear")
+        yield Footer()
+
+    def on_mount(self) -> None:
+        state = self.load_state()
+        self.theme = (
+            state.get("theme")
+            if state.get("theme") in self.available_themes
+            else "tokyo-night"
+        )
+        self.sort = state.get("sort") if state.get("sort") in SORTS else "index"
+        self.watch(self, "theme", lambda _: self.save_state(), init=False)
+        self.watch(self.screen, "focused", self.focus_changed, init=False)
+        self.query_one("#projects-pane").border_title = "Projects"
+        self.query_one("#preview-pane").border_title = "Preview"
+        self.projects = load_all()
+        self._sig = signature()
+        here = os.getcwd()
+        best = max(
+            (
+                p
+                for p in self.projects
+                if here == p.path or here.startswith(p.path + "/")
+            ),
+            key=lambda p: len(p.path),
+            default=None,
+        )
+        if best:
+            self.project_key = best.key
+        self.fill_projects()
+        self.fill_memories()
+        self.query_one("#memories" if best else "#projects").focus()
+        self.set_interval(1.5, self.poll)
+        self.update_layout(self.size.width)
+
+    def on_resize(self, event: events.Resize) -> None:
+        self.update_layout(event.size.width)
+
+    def update_layout(self, width: int) -> None:
+        self.screen.set_class(width < 110, "-narrow")
+
+    def load_state(self) -> dict[str, str]:
+        try:
+            return json.loads(STATE.read_text())
+        except (OSError, ValueError):
+            return {}
+
+    def save_state(self) -> None:
+        try:
+            STATE.parent.mkdir(parents=True, exist_ok=True)
+            STATE.write_text(json.dumps({"theme": self.theme, "sort": self.sort}))
+        except OSError:
+            pass
+
+    # data → widgets
+
+    @property
+    def project(self) -> Project | None:
+        return next((p for p in self.projects if p.key == self.project_key), None)
+
+    def scoped_memories(self) -> list[Memory]:
+        project = self.project
+        mems = (
+            list(project.memories)
+            if project
+            else [m for p in self.projects for m in p.memories]
+        )
+        if q := self.filters["memories"]:
+            mems = [m for m in mems if matches(m.haystack, q)]
+        match self.sort:
+            case "recent":
+                mems.sort(key=lambda m: -m.mtime)
+            case "type":
+                order = list(TYPES)
+                mems.sort(
+                    key=lambda m: order.index(m.type) if m.type in order else len(order)
+                )
+            case "name":
+                mems.sort(key=lambda m: m.title.lower())
+        return mems
+
+    def fill_projects(self) -> None:
+        nav = self.query_one("#projects", Nav)
+        q = self.filters["projects"]
+        shown = [p for p in self.projects if matches(f"{p.path} {p.key}".lower(), q)]
+        total = sum(len(p.files) for p in self.projects)
+        all_row = Table.grid(expand=True, padding=(0, 1))
+        all_row.add_column(ratio=1, no_wrap=True)
+        all_row.add_column(justify="right", no_wrap=True)
+        all_row.add_row(Text("★ All memories", "bold"), Text(str(total), "dim"))
+        all_row.add_row(Text(f"{len(self.projects)} projects", "dim"), "")
+        options = [Option(all_row, id=ALL)] + [
+            Option(self.project_prompt(p, q), id=p.key) for p in shown
+        ]
+        self.restore(nav, options, self.project_key)
+        pane = self.query_one("#projects-pane")
+        pane.border_subtitle = f"/{q}" if q else ""
+        self.update_topbar()
+
+    def project_prompt(self, p: Project, q: str) -> Table:
+        grid = Table.grid(expand=True, padding=(0, 1))
+        grid.add_column(ratio=1, no_wrap=True, overflow="ellipsis")
+        grid.add_column(justify="right", no_wrap=True)
+        name = Text(p.name, "bold" if p.exists else "dim strike")
+        count = Text(str(len(p.files)), "dim")
+        if issues := len(p.issues):
+            count = Text.assemble((f"⚠{issues} ", WARN), count)
+        sub = Text(p.parent, "dim")
+        for t in (name, sub):
+            t.highlight_words(q.split(), "reverse", case_sensitive=False) if q else None
+        grid.add_row(name, count)
+        grid.add_row(sub, Text(ago(p.mtime), "dim"))
+        return grid
+
+    def fill_memories(self, keep: str | None = None) -> None:
+        nav = self.query_one("#memories", Nav)
+        mems = self.scoped_memories()
+        q = self.filters["memories"]
+        options = [Option(self.memory_prompt(m, q), id=m.id) for m in mems]
+        current = keep or (
+            nav.highlighted_option.id if nav.highlighted_option else None
+        )
+        self.restore(nav, options, current)
+        project = self.project
+        pane = self.query_one("#memories-pane")
+        pane.border_title = (
+            f"{project.name if project else 'All memories'} · {len(mems)}"
+        )
+        bits = [f"/{q}"] if q else []
+        if self.sort != "index":
+            bits.append(f"sort: {self.sort}")
+        pane.border_subtitle = "  ".join(bits)
+        if not options:
+            self.schedule_preview()
+
+    def memory_prompt(self, m: Memory, q: str) -> Table:
+        glyph, color = badge(m.type)
+        grid = Table.grid(expand=True, padding=(0, 1))
+        grid.add_column(width=1, no_wrap=True)
+        grid.add_column(ratio=1, no_wrap=True, overflow="ellipsis")
+        grid.add_column(justify="right", no_wrap=True)
+        if m.missing:
+            title = Text(m.title, f"strike {ERROR}")
+            flag = Text("missing", ERROR)
+            glyph, color = "✗", ERROR
+        else:
+            title = Text(m.title, "bold")
+            flag = Text.assemble(
+                ("unindexed ", WARN) if m.orphan else "", (ago(m.mtime), "dim")
+            )
+        sub = Text(no_wrap=True, overflow="ellipsis", style="dim")
+        if self.project is None:
+            sub.append(f"{m.project.name} · ", "italic")
+        sub.append(m.description or m.filename)
+        if q:
+            for t in (title, sub):
+                t.highlight_words(q.split(), "reverse", case_sensitive=False)
+        grid.add_row(Text(glyph, color), title, flag)
+        grid.add_row("", sub, "")
+        return grid
+
+    def restore(self, nav: Nav, options: list[Option], keep: str | None) -> None:
+        old = nav.highlighted
+        nav.set_options(options)
+        if not options:
+            return
+        ids = [o.id for o in options]
+        nav.highlighted = (
+            ids.index(keep) if keep in ids else min(old or 0, len(ids) - 1)
+        )
+
+    def update_topbar(self) -> None:
+        total = sum(len(p.files) for p in self.projects)
+        issues = sum(len(p.issues) for p in self.projects)
+        bar = Text.assemble(
+            ("neuro", "bold"),
+            "  ",
+            (f"{total} memories in {len(self.projects)} projects", "dim"),
+        )
+        if issues:
+            bar.append(f"   ⚠ {issues} index issue{'s' * (issues > 1)}", WARN)
+        if self.undo_stack:
+            bar.append(f"   ↶ {len(self.undo_stack)} undoable", "dim")
+        self.query_one("#topbar", Static).update(bar)
+
+    # selection & preview
+
+    def highlighted_memory(self) -> Memory | None:
+        nav = self.query_one("#memories", Nav)
+        opt = nav.highlighted_option
+        if opt is None:
+            return None
+        key, _, filename = opt.id.partition("/")
+        project = next((p for p in self.projects if p.key == key), None)
+        return (
+            next((m for m in project.memories if m.filename == filename), None)
+            if project
+            else None
+        )
+
+    def subject(self) -> Memory | Project | None:
+        return self.highlighted_memory() if self.context == "memories" else self.project
+
+    def on_option_list_option_highlighted(
+        self, event: OptionList.OptionHighlighted
+    ) -> None:
+        if event.option_list.id == "projects" and event.option.id != self.project_key:
+            self.project_key = event.option.id
+            self.fill_memories()
+        self.schedule_preview()
+
+    def on_option_list_option_selected(self, event: OptionList.OptionSelected) -> None:
+        self.action_pane(1)
+
+    def focus_changed(self, widget) -> None:
+        wid = widget.id if widget else None
+        if wid in ("projects", "memories"):
+            self.context = wid
+        self.screen.set_class(wid == "preview", "-detail")
+        self.schedule_preview()
+
+    def schedule_preview(self) -> None:
+        if self._preview_timer:
+            self._preview_timer.stop()
+        self._preview_timer = self.set_timer(0.04, self.render_preview)
+
+    def render_preview(self, force: bool = False) -> None:
+        subject = self.subject()
+        key = (id(subject), getattr(subject, "mtime", 0), self.context)
+        if key == self._shown and not force:
+            return
+        self._shown = key
+        self.refresh_bindings()
+        self.link_targets = []
+        meta, body, links = (
+            self.query_one("#meta", Static),
+            self.query_one("#body", Markdown),
+            self.query_one("#links", Static),
+        )
+        pane = self.query_one("#preview-pane")
+        if isinstance(subject, Memory):
+            pane.border_title = subject.filename
+            meta.update(self.memory_header(subject))
+            body.update(
+                linkify_wiki(subject.body)
+                if subject.path
+                else self.missing_body(subject)
+            )
+            links.update(self.memory_links(subject))
+        elif isinstance(subject, Project):
+            pane.border_title = "MEMORY.md"
+            meta.update(self.project_header(subject))
+            body.update(subject.index_text or "*No MEMORY.md*")
+            links.update(self.project_issues(subject))
+        else:
+            pane.border_title = "Preview"
+            meta.update(self.overview())
+            body.update("")
+            links.update("")
+        self.query_one("#preview", Preview).scroll_home(animate=False)
+
+    def memory_header(self, m: Memory) -> Content:
+        glyph, color = badge(m.type)
+        parts = ["[b]$title[/]\n", f"[{color}]{glyph} $type[/]"]
+        if m.path:
+            when = ago(m.mtime)
+            parts.append(
+                f"  [dim]· {'just now' if when == 'now' else when + ' ago'} · $slug[/]"
+            )
+        if m.description:
+            parts.append("\n[i]$desc[/]")
+        extra = {
+            k: v
+            for k, v in m.meta.items()
+            if k not in ("name", "description", "type", "metadata")
+        }
+        if isinstance(nested := m.meta.get("metadata"), dict):
+            extra |= {k: v for k, v in nested.items() if k != "type"}
+        extras = " · ".join(f"{k} {v}" for k, v in extra.items())
+        if extras:
+            parts.append("\n[dim]$extras[/]")
+        if m.orphan:
+            parts.append(
+                f"\n\n[{WARN}]⚠ Not listed in MEMORY.md, so Claude won't see it. Press [b]a[/b] to add a pointer.[/]"
+            )
+        parts.append("\n[dim]" + "─" * 40 + "[/]")
+        return Content.from_markup(
+            "".join(parts),
+            title=m.title,
+            type=m.type or "untyped",
+            slug=m.slug,
+            desc=m.description,
+            extras=extras,
+        )
+
+    def missing_body(self, m: Memory) -> str:
+        return (
+            f"> **MEMORY.md points at `{m.filename}`, but that file doesn't exist.**\n>\n"
+            f"> Line {m.pointer_line}: `{(m.pointer or '').strip()}`\n\n"
+            "Press **d** to drop the pointer, or **i** to fix it in MEMORY.md."
+        )
+
+    def link(self, mem: Memory, label: str | None = None) -> str:
+        self.link_targets.append(mem)
+        _, color = badge(mem.type)
+        return f"[{color}]•[/] [@click=app.open_ref({len(self.link_targets) - 1})]{self.esc(label or mem.title)}[/]"
+
+    @staticmethod
+    def esc(text: str) -> str:
+        return text.replace("[", r"\[")
+
+    def memory_links(self, m: Memory) -> Content:
+        if not m.path:
+            return Content("")
+        out = []
+        outgoing = m.project.links(m)
+        if outgoing:
+            out.append("[dim]Links to[/]")
+            for ref, target in outgoing:
+                out.append(
+                    "  " + self.link(target)
+                    if target
+                    else f"  [{ERROR}]✗ {self.esc(ref)} (missing)[/]"
+                )
+        back = {other.id: other for other, _, _ in m.project.backlinks(m)}
+        if back:
+            out.append("[dim]Linked from[/]")
+            out.extend("  " + self.link(other) for other in back.values())
+        return Content.from_markup("\n".join(out)) if out else Content("")
+
+    def project_header(self, p: Project) -> Content:
+        counts: dict[str, int] = {}
+        for m in p.files:
+            counts[m.type] = counts.get(m.type, 0) + 1
+        chips = "   ".join(
+            f"[{badge(t)[1]}]{badge(t)[0]} {n} {self.esc(t or 'untyped')}[/]"
+            for t, n in sorted(counts.items(), key=lambda kv: -kv[1])
+        )
+        gone = "" if p.exists else f"  [{ERROR}](directory no longer exists)[/]"
+        return Content.from_markup(
+            f"[b]$name[/]  [dim]$path[/]{gone}\n{chips}\n[dim]" + "─" * 40 + "[/]",
+            name=p.name,
+            path=tildify(p.path),
+        )
+
+    def project_issues(self, p: Project) -> Content:
+        if not p.issues:
+            return Content("")
+        out = [f"[{WARN}]Index issues[/]"]
+        for m in p.issues:
+            label = "missing file" if m.missing else "not in MEMORY.md"
+            out.append(f"  {self.link(m, m.filename)}  [dim]{label}[/]")
+        return Content.from_markup("\n".join(out))
+
+    def overview(self) -> Content:
+        return Content.from_markup("[dim]No memories match.[/]")
+
+    def action_open_ref(self, i: int) -> None:
+        if 0 <= i < len(self.link_targets):
+            self.jump_to(self.link_targets[i])
+
+    def on_markdown_link_clicked(self, event: Markdown.LinkClicked) -> None:
+        href = event.href
+        subject = self.subject()
+        project = subject.project if isinstance(subject, Memory) else subject
+        if "://" in href and not href.startswith("neuro:"):
+            self.open_url(href)
+            return
+        if project and (
+            target := project.resolve(norm_target(href.removeprefix("neuro:")))
+        ):
+            self.jump_to(target)
+        else:
+            self.notify(
+                f"No memory called {href.removeprefix('neuro:')}", severity="warning"
+            )
+
+    def jump_to(self, mem: Memory) -> None:
+        if self.project_key != ALL and self.project_key != mem.project.key:
+            self.project_key = mem.project.key
+            projects = self.query_one("#projects", Nav)
+            try:
+                projects.highlighted = projects.get_option_index(mem.project.key)
+            except OptionDoesNotExist:
+                self.filters["projects"] = ""
+                self.fill_projects()
+        if mem.id not in {m.id for m in self.scoped_memories()}:
+            self.filters["memories"] = ""
+        self.context = "memories"
+        self.fill_memories(keep=mem.id)
+        self.schedule_preview()
+
+    # actions
+
+    def check_action(self, action: str, parameters: tuple[object, ...]) -> bool | None:
+        if not self.is_mounted:
+            return True
+        if self.screen is not self.screen_stack[0]:
+            return action in ("quit", "command_palette")
+        subject = self.subject()
+        if action in ("delete", "copy_path"):
+            return isinstance(subject, Memory) or None
+        if action == "add_pointer":
+            return isinstance(subject, Memory) and subject.orphan
+        if action == "undo":
+            return bool(self.undo_stack)
+        if action in ("edit", "edit_index"):
+            return subject is not None or None
+        return True
+
+    def action_pane(self, step: int) -> None:
+        order = ["projects", "memories", "preview"]
+        focused = self.focused.id if self.focused else "projects"
+        if focused not in order:
+            return
+        if self.screen.has_class("-zoom"):
+            if step < 0:
+                self.screen.remove_class("-zoom")
+                self.query_one("#memories").focus()
+            return
+        i = max(0, min(len(order) - 1, order.index(focused) + step))
+        self.query_one(f"#{order[i]}").focus()
+
+    def action_back(self) -> None:
+        focused = self.focused.id if self.focused else None
+        if focused is not None and self.filters.get(focused):
+            self.filters[focused] = ""
+            self.fill_projects() if focused == "projects" else self.fill_memories()
+        else:
+            self.action_pane(-1)
+
+    def action_filter(self) -> None:
+        self.filter_target = (
+            "projects"
+            if self.context == "projects"
+            and self.focused
+            and self.focused.id == "projects"
+            else "memories"
+        )
+        box = self.query_one("#filter", FilterInput)
+        box.placeholder = f"filter {self.filter_target}…   ↓ list · esc clear"
+        box.value = self.filters[self.filter_target]
+        box.add_class("-active")
+        box.focus()
+
+    def on_input_changed(self, event: Input.Changed) -> None:
+        self.filters[self.filter_target] = event.value
+        self.fill_projects() if self.filter_target == "projects" else self.fill_memories()
+
+    def on_input_submitted(self, event: Input.Submitted) -> None:
+        self.action_accept_filter()
+
+    def action_accept_filter(self) -> None:
+        self.query_one("#filter").remove_class("-active")
+        self.query_one(f"#{self.filter_target}").focus()
+
+    def action_cancel_filter(self) -> None:
+        self.query_one("#filter", FilterInput).value = ""
+        self.action_accept_filter()
+
+    def action_cycle_sort(self) -> None:
+        self.sort = SORTS[(SORTS.index(self.sort) + 1) % len(SORTS)]
+        self.save_state()
+        self.fill_memories()
+        self.notify(f"Sorted by {self.sort}", timeout=1.5)
+
+    def action_zoom(self) -> None:
+        zoomed = self.screen.toggle_class("-zoom").has_class("-zoom")
+        if zoomed:
+            self.query_one("#preview").focus()
+
+    def action_toggle_help(self) -> None:
+        if self.screen.query("HelpPanel"):
+            self.action_hide_help_panel()
+        else:
+            self.action_show_help_panel()
+
+    def action_edit(self) -> None:
+        subject = self.subject()
+        if isinstance(subject, Memory) and subject.path:
+            self.open_editor(subject.path)
+        elif isinstance(subject, Memory):
+            self.open_editor(subject.project.index_path, subject.pointer_line)
+        elif isinstance(subject, Project):
+            self.open_editor(subject.index_path)
+
+    def action_edit_index(self) -> None:
+        subject = self.subject()
+        if isinstance(subject, Memory):
+            self.open_editor(subject.project.index_path, subject.pointer_line)
+        elif isinstance(subject, Project):
+            self.open_editor(subject.index_path)
+
+    def open_editor(self, path: Path, line: int | None = None) -> None:
+        cmd, gui = editor_command(path, line)
+        try:
+            if gui:
+                proc = subprocess.Popen(
+                    cmd,
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    start_new_session=True,
+                )
+                threading.Thread(target=proc.wait, daemon=True).start()
+                self.notify(f"Opened {path.name} in {Path(cmd[0]).name}", timeout=2)
+            else:
+                with self.suspend():
+                    subprocess.run(cmd, check=False)
+                self.action_reload()
+        except FileNotFoundError:
+            self.notify(
+                f"Editor not found: {cmd[0]} (set $NEURO_EDITOR or $EDITOR)",
+                severity="error",
+            )
+
+    def action_copy_path(self) -> None:
+        subject = self.subject()
+        if isinstance(subject, Memory):
+            path = str(subject.path or subject.project.index_path)
+            self.copy_to_clipboard(path)
+            self.notify(f"Copied {tildify(path)}", timeout=2)
+
+    def action_add_pointer(self) -> None:
+        subject = self.subject()
+        if isinstance(subject, Memory) and subject.orphan:
+            add_pointer(subject)
+            self.action_reload()
+            self.notify(f"Added {subject.filename} to MEMORY.md", timeout=2)
+
+    def action_delete(self) -> None:
+        mem = self.subject()
+        if not isinstance(mem, Memory):
+            return
+        refs = mem.project.backlinks(mem) if mem.path else []
+        dangling = [m for m in mem.project.memories if m.missing and m is not mem]
+
+        def done(cleanup: bool | None) -> None:
+            if cleanup is None:
+                return
+            try:
+                record = delete(mem, dangling if cleanup else [])
+            except OSError as e:
+                self.notify(f"Delete failed: {e}", severity="error")
+                return
+            self.undo_stack.append(record)
+            self.action_reload()
+            what = "Deleted" if record.files else "Removed pointer to"
+            self.notify(f"{what} “{mem.title}”  ·  u to undo", timeout=4)
+
+        self.push_screen(ConfirmDelete(mem, refs, dangling), done)
+
+    def action_undo(self) -> None:
+        if not self.undo_stack:
+            return
+        record = self.undo_stack[-1]
+        try:
+            restore(record)
+        except OSError as e:
+            self.notify(f"Undo failed: {e}", severity="error")
+            return
+        self.undo_stack.pop()
+        self.action_reload()
+        self.notify(f"Restored “{record.title}”", timeout=2)
+
+    def action_reload(self) -> None:
+        self.projects = load_all()
+        self._sig = signature()
+        self._shown = None
+        self.fill_projects()
+        self.fill_memories()
+        self.schedule_preview()
+        self.refresh_bindings()
+
+    def poll(self) -> None:
+        if signature() != self._sig:
+            self.action_reload()
+
+
+if __name__ == "__main__":
+    if not ROOT.is_dir():
+        sys.exit(f"neuro: no Claude projects at {ROOT}")
+    Neuro().run()
