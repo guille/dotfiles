@@ -351,6 +351,14 @@ mrr() {
 	fi
 }
 
+_mrr_widget() {
+    BUFFER='mrr'
+    CURSOR=$#BUFFER
+    zle accept-line
+}
+zle -N _mrr_widget
+bindkey '^[[161;5u' _mrr_widget  # ctrl+¡
+
 # ════════════════════════════════════════════════════════════════════════
 # K8s
 
