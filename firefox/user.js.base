@@ -21,7 +21,7 @@ user_pref("general.autoScroll", true);
 user_pref("intl.accept_languages", "en-us,en,es");
 user_pref("intl.locale.requested", "en-US");
 user_pref("sidebar.verticalTabs", true);
-
+user_pref("browser.tabs.insertAfterCurrentExceptPinned", true);
 
 /************************
  * PRIVACY AND SECURITY *

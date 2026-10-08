@@ -13,8 +13,10 @@
 			"fonts.conf": "text.xml",
 			"ripgreprc": "text.plain.config",
 			"input.conf": "text.plain.config",
+			"gitmessage": "text.git.commit",
 			"mpv.conf": "text.plain.config",
-			"fdignore": "text.git.ignore"
+			"fdignore": "text.git.ignore",
+			"firefox/user.js.*": "source.js",
 		}
 	},
 	"settings": {
