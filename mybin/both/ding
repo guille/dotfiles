@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Short notification sound.
+
+if [[ "$(uname)" == "Darwin" ]]; then
+	afplay /System/Library/Sounds/Hero.aiff
+else
+	paplay /usr/share/sounds/freedesktop/stereo/bell.oga
+fi

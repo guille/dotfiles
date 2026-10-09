@@ -30,3 +30,4 @@ add_if_not_there "export DISABLE_UPDATES=1" ~/.zshenv.local
 infoprint "[$module_name] creating dotfiles symlinks..."
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/settings.json" ~/.claude/settings.json 1> /dev/null
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/statusline-command.sh" ~/.claude/statusline-command.sh 1> /dev/null
+ln -sfv "${SCRIPT_BASE_DIR}/$module_name/notify-hook.sh" ~/.claude/notify-hook.sh 1> /dev/null

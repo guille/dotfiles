@@ -19,14 +19,7 @@ if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
 			echo "DND deactivated"
 		fi
 	}
-	ding() {
-		paplay /usr/share/sounds/freedesktop/stereo/bell.oga
-	}
-elif [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
-	ding() {
-		afplay /System/Library/Sounds/Hero.aiff
-	}
-else
+elif [[ "${DOTFILES_OS:-}" != "OSX" ]]; then
 	echo "DOTFILES_OS is unset"
 fi
 

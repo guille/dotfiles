@@ -10,6 +10,9 @@ FIVE_RESET=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // ""')
 SEVEN_PCT=$(echo "$input"  | jq -r '.rate_limits.seven_day.used_percentage // 0' | cut -d. -f1)
 SEVEN_RESET=$(echo "$input"| jq -r '.rate_limits.seven_day.resets_at // ""')
 TRANSCRIPT=$(echo "$input" | jq -r '.transcript_path // ""')
+SESSION_ID=$(echo "$input" | jq -r '.session_id // ""')
+# Name other sessions use to message this one; only the session registry has it.
+PEER=$(jq -r --arg s "$SESSION_ID" 'select(.sessionId == $s) | .name // empty' ~/.claude/sessions/*.json 2>/dev/null | head -1)
 
 CYAN='\033[36m'
 GREEN='\033[32m'
@@ -62,7 +65,7 @@ if GIT_COMMON=$(git -C "${DIR}" rev-parse --path-format=absolute --git-common-di
     BRANCH_SEGMENT=" | ${BRANCH}${GIT_INDICATORS:+ ${GIT_INDICATORS}}"
 fi
 
-printf '%b\n' "${CYAN}[${MODEL}${EFFORT:+ · ${EFFORT}}]${RESET}  ${NAME}${BRANCH_SEGMENT}"
+printf '%b\n' "${CYAN}[${MODEL}${EFFORT:+ · ${EFFORT}}]${RESET}  ${NAME}${BRANCH_SEGMENT}${PEER:+ | ✉ ${PEER}}"
 
 # --- Line 2: rate limits ---
 

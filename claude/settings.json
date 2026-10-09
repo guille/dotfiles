@@ -1,40 +1,10 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
-    "allow": [
-      "Edit(*)",
-      "Glob",
-      "Grep",
-      "Read(*)",
-      "Bash(bundle exec rspec *)",
-      "Bash(bundle exec rubocop *)",
-      "Bash(dart analyze *)",
-      "Bash(flutter analyze *)",
-      "Bash(flutter gen-l10n *)",
-      "Bash(flutter test *)",
-      "Bash(go build *)",
-      "Bash(go env *)",
-      "Bash(go test *)",
-      "Bash(go vet *)",
-      "Bash(gotestsum *)",
-      "Bash(grep *)",
-      "Bash(head *)",
-      "Bash(ls *)",
-      "Bash(mise run *)",
-      "Bash(mix *)",
-      "Bash(mkdir *)",
-      "Bash(rg *)",
-      "Bash(sort *)",
-      "Bash(tail *)",
-      "Bash(true)",
-      "Bash(uv run pytest *)",
-      "Bash(wc *)"
-    ],
     "deny": [
       "NotebookEdit",
       "WebSearch",
-      "Bash(npx *)",
-      "Bash(rm *)"
+      "Bash(npx *)"
     ],
     "defaultMode": "auto",
     "additionalDirectories": [
@@ -55,6 +25,20 @@
     "type": "command",
     "command": "~/.claude/statusline-command.sh",
     "padding": 1
+  },
+  "preferredNotifChannel": "notifications_disabled",
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/notify-hook.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
