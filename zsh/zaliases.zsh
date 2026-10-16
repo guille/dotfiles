@@ -32,7 +32,7 @@ alias watch='watch -c '
 
 alias resource='source ~/.zshrc && source ~/.zshenv'
 
-alias cal='cal --monday --three'
+alias cal='cal --monday'
 alias calc='bc --quiet --mathlib'
 alias diff='diff --ignore-all-space --unified --color=auto'
 alias df='df -hT'
