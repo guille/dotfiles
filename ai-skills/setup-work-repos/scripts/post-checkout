@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Mirror the repo-root local/ tree into this worktree as symlinks, so every
+# worktree shares one copy of the untracked local config.
+# Fires on `git worktree add` (cwd is the new worktree) and on `git checkout`.
+set -eu
+
+src=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")/local
+[ -d "$src" ] || exit 0
+
+# git checkout may be run from a subdirectory; links belong at the worktree root
+cd "$(git rev-parse --show-toplevel)"
+
+find "$src" \( -type f -o -type l \) -print | while read -r f; do
+	rel=${f#"$src/"}
+	mkdir -p "$(dirname "$rel")"
+	ln -sfn "$f" "$rel"
+done

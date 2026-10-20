@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# AI agent skills
+##
+
+module_name=ai-skills
+
+# Opencode reads both; Claude Code only reads ~/.claude, and the claude module skips personal.
+if is_personal; then
+	skills_dir=~/.agents/skills
+else
+	skills_dir=~/.claude/skills
+fi
+
+mkdir -p "$skills_dir"
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+for d in "${SCRIPT_BASE_DIR}/$module_name"/*/; do
+	ln -sfnv "${d%/}" "$skills_dir/$(basename "$d")" 1> /dev/null
+done

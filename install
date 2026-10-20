@@ -102,6 +102,7 @@ modules_to_install=(
 	dunst
 	claude
 	opencode
+	ai-skills
 	tailscale
 	mybin
 	bat
