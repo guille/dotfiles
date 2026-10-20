@@ -57,6 +57,7 @@ bootstrap_mise() {
 	mise use --global github:guille/orbit@latest --minimum-release-age=0d
 	mise use --global github:guille/integritas@latest --minimum-release-age=0d
 	mise use --global github:guille/revisa@latest --minimum-release-age=0d
+	mise use --global github:guille/wip@latest --minimum-release-age=0d
 
 	if [[ "$DOTFILES_DISTRO" == "Fedora" ]]; then
 		# we get these thru pacman in Arch

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Turns `wip lint` findings into a nag, and acks it once lint is clean.
+set -euo pipefail
+
+key=wip.lint
+if findings=$(wip lint); then
+  nag ack "$key" 2>/dev/null || true
+elif [[ -n $findings ]]; then
+  printf '%s\n' "$findings" | nag add -k "$key" "wip lint: $(wc -l <<<"$findings") findings" -
+else
+  exit 1 # lint itself failed; its error is already on stderr
+fi
