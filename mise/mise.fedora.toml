@@ -11,9 +11,6 @@ uv_venv_auto = "create|source"
 [settings.pipx]
 uvx = true
 
-[settings.npm]
-package_manager = "npm"
-
 [settings.java]
 shorthand_vendor = "temurin"
 
@@ -70,7 +67,7 @@ kubectx                                                      = "latest"
 kubens                                                       = "latest"
 mirrord                                                      = "latest"
 node                                                         = "latest"
-opencode                                                     = "latest"
+opencode                                                     = { version = "latest", allow_builds = ["@opencode/cli"] }
 pnpm                                                         = "latest"
 protoc                                                       = "latest"
 python                                                       = "latest"
