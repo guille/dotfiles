@@ -110,7 +110,7 @@ bootstrap_mise() {
 	mise use --global pipx:dmn-pty
 	mise use --global pipx:httpie
 	mise use --global pipx:pgcli
-	mise use --global pipx:mycli
+	# mise use --global pipx:mycli
 	mise use --global pipx:syntaqlite
 	mise use --global pipx:tombi
 	mise use --global pipx:ty

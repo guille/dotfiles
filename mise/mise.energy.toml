@@ -22,7 +22,6 @@
 "pipx:basedpyright"                     = "latest"
 "pipx:dmn-pty"                          = { version = "latest", minimum_release_age = "0d" }
 "pipx:httpie"                           = "latest"
-"pipx:mycli"                            = "latest"
 "pipx:pgcli"                            = "latest"
 "pipx:syntaqlite"                       = "latest"
 "pipx:tombi"                            = "latest"
