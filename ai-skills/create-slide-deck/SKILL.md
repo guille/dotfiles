@@ -1,6 +1,7 @@
 ---
 name: create-slide-deck
-description: Create a new presentation / slide deck / talk with the `deck` library (in ~/projects/slides/lib). Talks content through with the user first, pitches animations and visual ideas, confirms style and theme, then builds the deck with the library vendored into the deck's own folder. Use whenever the user asks to make, build, draft or start slides, a deck, a presentation, a talk, or a keynote.
+description: Create a new presentation / slide deck / talk with the `deck` library (in ~/projects/slides/lib). Talks content through with the user first, pitches animations and visual ideas, confirms style and theme, then builds the deck with the library vendored into the deck's own folder.
+disable-model-invocation: true
 ---
 
 # Create a slide deck
