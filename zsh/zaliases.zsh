@@ -278,10 +278,16 @@ wt() {
 	done
 
 	# git refuses to remove a dirty or locked worktree, so surface its complaint
-	# in the header rather than tearing down the picker. Parens would be read
-	# back as action syntax; strip them.
+	# in the header rather than tearing down the picker. It also refuses any
+	# worktree with submodules; force only once status shows nothing to lose.
+	# Parens would be read back as action syntax; strip them.
 	local -x WT_GIT_DIR=$gitdir
-	local remove='transform:name={2}; if err=$(git --git-dir="$WT_GIT_DIR" worktree remove {1} 2>&1); then
+	local remove='transform:name={2}; ok=
+		if err=$(git --git-dir="$WT_GIT_DIR" worktree remove {1} 2>&1); then ok=1
+		elif [[ $err == *submodules* && -z $(git -C {1} status --porcelain --ignore-submodules=none) ]] &&
+			err=$(git --git-dir="$WT_GIT_DIR" worktree remove --force {1} 2>&1); then ok=1
+		fi
+		if [[ -n $ok ]]; then
 			echo "exclude+change-header(removed $name)"
 		else
 			echo "change-header($(printf "%s" "$err" | tr -d "()" | tr "\n" " "))"
