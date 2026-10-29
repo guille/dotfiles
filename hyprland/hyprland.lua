@@ -19,7 +19,21 @@ hl.env("GTK_IM_MODULE", "simple")
 -- autostart
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+    -- ghostty's window belongs to its systemd service, not the exec'd PID, so place it by a one-shot rule
+    local ghostty_rule = hl.window_rule {
+        name      = "ghostty-autostart",
+        match     = { class = "^com.mitchellh.ghostty$" },
+        workspace = 3,
+    }
+    local ghostty_sub
+    ghostty_sub = hl.on("window.open", function(w)
+        if w.class ~= "com.mitchellh.ghostty" then return end
+        ghostty_rule:set_enabled(false)
+        ghostty_sub:remove()
+    end)
+    -- D-Bus activation needs the session env imported first
+    hl.exec_cmd("dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && " .. config.terminal_window)
+
     hl.exec_cmd("mpd")
     hl.exec_cmd("lxsession")
     hl.exec_cmd("dunst")
@@ -36,7 +50,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("wl-paste --watch cliphist store")
 
     hl.exec_cmd("subl")
-    hl.exec_cmd(config.terminal, { workspace = 3 })
 end)
 
 hl.on("monitor.added", function()

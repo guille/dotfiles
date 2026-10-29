@@ -1,5 +1,4 @@
 return {
-  terminal = "ghostty",
   terminal_window = "ghostty +new-window",
   fileManager = "thunar",
   menu = "rofi -show drun",

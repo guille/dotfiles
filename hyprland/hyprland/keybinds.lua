@@ -9,7 +9,11 @@ hl.bind("SUPER + D", hl.dsp.exec_cmd(config.menu))
 hl.bind("SUPER + C", hl.dsp.exec_cmd("firefox"))
 hl.bind("SUPER + O", hl.dsp.exec_cmd("vaulter"))
 hl.bind("SUPER + J", hl.dsp.exec_cmd("emoji --rofi"))
-hl.bind("SUPER + T", hl.dsp.exec_cmd(config.terminal_window .. " -e zsh -ic nnn", { workspace = 3 }))
+-- ghostty windows belong to its service, not the exec'd PID, so an exec workspace rule can't place them
+hl.bind("SUPER + T", function()
+	hl.dispatch(hl.dsp.focus({ workspace = 3 }))
+	hl.exec_cmd(config.terminal_window .. " -e zsh -ic nnn")
+end)
 
 -- Clipboard
 hl.bind("SUPER + P",
