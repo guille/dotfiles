@@ -16,7 +16,7 @@
 "npm:dockerfile-language-server-nodejs" = "latest"
 "npm:oxfmt"                             = "latest"
 "npm:oxlint"                            = "latest"
-"npm:svelte-language-server"            = "latest"
+"npm:svelte-language-server"            = { version = "latest", trust_policy_excludes = ["svelte@4.2.20"] }
 "npm:typescript"                        = "latest"
 "npm:yaml-language-server"              = "latest"
 "pipx:basedpyright"                     = "latest"
@@ -53,3 +53,6 @@ uvx = true
 
 [settings.github]
 oauth_client_id = "Ov23liQ8UZ6MyjYCbUqf"
+
+[settings.self_update]
+minimum_release_age = "24h"

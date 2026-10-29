@@ -75,6 +75,8 @@ bootstrap_mise() {
 			mise use --global kubectx@latest
 			mise use --global kubens@latest
 		fi
+	elif [[ "$DOTFILES_DISTRO" == "Arch" ]]; then
+		mise settings set self_update.minimum_release_age 24h
 	fi
 
 	if is_work_or_hybrid; then
