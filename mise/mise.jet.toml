@@ -38,3 +38,7 @@ uvx = true
 
 [settings.python]
 uv_venv_auto = "create|source"
+
+[settings.github]
+oauth_client_id    = "Ov23liQ8UZ6MyjYCbUqf"
+oauth_open_browser = false
