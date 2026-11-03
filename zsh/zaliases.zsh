@@ -30,7 +30,7 @@ fi
 alias sudo='sudo '
 alias watch='watch -c '
 
-alias resource='source ~/.zshrc && source ~/.zshenv'
+alias resource='exec zsh'
 
 alias cal='cal --monday'
 alias calc='bc --quiet --mathlib'
@@ -126,8 +126,8 @@ git-recent-stats() {
 	done
 }
 
-untilok() { until $@; do :; done }
-untilfail() { while $@; do :; done }
+untilok() { until "$@"; do :; done }
+untilfail() { while "$@"; do :; done }
 
 palette() {
 	local -a colors

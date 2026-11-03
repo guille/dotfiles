@@ -51,21 +51,18 @@ fi
 if [[ -f "$HOME/.zhist_substr" ]]; then
     . "$HOME/.zhist_substr"
     export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
-    bindkey "${key[Up]}" history-substring-search-up
-    bindkey "${key[Down]}" history-substring-search-down
+    [[ -n "${key[Up]}"   ]]  && bindkey "${key[Up]}" history-substring-search-up
+    [[ -n "${key[Down]}" ]]  && bindkey "${key[Down]}" history-substring-search-down
 fi
 
 # Finally, make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
 if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
-    function zle-line-init () {
-        echoti smkx
-    }
-    function zle-line-finish () {
-        echoti rmkx
-    }
-    zle -N zle-line-init
-    zle -N zle-line-finish
+    autoload -Uz add-zle-hook-widget
+    _zkeys_smkx() { echoti smkx }
+    _zkeys_rmkx() { echoti rmkx }
+    add-zle-hook-widget line-init _zkeys_smkx
+    add-zle-hook-widget line-finish _zkeys_rmkx
 fi
 
 

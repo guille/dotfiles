@@ -197,7 +197,7 @@ _fzf_comprun() {
   shift
 
   case "$command" in
-    cd|ls)           fzf "$@" --preview 'exa -1 --icons=always --color=always {}' ;;
+    cd|ls)           fzf "$@" --preview 'eza -1 --icons=always --color=always {}' ;;
     export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
     *)            fzf "$@" --preview 'bat -n --color=always {}';;
   esac
@@ -233,9 +233,6 @@ function zz() {
 	result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --filter "${@:-}" | head -n1)
 	if [[ -n "$result" ]]; then
 		z "$result"
-		if [[ -d master ]]; then # for worktrees
-			cd master
-		fi
 	fi
 }
 # fuzzy search zoxide from its own db, with full paths (unlike zi) and bring up a fzf picker
@@ -244,9 +241,6 @@ function zzz() {
 	result=$(zoxide query -l --exclude "$(__zoxide_pwd)" | fzf -1 --reverse --inline-info --query "${@:-}" --preview 'eza -1 --icons=always --color=always {}')
 	if [[ -n "$result" ]]; then
 		z "$result"
-		if [[ -d master ]]; then # for worktrees
-			cd master
-		fi
 	fi
 }
 
@@ -266,7 +260,7 @@ fi
 [[ -f ~/.zaliases ]] && source ~/.zaliases
 
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-[[ -f ~/.zshrc.$(hostname) ]] && source ~/.zshrc.$(hostname)
+[[ -f ~/.zshrc.$HOST ]] && source ~/.zshrc.$HOST
 
 # Needs to be set after sourcing fzf for _reasons_
 # makes it so `echo "foo""` works transparently

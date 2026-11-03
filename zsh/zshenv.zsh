@@ -3,15 +3,18 @@
 
 [[ -f "$HOME/.zvars" ]] && . "$HOME/.zvars"
 
+# Dedupe PATH. Only array assignments (path=...) dedupe, PATH=... does not
+typeset -U path
+
 export TERMINAL="ghostty"
 export EDITOR="subl -w"
 
-export PATH=~/mybin:$PATH
-export PATH=~/.local/bin:$PATH
+path=(~/mybin $path)
+path=(~/.local/bin $path)
 if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
-	export PATH="/usr/local/opt/libpq/bin:$PATH"
+	path=(/usr/local/opt/libpq/bin $path)
 fi
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+path=(${KREW_ROOT:-$HOME/.krew}/bin $path)
 
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/ripgreprc"
 
@@ -23,4 +26,4 @@ export GOPRIVATE="go.guillerg.dev/arca"
 # export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 [[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
-[[ -f ~/.zshenv.$(hostname) ]] && source ~/.zshenv.$(hostname)
+[[ -f ~/.zshenv.$HOST ]] && source ~/.zshenv.$HOST
