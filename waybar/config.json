@@ -4,8 +4,7 @@
     "position": "bottom",
     "height": 30,
     "modules-left": [
-        "hyprland/workspaces",
-        "hyprland/submap"
+        "hyprland/workspaces"
     ],
     "modules-center": [
         "mpd",
@@ -45,9 +44,6 @@
             "default": ""
         }
     },
-    "hyprland/submap": {
-        "format": "<span style=\"italic\">{}</span>"
-    },
     "mpd": {
         "format": "<span color=\"#ffd204\">󰎈</span> {stateIcon}",
         "format-disconnected": "󰎊",
@@ -77,6 +73,10 @@
     },
     "memory": {
         "interval": 30,
+        "states": {
+            "warning": 75,
+            "critical": 90
+        },
         "format": "<span color=\"#ffd204\">RAM</span> {}%"
     },
     "backlight": {
@@ -199,12 +199,10 @@
     "custom/power": {
         "format": "<span color=\"#ee2e24\"></span>",
         "tooltip": false,
-        "interval": "once",
         "on-click": "~/mybin/rofi_logout.sh"
     },
     "custom/separator": {
         "format": "|",
-        "interval": "once",
         "tooltip": false
     }
 }

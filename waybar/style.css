@@ -105,28 +105,12 @@
   font-weight: bold;
 }
 
-#cpu.warning {
-  color: orange;
-}
-
-#cpu.critical {
-  color: red;
-}
-
-#memory {
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
 #memory.warning {
   color: orange;
 }
 
 #memory.critical {
   color: red;
-  animation-name: blink-critical;
-  animation-duration: 2s;
 }
 
 #network.disconnected {
