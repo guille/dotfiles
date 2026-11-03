@@ -22,7 +22,7 @@
         "custom/separator",
         "memory",
         "custom/separator",
-        "custom/vpn",
+        "network#vpn",
         "network",
         "custom/separator",
         "clock",
@@ -122,11 +122,11 @@
     //         "power-saver": ""
     //     }
     // },
-    "custom/vpn": {
-        "format": "<span color=\"#ffd204\">{}</span>",
-        "tooltip": false,
-        "exec": "~/.config/waybar/scripts/vpn.sh",
-        "interval": 60
+    "network#vpn": {
+        "interface": "snwl_ssltunnel",
+        "format": "<span color=\"#ffd204\">󰖂</span>",
+        "format-disconnected": "",
+        "tooltip-format": "VPN {ipaddr}"
     },
     "network": {
         "format-wifi": "<span color=\"#ffd204\">󰖩</span> {essid}",
