@@ -23,8 +23,8 @@
     gap_size = 15
 
     # Frame
-    frame_width = 2
-    frame_color = "#EEEEEE"
+    frame_width = 1
+    frame_color = "#EEEEEE99"
 
     # Icon
     icon_position = left
@@ -32,6 +32,8 @@
     icon_theme = Papirus
     min_icon_size = 48
     max_icon_size = 128
+    icon_corner_radius = 10
+    text_icon_padding = 14
 
     # Mouse actions
     mouse_left_click = do_action, close_current
@@ -48,7 +50,7 @@
     #   %I  iconname (without its path)
     #   %p  progress value if set ([  0%] to [100%]) or nothing
     # Markup is allowed
-    format = "<span text_transform='uppercase'><b>%s</b></span>\n<i>%b</i>"
+    format = "<span size='small' alpha='65%'>%a</span>\n<b>%s</b>\n<span alpha='82%'>%b</span>"
 
     # Sort messages by urgency.
     sort = yes
@@ -87,19 +89,19 @@
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
     # background = "#2e8b57"
-    background = "#5c8f6a"
+    background = "#5c8f6ab8"
     foreground = "#ffffff"
     timeout = 10
     default_icon = "gtk-dialog-info"
 
 [urgency_normal]
-    background = "#3b4252"
+    background = "#3b4252b8"
     foreground = "#eceff4"
     timeout = 10
     default_icon = "gtk-dialog-info"
 
 [urgency_critical]
-    background = "#900000"
+    background = "#900000c8"
     foreground = "#ffffff"
     timeout = 0
     default_icon = "gtk-dialog-error"

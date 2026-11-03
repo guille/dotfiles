@@ -39,6 +39,22 @@ hl.workspace_rule({ workspace = "4", layout = "scrolling" })
 -- Window rules
 --
 
+-- blur is on only for notifications
+hl.window_rule {
+	name    = "no-blur",
+	match   = { class = ".*" },
+
+	no_blur = true,
+}
+
+hl.layer_rule {
+	name         = "notifications-blur",
+	match        = { namespace = "^notifications$" },
+
+	blur         = true,
+	ignore_alpha = 0,
+}
+
 hl.window_rule {
 	name         = "firefox",
 	match        = { class = "^firefox$" },
