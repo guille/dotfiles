@@ -14,24 +14,17 @@
         "battery",
         // "disk",
         // "disk#disk2",
-        // "custom/separator",
         "pulseaudio",
-        "custom/separator",
         "cpu",
-        "custom/separator",
         "memory",
-        "custom/separator",
         "network#vpn",
         "network",
-        "custom/separator",
         "clock",
-        "custom/separator",
         "custom/dnf",
         "custom/pacman",
         "idle_inhibitor",
         "custom/ntfy",
         "custom/dunst",
-        "custom/separator",
         "tray",
         "custom/power"
     ],
@@ -98,11 +91,11 @@
             "warning": 25,
             "critical": 15
         },
-        "format": "<span color=\"#ffd204\">{icon}</span> {capacity}% <span color=\"#959ca1\">|</span>",
-        "format-full": "<span color=\"#ffd204\"></span> {capacity}% <span color=\"#959ca1\">|</span>",
-        "format-plugged": "<span color=\"#ffd204\">󰂄</span> {capacity}% <span color=\"#959ca1\">|</span>",
-        "format-charging": "<span color=\"#ffd204\">󰂄</span> {capacity}% <span color=\"#959ca1\">|</span>",
-        "format-alt": "<span color=\"#ffd204\">{icon}</span> {time} <span color=\"#959ca1\">|</span>",
+        "format": "<span color=\"#ffd204\">{icon}</span> {capacity}%",
+        "format-full": "<span color=\"#ffd204\"></span> {capacity}%",
+        "format-plugged": "<span color=\"#ffd204\">󰂄</span> {capacity}%",
+        "format-charging": "<span color=\"#ffd204\">󰂄</span> {capacity}%",
+        "format-alt": "<span color=\"#ffd204\">{icon}</span> {time}",
         "format-icons": [
             "",
             "",
@@ -200,9 +193,5 @@
         "format": "<span color=\"#ee2e24\"></span>",
         "tooltip": false,
         "on-click": "~/mybin/rofi_logout.sh"
-    },
-    "custom/separator": {
-        "format": "|",
-        "tooltip": false
     }
 }

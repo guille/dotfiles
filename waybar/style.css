@@ -72,6 +72,29 @@
   padding-right: 7px;
 }
 
+/* Separators sit on modules that are always visible (or vanish with their
+ * group), so a hidden module never leaves a stray one behind. */
+#battery,
+#pulseaudio,
+#cpu,
+#memory,
+#network:not(.vpn),
+#clock {
+  border-right: 1px solid #959ca1;
+  padding-right: 12px;
+  margin: 3px 5px 3px 0;
+}
+
+#tray {
+  border-left: 1px solid #959ca1;
+  padding-left: 12px;
+  margin: 3px 0 3px 5px;
+}
+
+#network.vpn {
+  padding-right: 0;
+}
+
 
 /* -----------------------------------------------------------------------------
  * Module styles
@@ -158,11 +181,6 @@
 #remap {
   background: #64727D;
   box-shadow: inset 0 -2px #d9d8d8;
-}
-
-#custom-separator {
-  color: #959ca1;
-  margin: 0 1px;
 }
 
 #custom-ntfy.active {
