@@ -44,12 +44,11 @@
 #waybar {
   background: #2c2c2c;
   color: #d9d8d8;
-  font-family: "0xProto Nerd Font", monospace;
+  font-family: "0xProto Nerd Font Propo", monospace;
   font-size: 14px;
 }
 
 /* Each module */
-#backlight,
 #battery,
 #clock,
 #cpu,
@@ -61,12 +60,9 @@
 #disk,
 #idle_inhibitor,
 #memory,
-#mode,
 #mpd,
 #network,
-#power-profiles-daemon,
 #pulseaudio,
-#temperature,
 #tray {
   padding-left: 7px;
   padding-right: 7px;
@@ -140,10 +136,6 @@
   color: orange;
 }
 
-#window {
-  font-weight: bold;
-}
-
 #workspaces button {
   padding-left: 10px;
   padding-right: 10px;
@@ -157,7 +149,6 @@
 }
 
 #workspaces button.urgent {
-  border-color: #ee2e24;
   color: #ee2e24;
 }
 
@@ -171,16 +162,7 @@
   box-shadow: inherit;
   text-shadow: inherit;
   background-color: #fbf3f6;
-}
-
-#mode {
-  background: #64727D;
-  box-shadow: inset 0 -2px #d9d8d8;
-}
-
-#remap {
-  background: #64727D;
-  box-shadow: inset 0 -2px #d9d8d8;
+  color: #2c2c2c;
 }
 
 #custom-ntfy.active {

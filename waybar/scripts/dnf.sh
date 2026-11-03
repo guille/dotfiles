@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-# SELinux fix:
-# sudo chmod o+r  /usr/lib/sysimage/libdnf5/*.toml
-count=$(dnf check-update -q | grep -c "^[a-z0-9]")
-
-if [ "$count" -ne 0 ]; then
-	echo "$count"
-fi
+# Fails if /usr/lib/sysimage/libdnf5/*.toml aren't world-readable, e.g. when
+# root ran dnf with a restrictive umask.
+updates=$(dnf check-update -q 2>/dev/null)
+case $? in
+	0) ;;
+	100) grep -c "^[a-z0-9]" <<< "$updates" ;;
+	*) echo "!" ;;
+esac

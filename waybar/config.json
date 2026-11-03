@@ -31,11 +31,8 @@
     "privacy": {},
     "hyprland/workspaces": {
         "all-outputs": true,
-        "format": "{name}{icon}",
-        "format-icons": {
-            "1": "",
-            "default": ""
-        }
+        "tooltip": false,
+        "format": "{name}"
     },
     "mpd": {
         "format": "<span color=\"#ffd204\">󰎈</span> {stateIcon}",
@@ -52,7 +49,9 @@
         "on-click-right": "mpc next",
         "tooltip": false
     },
-    "tray": {},
+    "tray": {
+        "spacing": 8
+    },
     "clock": {
         "interval": 60,
         "tooltip": false,
@@ -72,20 +71,6 @@
         },
         "format": "<span color=\"#ffd204\">RAM</span> {}%"
     },
-    "backlight": {
-        "format": "<span color=\"#ffd204\">{icon}</span> {percent}%",
-        "format-icons": [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-        ]
-    },
     "battery": {
         "states": {
             "warning": 25,
@@ -104,17 +89,6 @@
             ""
         ]
     },
-    // "power-profiles-daemon": {
-    //     "format": "{icon}",
-    //     "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-    //     "tooltip": true,
-    //     "format-icons": {
-    //         "default": "",
-    //         "performance": "",
-    //         "balanced": "",
-    //         "power-saver": ""
-    //     }
-    // },
     "network#vpn": {
         "interface": "snwl_ssltunnel",
         "format": "<span color=\"#ffd204\">󰖂</span>",
