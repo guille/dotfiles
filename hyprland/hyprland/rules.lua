@@ -57,7 +57,7 @@ hl.layer_rule {
 
 hl.window_rule {
 	name         = "firefox",
-	match        = { class = "^firefox$" },
+	match        = { class = "^(org\\.mozilla\\.)?firefox$" },
 
 	idle_inhibit = "fullscreen",
 	workspace    = 1,
@@ -74,14 +74,6 @@ hl.window_rule {
 	match  = { title = ".*upnext — Mozilla Firefox$" },
 
 	opaque = true,
-}
-
-hl.window_rule {
-	name         = "firefox2",
-	match        = { class = "^org.mozilla.firefox$" },
-
-	idle_inhibit = "fullscreen",
-	workspace    = 1,
 }
 
 hl.window_rule {
@@ -136,7 +128,7 @@ hl.window_rule {
 
 hl.window_rule {
 	name      = "libreoffice-splash",
-	match     = { class = "^LibreOffice*" },
+	match     = { class = "^LibreOffice" },
 
 	workspace = "4 silent",
 }
