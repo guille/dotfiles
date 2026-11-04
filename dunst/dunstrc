@@ -118,6 +118,19 @@
     appname="ncmpcpp"
     default_icon = deepin-music
 
+# nm-applet icons only exist at panel sizes (<=24px), below min_icon_size
+[nm_wireless_icon]
+    icon = "nm-signal-*"
+    new_icon = network-wireless
+
+[nm_wired_icon]
+    icon = "nm-device-wired*"
+    new_icon = network-wired
+
+[nm_vpn_icon]
+    icon = "nm-vpn-*"
+    new_icon = network-vpn
+
 [ntfy_forward]
     summary = "*"
     script = ~/mybin/ntfy.sh
