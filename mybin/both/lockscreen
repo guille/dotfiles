@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
-hyprctl dispatch 'hl.dsp.dpms({ action = "disable" })'
-sleep 1
-
 # only lock on work machines
-if [[ "$DOTFILES_PROFILE" == "work" || "$DOTFILES_PROFILE" == "hybrid" ]]; then
-	mpc pause >/dev/null || true
-	# avoid starting multiple hyprlock instances.
-	pidof hyprlock || hyprlock
-fi
+[[ "$DOTFILES_PROFILE" == "work" || "$DOTFILES_PROFILE" == "hybrid" ]] || exit 0
+
+mpc pause >/dev/null || true
+# avoid starting multiple hyprlock instances.
+pidof hyprlock || hyprlock

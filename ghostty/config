@@ -16,7 +16,7 @@ font-size = 12
 # Colours
 background = #2c2c2c
 foreground = #e1e1e1
-cursor-color = #45b7cf
+cursor-color = #85cebc
 selection-foreground = #ffffff
 selection-background = #586e75
 
