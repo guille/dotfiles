@@ -23,7 +23,7 @@ mkdir -p ~/.config/hypr/hyprland
 infoprint "[$module_name] creating dotfiles symlinks... (hyprland)"
 ln -sfv "${SCRIPT_BASE_DIR}/$module_name/hyprland.lua" ~/.config/hypr/hyprland.lua 1> /dev/null
 
-touch "${SCRIPT_BASE_DIR}/$module_name/local_confs.lua"
+touch "${SCRIPT_BASE_DIR}/$module_name/hyprland/local_confs.lua"
 ln -sf "${SCRIPT_BASE_DIR}/$module_name/hyprland/"* ~/.config/hypr/hyprland/
 
 infoprint "[$module_name] creating dotfiles symlinks... (ecosystem)"

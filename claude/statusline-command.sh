@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-input=$(cat | tee /tmp/claude-statusline-input.json)
+input=$(cat)
 
 MODEL=$(echo "$input"      | jq -r '.model.display_name | sub(" \\(.*\\)$"; "")')
 EFFORT=$(echo "$input"     | jq -r '.effort.level // ""')

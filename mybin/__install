@@ -13,7 +13,7 @@ module_name=mybin
 
 
 infoprint "[$module_name] clearing existing symlinks in ~/mybin..."
-find ~/mybin -type l -delete 2>/dev/null || true
+find ~/mybin -type l -lname "$SCRIPT_BASE_DIR/*" -delete 2>/dev/null || true
 
 infoprint "[$module_name] creating symlinks for mybin folder..."
 mkdir -p ~/mybin
