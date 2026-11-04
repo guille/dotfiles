@@ -8,18 +8,16 @@ RUN apk add --no-cache \
 	musl-locales \
 	zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions \
 	git delta neovim bat eza fd fzf htop nnn ripgrep zoxide \
-	jq yq curl \
+	jq yq curl ncurses \
 	mise \
 	helm kubectl kubectx
 
 # Mise setup
 RUN mise settings set experimental true && \
-	mise use -g usage github:romkatv/gitstatus@1.5.4
+	mise use -g usage github:romkatv/gitstatus@1.5.4 forgejo:mergiraf/mergiraf@latest
 
 RUN echo "export GITSTATUS_CACHE_DIR=$(mise bin-paths github:romkatv/gitstatus)" >> ~/.zshenv.local
 
-
-# TODO: Get around creating so many layers
 
 COPY ripgrep/ripgreprc .config/ripgrep/ripgreprc
 
@@ -28,6 +26,17 @@ COPY fd/fdignore .config/fd/ignore
 COPY bat/custom.tmTheme .config/bat/themes/custom.tmTheme
 COPY bat/config .config/bat/config
 RUN bat cache --build
+
+COPY git/gitconfig .gitconfig
+COPY git/gitconfig-delta.gitconfig .gitconfig-delta
+COPY git/gitmessage .gitmessage
+# No SSH keys or display in the image: plain https and $EDITOR
+RUN git config --global commit.gpgSign false && \
+	git config --global tag.gpgSign false && \
+	git config --global --unset core.editor && \
+	git config --global --unset sequence.editor && \
+	git config --global --remove-section 'url.git@github.com:' && \
+	mkdir -p .config/git && echo '* merge=mergiraf' > .config/git/attributes
 
 COPY zsh/zshrc.zsh .zshrc
 COPY zsh/zshenv.zsh .zshenv
