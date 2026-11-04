@@ -75,7 +75,7 @@ correct from any depth.
 Check the hook is live after any setup:
 
 ```bash
-git worktree add feat/probe -b feat/probe --no-track <primary>
+git worktree add feat/probe -b feat/probe <primary>
 [ -L feat/probe/mise.local.toml ] && echo hook OK
 git worktree remove feat/probe && git branch -D feat/probe && rmdir feat
 ```
@@ -96,10 +96,6 @@ git -C ~/work/<repo>/<worktree> checkout HEAD -- . 2>/dev/null || \
 
 - `git worktree remove feature/x` leaves the now-empty parent `feature/` behind.
   Follow with `rmdir -p --ignore-fail-on-non-empty feature`.
-- New branches should be created `--no-track` so they don't inherit master's
-  upstream: `git worktree add feat/x -b feat/x --no-track master`. Checking out
-  an *existing* remote branch of the same name is different and should track:
-  `git worktree add feature/x feature/x` DWIMs to `origin/feature/x` correctly.
 - `mise.local.toml` is in the user's global gitignore, so the symlink never
   shows up as untracked. A shared file *not* covered by an ignore rule would —
   check before adding one to `local/`.

@@ -13,6 +13,8 @@
 
 [branch]
 	sort = -committerdate
+	# only track same-name remote branches; push.autoSetupRemote sets the rest on first push
+	autoSetupMerge = simple
 
 [tag]
 	sort = -version:refname
