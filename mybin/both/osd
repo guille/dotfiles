@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# Change volume/brightness and show the new level as a dunst progress bar.
+
+set -euo pipefail
+
+usage() {
+	echo "usage: osd volume up|down|mute | mic mute | brightness up|down" >&2
+	exit 2
+}
+
+# notify <tag> <icon> <value> <summary>
+notify() {
+	notify-send -a osd -e -t 1500 -i "$2" \
+		-h "string:x-dunst-stack-tag:osd-$1" -h "int:value:$3" "$4"
+}
+
+# Prints "<percent> <muted:0|1>", e.g. "56 1" for "Volume: 0.56 [MUTED]".
+get_volume() {
+	wpctl get-volume "$1" | awk '{ printf "%d %d\n", $2 * 100 + 0.5, /MUTED/ }'
+}
+
+show_volume() {
+	local value muted icon
+	read -r value muted < <(get_volume @DEFAULT_AUDIO_SINK@)
+	if ((muted)); then
+		icon=muted
+	elif ((value < 34)); then
+		icon=low
+	elif ((value < 67)); then
+		icon=medium
+	else
+		icon=high
+	fi
+	notify volume "notification-audio-volume-$icon" "$value" "Volume $value%$( ((muted)) && echo ' (muted)')"
+}
+
+show_mic() {
+	local value muted
+	read -r value muted < <(get_volume @DEFAULT_AUDIO_SOURCE@)
+	if ((muted)); then
+		notify mic notification-microphone-sensitivity-muted "$value" "Microphone muted"
+	else
+		notify mic notification-microphone-sensitivity-high "$value" "Microphone $value%"
+	fi
+}
+
+show_brightness() {
+	local value
+	# -e4 so the percentage matches the perceptual scale used when setting it.
+	value=$(brightnessctl -e4 -m info | cut -d, -f4 | tr -d %)
+	notify brightness notification-display-brightness "$value" "Brightness $value%"
+}
+
+case "${1:-} ${2:-}" in
+"volume up") wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && show_volume ;;
+"volume down") wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && show_volume ;;
+"volume mute") wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && show_volume ;;
+"mic mute") wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && show_mic ;;
+"brightness up") brightnessctl -q -e4 -n2 set 5%+ && show_brightness ;;
+"brightness down") brightnessctl -q -e4 -n2 set 5%- && show_brightness ;;
+*) usage ;;
+esac

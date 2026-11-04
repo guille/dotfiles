@@ -6,6 +6,7 @@ TOPIC_FILE="$HOME/.config/ntfy-forward/topic"
 
 [[ -e "$SENTINEL" ]] || exit 0
 [[ -r "$TOPIC_FILE" ]] || exit 0
+[[ "${DUNST_APP_NAME:-}" == osd ]] && exit 0
 
 topic="$(<"$TOPIC_FILE")"
 

@@ -35,6 +35,8 @@
     icon_corner_radius = 10
     text_icon_padding = 14
 
+    progress_bar_corner_radius = 4
+
     # Mouse actions
     mouse_left_click = do_action, close_current
     mouse_middle_click = close_current
@@ -91,12 +93,14 @@
     # background = "#2e8b57"
     background = "#5c8f6ab8"
     foreground = "#ffffff"
+    highlight = "#ffd204"
     timeout = 10
     default_icon = "gtk-dialog-info"
 
 [urgency_normal]
     background = "#3b4252b8"
     foreground = "#eceff4"
+    highlight = "#ffd204"
     timeout = 10
     default_icon = "gtk-dialog-info"
 
@@ -130,6 +134,11 @@
 [nm_vpn_icon]
     icon = "nm-vpn-*"
     new_icon = network-vpn
+
+[osd]
+    appname = osd
+    format = "<b>%s</b>"
+    history_ignore = yes
 
 [ntfy_forward]
     summary = "*"
