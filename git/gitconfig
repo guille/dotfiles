@@ -107,6 +107,8 @@
 	autoSetupRemote = true
 	# automatically push tags pointing to what we're pushing
 	followTags = true
+	# makes force-with-lease safe(r) if any bg process fetched
+	useForceIfIncludes = true
 
 [rebase]
 	# enable --autosquash option (for interactive mode only)
