@@ -27,6 +27,8 @@ key[PageDown]=${terminfo[knp]}
 [[ -n "${key[Right]}"   ]]  && bindkey  "${key[Right]}"   forward-char
 # Ctrl delete / backspace
 bindkey '^[[3;5~' kill-word
+# Expand history (!!, !$, ...) on space
+bindkey ' ' magic-space
 
 if [[ "${DOTFILES_OS:-}" == "Linux" ]]; then
     # Ctrl left / right
@@ -41,7 +43,7 @@ if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
     # bindkey "\e[1;9C" forward-word      # ⌥→
     # bindkey "^[[1;3C" forward-word      # ⌥→
 
-    # treat option+space as a normal space...
+    # option+space types a non-breaking space; treat it as a normal one
     bindkey "\xC2\xA0" magic-space
     # alt+c in macOS (ES layout)
     bindkey "©" fzf-cd-widget
@@ -50,7 +52,7 @@ fi
 # re-bind up/down if the history substring plugin is found
 if [[ -f "$HOME/.zhist_substr" ]]; then
     . "$HOME/.zhist_substr"
-    export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+    HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
     [[ -n "${key[Up]}"   ]]  && bindkey "${key[Up]}" history-substring-search-up
     [[ -n "${key[Down]}" ]]  && bindkey "${key[Down]}" history-substring-search-down
 fi
