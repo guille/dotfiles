@@ -65,7 +65,6 @@ user_pref("devtools.accessibility.enabled", false);
 user_pref("browser.ml.linkPreview.collapsed", true);
 user_pref("browser.ml.linkPreview.enabled", false);
 user_pref("browser.tabs.hoverPreview.showThumbnails", false);
-user_pref("browser.tabs.hoverPreview.showThumbnails", false);
 
 // Disable AI stuff
 user_pref("browser.ai.control.pdfjsAltText", "blocked");
@@ -77,6 +76,11 @@ user_pref("browser.ml.chat.page", false);
 // Doesn't quite work anyway
 user_pref("privacy.query_stripping.strip_on_share.enabled", false);
 
+// Telemetry, same as the Settings checkboxes (also disables studies)
+user_pref("datareporting.healthreport.uploadEnabled", false);
+user_pref("datareporting.policy.dataSubmissionEnabled", false);
+user_pref("datareporting.usage.uploadEnabled", false);
+
 // https://mozilla.github.io/normandy/
 user_pref("app.normandy.enabled", false);
 user_pref("app.normandy.api_url", "");
@@ -85,6 +89,8 @@ user_pref("app.normandy.api_url", "");
 user_pref("browser.urlbar.showSearchSuggestionsFirst", false);
 user_pref("browser.urlbar.sponsoredTopSites", false);
 user_pref("browser.urlbar.suggest.engines", false);
+user_pref("browser.urlbar.suggest.quicksuggest.sponsored", false);
+user_pref("browser.urlbar.suggest.quicksuggest.nonsponsored", false);
 
 // Hide spam and shady features
 user_pref("app.shield.optoutstudies.enabled", false);

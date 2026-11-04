@@ -1,0 +1,14 @@
+{
+  "policies": {
+    "ExtensionSettings": {
+      "tab-finder@dotfiles": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://github.com/guille/firefox-tab-finder/releases/latest/download/tab-finder.xpi"
+      },
+      "florilegio@personal": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://github.com/guille/florilegio/releases/latest/download/florilegio.xpi"
+      }
+    }
+  }
+}

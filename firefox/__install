@@ -12,12 +12,6 @@ source "$SCRIPT_BASE_DIR/common"
 module_name=firefox
 
 
-# TODO: Move add-on to separate repo?
-# Add-on steps:
-# create zip file
-# upload to https://addons.mozilla.org/ as unlisted
-# download .xpi from versions page
-
 # TODO: Add check, if $HOME/.mozilla exists, exit with error to move to XDG
 prepare_profiled_config "user.js"
 
@@ -32,19 +26,8 @@ while IFS= read -r profile; do
   	# TODO: OSX: ~/Library/Application Support/Firefox/Profiles/XXXXXXXX.your_profile_name
 	ln -sfv "${SCRIPT_BASE_DIR}/$module_name/user.js" "$HOME/.config/mozilla/firefox/$profile/user.js" 1> /dev/null
 	ln -sfv "${SCRIPT_BASE_DIR}/$module_name/customKeys.json" "$HOME/.config/mozilla/firefox/$profile/customKeys.json" 1> /dev/null
-
-	# Custom extensions
-	if [ ! -f "$HOME/.config/mozilla/firefox/$profile/extensions/tab-finder@dotfiles.xpi" ]; then
-		curl -fsSL -o "$HOME/.config/mozilla/firefox/$profile/extensions/tab-finder@dotfiles.xpi" \
-		  https://github.com/guille/firefox-tab-finder/releases/latest/download/tab-finder.xpi
-
-		firefox -P "$profile" "$HOME/.config/mozilla/firefox/$profile/extensions/tab-finder@dotfiles.xpi"
-	fi
-
-	if [ ! -f "$HOME/.config/mozilla/firefox/$profile/extensions/florilegio@personal.xpi" ]; then
-		curl -fsSL -o "$HOME/.config/mozilla/firefox/$profile/extensions/florilegio@personal.xpi" \
-		  https://github.com/guille/florilegio/releases/latest/download/florilegio.xpi
-
-		firefox -P "$profile" "$HOME/.config/mozilla/firefox/$profile/extensions/florilegio@personal.xpi"
-	fi
 done <<< "$profiles"
+
+# Installs the custom add-ons in every profile
+infoprint "[$module_name] installing policies.json..."
+sudo install -Dm644 "${SCRIPT_BASE_DIR}/$module_name/policies.json" /etc/firefox/policies/policies.json
