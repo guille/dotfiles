@@ -93,14 +93,14 @@
     # background = "#2e8b57"
     background = "#5c8f6ab8"
     foreground = "#ffffff"
-    highlight = "#ffd204"
+    highlight = "#85cebc"
     timeout = 10
     default_icon = "gtk-dialog-info"
 
 [urgency_normal]
     background = "#3b4252b8"
     foreground = "#eceff4"
-    highlight = "#ffd204"
+    highlight = "#85cebc"
     timeout = 10
     default_icon = "gtk-dialog-info"
 

@@ -143,7 +143,7 @@
 }
 
 #workspaces button.active.hosting-monitor {
-  box-shadow: inset 0 -3px #ffd204;
+  box-shadow: inset 0 -3px #85cebc;
   color: #d9d8d8;
   background-color: #5a5758;
 }
@@ -166,9 +166,9 @@
 }
 
 #custom-ntfy.active {
-  color: #ffd204;
+  color: #85cebc;
 }
 
 #custom-dunst.active {
-  color: #ffd204;
+  color: #85cebc;
 }
