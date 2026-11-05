@@ -9,7 +9,7 @@
 # Config for Powerlevel10k with powerline prompt style with colorful background.
 # Type `p10k configure` to generate your own config based on it.
 #
-# (Updated 2026-02 with patches up to 8ed1f58)
+# (Updated 2026-11 with patches up to 58e13d1)
 # See https://github.com/romkatv/powerlevel10k/commits/master/config/p10k-rainbow.zsh
 # (Also added POWERLEVEL9K_TERM_SHELL_INTEGRATION=true)
 
@@ -1221,7 +1221,7 @@
   # - P9K_PACKAGE_NAME     The value of `name` field in package.json.
   # - P9K_PACKAGE_VERSION  The value of `version` field in package.json.
   #
-  # typeset -g POWERLEVEL9K_PACKAGE_CONTENT_EXPANSION='${P9K_PACKAGE_NAME//\%/%%}@${P9K_PACKAGE_VERSION//\%/%%}'
+  # typeset -g POWERLEVEL9K_PACKAGE_CONTENT_EXPANSION='${(V)P9K_PACKAGE_NAME//\%/%%}@${(V)P9K_PACKAGE_VERSION//\%/%%}'
 
   # Custom icon.
   # typeset -g POWERLEVEL9K_PACKAGE_VISUAL_IDENTIFIER_EXPANSION='⭐'
