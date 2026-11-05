@@ -11,8 +11,8 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # Can't be in zshenv because macOS is stupid
 # https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2
 if [[ "${DOTFILES_OS:-}" == "OSX" ]]; then
-    path=(/usr/local/opt/util-linux/bin $path)
-    path=(/usr/local/opt/util-linux/sbin $path)
+    path=($(brew --prefix)/opt/util-linux/bin $path)
+    path=($(brew --prefix)/opt/util-linux/sbin $path)
     path=(/usr/local/bin $path)
 fi
 
