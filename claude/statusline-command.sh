@@ -14,12 +14,12 @@ SESSION_ID=$(echo "$input" | jq -r '.session_id // ""')
 # Name other sessions use to message this one; only the session registry has it.
 PEER=$(jq -r --arg s "$SESSION_ID" 'select(.sessionId == $s) | .name // empty' ~/.claude/sessions/*.json 2>/dev/null | head -1)
 
-CYAN='\033[36m'
-GREEN='\033[32m'
+MODEL_COLOR='\033[37m'
+DIM_GREEN='\033[2;32m'
 YELLOW='\033[33m'
 RED='\033[31m'
-ORANGE='\033[38;5;208m'
-ICE='\033[38;5;45m'
+ORANGE='\033[38;2;253;151;31m'
+ICE='\033[96m'
 RESET='\033[0m'
 
 # Returns "2h30m", "45m", "1d8h", or "" if timestamp is empty/past
@@ -59,13 +59,13 @@ if GIT_COMMON=$(git -C "${DIR}" rev-parse --path-format=absolute --git-common-di
     MODIFIED=$(git -C "${DIR}" diff --numstat 2>/dev/null | wc -l | tr -d ' ')
 
     GIT_INDICATORS=""
-    [ "${STAGED}"   -gt 0 ] && GIT_INDICATORS="${GREEN}+${STAGED}${RESET}"
+    [ "${STAGED}"   -gt 0 ] && GIT_INDICATORS="${DIM_GREEN}+${STAGED}${RESET}"
     [ "${MODIFIED}" -gt 0 ] && GIT_INDICATORS="${GIT_INDICATORS} ${YELLOW}~${MODIFIED}${RESET}"
 
     BRANCH_SEGMENT=" | ${BRANCH}${GIT_INDICATORS:+ ${GIT_INDICATORS}}"
 fi
 
-printf '%b\n' "${CYAN}[${MODEL}${EFFORT:+ · ${EFFORT}}]${RESET}  ${NAME}${BRANCH_SEGMENT}${PEER:+ | ✉ ${PEER}}"
+printf '%b\n' "${MODEL_COLOR}[${MODEL}${EFFORT:+ · ${EFFORT}}]${RESET}  ${NAME}${BRANCH_SEGMENT}${PEER:+ | ✉ ${PEER}}"
 
 # --- Line 2: rate limits ---
 
@@ -74,7 +74,7 @@ if [ "${FIVE_PCT}" -gt 80 ]; then
     FIVE_RESET_STR=$(format_reset "${FIVE_RESET}")
     FIVE_SEG="| ${ORANGE}5h usage: ${FIVE_PCT}%${FIVE_RESET_STR:+  ${FIVE_RESET_STR}}${RESET}"
 elif [ "${FIVE_PCT}" -gt 0 ]; then
-    FIVE_SEG="| ${GREEN}5h usage: ${FIVE_PCT}%${RESET}"
+    FIVE_SEG="| ${DIM_GREEN}5h usage: ${FIVE_PCT}%${RESET}"
 fi
 
 # 7-day (only when >80%)
@@ -87,7 +87,7 @@ fi
 # Context window bar (██░░░░░░░░)
 if   [ "${CTX_PCT}" -ge 90 ]; then BAR_COLOR="${RED}"
 elif [ "${CTX_PCT}" -ge 70 ]; then BAR_COLOR="${ORANGE}"
-else                               BAR_COLOR="${GREEN}"
+else                               BAR_COLOR="${DIM_GREEN}"
 fi
 FILLED=$((CTX_PCT / 10))
 EMPTY=$((10 - FILLED))

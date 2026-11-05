@@ -6,23 +6,23 @@
 
 @keyframes blink-warning {
   70% {
-    color: #d9d8d8;
+    color: #f8f8f2;
   }
 
   to {
-    color: #d9d8d8;
-    background-color: orange;
+    color: #f8f8f2;
+    background-color: #fd971f;
   }
 }
 
 @keyframes blink-critical {
   70% {
-    color: #d9d8d8;
+    color: #f8f8f2;
   }
 
   to {
-    color: #d9d8d8;
-    background-color: red;
+    color: #f8f8f2;
+    background-color: #f92672;
   }
 }
 
@@ -43,7 +43,7 @@
 /* The whole bar */
 #waybar {
   background: #2c2c2c;
-  color: #d9d8d8;
+  color: #f8f8f2;
   font-family: "0xProto Nerd Font Propo", monospace;
   font-size: 14px;
 }
@@ -76,13 +76,13 @@
 #memory,
 #network:not(.vpn),
 #clock {
-  border-right: 1px solid #959ca1;
+  border-right: 1px solid #a7afb4;
   padding-right: 12px;
   margin: 3px 5px 3px 0;
 }
 
 #tray {
-  border-left: 1px solid #959ca1;
+  border-left: 1px solid #a7afb4;
   padding-left: 12px;
   margin: 3px 0 3px 5px;
 }
@@ -103,11 +103,11 @@
 }
 
 #battery.warning {
-  color: orange;
+  color: #fd971f;
 }
 
 #battery.critical {
-  color: red;
+  color: #f92672;
 }
 
 #battery.warning.discharging {
@@ -125,35 +125,35 @@
 }
 
 #memory.warning {
-  color: orange;
+  color: #fd971f;
 }
 
 #memory.critical {
-  color: red;
+  color: #f92672;
 }
 
 #network.disconnected {
-  color: orange;
+  color: #fd971f;
 }
 
 #workspaces button {
   padding-left: 10px;
   padding-right: 10px;
-  color: #5a5758;
+  color: #666666;
 }
 
 #workspaces button.active.hosting-monitor {
-  box-shadow: inset 0 -3px #85cebc;
-  color: #d9d8d8;
-  background-color: #5a5758;
+  box-shadow: inset 0 -3px #8fbcf1;
+  color: #f8f8f2;
+  background-color: #474747;
 }
 
 #workspaces button.urgent {
-  color: #ee2e24;
+  color: #f92672;
 }
 
 #workspaces button.hosting-monitor {
-  color: #959ca1;
+  color: #a7afb4;
 }
 
 
@@ -161,14 +161,14 @@
 #workspaces button:hover {
   box-shadow: inherit;
   text-shadow: inherit;
-  background-color: #fbf3f6;
+  background-color: #f8f8f2;
   color: #2c2c2c;
 }
 
 #custom-ntfy.active {
-  color: #85cebc;
+  color: #8fbcf1;
 }
 
 #custom-dunst.active {
-  color: #85cebc;
+  color: #8fbcf1;
 }

@@ -91,22 +91,22 @@
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
     # background = "#2e8b57"
-    background = "#5c8f6ab8"
-    foreground = "#ffffff"
-    highlight = "#85cebc"
+    background = "#465f19b8"
+    foreground = "#f8f8f2"
+    highlight = "#8fbcf1"
     timeout = 10
     default_icon = "gtk-dialog-info"
 
 [urgency_normal]
-    background = "#3b4252b8"
-    foreground = "#eceff4"
-    highlight = "#85cebc"
+    background = "#474747e6"
+    foreground = "#f8f8f2"
+    highlight = "#8fbcf1"
     timeout = 10
     default_icon = "gtk-dialog-info"
 
 [urgency_critical]
-    background = "#900000c8"
-    foreground = "#ffffff"
+    background = "#823b4bc8"
+    foreground = "#f8f8f2"
     timeout = 0
     default_icon = "gtk-dialog-error"
 

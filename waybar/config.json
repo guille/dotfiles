@@ -35,9 +35,9 @@
         "format": "{name}"
     },
     "mpd": {
-        "format": "<span color=\"#85cebc\">󰎈</span> {stateIcon}",
+        "format": "<span color=\"#8fbcf1\">󰎈</span> {stateIcon}",
         "format-disconnected": "󰎊",
-        "format-stopped": "<span color=\"#85cebc\">󰎈</span> Stopped",
+        "format-stopped": "<span color=\"#8fbcf1\">󰎈</span> Stopped",
         "unknown-tag": "N/A",
         "interval": 30,
         "state-icons": {
@@ -55,12 +55,12 @@
     "clock": {
         "interval": 60,
         "tooltip": false,
-        "format": "<span color=\"#85cebc\">󰥔</span> {:%d/%m %H:%M}",
-        "format-alt": "<span color=\"#85cebc\">󰥔</span> {:%a %d/%m %H:%M:%S}"
+        "format": "<span color=\"#8fbcf1\">󰥔</span> {:%d/%m %H:%M}",
+        "format-alt": "<span color=\"#8fbcf1\">󰥔</span> {:%a %d/%m %H:%M:%S}"
     },
     "cpu": {
         "interval": 30,
-        "format": "<span color=\"#85cebc\">CPU</span> {usage}%",
+        "format": "<span color=\"#8fbcf1\">CPU</span> {usage}%",
         "tooltip": false
     },
     "memory": {
@@ -69,18 +69,18 @@
             "warning": 75,
             "critical": 90
         },
-        "format": "<span color=\"#85cebc\">RAM</span> {}%"
+        "format": "<span color=\"#8fbcf1\">RAM</span> {}%"
     },
     "battery": {
         "states": {
             "warning": 25,
             "critical": 15
         },
-        "format": "<span color=\"#85cebc\">{icon}</span> {capacity}%",
-        "format-full": "<span color=\"#85cebc\"></span> {capacity}%",
-        "format-plugged": "<span color=\"#85cebc\">󰂄</span> {capacity}%",
-        "format-charging": "<span color=\"#85cebc\">󰂄</span> {capacity}%",
-        "format-alt": "<span color=\"#85cebc\">{icon}</span> {time}",
+        "format": "<span color=\"#8fbcf1\">{icon}</span> {capacity}%",
+        "format-full": "<span color=\"#8fbcf1\"></span> {capacity}%",
+        "format-plugged": "<span color=\"#8fbcf1\">󰂄</span> {capacity}%",
+        "format-charging": "<span color=\"#8fbcf1\">󰂄</span> {capacity}%",
+        "format-alt": "<span color=\"#8fbcf1\">{icon}</span> {time}",
         "format-icons": [
             "",
             "",
@@ -91,32 +91,32 @@
     },
     "network#vpn": {
         "interface": "snwl_ssltunnel",
-        "format": "<span color=\"#85cebc\">󰖂</span>",
+        "format": "<span color=\"#8fbcf1\">󰖂</span>",
         "format-disconnected": "",
         "tooltip-format": "VPN {ipaddr}"
     },
     "network": {
-        "format-wifi": "<span color=\"#85cebc\">󰖩</span> {essid}",
-        "format-ethernet": "<span color=\"#85cebc\"></span> {ipaddr}",
+        "format-wifi": "<span color=\"#8fbcf1\">󰖩</span> {essid}",
+        "format-ethernet": "<span color=\"#8fbcf1\"></span> {ipaddr}",
         "tooltip-format": "{ifname} via {gwaddr}",
         "format-linked": "{ifname} (No IP)",
-        "format-disconnected": "<span color=\"#85cebc\">󰖪</span> Disconnected"
+        "format-disconnected": "<span color=\"#8fbcf1\">󰖪</span> Disconnected"
     },
     // "disk": {
     //     "interval": 30,
-    //     "format": "<span color=\"#85cebc\">{path}</span> {percentage_used}% used",
+    //     "format": "<span color=\"#8fbcf1\">{path}</span> {percentage_used}% used",
     //     "path": "/"
     // },
     // "disk#disk2": {
     //     "interval": 30,
-    //     "format": "<span color=\"#85cebc\">{path}</span> {percentage_used}% used",
+    //     "format": "<span color=\"#8fbcf1\">{path}</span> {percentage_used}% used",
     //     "path": "/home/guille"
     // },
     "pulseaudio": {
         // Scrolling changes volume
-        "format": "<span color=\"#85cebc\">{icon}</span> {volume}%",
+        "format": "<span color=\"#8fbcf1\">{icon}</span> {volume}%",
         "tooltip": false,
-        "format-muted": "<span color=\"#959ca1\">󰖁</span> {volume}%",
+        "format-muted": "<span color=\"#a7afb4\">󰖁</span> {volume}%",
         "format-icons": {
             "default": [
                 "󰕿",
@@ -128,7 +128,7 @@
         "on-click-right": "pavucontrol",
     },
     "custom/dnf": {
-        "format": "<span color=\"#85cebc\">󰣛</span> {}",
+        "format": "<span color=\"#8fbcf1\">󰣛</span> {}",
         "exec": "~/.config/waybar/scripts/dnf.sh",
         "exec-if": "[ \"$DOTFILES_DISTRO\" = \"Fedora\" ]",
         "tooltip": false,
@@ -136,7 +136,7 @@
         "interval": 21600 // 6h
     },
     "custom/pacman": {
-        "format": "<span color=\"#85cebc\">󰣇</span> {}",
+        "format": "<span color=\"#8fbcf1\">󰣇</span> {}",
         "exec": "~/.config/waybar/scripts/pacman.sh",
         "exec-if": "[ \"$DOTFILES_DISTRO\" = \"Arch\" ]",
         "tooltip": false,
@@ -146,7 +146,7 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "<span color=\"#85cebc\">󰅶</span>",
+            "activated": "<span color=\"#8fbcf1\">󰅶</span>",
             "deactivated": "󰾪"
         }
     },

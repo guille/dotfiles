@@ -15,28 +15,30 @@ font-size = 12
 ##
 # Colours
 background = #2c2c2c
-foreground = #e1e1e1
-cursor-color = #85cebc
+foreground = #f8f8f2
+cursor-color = #8fbcf1
 selection-foreground = #ffffff
-selection-background = #586e75
+selection-background = #666666
 
-# Base16-London Tube
-palette = 0=#231f20
-palette = 1=#ee2e24
-palette = 2=#00853e
-palette = 3=#ffd204
-palette = 4=#009ddc
-palette = 5=#98005d
-palette = 6=#85cebc
-palette = 7=#d9d8d8
-palette = 8=#737171
-palette = 9=#ee2e24
-palette = 10=#00853e
-palette = 11=#ffd204
-palette = 12=#009ddc
-palette = 13=#98005d
-palette = 14=#85cebc
+# Matches sublime/custom.sublime-color-scheme. Brights are +0.07 OKLCH
+# lightness, except 11 (Sublime's yellow2).
+palette = 0=#1a1a1a
+palette = 1=#f92672
+palette = 2=#a6e22e
+palette = 3=#e6db74
+palette = 4=#7aa6da
+palette = 5=#be84ff
+palette = 6=#66d9ef
+palette = 7=#a7afb4
+palette = 8=#8e8971
+palette = 9=#ff658c
+palette = 10=#bcfa4e
+palette = 11=#f6f080
+palette = 12=#8fbcf1
+palette = 13=#cda5ff
+palette = 14=#95edff
 palette = 15=#ffffff
+palette-generate = true
 
 ##
 # Settings

@@ -1,2 +1,19 @@
 [tools]
 "lua-language-server" = "latest"
+
+[tasks.p10k-mise-preview]
+description = "Print every p10k mise segment as the prompt draws it"
+run = "zsh/p10k.mise.preview.zsh"
+
+[tasks.p10k-preview]
+description = "Print the real p10k prompt for a few throwaway repos and command outcomes"
+run = "zsh/p10k.preview.zsh"
+
+[tasks.notify-demo]
+description = "Send a sample dunst notification for each urgency, plus a progress bar"
+run = """
+notify-send -u low "Low urgency" "Sample notification"
+notify-send -u normal "Normal urgency" "Sample notification"
+notify-send -u normal -h int:value:45 "Volume 45%" "Progress bar uses the highlight colour"
+notify-send -u critical "Critical urgency" "Stays until dismissed"
+"""

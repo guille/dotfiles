@@ -11,19 +11,6 @@ https://github.com/trishume/syntect/pull/604
   <string>github.com/guille</string>
   <key>colorSpaceName</key>
   <string>sRGB</string>
-  <key>gutterSettings</key>
-  <dict>
-    <key>background</key>
-    <string>#073642</string>
-    <key>divider</key>
-    <string>#586e75</string>
-    <key>foreground</key>
-    <string>#839496</string>
-    <key>selectionBackground</key>
-    <string>#586e75</string>
-    <key>selectionForeground</key>
-    <string>#a6e22e</string>
-  </dict>
   <key>name</key>
   <string>My Theme</string>
   <key>semanticClass</key>
@@ -53,6 +40,8 @@ https://github.com/trishume/syntect/pull/604
         <string>#000000</string>
         <key>foreground</key>
         <string>#f8f8f2</string>
+        <key>gutterForeground</key>
+        <string>#777777</string>
         <key>invisibles</key>
         <string>#555555</string>
         <key>lineHighlight</key>
@@ -630,7 +619,7 @@ https://github.com/trishume/syntect/pull/604
       <key>settings</key>
       <dict>
         <key>background</key>
-        <string>#ae81ff</string>
+        <string>#be84ff</string>
         <key>foreground</key>
         <string>#f8f8f0</string>
       </dict>
@@ -643,7 +632,7 @@ https://github.com/trishume/syntect/pull/604
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#75715e</string>
+        <string>#8e8971</string>
       </dict>
     </dict>
     <dict>
@@ -687,7 +676,7 @@ https://github.com/trishume/syntect/pull/604
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#3bc0f0</string>
+        <string>#66d9ef</string>
       </dict>
     </dict>
     <dict>
@@ -835,7 +824,7 @@ https://github.com/trishume/syntect/pull/604
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#ae81ff</string>
+        <string>#be84ff</string>
       </dict>
     </dict>
     <dict>
@@ -872,7 +861,7 @@ https://github.com/trishume/syntect/pull/604
         <key>background</key>
         <string>#222222</string>
         <key>foreground</key>
-        <string>#636050</string>
+        <string>#777777</string>
       </dict>
     </dict>
     <dict>
@@ -885,7 +874,7 @@ https://github.com/trishume/syntect/pull/604
         <key>fontStyle</key>
         <string></string>
         <key>foreground</key>
-        <string>#7c7865</string>
+        <string>#777777</string>
       </dict>
     </dict>
     <dict>
