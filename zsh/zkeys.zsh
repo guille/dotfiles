@@ -53,6 +53,8 @@ fi
 if [[ -f "$HOME/.zhist_substr" ]]; then
     . "$HOME/.zhist_substr"
     HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+    HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=magenta,fg=black,bold'
+    HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=red,fg=black,bold'
     [[ -n "${key[Up]}"   ]]  && bindkey "${key[Up]}" history-substring-search-up
     [[ -n "${key[Down]}" ]]  && bindkey "${key[Down]}" history-substring-search-down
 fi
