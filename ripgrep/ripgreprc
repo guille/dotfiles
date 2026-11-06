@@ -17,5 +17,5 @@
 # --max-columns=500
 
 # Colours
---colors=path:fg:208
+--colors=path:fg:0xfd,0x97,0x1f
 --colors=line:fg:3
