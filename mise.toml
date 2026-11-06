@@ -5,6 +5,10 @@
 description = "Print every p10k mise segment as the prompt draws it"
 run = "zsh/p10k.mise.preview.zsh"
 
+[tasks.p10k-segments-preview]
+description = "Print a swatch for every color state of the enabled p10k segments"
+run = "zsh/p10k.segments.preview.zsh"
+
 [tasks.p10k-preview]
 description = "Print the real p10k prompt for a few throwaway repos and command outcomes"
 run = "zsh/p10k.preview.zsh"
