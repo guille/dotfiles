@@ -66,9 +66,10 @@
 
   # The values are extended globs whose first backreference is the version to display.
   typeset -gA POWERLEVEL9K_MISE_VERSION_PATTERN=(
-    ELIXIR '(#b)([0-9.]##)-otp*'    # 1.20.2-otp-29          -> 1.20.2
-    JAVA   '(#b)*-([0-9.]##)*'      # temurin-25.0.3+9.0.LTS -> 25.0.3
-    DOTNET '(#b)([0-9]##.[0-9]##)*' # 9.0.104                -> 9.0
+    ELIXIR      '(#b)([0-9.]##)-otp*'    # 1.20.2-otp-29          -> 1.20.2
+    JAVA        '(#b)*-([0-9.]##)*'      # temurin-25.0.3+9.0.LTS -> 25.0.3
+    DOTNET      '(#b)([0-9]##.[0-9]##)*' # 9.0.104                -> 9.0
+    ANDROID_CLI '(#b)([0-9]##.[0-9]##)*' # 1.1.16717390           -> 1.1
   )
 
   # Colors (default)
@@ -113,9 +114,9 @@
   typeset -g POWERLEVEL9K_MISE_PNPM_BACKGROUND='#5f5f5f'
   typeset -g POWERLEVEL9K_MISE_PNPM_VISUAL_IDENTIFIER_EXPANSION=''
 
-  typeset -g POWERLEVEL9K_MISE_HTTP_ANDROID_CLI_FOREGROUND=0
-  typeset -g POWERLEVEL9K_MISE_HTTP_ANDROID_CLI_BACKGROUND='#00af5f'
-  typeset -g POWERLEVEL9K_MISE_HTTP_ANDROID_CLI_VISUAL_IDENTIFIER_EXPANSION='󰀲'
+  typeset -g POWERLEVEL9K_MISE_ANDROID_CLI_FOREGROUND=0
+  typeset -g POWERLEVEL9K_MISE_ANDROID_CLI_BACKGROUND='#00af5f'
+  typeset -g POWERLEVEL9K_MISE_ANDROID_CLI_VISUAL_IDENTIFIER_EXPANSION='󰀲'
 
   typeset -g POWERLEVEL9K_MISE_HUGO_FOREGROUND=15
   typeset -g POWERLEVEL9K_MISE_HUGO_BACKGROUND='#ff0087'
