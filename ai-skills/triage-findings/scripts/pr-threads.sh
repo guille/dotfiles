@@ -7,9 +7,9 @@ pr=${1:-}
 all=false
 for a in "$@"; do [[ $a == --all ]] && all=true; done
 
-read -r owner repo number < <(gh pr view ${pr:+"$pr"} --json url --jq '.url | capture("github.com/(?<o>[^/]+)/(?<r>[^/]+)/pull/(?<n>[0-9]+)") | "\(.o) \(.r) \(.n)"')
+read -r host owner repo number < <(gh pr view ${pr:+"$pr"} --json url --jq '.url | capture("https://(?<h>[^/]+)/(?<o>[^/]+)/(?<r>[^/]+)/pull/(?<n>[0-9]+)") | "\(.h) \(.o) \(.r) \(.n)"')
 
-gh api graphql -F owner="$owner" -F repo="$repo" -F n="$number" -f query='
+gh api graphql --hostname "$host" -F owner="$owner" -F repo="$repo" -F n="$number" -f query='
 query($owner: String!, $repo: String!, $n: Int!) {
   repository(owner: $owner, name: $repo) {
     pullRequest(number: $n) {

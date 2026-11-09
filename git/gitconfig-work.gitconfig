@@ -4,3 +4,10 @@
 
 [core]
   sshCommand = "ssh -i ~/.ssh/git_work -F /dev/null"
+
+[url "nearbycomputing@nearbycomputing.ghe.com:nbycomp/"]
+  insteadOf = https://github.com/nbycomp/
+  insteadOf = git@github.com:nbycomp/
+  insteadOf = ssh://git@github.com/nbycomp/
+[url "nearbycomputing@nearbycomputing.ghe.com:"]
+  insteadOf = https://nearbycomputing.ghe.com/

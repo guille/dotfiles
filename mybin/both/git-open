@@ -17,8 +17,12 @@ fi
 
 # Convert SSH URL to HTTPS
 # git@github.com:user/repo.git -> https://github.com/user/repo
+# ssh://git@github.com/user/repo.git -> https://github.com/user/repo
 # https://github.com/user/repo.git -> https://github.com/user/repo
-url=$(echo "$remote_url" | sed -e 's/git@/https:\/\//' -e 's/\.com:/\.com\//' -e 's/\.git$//')
+url=$(echo "$remote_url" | sed -E \
+    -e 's#^ssh://([^@/]+@)?([^/:]+)(:[0-9]+)?/#https://\2/#' \
+    -e 's#^[^@/:]+@([^:/]+):#https://\1/#' \
+    -e 's#\.git$##')
 
 # Get current branch
 branch=$(git rev-parse --abbrev-ref HEAD)

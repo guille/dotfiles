@@ -60,7 +60,7 @@
     "nearbyone": {
       "source": {
         "source": "git",
-        "url": "https://github.com/nbycomp/claude-marketplace.git"
+        "url": "nearbycomputing@nearbycomputing.ghe.com:nbycomp/claude-marketplace.git"
       }
     }
   },
