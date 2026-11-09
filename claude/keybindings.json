@@ -1,0 +1,14 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-keybindings.json",
+  "$docs": "https://code.claude.com/docs/en/keybindings",
+  "bindings": [
+    {
+      "context": "Chat",
+      "bindings": {
+        "meta+enter": "chat:sendNow",
+        "ctrl+enter": null,
+        "meta+s": "chat:stash"
+      }
+    }
+  ]
+}
