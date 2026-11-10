@@ -8,7 +8,6 @@ CTX_PCT=$(echo "$input"    | jq -r '.context_window.used_percentage // 0' | cut 
 FIVE_PCT=$(echo "$input"   | jq -r '.rate_limits.five_hour.used_percentage // 0' | cut -d. -f1)
 FIVE_RESET=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // ""')
 SEVEN_PCT=$(echo "$input"  | jq -r '.rate_limits.seven_day.used_percentage // 0' | cut -d. -f1)
-SEVEN_RESET=$(echo "$input"| jq -r '.rate_limits.seven_day.resets_at // ""')
 TRANSCRIPT=$(echo "$input" | jq -r '.transcript_path // ""')
 SESSION_ID=$(echo "$input" | jq -r '.session_id // ""')
 # Name other sessions use to message this one; only the session registry has it.
@@ -21,25 +20,6 @@ RED='\033[31m'
 ORANGE='\033[38;2;253;151;31m'
 ICE='\033[96m'
 RESET='\033[0m'
-
-# Returns "2h30m", "45m", "1d8h", or "" if timestamp is empty/past
-format_reset() {
-    local ts="$1"
-    [ -z "$ts" ] && return
-    local now epoch_reset delta
-    now=$(date +%s)
-    # resets_at is Unix epoch seconds
-    epoch_reset=$(date -d "@$ts" +%s 2>/dev/null) || return
-    delta=$((epoch_reset - now))
-    [ "$delta" -le 0 ] && echo "now" && return
-    local d=$((delta / 86400))
-    local h=$(( (delta % 86400) / 3600 ))
-    local m=$(( (delta % 3600) / 60 ))
-    if   [ "$d" -gt 0 ]; then printf "%dd%dh" "$d" "$h"
-    elif [ "$h" -gt 0 ]; then printf "%dh%02dm" "$h" "$m"
-    else                      printf "%dm" "$m"
-    fi
-}
 
 # --- Line 1: model / dir / git ---
 #   model  dir  branch +staged ~modified
@@ -71,7 +51,8 @@ printf '%b\n' "${MODEL_COLOR}[${MODEL}${EFFORT:+ · ${EFFORT}}]${RESET}  ${NA
 
 # 5-hour (always shown)
 if [ "${FIVE_PCT}" -gt 80 ]; then
-    FIVE_RESET_STR=$(format_reset "${FIVE_RESET}")
+    FIVE_RESET_STR=""
+    [ -n "${FIVE_RESET}" ] && FIVE_RESET_STR="$(date -d "@${FIVE_RESET}" +%H:%M)"
     FIVE_SEG="| ${ORANGE}5h usage: ${FIVE_PCT}%${FIVE_RESET_STR:+  ${FIVE_RESET_STR}}${RESET}"
 elif [ "${FIVE_PCT}" -gt 0 ]; then
     FIVE_SEG="| ${DIM_GREEN}5h usage: ${FIVE_PCT}%${RESET}"
@@ -80,8 +61,7 @@ fi
 # 7-day (only when >80%)
 SEVEN_SEG=""
 if [ "${SEVEN_PCT}" -gt 80 ]; then
-    SEVEN_RESET_STR=$(format_reset "${SEVEN_RESET}")
-    SEVEN_SEG="  ${ORANGE} 7d usage: ${SEVEN_PCT}%${SEVEN_RESET_STR:+  ${SEVEN_RESET_STR}}${RESET}"
+    SEVEN_SEG="  ${ORANGE} 7d usage: ${SEVEN_PCT}%${RESET}"
 fi
 
 # Context window bar (██░░░░░░░░)
