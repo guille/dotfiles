@@ -33,65 +33,44 @@ Job = Data.define(:image, :monitor)
 
 def fetch_monitors_data
   stdout, stderr, status = Open3.capture3('hyprctl', 'monitors', '-j')
+  raise "hyprctl failed (exit #{status.exitstatus}): #{stderr}" unless status.success?
 
-  unless status.success?
-    warn "Command failed (exit #{status.exitstatus}): #{stderr}"
-    exit 1
-  end
-
-  data = JSON.parse(stdout, symbolize_names: true)
-  data.map do
+  JSON.parse(stdout, symbolize_names: true).map do
     MonitorInfo.new(**it.slice(*MonitorInfo.members))
   end
-rescue JSON::ParserError => e
-  warn "Failed to parse JSON: #{e.message}"
-  exit 1
+end
+
+def dual_jobs(left, right)
+  image = Dir[DUAL_WALLPAPERS_GLOB].sample or return
+
+  case File.basename(image, '.*')
+  when /_left\z/
+    [Job.new(monitor: left.name, image:), Job.new(monitor: right.name, image: image.sub('_left', '_right'))]
+  when /_right\z/
+    [Job.new(monitor: right.name, image:), Job.new(monitor: left.name, image: image.sub('_right', '_left'))]
+  else
+    warn "Don't know what to do with #{image}, falling back to single wallpapers"
+    nil
+  end
+end
+
+# Sampled together to avoid dups
+def single_jobs(monitors, glob)
+  monitors.zip(Dir[glob].sample(monitors.size)).filter_map do |monitor, image|
+    Job.new(monitor: monitor.name, image:) if image
+  end
 end
 
 def process_data(data)
-  jobs = []
-
   verticals, horizontals = data.partition(&:vertical?)
 
   # Exactly two monitors, neither of them is vertical, and it's not a laptop's internal: find Dual wallpapers
-  if horizontals.size == 2 && verticals.empty? && !horizontals.any?(&:laptop?)
-    left, right = horizontals.minmax
-
-    image = Dir[DUAL_WALLPAPERS_GLOB].sample
-    basename = File.basename(image, '.*')
-    if basename.end_with?("_left")
-      jobs << Job.new(monitor: left.name, image: image)
-      jobs << Job.new(monitor: right.name, image: image.sub('_left', '_right'))
-    elsif basename.end_with?("_right")
-      jobs << Job.new(monitor: right.name, image: image)
-      jobs << Job.new(monitor: left.name, image: image.sub('_right', '_left'))
-    else
-      warn "Don't know what to do with #{image}"
-      exit 1
-    end
-
-    return jobs
+  if horizontals.size == 2 && verticals.empty? && horizontals.none?(&:laptop?)
+    jobs = dual_jobs(*horizontals.minmax)
+    return jobs if jobs
   end
 
-  if !verticals.empty?
-    # Get them here to avoid dups
-    images = Dir[VERTICAL_WALLPAPERS_GLOB].sample(verticals.size)
-
-    verticals.zip(images).each do |monitor, image|
-      jobs << Job.new(monitor: monitor.name, image:)
-    end
-  end
-
-  if !horizontals.empty?
-    # Get them here to avoid dups
-    images = Dir[SINGLE_WALLPAPERS_GLOB].sample(horizontals.size)
-
-    horizontals.zip(images).each do |monitor, image|
-      jobs << Job.new(monitor: monitor.name, image:)
-    end
-  end
-
-  return jobs
+  single_jobs(verticals, VERTICAL_WALLPAPERS_GLOB) + single_jobs(horizontals, SINGLE_WALLPAPERS_GLOB)
 end
 
 def reap_workers!(pids, sig: "TERM")
@@ -107,17 +86,28 @@ def spawn_workers(jobs)
 end
 
 def wall!
-  data = fetch_monitors_data
-  jobs = process_data(data)
-  spawn_workers(jobs)
+  spawn_workers(process_data(fetch_monitors_data))
 end
 
+def log_exit(pid, status)
+  if status.signaled?
+    puts "PID #{pid} killed by signal #{status.termsig}"
+  else
+    puts "PID #{pid} exited with status #{status.exitstatus}"
+  end
+end
+
+$stdout.sync = true
+
+$pids = []
+$stop = false
 $reload = false
 
 # Propagate SIGTERM and SIGINT to all children
 %w[TERM INT].each do |sig|
   Signal.trap(sig) do
     puts "\nReceived SIG#{sig}, forwarding to children..."
+    $stop = true
     reap_workers!($pids, sig:)
   end
 end
@@ -127,25 +117,28 @@ Signal.trap("HUP") do
   reap_workers!($pids)
 end
 
-def monitor(pids)
-  # Wait for all children to finish
-  pids.each do |pid|
-    _, status = Process.wait2(pid)
-    if status.signaled?
-      puts "PID #{pid} killed by signal #{status.termsig}"
-    else
-      puts "PID #{pid} exited with status #{status.exitstatus}"
-    end
-  end
-end
-
-$pids = wall!
-
-loop do
-  monitor($pids)
-
-  break unless $reload
-
+until $stop
   $reload = false
-  $pids = wall!
+  begin
+    $pids = wall!
+  rescue => e
+    warn "Failed to set wallpapers: #{e.message}"
+    $pids = []
+  end
+
+  if $pids.empty?
+    sleep 5
+    next
+  end
+
+  # A HUP that landed while spawning may have been based on stale monitor data
+  reap_workers!($pids) if $reload
+
+  # Whatever ends first (HUP, output gone, crash), redraw everything
+  log_exit(*Process.wait2)
+  reap_workers!($pids)
+  Process.waitall.each { log_exit(*it) }
+
+  # Debounces hotplug bursts and keeps a failing swaybg from spinning
+  sleep 1 unless $stop
 end

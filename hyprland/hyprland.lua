@@ -44,16 +44,18 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme " .. config.gtk_theme)
     hl.exec_cmd("gsettings set org.gnome.desktop.interface icon-theme " .. config.icon_theme)
     hl.exec_cmd("gsettings set org.gnome.desktop.interface font-name " .. config.gtk_font)
-    hl.exec_cmd("wallpapered")
+    hl.exec_cmd("systemd-cat -t wallpapered wallpapered")
     hl.exec_cmd("hypridle")
     hl.exec_cmd("wl-paste --watch cliphist store")
 
     hl.exec_cmd("subl")
 end)
 
-hl.on("monitor.added", function()
+local function rewall()
     hl.exec_cmd("pkill --full --signal HUP --require-handler wallpapered")
-end)
+end
+hl.on("monitor.added", rewall)
+hl.on("monitor.removed", rewall)
 
 -- catch-all monitor rule
 hl.monitor {
