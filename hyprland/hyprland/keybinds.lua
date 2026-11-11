@@ -1,9 +1,5 @@
 local config = require("hyprland.config")
 
--- hyprctl globalshortcuts
--- ghostty quick terminal
-hl.bind("SUPER + dead_grave", hl.dsp.global("com.mitchellh.ghostty:SUPER+grave"))
-
 hl.bind("SUPER + Return", hl.dsp.exec_cmd(config.terminal_window))
 hl.bind("SUPER + D", hl.dsp.exec_cmd(config.menu))
 hl.bind("SUPER + C", hl.dsp.exec_cmd("firefox"))

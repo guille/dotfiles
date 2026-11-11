@@ -75,7 +75,7 @@ keybind = ctrl+shift+page_up=move_tab:-1
 # mistypes
 keybind = shift+enter=text:\n
 
-keybind = global:super+grave_accent=toggle_quick_terminal
+keybind = global:super+ñ=toggle_quick_terminal
 
 config-file = ?config-macos
 config-file = ?config-linux
