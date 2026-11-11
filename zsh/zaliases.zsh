@@ -318,10 +318,19 @@ _wt_widget() {
 zle -N _wt_widget
 bindkey '^[w' _wt_widget  # alt+w
 
+# pick a mise task with fzf, showing descriptions dimmed but matching on names only
+_mise_pick_task() {
+	mise tasks ls --all --json \
+		| jq -r '(map(.name | length) | max) as $w | .[]
+			| if (.description // "") == "" then .name
+			else .name + (" " * ($w - (.name | length)) // "") + "  \u001b[2m" + .description + "\u001b[0m" end' \
+		| fzf -1 -0 --ansi --nth 1 --accept-nth 1 --query "$1"
+}
+
 # run mise task (fzf-powered)
 mr() {
 	local task
-	task=$(mise tasks ls --all --name-only | fzf -1 -0 --query "${1:-}")
+	task=$(_mise_pick_task "${1:-}")
 	if [[ -n "$task" ]]; then
 		set-title "mise: $task"
 		mise run "$task" "${@:2}"
@@ -341,7 +350,7 @@ bindkey '^[m' _mr_widget  # alt+m
 # put mise task in zsh prompt (fzf-powered)
 mrr() {
 	local task
-	task=$(mise tasks ls --all --name-only | fzf -1 -0 --query "$*")
+	task=$(_mise_pick_task "$*")
 	if [[ -n "$task" ]]; then
 		set-title "mise: $task"
 		print -z "mise run $task -- "
