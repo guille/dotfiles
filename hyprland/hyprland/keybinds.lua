@@ -1,6 +1,7 @@
 local config = require("hyprland.config")
 
 hl.bind("SUPER + Return", hl.dsp.exec_cmd(config.terminal_window))
+hl.bind("SUPER + KP_Enter", hl.dsp.exec_cmd(config.terminal_window))
 hl.bind("SUPER + D", hl.dsp.exec_cmd(config.menu))
 hl.bind("SUPER + C", hl.dsp.exec_cmd("firefox"))
 hl.bind("SUPER + O", hl.dsp.exec_cmd("vaulter"))
