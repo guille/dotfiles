@@ -9,11 +9,7 @@ configuration {
 	icon-theme: "Papirus";
 	drun-match-fields: "name,exec";
 	matching: "fuzzy";
-	sorting-method: "fzf";
-	/*
-	TODO: rofi >= 2.0.0
 	sorting-method: "fzf-v2";
-	*/
 	display-drun: "Apps";
 	display-run:                "";
 	display-filebrowser:        "";
