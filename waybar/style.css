@@ -54,6 +54,7 @@
 #cpu,
 #custom-dnf,
 #custom-dunst,
+#custom-lid,
 #custom-ntfy,
 #custom-pacman,
 #custom-power,
@@ -163,6 +164,10 @@
   text-shadow: inherit;
   background-color: #f8f8f2;
   color: #2c2c2c;
+}
+
+#custom-lid.active {
+  color: #ee2e24;
 }
 
 #custom-ntfy.active {

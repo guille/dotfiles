@@ -23,6 +23,7 @@
         "custom/dnf",
         "custom/pacman",
         "idle_inhibitor",
+        "custom/lid",
         "custom/ntfy",
         "custom/dunst",
         "tray",
@@ -149,6 +150,14 @@
             "activated": "<span color=\"#8fbcf1\">󰅶</span>",
             "deactivated": "󰾪"
         }
+    },
+    "custom/lid": {
+        "exec": "~/.config/waybar/scripts/lid-inhibit.sh status",
+        "exec-if": "grep -q 'Lid Switch' /proc/bus/input/devices",
+        "on-click": "~/.config/waybar/scripts/lid-inhibit.sh toggle",
+        "return-type": "json",
+        "interval": "once",
+        "signal": 9
     },
     "custom/ntfy": {
         "exec": "~/.config/waybar/scripts/ntfy-forward-status.sh",
