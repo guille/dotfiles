@@ -14,6 +14,10 @@
     ]
   },
   "model": "opus",
+  "attribution": {
+    "commit": "",
+    "pr": "*🤖 beep bop*"
+  },
   "skillOverrides": {
     "legacy-context": "name-only",
     "code-review": "user-invocable-only",
