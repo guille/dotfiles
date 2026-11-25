@@ -1,6 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "attribution": {
+    "commit": "",
+    "pr": "*🤖 beep bop*"
+  },
   "permissions": {
+    "ask": ["Artifact"],
     "deny": [
       "NotebookEdit",
       "WebSearch",
@@ -14,10 +19,6 @@
     ]
   },
   "model": "opus",
-  "attribution": {
-    "commit": "",
-    "pr": "*🤖 beep bop*"
-  },
   "skillOverrides": {
     "legacy-context": "name-only",
     "code-review": "user-invocable-only",
