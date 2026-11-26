@@ -12,6 +12,8 @@ require('fzf')
 
 require('lsp')
 
+require('resume')
+
 --
 -- Appearance
 -- Thicker borders

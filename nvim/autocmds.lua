@@ -67,7 +67,8 @@ vim.api.nvim_create_autocmd('UIEnter', {
 -- When launching nvim without args: emulate "nvim ."
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
-		if vim.fn.argc() == 0 then
+		-- "nvim -S session" has no file args either
+		if vim.fn.argc() == 0 and vim.v.this_session == '' then
 			vim.schedule(function()
 				vim.cmd("edit .")
 			end)

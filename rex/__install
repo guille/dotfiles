@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+source "$SCRIPT_BASE_DIR/common"
+
+##
+# rex
+##
+
+module_name=rex
+
+mkdir -p ~/.config/rex
+
+infoprint "[$module_name] creating dotfiles symlinks..."
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/init.lua" ~/.config/rex/init.lua

@@ -98,6 +98,7 @@ modules_to_install=(
 	ripgrep
 	orbit
 	nvim
+	rex
 	rofi
 	dunst
 	claude
