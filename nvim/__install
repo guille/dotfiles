@@ -16,9 +16,9 @@ mkdir -p ~/.config/nvim/lua
 
 infoprint "[$module_name] creating dotfiles symlinks..."
 
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/init.lua" ~/.config/nvim/init.lua 1> /dev/null
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/init.lua" ~/.config/nvim/init.lua
 
 for f in "${SCRIPT_BASE_DIR}/$module_name/"*.lua; do
 	[[ "$(basename "$f")" == init.lua ]] && continue
-	ln -sfv "$f" ~/.config/nvim/lua/ 1> /dev/null
+	ln -sf "$f" ~/.config/nvim/lua/
 done

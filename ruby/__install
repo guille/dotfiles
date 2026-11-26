@@ -18,4 +18,4 @@ add_if_not_there 'gem: --no-document' ~/.gemrc
 # Symlinks
 ##
 mkdir -p "$XDG_CONFIG_HOME/irb"
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/irbrc" "$XDG_CONFIG_HOME/irb/irbrc" 1> /dev/null
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/irbrc" "$XDG_CONFIG_HOME/irb/irbrc"

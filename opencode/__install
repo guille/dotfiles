@@ -16,9 +16,9 @@ mkdir -p ~/.config/opencode/plugins
 
 infoprint "[$module_name] creating dotfiles symlinks..."
 
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/cli.json" ~/.config/opencode/cli.json 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/opencode.json" ~/.config/opencode/opencode.json 1> /dev/null
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/cli.json" ~/.config/opencode/cli.json
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/opencode.json" ~/.config/opencode/opencode.json
 
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/notify.ts" ~/.config/opencode/plugins/notify.ts 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/summarize.ts" ~/.config/opencode/plugins/summarize.ts 1> /dev/null
-ln -sfv "${SCRIPT_BASE_DIR}/$module_name/trash.ts" ~/.config/opencode/plugins/trash.ts 1> /dev/null
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/notify.ts" ~/.config/opencode/plugins/notify.ts
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/summarize.ts" ~/.config/opencode/plugins/summarize.ts
+ln -sf "${SCRIPT_BASE_DIR}/$module_name/trash.ts" ~/.config/opencode/plugins/trash.ts

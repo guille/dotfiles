@@ -22,5 +22,5 @@ mkdir -p "$skills_dir"
 
 infoprint "[$module_name] creating dotfiles symlinks..."
 for d in "${SCRIPT_BASE_DIR}/$module_name"/*/; do
-	ln -sfnv "${d%/}" "$skills_dir/$(basename "$d")" 1> /dev/null
+	ln -sfn "${d%/}" "$skills_dir/$(basename "$d")"
 done

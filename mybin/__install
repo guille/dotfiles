@@ -20,10 +20,10 @@ mkdir -p ~/mybin
 ln -sf "${SCRIPT_BASE_DIR}/$module_name/both/"* ~/mybin/
 
 if is_personal_or_hybrid; then
-    ln -sf "${SCRIPT_BASE_DIR}/$module_name/personal/"* ~/mybin/ 1> /dev/null
+    ln -sf "${SCRIPT_BASE_DIR}/$module_name/personal/"* ~/mybin/
 fi
 
 if is_work_or_hybrid; then
-    ln -sf "${SCRIPT_BASE_DIR}/$module_name/work/"* ~/mybin/ 1> /dev/null
+    ln -sf "${SCRIPT_BASE_DIR}/$module_name/work/"* ~/mybin/
 fi
 

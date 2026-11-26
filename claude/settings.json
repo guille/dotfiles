@@ -5,12 +5,14 @@
     "pr": "*🤖 beep bop*"
   },
   "permissions": {
-    "ask": ["Artifact"],
     "deny": [
       "NotebookEdit",
       "WebSearch",
       "Bash(npx *)",
       "Edit(~/.local/share/wip/**)"
+    ],
+    "ask": [
+      "Artifact"
     ],
     "defaultMode": "auto",
     "additionalDirectories": [
